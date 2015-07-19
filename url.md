@@ -11,6 +11,7 @@
 > [chinaunix](http://www.chinaunix.net "chinaunix")
 > [bbs chinaunix](http://bbs.chinaunix.net "bbs chinaunix")
 > [51cto](http://www.51cto.com "51cto")
+> [linuxtoy.org](https://linuxtoy.org/)
 > [cross reference](http://osxr.org "cross reference")
 > [mit course](http://web.mit.edu/course "mit course")
 > [job neitui](http://www.neitui.me "job neitui")
