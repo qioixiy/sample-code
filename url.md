@@ -71,7 +71,7 @@
 > [Linux 文字模式 螢幕畫面共享 - 使用Screen](http://blog.longwin.com.tw/2009/11/linux-monitor-share-screen-2009/ "Linux 文字模式 螢幕畫面共享 - 使用Screen")
 > [emacser fun](http://emacser.com/some-elisp-fun.htm "emacser fun")
 > [git command](http://www.cnblogs.com/TerryBlog/archive/2013/03/19/2969283.html "git command")
-
+> [How debuggers work](http://eli.thegreenplace.net/2011/01/23/how-debuggers-work-part-1/)
 ## GNU
 > [GCC中文手册](http://blog.csdn.net/ruixj/article/details/1693953 "GCC中文手册")
 > [GCC编译过程](http://blog.csdn.net/dawanganban/article/details/38714077 "GCC编译过程")
