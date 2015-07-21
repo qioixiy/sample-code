@@ -72,6 +72,9 @@
 > [emacser fun](http://emacser.com/some-elisp-fun.htm "emacser fun")
 > [git command](http://www.cnblogs.com/TerryBlog/archive/2013/03/19/2969283.html "git command")
 > [How debuggers work](http://eli.thegreenplace.net/2011/01/23/how-debuggers-work-part-1/)
+> [ELF: object file format](http://www.sco.com/developers/gabi/latest/ch4.intro.html)
+> [The DWARF Debugging Standard](http://www.dwarfstd.org/)
+
 ## GNU
 > [GCC中文手册](http://blog.csdn.net/ruixj/article/details/1693953 "GCC中文手册")
 > [GCC编译过程](http://blog.csdn.net/dawanganban/article/details/38714077 "GCC编译过程")
