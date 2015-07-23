@@ -254,6 +254,10 @@
 > [linux-0.11调试教程](http://blog.csdn.net/oldlinux/article/category/1322000 "linux-0.11调试教程")
 > [netlink and socket](http://blog.csdn.net/zeflove/article/details/7008006 "netlink and socket")
 
+## Rust
+> [piston game engine](http://www.piston.rs/)
+> [Using Rust for an Undergraduate OS Course](http://rust-class.org/0/pages/using-rust-for-an-undergraduate-os-course.html)
+
 ## FFMPEG
 > [FFMPEG架构分析](http://blog.csdn.net/yuan892173701/article/details/8670883 "FFMPEG架构分析")
 
