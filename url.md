@@ -22,7 +22,7 @@
 > [Eli Bendersky's website](http://eli.thegreenplace.net)
 ## study
 > [163 云课堂](http://study.163.com/ "163 云课堂")
-
+> [http://blog.csdn.net/absurd/](http://blog.csdn.net/absurd/)
 ## Tools
 > [google_translate](http://translate.google.cn/ "google_translate")
 > [github](https://github.com/ "github")
