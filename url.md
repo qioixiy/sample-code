@@ -367,7 +367,8 @@
 > [HTTP协议解析](http://www.cnblogs.com/itech/archive/2011/03/21/1990760.html "HTTP协议解析")
 > [html5_ccs效果实例](http://www.w2bc.com/ "html5_ccs效果实例")
 
-## res:</b>
+## res:
+> [eepw](http://www.eepw.com.cn/)
 > [html5游戏开发-愤怒的小鸟-开源讲座(二)-跟随小鸟的镜头](http://blog.csdn.net/lufy_legend/article/details/7782968 "html5游戏开发-愤怒的小鸟-开源讲座(二)-跟随小鸟的镜头")
 
 ## VM
