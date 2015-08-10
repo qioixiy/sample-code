@@ -1,0 +1,2 @@
+dpkg -L *: list pkg file
+apt-file search * : 查询文件libz.so.1所在的包
