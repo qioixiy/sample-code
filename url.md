@@ -14,7 +14,6 @@
 - [cross reference](http://osxr.org)
 - [mit course](http://web.mit.edu/course)
 - [job neitui](http://www.neitui.me)
-- [CS194-24:Advanced Operating Systems Structures and Implementation](http://inst.eecs.berkeley.edu/~cs194-24/sp13/index_lectures.html)
 - [x86 asm](http://ref.x86asm.net/coder32.html)
 - [bell_labs](http://doc.cat-v.org)
 - [plan9port](http://swtch.com/plan9port)
@@ -26,8 +25,14 @@
 - [trac](http://trac.edgewall.org)
 - [fcitx wiki](https://fcitx-im.org/wiki)
 - [sachachua geek blog](http://sachachua.com/blog)
+
+## Study
+- [BuildYourOwnLisp](http://regex.learncodethehardway.org)
 - [163 云课堂](http://study.163.com)
 - [http://blog.csdn.net/absurd/](http://blog.csdn.net/absurd)
+- [Linux内核分析](http://mooc.study.163.com/course/USTC-1000029000)
+- [操作系统之基础](http://mooc.study.163.com/course/HIT-1000002004)
+- [CS194-24:Advanced Operating Systems Structures and Implementation](http://inst.eecs.berkeley.edu/~cs194-24/sp13/index_lectures.html)
 
 ## Tools
 - [google_translate](http://translate.google.cn)
@@ -80,6 +85,10 @@
 - [How debuggers work](http://eli.thegreenplace.net/2011/01/23/how-debuggers-work-part-1)
 - [ELF: object file format](http://www.sco.com/developers/gabi/latest/ch4.intro.html)
 - [The DWARF Debugging Standard](http://www.dwarfstd.org)
+- [source code viewer](http://www.csn.ul.ie/~mel/projects/codeviz)
+- [Linux route](http://www.cnblogs.com/dongzhiquan/archive/2012/12/26/2834904.html)
+- [Red_Hat Installation_Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Installation_Guide/index.html)
+- [ecb:Emacs Code Browser](http://ecb.sourceforge.net)
 
 ## GNU tools
 - [GCC中文手册](http://blog.csdn.net/ruixj/article/details/1693953)
@@ -267,6 +276,7 @@
 
 ## FFMPEG
 - [FFMPEG架构分析](http://blog.csdn.net/yuan892173701/article/details/8670883)
+- [ffmpeg h264 linux android](http://bashell.nodemedia.cn)
 
 ## res
 - [FFMPEG结构体分析：AVFrame](http://blog.csdn.net/leixiaohua1020/article/details/14214577)
@@ -543,11 +553,15 @@
 - [NAP穿透原理](http://blog.csdn.net/maray/article/details/4951978)
 - [P2P之UDP穿透NAT的原理与实现（附源代码）](http://www.cnblogs.com/epan/articles/98295.html)
 - [P2P之UDP穿透NAT的原理与实现 - 增强篇(附修改过的源代码)](http://hwycheng.bokee.com/2404843.html)
+- [TCP实现P2P通信、TCP穿越NAT的方法、TCP打洞](http://www.vckbase.com/index.php/wv/1471)
+- [UDP/TCP穿越NAT的P2P通信方法研究](http://www.cnblogs.com/iceknp/archive/2010/09/03/1816968.html)
+- [natcheck natserver]http://midcom-p2p.sourceforge.net)
 - [推荐书籍](http://blog.jobbole.com/5886)
 - [Golang中国社区](http://www.golangtc.com)
 - [制作自己的嵌入式 Linux 电脑](http://blog.jobbole.com/75414)
 - [web mit edu](http://web.mit.edu)
 - [Bitcoins](https://cex.io)
+- [A simple web proxy](http://pdos.csail.mit.edu/6.824-2004/labs/webproxy1.html)
 
 ## VPS
 - [bandwagonhost](https://bandwagonhost.com)
@@ -608,6 +622,33 @@
 - [Yu Zhang, Associate Professor](http://staff.ustc.edu.cn/~yuzhang)
 - [shao-zhong](http://www.cs.yale.edu/homes/shao-zhong)
 - [wikihow](http://www.wikihow.com)
+- [freebuf](www.freebuf.com)
+- [kanxue](www.kanxue.com)
+- [zdnet](https://secure.zdnet.com)
+- [crifan's blog](http://www.crifan.com)
+- [seeedstudio.com](http://www.seeedstudio.com/depot)
+- [crifan's released book](http://www.crifan.com/crifan_released_all/books)
+- [kde.org Plasma Packages](https://community.kde.org/Plasma/Packages)
+- [USB 黑-月](http://www.cnblogs.com/heiyue/tag/USB)
+- [C 基础](http://docs.huihoo.com/c/linux-c-programming)
+- [USB学习小记-HID类键盘的报告描述符的理解](http://www.cnblogs.com/heiyue/p/3341030.html)
+- [一个AVRUSB作品HID类](http://www.cnblogs.com/heiyue/p/3338536.html)
+- [键盘多媒体键的一些研究心得](http://www.cnblogs.com/heiyue/p/3341241.html)
+- [USB HID复合设备实例—键盘+鼠标](http://www.cnblogs.com/heiyue/p/3341254.html)
+- [linux下类似Bus Hound的工具](http://www.cnblogs.com/heiyue/p/4381481.html)
+- [嵌入式系统USB CDROM虚拟光驱驱动程序开发](http://www.cnblogs.com/heiyue/p/4378245.html)
+- [USB OTG介绍](http://www.cnblogs.com/heiyue/p/4377225.html)
+- [USB_OTG_study](http://www.cnblogs.com/heiyue/p/4342452.html)
+- [libusb和HID设备](http://blog.chinaunix.net/uid-20564848-id-73832.html)
+- [实验楼工具](https://www.shiyanlou.com/courses/running/374)
+- [libusb的使用教程和例子](http://www.cnblogs.com/Daniel-G/archive/2013/04/22/3036730.html)
+- [基于libUSB的USB设备固件更新程序(下载数据)](http://blog.gamepader.com/archives/2012/09/libusb-based-usb-device-firmware-update-v2.html)
+- [如何实现Linux下的U盘（USB Mass Storage）驱动](http://www.crifan.com/files/doc/docbook/usb_disk_driver/release/htmls/index.html)
+- [解析socket tcp 流程](http://docs.huihoo.com/c/linux-c-programming/ch37s02.html)
+- [双网卡共享上网](http://blog.csdn.net/simonzhao0536/article/details/8213859)
+- [wayland docs](http://wayland.freedesktop.org/docs)
+- [dbus article](http://blog.csdn.net/linweig/article/details/5068136)
+- [ubuntu编译kernel](http://blog.csdn.net/CaspianSea/article/details/43014525)
 
-## $$
+## $
 - [xiaomabank](http://www.xiaomabank.com)
