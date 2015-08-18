@@ -26,6 +26,7 @@
 - [fcitx wiki](https://fcitx-im.org/wiki)
 - [sachachua geek blog](http://sachachua.com/blog)
 - [free-electrons](http://free-electrons.com)
+- [opensuse list](http://lists.opensuse.org)
 
 ## Study
 - [BuildYourOwnLisp](http://regex.learncodethehardway.org)
