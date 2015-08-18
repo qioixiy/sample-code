@@ -1,6 +1,13 @@
 ## systemd
 - systemctl sleep
 - systemctl hibernate
+- systemctl reboot
+- systemctl suspend
+- systemctl poweroff
+- systemctl daemon-reload
+- systemctl list-unit-files --type=service --all
+- systemctl list-dependencies httpd.service
+- systemctl reload httpd.service
 
 ## systemd journalctl
 - journalctl --all – 显示系统的完整日志及其所有用户
