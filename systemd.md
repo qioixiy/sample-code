@@ -26,3 +26,6 @@
 - systemd-analyze critical-chain – 打印对时间要求严格的单元链的树结构
 - systemd-analyze dot | dot -Tsvg > systemd.svg – 列出引导过程的矢量图（需要graphviz程序包）
 - systemd-analyze plot > bootplot.svg – 生成引导过程的图形化时间图
+
+## write .service
+- 设置stop signal, KillSignal=SIGINT
