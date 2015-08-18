@@ -25,6 +25,7 @@
 - [trac](http://trac.edgewall.org)
 - [fcitx wiki](https://fcitx-im.org/wiki)
 - [sachachua geek blog](http://sachachua.com/blog)
+- [free-electrons](http://free-electrons.com)
 
 ## Study
 - [BuildYourOwnLisp](http://regex.learncodethehardway.org)
@@ -569,6 +570,7 @@
 ## blog
 - [bellard](http://bellard.org)
 - [wangyin](http://www.yinwang.org)
+- [systemd-0pointer](http://0pointer.net/blog)
 - [coursera](https://www.coursera.org)
 - [阮一峰的网络日志](http://www.ruanyifeng.com/blog)
 - [R. Kent Dybvig](http://www.cs.indiana.edu/~dyb)
