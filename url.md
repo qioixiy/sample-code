@@ -22,6 +22,7 @@
 - [nginx](www.nginx.com)
 - [github](https://github.com)
 - [gitlab](https://gitlab.com)
+- [gitbook](www.gitbook.com)
 - [trac](http://trac.edgewall.org)
 - [fcitx wiki](https://fcitx-im.org/wiki)
 - [sachachua geek blog](http://sachachua.com/blog)
