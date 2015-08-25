@@ -50,6 +50,7 @@
 - [Linux内核分析](http://mooc.study.163.com/course/USTC-1000029000)
 - [操作系统之基础](http://mooc.study.163.com/course/HIT-1000002004)
 - [CS194-24:Advanced Operating Systems Structures and Implementation](http://inst.eecs.berkeley.edu/~cs194-24/sp13/index_lectures.html)
+- [电子信息港](http://www.eehub.cn)
 
 ## Tools
 - [google_translate](http://translate.google.cn)
