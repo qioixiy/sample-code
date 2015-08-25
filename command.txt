@@ -1,5 +1,0 @@
-dpkg -L *: list pkg file
-apt-file search * : 查询文件libz.so.1所在的包
-ls *.bz2 | xargs -t -i sudo tar jxf {} -C /
-	-t 显示每一条执行的命令
-	-i 将输入的每一行在{}处出现
