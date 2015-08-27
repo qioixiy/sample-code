@@ -1,3 +1,10 @@
+## find
+* `find . -type f -name *.c -exec mv {} {}pp \;`
+* `find . -type f -name *.cpp | xargs -n 1 rename 's/\.cpp$/.c/' \;`
+
+## sed
+*  字符串替换: `sed "s/\.c$/\.cpp/g" service/CMakeLists.txt -i`
+
 ## dpkg
 * list pkg file:`dpkg -L *`
 * search * 所在的包:`apt-file search *`
@@ -18,6 +25,47 @@
 
 ## awk
 - awk默认以空格为分隔符,打印第二列: `awk '{print $2}' filename`
+
+## nc
+- 远程拷贝文件
+- `server: nc -lp 1234 > install.log`
+- `client: nc -w 1 192.168.228.222 1234 < install.log`
+
+## nmon
+- nmob is is a systems administrator, tuner, benchmark tool.
+It can display the CPU, memory, network, disks (mini graphs or numbers),
+file systems, NFS, top processes, resources (Linux version & processors) and on Power micro-partition information.
+
+## route|tunctl
+- `sudo route add default gw 192.168.1.1`
+- tunctl
+
+## uuidgen|tune2fs
+- Linux生成分区UUID
+- uuidgen会返回一个合法的uuid，结合tune2fs可以新生成一个uuid并写入ext[234]分区中
+- `uuidgen | xargs tune2fs /dev/sda[0-9] -U`
+- 也可以把 fstab 里找到的原 uuid 写回分区: `tune2fs -U $UUID /dev/sda[0-9]`
+
+## replase string
+- 把/test下所有包含abc的文件中的abc替换为def，执行命令：
+- ``sed -n "s/abc/def/g" `grep abc -rl /test``
+- -i 生成备份文件
+- -n quit print
+- `grep "abc" * -r | awk -F: '{print $1}' | sort | uniq | xargs sed -i 's/abc/abcde/g'`
+
+## git
+* 压合提交，将多次dev提交merge到master分支为一个提交记录
+`
+git checkout master
+git merge --squash dev
+git commit –m "commit"
+`
+* 拣选合并
+`
+git checkout master
+git cherry-pick 321d76f [git cherry-pick –n 321d76f 需要多次拣选]
+git commit –m "commit"
+`
 
 ## shell expr
 - echo mothed: `echo "2+1-5*1.111" | bc`
