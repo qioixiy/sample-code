@@ -1,8 +1,13 @@
+## lsof
+* `lsof -Pnl -i[4|6]`: This will list all open ports, the programs that opened the ports
+
+## netstat
+* `netstat -tunpl`: list all local ports that have listening programs
+
 ## 恢复打开后但意外删除文件
-'ps -ef | grep exe | grep -v grep
-ls -rtl /proc/9554/fd
-cp /proc//9554/fd/268 ./file.bak
-'
+* ps -ef | grep exe | grep -v grep
+* ls -rtl /proc/9554/fd
+* cp /proc//9554/fd/268 ./file.bak
 
 ## find
 * `find . -type f -name *.c -exec mv {} {}pp \;`
