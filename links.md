@@ -25,3 +25,5 @@
 - ssh proxy
     - http://my.oschina.net/u/1382972/blog/342092
     - http://www.socks-proxy.net/
+- Vagrantbox
+    - http://www.vagrantbox.es
