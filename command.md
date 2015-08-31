@@ -361,3 +361,6 @@ kernel.shmmax=16777216
 2. cat food >file 2>&1 ：标准输出被重定向到文件file，然后错误输出也重定向到和标准输出一样，所以也错误输出到文件file。
 - 通常打开的文件在进程推出的时候自动的关闭，但是更好的办法是当你使用完以后立即关闭。用m<&-来关闭输入文件描述符m，用m>&-来关闭输出文件描述符m。如果你需要关闭标准输入用<&-; >&- 被用来关闭标准输出。
 - 同时输出到终端和文件 copy source dest | tee.exe copyerror.txt
+
+## Clam AntiVirus
+- Clam AntiVirus is a GPL antivirus toolkit for UNIX
