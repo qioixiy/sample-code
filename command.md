@@ -4,6 +4,9 @@
 ## netstat
 * `netstat -tunpl`: list all local ports that have listening programs
 
+## nethogs
+- Net top tool grouping bandwidth per process
+
 ## 恢复打开后但意外删除文件
 * ps -ef | grep exe | grep -v grep
 * ls -rtl /proc/9554/fd
