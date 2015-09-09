@@ -100,3 +100,6 @@ $docker push new_image_name
 --rm=true Remove intermediate containers after a successful build
 -t, --tag="" Repository name (and optionally a tag) to be applied to the resulting image in case of success
 $docker build -t image_name Dockerfile_path
+
+##url
+- [build docker image](http://www.alauda.cn/2015/07/10/docker-image-as-small-as-possible)
