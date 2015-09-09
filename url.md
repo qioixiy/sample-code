@@ -382,7 +382,7 @@
 - [arduino之红外](http://blog.csdn.net/successcw/article/details/12996581)
 - [Android进程间通信（IPC）机制Binder简要介绍和学习计划](http://blog.csdn.net/luoshengyang/article/details/6618363)
 - [NDK debuger](http://blog.simophin.net/?p=839)
-- [使用strace+pstack利器分析程序性能](http://www.cnblogs.com/bangerlee/archive/2012/04/30/2476190.html)
+- [使用strace+pstack利器分析程序性能](http://blog.csdn.net/ljx0305/article/details/8028823)
 
 ## GO
 - [go binding librarys](http://go-lang.cat-v.org/library-bindings)
