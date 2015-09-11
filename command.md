@@ -16,6 +16,9 @@
 * `find . -type f -name *.c -exec mv {} {}pp \;`
 * `find . -type f -name *.cpp | xargs -n 1 rename 's/\.cpp$/.c/' \;`
 
+## media,yuv rgb
+* vooya
+
 ## sed
 *  字符串替换: `sed "s/\.c$/\.cpp/g" service/CMakeLists.txt -i`
 

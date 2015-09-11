@@ -51,6 +51,10 @@
 - [操作系统之基础](http://mooc.study.163.com/course/HIT-1000002004)
 - [CS194-24:Advanced Operating Systems Structures and Implementation](http://inst.eecs.berkeley.edu/~cs194-24/sp13/index_lectures.html)
 - [电子信息港](http://www.eehub.cn)
+- [beyond3d](http://www.beyond3d.com)
+- [gamasutra](http://www.gamasutra.com/)
+- [gamedev](http://www.gamedev.net)
+- [3D数学 矩阵和线性变换之旋转](http://blog.csdn.net/sinat_24229853/article/category/5643379)
 
 ## Tools
 - [google_translate](http://translate.google.cn)
