@@ -61,3 +61,4 @@
 ## ubuntu apt update and install
 - sudo apt-get update
 - sudo apt-get install emacs vim git gitk retext qemu w3m w3m-el markdown tree
+- sudo apt-cache search linux-source
