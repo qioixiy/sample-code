@@ -7,3 +7,4 @@
 [KlayGE游戏引擎](http://www.klayge.org)
 [opengl blog](http://blog.csdn.net/candycat1992/article/details/44039077)
 [glsl shaderToy](https://www.shadertoy.com)
+[opengpu](http://www.opengpu.org)
