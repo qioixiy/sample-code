@@ -103,3 +103,4 @@ $docker build -t image_name Dockerfile_path
 
 ##url
 - [build docker image](http://www.alauda.cn/2015/07/10/docker-image-as-small-as-possible)
+- [docker private registry](http://seanlook.com/2014/11/13/deploy-private-docker-registry-with-nginx-ssl)
