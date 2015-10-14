@@ -1,3 +1,4 @@
+
 ## link
 - [CSDN](http://www.csdn.net)
 - [qioixiy's CSDN](http://blog.csdn.net/qioixiy)
@@ -42,6 +43,23 @@
 - [Google+ Communities](https://plus.google.com/communities)
 - [Embedded Linux Wiki ](http://elinux.org/Main_Page)
 - [Chris Lattner's Homepage](http://nondot.org/sabre)
+- [rsreland.net](http://rsreland.net)
+- [git.infradead.org](http://git.infradead.org)
+- [yoctoproject cgit](http://git.yoctoproject.org/cgit/cgit.cgi)
+- [Go std IDE,Acme](http://zhuanlan.zhihu.com/cxwangyi/19902040)
+- [Plan9的C编译器](http://www.cnblogs.com/yjf512/archive/2013/01/16/2862216.html)
+- [How to Use the Plan 9 C Compiler](http://doc.cat-v.org/plan_9/4th_edition/papers/comp)
+- [Plan9 basic](http://www.cnblogs.com/yjf512/archive/2013/01/07/2849636.html)
+- [Thoughts and links about computer programming, by Russ Cox](http://research.swtch.com)
+- [Plan 9 C Compilers](http://doc.cat-v.org/plan_9/4th_edition/papers/compiler)
+- [A Tour of Acme](http://research.swtch.com/acme)
+- [complete-web-developer-course](https://www.udemy.com/complete-web-developer-course/)
+- [apple bsd kern](http://www.opensource.apple.com/source/xnu/xnu-2050.22.13/bsd/kern)
+- [get-started-with-freebsd](https://www.digitalocean.com/community/tutorials/how-to-get-started-with-freebsd-10-1)
+- [zsh\tmux\vim](http://blog.jobbole.com/86571)
+- [plan9 on qemu](http://u-tx.net/plan9.html)
+- [use plan9](http://guymann.github.io/2013/04/13/plan9)
+- [FAT32 image](http://www.richud.com/wiki/Ubuntu_Create_Hard_Drive_Image)
 
 ## Study
 - [BuildYourOwnLisp](http://regex.learncodethehardway.org)
@@ -341,6 +359,7 @@
 - [mingw-w64](http://mingw-w64.sourceforge.net)
 - [编译原理实验教程](http://staff.ustc.edu.cn/~yuzhang/compiler/2008/compiler.pdf)
 - [a list of compiler books — 汗牛充栋的编译器参考资料](http://www.lingcc.com/2012/05/16/12048)
+ -[virtualbox images](http://sourceforge.net/projects/virtualboximage/files)
 
 ## SDL
 - [SDL tutorials](http://lazyfoo.net)
@@ -460,12 +479,6 @@
 ## GIS
 - [GIS](http://blog.csdn.net/kikitaMoon)
 
-## OpenGL
-- [OpenGL工作原理](http://orgwiki.hahack.com/opengl_yuanli.html)
-- [Linux系统下的OpenGL图形程序框架](http://blog.csdn.net/sssogs/article/details/8504263)
-- [深入了解OpenGL](http://blog.csdn.net/zenny_chen/article/details/5528319)
-- [安装Mesa及使用OpenGL超级宝典第五版demo程序](http://blog.csdn.net/gqb666/article/details/8994789)
-
 ## OpenCV
 - [Opencv-2.0.0的ARM移植和使用（Ubuntu10.04 / OK6410开发板 / linux3.01）](http://blog.csdn.net/jasonque/article/details/8267983)
 - [可实用的OpenVG的实现发布](http://blog.csdn.net/tomsoft/article/details/2007929)
@@ -473,6 +486,15 @@
 - [opencv 人脸识别 （一）训练样本的处理](http://blog.csdn.net/abcjennifer/article/details/20396869)
 - [手势识别](http://blog.csdn.net/liuguiyangnwpu/article/details/9307495)
 - [VC6.0,OpenCV实现人脸特征检测](http://blog.csdn.net/he_qiao/article/details/14122085)
+
+## OpenGL
+- [OpenGL工作原理](http://orgwiki.hahack.com/opengl_yuanli.html)
+- [Linux系统下的OpenGL图形程序框架](http://blog.csdn.net/sssogs/article/details/8504263)
+- [深入了解OpenGL](http://blog.csdn.net/zenny_chen/article/details/5528319)
+- [安装Mesa及使用OpenGL超级宝典第五版demo程序](http://blog.csdn.net/gqb666/article/details/8994789)
+- [opengl-tutorial](http://www.opengl-tutorial.org)
+- [OpenGL ES & SDL](http://blog.csdn.net/mirkerson/article/details/8301467)
+- [EGL 接口介绍](http://www.cnitblog.com/zouzheng/archive/2011/05/30/74326.html)
 
 ## WebGL
 - [WebGL](http://blog.csdn.net/lufy_legend/article/details/38291891)
@@ -487,7 +509,7 @@
 ## Windows
 - [教程](http://blog.csdn.net/iiprogram/article/details/485396)
 - [重温-Window(NT)启动过程](http://blog.csdn.net/iiprogram/article/details/3091969)
-- [Icon资源详解[1]](http://www.cnblogs.com/cswuyg/p/3603707.html)
+- [Icon资源详解1](http://www.cnblogs.com/cswuyg/p/3603707.html)
 - [模拟键盘的终极模拟](http://blog.csdn.net/lssxlh/article/details/6081351)
 - [Windows程序设计之键盘和鼠标](http://blog.csdn.net/zhangyang0402/article/details/3018479)
 - [Windows API 之系统托盘图标](http://blog.csdn.net/simpleiseasy/article/details/6968571)
