@@ -6,7 +6,13 @@
 	-net nic,vlan=1 -net user,vlan=1 -win2k-hack -redir tcp:3389::3389
 	-usb
 	-nographic -vnc :1`
-
+    
+    `
+    qemu -hda disk.img
+    qemu -hda disk.img -cdrom *.iso -boot d
+    qemu-img create -f raw disk.img 2000M
+    qemu-img convert -f vmdk *.vmdk" -O qcow2 *.qcow2
+    `
 ## vnc
 - gvncviewer :1
 

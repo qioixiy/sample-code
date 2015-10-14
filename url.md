@@ -319,6 +319,10 @@
 - [ffmpeg h264 linux android](http://bashell.nodemedia.cn)
 
 ## res
+- [YUV测试序列下载地址](http://blog.csdn.net/eva1988725/article/details/6211801)
+- [yuv测试文件](ftp://ftp.tnt.uni-hannover.de/pub/svc/testsequences)
+- [图文详解YUV420数据格式](http://www.cnblogs.com/azraelly/archive/2013/01/01/2841269.html)
+- [mp3 to wav](http://www.cyberciti.biz/faq/convert-mp3-files-to-wav-files-in-linux)
 - [FFMPEG结构体分析：AVFrame](http://blog.csdn.net/leixiaohua1020/article/details/14214577)
 - [基于ffmpeg的Android播放器开源代码](http://blog.csdn.net/vblittleboy/article/details/21027527)
 - [简单原始的FFMpeg播放器](http://blog.csdn.net/azloong/article/details/6147902)
@@ -462,6 +466,10 @@
 - [QEMU源码分析系列](http://blog.csdn.net/ustc_dylan/article/details/6784876)
 - [qemu的安装步骤详解(适合ubuntu和windows)](http://blog.csdn.net/ustc_dylan/article/details/4178381)
 - [采用eclipse + gdb来搭建调试qemu源码的环境](http://blog.csdn.net/ustc_dylan/article/details/8724107)
+- [qemu 9p](http://wiki.qemu.org/Documentation/9psetup)
+- [l-qemu](http://www.ibm.com/developerworks/cn/linux/l-qemu/)
+- [access-qemu-monitor-accross-network](http://smilejay.com/2014/01/access-qemu-monitor-accross-network/)
+- [Ubuntu12.10 下搭建基于KVM-QEMU的虚拟机环境](http://blog.csdn.net/hbsong75/article/details/9182691)
 
 ## Hardware(HW)
 - [JTAG详解,自制简易JTAG下载烧写工具](http://blog.csdn.net/ruixj/article/details/4096498)
