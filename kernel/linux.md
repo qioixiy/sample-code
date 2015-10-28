@@ -3,4 +3,5 @@
 - (keyboard vt)[drivers/tty/vt/keyboard.c]
 
 ## doc
-[https://www.kernel.org/doc/Documentation](https://www.kernel.org/doc/Documentation)
+[kernel doc](https://www.kernel.org/doc/Documentation)
+[kernel boot](http://blog.csdn.net/skyflying2012/article/details/48496235)
