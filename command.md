@@ -369,4 +369,5 @@ kernel.shmmax=16777216
 - Clam AntiVirus is a GPL antivirus toolkit for UNIX
 
 ## urls
+[Linux命令大全](http://man.linuxde.net/)
 [unix comand](http://www.ugrad.cs.ubc.ca/~cs219/CourseNotes/Unix/intro.html)
