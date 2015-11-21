@@ -44,6 +44,7 @@
 - [常州贝特康姆软件技术有限公司cn99](http://centos.bitcomm.cn/)
 - [Linux运维派开源镜像](http://mirrors.skyshe.cn/)
 - [CentOs 官方镜像](http://mirror-status.centos.org/)
+- [linuxstory](http://mirrors.linuxstory.org)
 
 ## mirror 大学类
 - [中山大学镜像](http://mirror.sysu.edu.cn/)
