@@ -21,3 +21,57 @@ menuentry "Ubuntu" {
 }
 ```
 
+set root=(hd0,msdos1)
+linux /boot/vmlinuz* ro root=/dev/sda1
+initrd /initrd.img
+
+sudo cp /usr/share/backgrounds/Blue_by_dariuskws.jpg /boot/grub/
+sudo update-grub
+
+sudo -i
+
+#查看分区信息
+
+fdisk -l
+
+#挂载根分区（只有Swap和/的分区方式）
+mount /dev/sda5 /mnt
+#挂载proc/dev/sys，重要
+mount --bind /proc /mnt/proc
+mount --bind /dev /mnt/dev
+mount --bind /sys /mnt/sys
+#chroot到/mnt分区
+chroot /mnt
+#安装grub
+grub-install /dev/sda
+#如果grub.cfg丢失或者损毁则执行此命令
+update-grub
+#退出chroot并重启计算机
+exit
+reboot
+
+# for usb
+grub-install --force --no-floppy --root-directory=/media/MULTIBOOT/ /dev/sdb
+sudo grub-mkdevicemap
+
+menuentry "openSUSE 12.2 KDE LiveCD x86_64" {
+    set isofile="/images/openSUSE-12.2-KDE-LiveCD-x86_64.iso"
+    echo "Setup loop device..."
+    loopback loop $isofile
+    echo "Loading kernel..."
+    linux (loop)/boot/x86_64/loader/linux isofrom=/dev/disk/by-label/4lin:$isofile
+    echo "Loading initrd..."
+    initrd (loop)/boot/x86_64/loader/initrd
+}
+
+
+menuentry "openSUSE 13.1 KDE Live x86_64 (zh_CN)" {
+    set isofile="/images/openSUSE-13.1-KDE-Live-x86_64.iso"
+    echo "Setup loop device..."
+    loopback loop $isofile
+    echo "Loading kernel..."
+    linux (loop)/boot/x86_64/loader/linux isofrom_device=/dev/disk/by-label/4lin isofrom_system=$isofile LANG=zh_CN.UTF-8
+    echo "Loading initrd..."
+    initrd (loop)/boot/x86_64/loader/initrd
+}
+
