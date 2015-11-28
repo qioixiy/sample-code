@@ -22,3 +22,11 @@ repo init -u git://git.omapzoom.org/platform/manifest -b android-2.3.5_r1
 repo sync
 
 ## Android Dev Tools[url](http://www.androiddevtools.cn)
+
+## Eclipse+ADT+SDK+NDK, need select Force https://...sources to be fetched using http://...
+HTTP Proxy Server: mirrors.neusoft.edu.cn
+HTTP Proxy port: 80
+http://mirrors.neusoft.edu.cn/android/repository/
+
+## android-studio-ide
+
