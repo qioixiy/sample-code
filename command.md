@@ -20,7 +20,8 @@
 * vooya
 
 ## sed
-*  字符串替换: `sed "s/\.c$/\.cpp/g" service/CMakeLists.txt -i`
+* 字符串替换: `sed "s/\.c$/\.cpp/g" service/CMakeLists.txt -i`
+* sed -i -e "s/src/dest/g" `grep src -rl ./`
 
 ## dpkg
 * list pkg file:`dpkg -L *`
