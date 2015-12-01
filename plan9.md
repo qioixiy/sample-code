@@ -6,6 +6,7 @@
 
 ## plan9 sources_repo
 - [repo](http://www.plan9.bell-labs.com/wiki/plan9/Sources_repository)
+- [plan9.tar.bz2](http://plan9.bell-labs.com/sources/extra/plan9.tar.bz2)
 
 ## plan9 command
 - [command](http://www.plan9.bell-labs.com/wiki/plan9/Unix_to_Plan_9_command_translation)
