@@ -88,3 +88,6 @@
 
 ## npm mirror
 - [cnpmjs](http://cnpmjs.org/)
+
+## wiki X mirror
+- [X mirror](http://www.x.org/wiki/Releases/Download)
