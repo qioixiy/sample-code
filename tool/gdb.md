@@ -93,3 +93,21 @@ value), on:only current thread can be running, step: step to step in current thr
 (gdb) bt
 (gdb) f 3
 (gdb) i locals
+
+## log
+(gdb) set logging file /tmp/gdb.txt
+(gdb) set logging on
+(gdb) set logging off
+(gdb) set logging overwrite on
+(gdb) thread apply all bt [full] [10]
+(gdb) symbol-file /usr/bin/hello
+
+## run sync
+(gdb) break gdk_x_error
+(gdb) run --sync
+
+## gdb batch
+gdb -p $(pidof X) -batch -ex 'handle all nostop' -ex 'handle all pass' -ex 'handle 11 stop' -ex 'cont' -ex 'bt full' -ex 'cont'
+
+## url
+[x gdb debug](http://wiki.x.org/wiki/Development/Documentation/ServerDebugging/)
