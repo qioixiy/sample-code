@@ -1,5 +1,6 @@
 ## date
 date '+%Y-%m-%d %T'
+echo $(date '+%Y-%m-%d %T') $(free | sed -n '2p' | awk '{print $2,$3,$4,$5,$6,$7}') srv:$(ps | grep Srv | sed -n '1p' | awk '{print $3}')
 
 ## dd
 dd if=720x576.420p.yuv of=Image.V bs=1 count=103680 skip=518400
