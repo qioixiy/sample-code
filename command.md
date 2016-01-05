@@ -1,3 +1,9 @@
+## date
+date '+%Y-%m-%d %T'
+
+## dd
+dd if=720x576.420p.yuv of=Image.V bs=1 count=103680 skip=518400
+
 ## lsof
 * `lsof -Pnl -i[4|6]`: This will list all open ports, the programs that opened the ports
 
