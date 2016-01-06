@@ -102,6 +102,9 @@ git commit –m "commit"
 - `vmstat 1 10`: vmstat - Report virtual memory statistics
 - buffer回收: `echo 3 >/proc/sys/vm/drop_caches`
 
+## misc
+gpick vooya
+
 ## linux memory
 - `cat /proc/$pid/smaps  | awk '/Size|Rss|Pss|Shared|Private|Referenced|Swap/{val_name=gensub(/([a-zA-Z_]*).*/,"\\1",1,$1); list[val_name]+=$2; }END{for(val in list)print val,list[val];}''`
 - `cat /proc/$pid/maps`
