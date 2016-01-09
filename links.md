@@ -72,8 +72,10 @@
 - [电子科技大学](http://ubuntu.uestc.edu.cn/)
 - [电子科大凝聚工作室](http://raspbian.cnssuestc.org/)
 - [电子科大星辰工作室](http://mirrors.stuhome.net/)
-- [](mirrors.cqu.edu.cn/)
+- [cqu](mirrors.cqu.edu.cn/)
 - [台湾淡江大学](http://ftp.tku.edu.tw/Linux/)
+- [packman](http://packman.links2linux.de/mirrors)
+- [twaren](http://ftp.twaren.net/)
 
 ## PyPi mirror
 - [豆瓣](http://pypi.douban.com/)

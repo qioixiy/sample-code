@@ -30,3 +30,6 @@ http://mirrors.neusoft.edu.cn/android/repository/
 
 ## android-studio-ide
 
+## android mirror
+https://mirrors.tuna.tsinghua.edu.cn/help/
+https://wiki.cyanogenmod.org/w/Development
