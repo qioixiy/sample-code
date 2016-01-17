@@ -15,3 +15,5 @@ sed 's/\(HTTP\/1\.[01]" [0-9][0-9][0-9] \)\([0-9]\+\)[0-9][0-9][0-9]/\1\x1b[31m[
 ##
 - xournal, 画板工具
 
+## rss
+http://www.linuxjournal.com/content/command-line-cloud-rss2email
