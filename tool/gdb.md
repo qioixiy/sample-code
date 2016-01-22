@@ -109,5 +109,11 @@ value), on:only current thread can be running, step: step to step in current thr
 ## gdb batch
 gdb -p $(pidof X) -batch -ex 'handle all nostop' -ex 'handle all pass' -ex 'handle 11 stop' -ex 'cont' -ex 'bt full' -ex 'cont'
 
+## coredump
+cat  /proc/sys/kernel/core_pattern
+echo "/data/coredump/core.%e.%p" > /proc/sys/kernel/core_pattern
+ulimit -c unlimited
+gdb ./test /data/coredump/core.%e.%p
+
 ## url
 [x gdb debug](http://wiki.x.org/wiki/Development/Documentation/ServerDebugging/)
