@@ -81,6 +81,9 @@ qemu-system-x86_64 -kernel bzImage -hda rootfs.img -append "root=/dev/sda init=/
 [用QEMU模拟树莓派的方法](http://blog.csdn.net/robertsong2004/article/details/38532069)
 [qemu-arm-directfb](http://free-electrons.com/community/demos/qemu-arm-directfb)
 
+## qemu-arm
+```qemu-arm -L targetfs ./test_arm```
+
 ## qemu network config
 1. qemu网络配置的slirp模式（user mode networking）
 ```-net nic -net user,net=10.161.2.0/24 | 指定子网及掩码
