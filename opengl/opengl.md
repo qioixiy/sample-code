@@ -9,4 +9,11 @@
 [glsl shaderToy](https://www.shadertoy.com)
 [glslsandbox](http://glslsandbox.com)
 [opengpu](http://www.opengpu.org)
+
+## learnopengles
+[url](http://www.learnopengles.com/)
 [gl study](http://www.songho.ca/opengl)
+
+## Learning WebGL
+[learningwebgl](http://learningwebgl.com/blog/?page_id=1217)
+[glge](http://www.glge.org/)
