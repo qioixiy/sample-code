@@ -5,11 +5,12 @@
 
 #include "egl.h"
 
+EGLDisplay _EGLDisplay;
+EGLSurface _EGLSurface;
+
 int egl_init(EGLNativeDisplayType *pEGLNativeDisplayType,
              EGLNativeWindowType _EGLNativeWindowType)
 {
-    EGLDisplay _EGLDisplay;
-
     _EGLDisplay = eglGetDisplay(*pEGLNativeDisplayType/* EGL_DEFAULT_DISPLAY */);
     if(_EGLDisplay == EGL_NO_DISPLAY)
     {
@@ -92,7 +93,6 @@ int egl_init(EGLNativeDisplayType *pEGLNativeDisplayType,
     }
 
     /* Creating an On-Screen Rendering Area: The EGL Window */
-    EGLSurface _EGLSurface;
     EGLint CreateWindowSurfaceAttribList[] = {
         EGL_RENDER_BUFFER, EGL_BACK_BUFFER,
         EGL_NONE
@@ -136,10 +136,10 @@ int egl_init(EGLNativeDisplayType *pEGLNativeDisplayType,
     printf("Renderer:%s\n", glGetString(GL_RENDERER));
     printf("Extensions:%s\n", glGetString(GL_EXTENSIONS));
 
-    glViewport(0, 0, 1024, 768);
-    glClearColor(1.0, 1.0, 1.0, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT);
-    eglSwapBuffers(_EGLDisplay, _EGLSurface);
+    /* glViewport(0, 0, 1024, 768); */
+    /* glClearColor(1.0, 1.0, 1.0, 1.0); */
+    /* glClear(GL_COLOR_BUFFER_BIT); */
+    /* eglSwapBuffers(_EGLDisplay, _EGLSurface); */
 
     return 0;
 }

@@ -7,8 +7,12 @@ INC=-I$(ROOTFS)/usr/include
 LIB=-L$(ROOTFS)/usr/lib -L$(ROOTFS)/lib -L.
 LIBS=-lffi -ldrm -lpvr_wlegl -lEGL -lIMGegl -lsrv_um -lpvr2d -ldrm_omap\
 	-lGLESv2 -lm -lwayland-client -lwayland-server -lgbm -ludev\
-	-lglib-2.0 -ldw -lelf -lz -lbz2 -lcap -ltoytoolkit
+	-lglib-2.0 -ldw -lelf -lz -lbz2 -lcap -ltoytoolkit -lpthread
+SRCS:=main.c egl.c wayland.c shader.c
 
 all:
-	$(CC) $(INC) -c egl.c wayland.c main.c
+	$(CC) $(INC) -c $(SRCS)
 	$(CC) $(LIB) *.o $(LIBS) -o test
+
+clean:
+	rm *.o test
