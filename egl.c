@@ -97,7 +97,10 @@ int egl_init(EGLNativeDisplayType *pEGLNativeDisplayType,
         EGL_RENDER_BUFFER, EGL_BACK_BUFFER,
         EGL_NONE
     };
-    _EGLSurface = eglCreateWindowSurface(_EGLDisplay, _EGLConfig[0], _EGLNativeWindowType, CreateWindowSurfaceAttribList);
+    _EGLSurface = eglCreateWindowSurface(_EGLDisplay,
+                                         _EGLConfig[0],
+                                         _EGLNativeWindowType,
+                                         CreateWindowSurfaceAttribList);
     if(_EGLSurface == EGL_NO_SURFACE)
     {
         switch(eglGetError())

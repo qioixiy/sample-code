@@ -1,8 +1,7 @@
 
 #include "wayland.h"
 #include <wayland-client.h>
-#include <xdg-shell-client-protocol.h>
-
+#include <stdio.h>
 
 struct wl_touch* p_wl_touch;
 double touch_point_x, touch_point_y;
@@ -65,15 +64,6 @@ static const struct wl_seat_listener seatListener = {
 	seat_handle_capabilities,
 };
 
-static void xdg_shell_ping(void *data, struct xdg_shell *pXdgShell, uint32_t serial)
-{
-	xdg_shell_pong(pXdgShell, serial);
-}
-
-static const struct xdg_shell_listener xdgShellListener = {
-	xdg_shell_ping,
-};
-
 static void output_handle_geometry(void *data, struct wl_output *wl_output, int32_t x, int32_t y,
                                    int32_t physical_width, int32_t physical_height, int32_t subpixel, const char *make,
                                    const char *model, int32_t output_transform)
@@ -91,10 +81,8 @@ static const struct wl_output_listener outputListener =
 	output_handle_mode,
 };
 
-#define XDG_VERSION 4
 struct wl_compositor* p_wl_compositor;
 struct wl_seat* p_wl_seat;
-struct xdg_shell* p_xdg_shell;
 struct wl_output* p_wl_output;
 struct wl_shell* p_wl_shell;
 static void registry_handle_global(void *data, struct wl_registry *registry,
@@ -105,20 +93,15 @@ static void registry_handle_global(void *data, struct wl_registry *registry,
 	if (strcmp(interface, "wl_compositor") == 0) {
 		p_wl_compositor = wl_registry_bind(registry, name,
                                            &wl_compositor_interface, 1);
-	} else if (strcmp(interface, "xdg_shell") == 0) {
-		p_xdg_shell = wl_registry_bind(registry, name,
-                                       &xdg_shell_interface, 1);
-		xdg_shell_add_listener(p_xdg_shell, &xdgShellListener, NULL);
-		xdg_shell_use_unstable_version(p_xdg_shell, XDG_VERSION);
+	} else if (strcmp(interface, "wl_shell") == 0) {
+		p_wl_shell = wl_registry_bind(registry, name, &wl_shell_interface, 1);
+	} else if (strcmp(interface, "wl_output") == 0) {
+        p_wl_output = wl_registry_bind(registry, name, &wl_output_interface, 1);
+		wl_output_add_listener(p_wl_output, &outputListener, NULL);
 	} else if (strcmp(interface, "wl_seat") == 0) {
 		p_wl_seat = wl_registry_bind(registry, name,
                                      &wl_seat_interface, 1);
 		wl_seat_add_listener(p_wl_seat, &seatListener, NULL);
-	} else if (strcmp(interface, "wl_output") == 0) {
-        p_wl_output = wl_registry_bind(registry, name, &wl_output_interface, 1);
-		wl_output_add_listener(p_wl_output, &outputListener, NULL);
-	} else if (strcmp(interface, "wl_shell") == 0) {
-		p_wl_shell = wl_registry_bind(registry, name, &wl_shell_interface, 1);
 	}
 }
 
@@ -133,38 +116,37 @@ static const struct wl_registry_listener registryListener = {
 	registry_handle_global_remove
 };
 
-static void handle_surface_configure(void *data, struct xdg_surface *surface,
-                                     int32_t width, int32_t height,
-                                     struct wl_array *states, uint32_t serial)
+static void
+handle_ping(void *data, struct wl_shell_surface *shell_surface,
+            uint32_t serial)
 {
-    printf("handle surface configure\n");
-
-	/* uint32_t *p; */
-	/* wl_array_for_each_cpp(p, states) { */
-	/* 	uint32_t state = *p; */
-	/* 	switch (state) { */
-    /*     case XDG_SURFACE_STATE_FULLSCREEN: */
-    /*         printf("width=%d,height=%d\n", width, height); */
-    /*         break; */
-	/* 	} */
-	/* } */
-
-	xdg_surface_ack_configure(surface, serial);
-}
-static void handle_surface_delete(void *data, struct xdg_surface *xdg_surface)
-{
-    ;
+	wl_shell_surface_pong(shell_surface, serial);
+    printf("handle_ping\n");
 }
 
-static const struct xdg_surface_listener xdgSurfaceListener = {
-	handle_surface_configure,
-	handle_surface_delete,
+static void
+handle_configure(void *data, struct wl_shell_surface *shell_surface,
+                 uint32_t edges, int32_t width, int32_t height)
+{
+    printf("handle_configure\n");
+}
+
+static void
+handle_popup_done(void *data, struct wl_shell_surface *shell_surface)
+{
+    printf("handle_popup_done\n");
+}
+
+static const struct wl_shell_surface_listener wl_shell_surface_listener = {
+	handle_ping,
+	handle_configure,
+	handle_popup_done
 };
 
 struct wl_display *p_wl_display;
 struct wl_registry* p_wl_registry;
 struct wl_surface* p_wl_surface;
-struct xdg_surface* p_xdg_surface;
+struct wl_shell_surface* p_wl_shell_surface;
 int wayland_init(EGLNativeDisplayType *pEGLNativeDisplayType)
 {
     p_wl_display = wl_display_connect(NULL);
@@ -200,15 +182,16 @@ int wayland_init(EGLNativeDisplayType *pEGLNativeDisplayType)
         printf("wl_compositor_create_surface ok\n");
     }
 
-    p_xdg_surface = xdg_shell_get_xdg_surface(p_xdg_shell, p_wl_surface);
-    if (!p_xdg_surface) {
-        printf("xdg_shell_get_xdg_surface error\n");
+    p_wl_shell_surface = wl_shell_get_shell_surface(p_wl_shell, p_wl_surface);
+    if (!p_wl_shell_surface) {
+        printf("wl_shell_get_shell_surface error\n");
         return -1;
     } else {
-        printf("xdg_shell_get_xdg_surface ok\n");
+        printf("wl_shell_get_shell_surface ok\n");
     }
-    xdg_surface_add_listener(p_xdg_surface, &xdgSurfaceListener, NULL);
-    xdg_surface_set_title(p_xdg_surface, "wayland-test");
+    wl_shell_surface_add_listener(p_wl_shell_surface,
+                                  &wl_shell_surface_listener, NULL);
+    wl_shell_surface_set_toplevel(p_wl_shell_surface);
 
     printf("wl_display_get_fd=%d\n", wl_display_get_fd(p_wl_display));
     

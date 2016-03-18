@@ -1,4 +1,5 @@
 
+#include <stdio.h>
 #include <stdlib.h>
 
 #include <EGL/egl.h>
@@ -19,6 +20,11 @@ void *gl_render_thread(void* p)
     /* egl init */
     int width = 720, height = 480;
     struct wl_egl_window* p_wl_egl_window = wl_egl_window_create(p_wl_surface, width, height);
+    if (!p_wl_egl_window) {
+        printf("wl_egl_window_create error\n");
+    } else {
+        printf("wl_egl_window_create ok\n");
+    }
     egl_init(&_EGLNativeDisplayType, (EGLNativeWindowType)p_wl_egl_window);
 
     GLuint programObject = get_program_object_default();
