@@ -16,8 +16,6 @@ egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
     {
         printf("Unable to open connection to local windowing system\n");
         return NULL;
-    } else {
-        printf("eglGetDisplay ok\n");
     }
 
     EGLint majorVersion;
@@ -34,11 +32,9 @@ egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
             break;
         }
         return NULL;
-    } else {
-        printf("eglInitialize ok\n");
-        printf("majorVersion=%d, minorVersion=%d\n",
-               majorVersion, minorVersion);
     }
+    printf("majorVersion=%d, minorVersion=%d\n",
+           majorVersion, minorVersion);
 
     eglBindAPI(EGL_OPENGL_ES_API);
 
@@ -72,10 +68,8 @@ egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
                         &numConfigs)) {
         printf("eglChooseConfig error\n");
         return NULL;
-    } else {
-        printf("eglChooseConfig ok\n");
-        printf("numConfigs=%d\n", numConfigs);
     }
+    printf("numConfigs=%d\n", numConfigs);
 
     /* Creating a Rendering Context */
     const EGLint ContextAttribList[] = {
@@ -91,10 +85,9 @@ egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
     {
         if(eglGetError() == EGL_BAD_CONFIG)
         {
-            printf("error and recover\n");
+            printf("error: EGL_BAD_CONFIG\n");
         }
-    } else {
-        printf("eglCreateContext ok\n");
+        return NULL;
     }
 
     /* Creating an On-Screen Rendering Area: The EGL Window */
@@ -126,8 +119,6 @@ egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
             break;
         }
         return NULL;
-    } else {
-        printf("eglCreateWindowSurface ok\n");
     }
 
     /* Making an EGLContext Current */
@@ -136,8 +127,6 @@ egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
     if (ret != EGL_TRUE) {
         printf("eglMakeCurrent error\n");
         return NULL;
-    } else {
-        printf("eglMakeCurrent ok\n");
     }
 
     printf("Version:%s\n", glGetString(GL_VERSION));

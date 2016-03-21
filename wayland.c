@@ -159,41 +159,29 @@ struct window_wayland* wayland_init()
     if (!window.p_wl_display) {
         printf("wl_display_connect error\n");
         return NULL;
-    } else {
-        printf("wl_display_connect ok\n");
     }
 
 	window.p_wl_registry = wl_display_get_registry(window.p_wl_display);
     if (!window.p_wl_registry) {
         printf("wl_display_get_registry error\n");
         return NULL;
-    } else {
-        printf("wl_display_get_registry ok\n");
     }
 	wl_registry_add_listener(window.p_wl_registry, &registryListener, NULL);
 
 	if (wl_display_roundtrip(window.p_wl_display) < 0) {
         printf("wl_display_roundtrip error\n");
         return NULL;
-    } else {
-        printf("wl_display_roundtrip ok\n");
     }
-
 	window.p_wl_surface = wl_compositor_create_surface(window.p_wl_compositor);
     if (!window.p_wl_surface) {
         printf("wl_compositor_create_surface error\n");
         return NULL;
-    } else {
-        printf("wl_compositor_create_surface ok\n");
     }
-
     window.p_wl_shell_surface =
         wl_shell_get_shell_surface(window.p_wl_shell, window.p_wl_surface);
     if (!window.p_wl_shell_surface) {
         printf("wl_shell_get_shell_surface error\n");
         return NULL;
-    } else {
-        printf("wl_shell_get_shell_surface ok\n");
     }
     wl_shell_surface_add_listener(window.p_wl_shell_surface,
                                   &wl_shell_surface_listener, NULL);
@@ -204,13 +192,9 @@ struct window_wayland* wayland_init()
 	int ret = wl_display_dispatch(window.p_wl_display);
     if (ret == -1) {
         printf("wl_display_dispatch error\n");
-    } else {
-        printf("wl_display_dispatch ret=%d\n", ret);
     }
     ret = wl_display_get_error(window.p_wl_display);
-    if (ret == 0) {
-        printf("no error occurred\n");
-    } else {
+    if (ret != 0) {
         printf("occurred on display\n");
     }
 

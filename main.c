@@ -29,8 +29,6 @@ void* render_thread(void* p)
         = wl_egl_window_create(window->p_wl_surface, width, height);
     if (!p_wl_egl_window) {
         printf("wl_egl_window_create error\n");
-    } else {
-        printf("wl_egl_window_create ok\n");
     }
     egl = egl_init((EGLNativeDisplayType)window->p_wl_display,
                    (EGLNativeWindowType)p_wl_egl_window);
@@ -60,7 +58,7 @@ void* render_thread(void* p)
         eglSwapBuffers(egl->display, egl->surface);
     }
 
-    return NULL:
+    return NULL;
 }
 
 int main(int argc, char **argv)
