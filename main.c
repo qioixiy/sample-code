@@ -8,24 +8,32 @@
 #include "wayland.h"
 #include "egl.h"
 
-EGLNativeDisplayType _EGLNativeDisplayType;
+struct window_wayland *window;
+struct egl_wayland* egl;
 
-extern struct wl_surface* p_wl_surface;
-extern struct wl_display *p_wl_display;
-extern EGLDisplay _EGLDisplay;
-extern EGLSurface _EGLSurface;
+void* display_dispatch_thread(void* p)
+{
+    int ret = 0;
+    while (ret != -1) {
+        ret = wl_display_dispatch(window->p_wl_display);
+    }
+    
+    return 0;
+}
 
-void *gl_render_thread(void* p)
+void* render_thread(void* p)
 {
     /* egl init */
     int width = 720, height = 480;
-    struct wl_egl_window* p_wl_egl_window = wl_egl_window_create(p_wl_surface, width, height);
+    struct wl_egl_window* p_wl_egl_window
+        = wl_egl_window_create(window->p_wl_surface, width, height);
     if (!p_wl_egl_window) {
         printf("wl_egl_window_create error\n");
     } else {
         printf("wl_egl_window_create ok\n");
     }
-    egl_init(&_EGLNativeDisplayType, (EGLNativeWindowType)p_wl_egl_window);
+    egl = egl_init((EGLNativeDisplayType)window->p_wl_display,
+                   (EGLNativeWindowType)p_wl_egl_window);
 
     GLuint programObject = get_program_object_default();
 
@@ -49,28 +57,20 @@ void *gl_render_thread(void* p)
         glViewport(width/2, height/2, width/2, height/2);
         glDrawArrays(GL_TRIANGLES, 0, 3);
         
-        eglSwapBuffers(_EGLDisplay, _EGLSurface);
+        eglSwapBuffers(egl->display, egl->surface);
     }
-}
 
-void create_render_thread()
-{
-    pthread_t pid;
-    pthread_create(&pid, NULL, &gl_render_thread, NULL);
+    return NULL:
 }
 
 int main(int argc, char **argv)
 {
     /* wayland init */
-    wayland_init(&_EGLNativeDisplayType);
+    window = wayland_init();
+    pthread_t pid;
+    pthread_create(&pid, NULL, display_dispatch_thread, NULL);
 
-    create_render_thread();
-
-/* main loop */
-    int ret = 0;
-    while (ret != -1) {
-        ret = wl_display_dispatch(p_wl_display);
-    }
+    render_thread(NULL);
 
     return 0;
 }

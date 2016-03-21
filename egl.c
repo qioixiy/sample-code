@@ -5,41 +5,42 @@
 
 #include "egl.h"
 
-EGLDisplay _EGLDisplay;
-EGLSurface _EGLSurface;
+static struct egl_wayland egl;
 
-int egl_init(EGLNativeDisplayType *pEGLNativeDisplayType,
-             EGLNativeWindowType _EGLNativeWindowType)
+struct egl_wayland*
+egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
+         EGLNativeWindowType _EGLNativeWindowType)
 {
-    _EGLDisplay = eglGetDisplay(*pEGLNativeDisplayType/* EGL_DEFAULT_DISPLAY */);
-    if(_EGLDisplay == EGL_NO_DISPLAY)
+    egl.display = eglGetDisplay(_EGLNativeDisplayType/* EGL_DEFAULT_DISPLAY */);
+    if(egl.display == EGL_NO_DISPLAY)
     {
         printf("Unable to open connection to local windowing system\n");
-        return -1;
+        return NULL;
     } else {
         printf("eglGetDisplay ok\n");
     }
 
     EGLint majorVersion;
     EGLint minorVersion;
-    if(EGL_FALSE == eglInitialize(_EGLDisplay, &majorVersion, &minorVersion))
+    if(EGL_FALSE == eglInitialize(egl.display, &majorVersion, &minorVersion))
     {
         printf("Unable to initialize EGL. Handle and recover\n");
         switch(eglGetError()) {
         case EGL_BAD_DISPLAY:
-            printf("display doesn’t specify a valid EGLDisplay\n");
+            printf("display doesn't specify a valid EGLDisplay\n");
             break;
         case EGL_NOT_INITIALIZED:
             printf("the EGL cannot be initialized\n");
             break;
         }
-        return -2;
+        return NULL;
     } else {
         printf("eglInitialize ok\n");
-        printf("majorVersion=%d, minorVersion=%d\n", majorVersion, minorVersion);
+        printf("majorVersion=%d, minorVersion=%d\n",
+               majorVersion, minorVersion);
     }
 
-//    eglBindAPI(EGL_OPENGL_ES_API);
+    eglBindAPI(EGL_OPENGL_ES_API);
 
 /* Letting EGL Choose the Config */
     EGLint eglChooseConfigAttribList[] = {
@@ -63,13 +64,14 @@ int egl_init(EGLNativeDisplayType *pEGLNativeDisplayType,
         EGL_NONE
 #endif
     };
-    const EGLint MaxConfigs = 1;/* We'll only accept 10? configs */
-    EGLConfig _EGLConfig[MaxConfigs];
+
     EGLint numConfigs;
-    if(!eglChooseConfig(_EGLDisplay, eglChooseConfigAttribList, _EGLConfig, MaxConfigs,
+    if(!eglChooseConfig(egl.display,
+                        eglChooseConfigAttribList,
+                        egl.config, MAX_CONFIG,
                         &numConfigs)) {
         printf("eglChooseConfig error\n");
-        return -3;
+        return NULL;
     } else {
         printf("eglChooseConfig ok\n");
         printf("numConfigs=%d\n", numConfigs);
@@ -80,9 +82,12 @@ int egl_init(EGLNativeDisplayType *pEGLNativeDisplayType,
         EGL_CONTEXT_CLIENT_VERSION, 2,
         EGL_NONE
     };
-    EGLContext _EGLContext;
-    _EGLContext = eglCreateContext(_EGLDisplay, _EGLConfig[0], EGL_NO_CONTEXT, ContextAttribList);
-    if(_EGLContext == EGL_NO_CONTEXT)
+
+    egl.context = eglCreateContext(egl.display,
+                                   egl.config[0],
+                                   EGL_NO_CONTEXT,
+                                   ContextAttribList);
+    if(egl.context == EGL_NO_CONTEXT)
     {
         if(eglGetError() == EGL_BAD_CONFIG)
         {
@@ -97,11 +102,11 @@ int egl_init(EGLNativeDisplayType *pEGLNativeDisplayType,
         EGL_RENDER_BUFFER, EGL_BACK_BUFFER,
         EGL_NONE
     };
-    _EGLSurface = eglCreateWindowSurface(_EGLDisplay,
-                                         _EGLConfig[0],
+    egl.surface = eglCreateWindowSurface(egl.display,
+                                         egl.config[0],
                                          _EGLNativeWindowType,
                                          CreateWindowSurfaceAttribList);
-    if(_EGLSurface == EGL_NO_SURFACE)
+    if(egl.surface == EGL_NO_SURFACE)
     {
         switch(eglGetError())
         {
@@ -120,16 +125,17 @@ int egl_init(EGLNativeDisplayType *pEGLNativeDisplayType,
             printf("Not enough resources available. Handle and recover\n");
             break;
         }
-        return -1;
+        return NULL;
     } else {
         printf("eglCreateWindowSurface ok\n");
     }
 
     /* Making an EGLContext Current */
-    int ret = eglMakeCurrent(_EGLDisplay, _EGLSurface, _EGLSurface, _EGLContext);
+    int ret = eglMakeCurrent(egl.display, egl.surface,
+                             egl.surface, egl.context);
     if (ret != EGL_TRUE) {
         printf("eglMakeCurrent error\n");
-        return -1;
+        return NULL;
     } else {
         printf("eglMakeCurrent ok\n");
     }
@@ -139,10 +145,12 @@ int egl_init(EGLNativeDisplayType *pEGLNativeDisplayType,
     printf("Renderer:%s\n", glGetString(GL_RENDERER));
     printf("Extensions:%s\n", glGetString(GL_EXTENSIONS));
 
-    /* glViewport(0, 0, 1024, 768); */
-    /* glClearColor(1.0, 1.0, 1.0, 1.0); */
-    /* glClear(GL_COLOR_BUFFER_BIT); */
-    /* eglSwapBuffers(_EGLDisplay, _EGLSurface); */
-
-    return 0;
+#if 0
+    glViewport(0, 0, 1024, 768);
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT);
+    eglSwapBuffers(egl.display, egl.surface);
+#endif
+    
+    return &egl;
 }
