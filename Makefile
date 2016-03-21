@@ -16,4 +16,4 @@ all:
 	gcc *.c -o test-x86 -lwayland-egl -lwayland-client -lGLESv2 -lpthread -lEGL -lglapi
 
 clean:
-	rm *.o test
+	-rm *.o test test-*
