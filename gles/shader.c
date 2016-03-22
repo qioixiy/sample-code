@@ -142,8 +142,8 @@ GLuint load_program(const char *vertShaderSrc, const char *fragShaderSrc)
 
 GLuint get_program_object_default()
 {
-    const char* vertShaderSrc = get_shader_code("test.vert");
-    const char* fragShaderSrc = get_shader_code("test.frag");
+    const char* vertShaderSrc = get_shader_code("gles/shaders/test.vert");
+    const char* fragShaderSrc = get_shader_code("gles/shaders/test.frag");
 
     return load_program(vertShaderSrc, fragShaderSrc);
 }

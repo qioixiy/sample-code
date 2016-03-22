@@ -5,8 +5,8 @@
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 
-#include "wayland.h"
-#include "egl.h"
+#include "wayland/wayland.h"
+#include "egl/egl.h"
 
 struct window_wayland *window;
 struct egl_wayland* egl;
