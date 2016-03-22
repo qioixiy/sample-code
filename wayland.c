@@ -46,7 +46,7 @@ static void touch_handle_cancel(void *data, struct wl_touch *wl_touch)
     printf("touch cancel\n");
 }
 
-static const struct wl_touch_listener touchListener = {
+static const struct wl_touch_listener touch_listener = {
 	touch_handle_down,
 	touch_handle_up,
 	touch_handle_motion,
@@ -60,14 +60,14 @@ static void seat_handle_capabilities(void *data, struct wl_seat *seat,
 	if ((caps & WL_SEAT_CAPABILITY_TOUCH) && !window.p_wl_touch) {
 		window.p_wl_touch = wl_seat_get_touch(seat);
 		wl_touch_set_user_data(window.p_wl_touch, NULL);
-		wl_touch_add_listener(window.p_wl_touch, &touchListener, NULL);
+		wl_touch_add_listener(window.p_wl_touch, &touch_listener, NULL);
 	} else if (!(caps & WL_SEAT_CAPABILITY_TOUCH) && window.p_wl_touch) {
 		wl_touch_destroy(window.p_wl_touch);
 		window.p_wl_touch = NULL;
 	}
 }
 
-static const struct wl_seat_listener seatListener = {
+static const struct wl_seat_listener seat_listener = {
 	seat_handle_capabilities,
 };
 
@@ -87,7 +87,7 @@ static void output_handle_mode(void *data,
 {
 	printf("output mode, width=%d, height=%d\n", width, height);
 }
-static const struct wl_output_listener outputListener =
+static const struct wl_output_listener output_listener =
 {
 	output_handle_geometry,
 	output_handle_mode,
@@ -106,11 +106,11 @@ static void registry_handle_global(void *data, struct wl_registry *registry,
 		window.p_wl_shell = wl_registry_bind(registry, name, &wl_shell_interface, 1);
 	} else if (strcmp(interface, "wl_output") == 0) {
         window.p_wl_output = wl_registry_bind(registry, name, &wl_output_interface, 1);
-		wl_output_add_listener(window.p_wl_output, &outputListener, NULL);
+		wl_output_add_listener(window.p_wl_output, &output_listener, NULL);
 	} else if (strcmp(interface, "wl_seat") == 0) {
 		window.p_wl_seat = wl_registry_bind(registry, name,
                                      &wl_seat_interface, 1);
-		wl_seat_add_listener(window.p_wl_seat, &seatListener, NULL);
+		wl_seat_add_listener(window.p_wl_seat, &seat_listener, NULL);
 	}
 }
 
@@ -121,7 +121,7 @@ static void registry_handle_global_remove(void *data,
     ;
 }
 
-static const struct wl_registry_listener registryListener = {
+static const struct wl_registry_listener registry_listener = {
 	registry_handle_global,
 	registry_handle_global_remove
 };
@@ -147,7 +147,7 @@ handle_popup_done(void *data, struct wl_shell_surface *shell_surface)
     printf("handle_popup_done\n");
 }
 
-static const struct wl_shell_surface_listener wl_shell_surface_listener = {
+static const struct wl_shell_surface_listener shell_surface_listener = {
 	handle_ping,
 	handle_configure,
 	handle_popup_done
@@ -166,7 +166,7 @@ struct window_wayland* wayland_init()
         printf("wl_display_get_registry error\n");
         return NULL;
     }
-	wl_registry_add_listener(window.p_wl_registry, &registryListener, NULL);
+	wl_registry_add_listener(window.p_wl_registry, &registry_listener, NULL);
 
 	if (wl_display_roundtrip(window.p_wl_display) < 0) {
         printf("wl_display_roundtrip error\n");
@@ -184,7 +184,7 @@ struct window_wayland* wayland_init()
         return NULL;
     }
     wl_shell_surface_add_listener(window.p_wl_shell_surface,
-                                  &wl_shell_surface_listener, NULL);
+                                  &shell_surface_listener, NULL);
     wl_shell_surface_set_toplevel(window.p_wl_shell_surface);
 
     printf("wl_display_get_fd=%d\n", wl_display_get_fd(window.p_wl_display));
