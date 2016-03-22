@@ -1,7 +1,5 @@
 
 #include <stdio.h>
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
 
 #include "egl.h"
 
