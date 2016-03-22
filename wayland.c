@@ -54,9 +54,97 @@ static const struct wl_touch_listener touch_listener = {
 	touch_handle_cancel,
 };
 
+
+static void
+pointer_handle_enter(void *data, struct wl_pointer *pointer,
+                     uint32_t serial, struct wl_surface *surface,
+                     wl_fixed_t sx_w, wl_fixed_t sy_w)
+{
+    printf("%s\n", __func__);
+}
+
+static void
+pointer_handle_leave(void *data, struct wl_pointer *pointer,
+                     uint32_t serial, struct wl_surface *surface)
+{
+    printf("%s\n", __func__);
+}
+
+static void
+pointer_handle_motion(void *data, struct wl_pointer *pointer,
+                      uint32_t time, wl_fixed_t sx_w, wl_fixed_t sy_w)
+{
+    printf("%s\n", __func__);
+}
+
+static void
+pointer_handle_button(void *data, struct wl_pointer *pointer, uint32_t serial,
+                      uint32_t time, uint32_t button, uint32_t state_w)
+{
+    printf("%s\n", __func__);
+}
+
+static void
+pointer_handle_axis(void *data, struct wl_pointer *pointer,
+                    uint32_t time, uint32_t axis, wl_fixed_t value)
+{
+    printf("%s\n", __func__);
+}
+
+static void
+pointer_handle_frame(void *data, struct wl_pointer *pointer)
+{
+    printf("%s\n", __func__);
+}
+
+static void
+pointer_handle_axis_source(void *data, struct wl_pointer *pointer,
+                           uint32_t source)
+{
+    printf("%s\n", __func__);
+}
+
+static void
+pointer_handle_axis_stop(void *data, struct wl_pointer *pointer,
+                         uint32_t time, uint32_t axis)
+{
+    printf("%s\n", __func__);
+}
+
+static void
+pointer_handle_axis_discrete(void *data, struct wl_pointer *pointer,
+                             uint32_t axis, int32_t discrete)
+{
+    printf("%s\n", __func__);
+}
+
+static const struct wl_pointer_listener pointer_listener = {
+	pointer_handle_enter,
+	pointer_handle_leave,
+	pointer_handle_motion,
+	pointer_handle_button,
+	pointer_handle_axis,
+	pointer_handle_frame,
+	pointer_handle_axis_source,
+	pointer_handle_axis_stop,
+	pointer_handle_axis_discrete,
+};
+
 static void seat_handle_capabilities(void *data, struct wl_seat *seat,
                                      unsigned int caps)
 {
+    /* pointer */
+	if ((caps & WL_SEAT_CAPABILITY_POINTER) && !window.p_wl_pointer) {
+		window.p_wl_pointer = wl_seat_get_pointer(seat);
+		wl_pointer_set_user_data(window.p_wl_pointer, NULL);
+		wl_pointer_add_listener(window.p_wl_pointer, &pointer_listener,
+                                NULL);
+	} else if (!(caps & WL_SEAT_CAPABILITY_POINTER) && window.p_wl_pointer) {
+        wl_pointer_release(window.p_wl_pointer);
+		window.p_wl_pointer = NULL;
+	}
+
+    /* touch */
 	if ((caps & WL_SEAT_CAPABILITY_TOUCH) && !window.p_wl_touch) {
 		window.p_wl_touch = wl_seat_get_touch(seat);
 		wl_touch_set_user_data(window.p_wl_touch, NULL);

@@ -10,6 +10,8 @@ struct window_wayland {
     struct wl_registry* p_wl_registry;
     struct wl_surface* p_wl_surface;
     struct wl_shell_surface* p_wl_shell_surface;
+
+    struct wl_pointer* p_wl_pointer;
     struct wl_touch* p_wl_touch;
 
     struct wl_compositor* p_wl_compositor;
