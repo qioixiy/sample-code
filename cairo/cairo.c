@@ -19,18 +19,18 @@ create_cairo_context(int width,
 	cairo_t* cr;
 
 	// create cairo-surface/context to act as OpenGL-texture source
-	*buffer = calloc (channels * width * height, sizeof (char));
+	*buffer = calloc(channels * width * height, sizeof (char));
 
 	if (!*buffer) {
 		printf ("create_cairo_context() - Couldn't allocate buffer\n");
 		return NULL;
 	}
 
-	*surf = cairo_image_surface_create_for_data (*buffer,
-                                                 CAIRO_FORMAT_ARGB32,
-                                                 width,
-                                                 height,
-                                                 channels * width);
+	*surf = cairo_image_surface_create_for_data(*buffer,
+                                                CAIRO_FORMAT_ARGB32,
+                                                width,
+                                                height,
+                                                channels * width);
 	if (cairo_surface_status (*surf) != CAIRO_STATUS_SUCCESS)
 	{
 		free (*buffer);
@@ -62,20 +62,20 @@ void* create_cairo_databuffer(int width, int height)
     cr = create_cairo_context(width, height, channals,
                               &surface, &buffer_cairo_surface);
     memset(buffer_cairo_surface, 0xff, width*height*channals);
-
+    
     /* draw */
-    cairo_set_source_rgb (cr, 0.0, 0.0, 0.0);
-    cairo_select_font_face (cr, "Georgia",
-                            CAIRO_FONT_SLANT_NORMAL,
-                            CAIRO_FONT_WEIGHT_BOLD);
-    cairo_set_font_size (cr, 20);
-    cairo_text_extents (cr, "helloworld", &te);
+    cairo_set_source_rgb(cr, 0.0, 0.0, 0.0);
+    cairo_select_font_face(cr, "Georgia",
+                           CAIRO_FONT_SLANT_NORMAL,
+                           CAIRO_FONT_WEIGHT_BOLD);
+    cairo_set_font_size(cr, 20);
+    cairo_text_extents(cr, "helloworld", &te);
     cairo_move_to (cr, width/2 - te.width / 2 - te.x_bearing,
                    height/2 - te.height / 2 - te.y_bearing);
     cairo_show_text (cr, "helloworld");
-
+    
     /* to png */
-    cairo_surface_write_to_png (surface, "frame.png");
+    cairo_surface_write_to_png(surface, "/tmp/frame.png");
 
     return buffer_cairo_surface;
 }

@@ -108,6 +108,20 @@ char* get_shader_code(const char* filename)
     return data;
 }
 
+GLuint get_program_object_default()
+{
+    char* vertShaderSrc = get_shader_code("gles/shaders/default.vert");
+    char* fragShaderSrc = get_shader_code("gles/shaders/default.frag");
+
+    GLuint program_object = load_program(vertShaderSrc, fragShaderSrc);
+
+    free(vertShaderSrc);
+    free(fragShaderSrc);
+
+    return program_object;
+
+}
+
 GLuint get_program_object_showyuyv()
 {
 
@@ -122,10 +136,11 @@ GLuint get_program_object_showyuyv()
     return program_object;
 }
 
-GLuint get_program_object_default()
+GLuint get_program_object_showrgba()
 {
-    char* vertShaderSrc = get_shader_code("gles/shaders/default.vert");
-    char* fragShaderSrc = get_shader_code("gles/shaders/default.frag");
+
+    char* vertShaderSrc = get_shader_code("gles/shaders/rgbashow.vert");
+    char* fragShaderSrc = get_shader_code("gles/shaders/rgbashow.frag");
 
     GLuint program_object = load_program(vertShaderSrc, fragShaderSrc);
 
