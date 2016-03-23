@@ -15,7 +15,9 @@ endif
 CC = $(CROSS_COMPILE)gcc
 
 # include
-INC += -I$(ROOTFS)/usr/include -I$(CURPWD)
+INC = -I$(ROOTFS)/usr/include -I$(CURPWD)
+INC-cairo=$(ROOTFS)/usr/include/cairo
+INC += -I$(INC-cairo)
 
 # lib
 LIB = -L$(ROOTFS)/usr/lib -L$(ROOTFS)/lib -L.
@@ -24,8 +26,8 @@ LIBS-ARM = -lffi -ldrm -lpvr_wlegl -lIMGegl -lsrv_um -lpvr2d\
 	-ldrm_omap -lm -lwayland-server -lgbm -ludev -lglib-2.0\
 	-ldw -lelf -lz -lbz2 -lcap
 LIBS-x86 = -lwayland-egl -lglapi
-
-LIBS += $(LIBS-$(TARGET))
+LIBS-cairo = -lcairo -lpng -lpixman-1 -lfreetype -lfontconfig -lexpat
+LIBS += $(LIBS-cairo) $(LIBS-$(TARGET))
 
 # src
 SRCS := main.c \
@@ -33,7 +35,8 @@ SRCS := main.c \
 	wayland/wayland.c \
 	gles/shader.c \
 	gles/texture.c \
-	utils/file.c
+	utils/file.c \
+	cairo/cairo.c
 
 # objs
 OBJS := $(subst .c,.o,$(SRCS))

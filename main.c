@@ -9,6 +9,7 @@
 #include "egl/egl.h"
 #include "gles/shader.h"
 #include "gles/texture.h"
+#include "cairo/cairo.h"
 
 struct window_wayland *window;
 struct egl_wayland* egl;
@@ -43,7 +44,13 @@ void* render_thread(void* p)
     GLint texture_yuyv_loc = glGetUniformLocation(program_object, "s_texture_yuyv");
     GLint texture_width = glGetUniformLocation(program_object, "texture_width");
     // Load the textures
-    GLuint texture_id_yuyv = gen_texture_from_file("res/640x480.yuv2.yuv", width, height);
+    GLuint texture_id_yuyv =
+        gen_texture_from_file("res/640x480.yuv2.yuv", width, height,
+                              GL_LUMINANCE_ALPHA);
+
+    void *cairo_buffer = create_cairo_databuffer(width, height);
+    GLuint texture_id_cairo =
+        gen_texture_from_data(cairo_buffer, width, height, GL_RGBA);
 
     while(1) {
 /* // Use the program object */

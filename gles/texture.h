@@ -5,7 +5,7 @@
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 
-GLuint gen_texture_from_data(unsigned char* , int, int);
-GLuint gen_texture_from_file(const char *file, int w, int h);
+GLuint gen_texture_from_data(unsigned char* , int, int, GLenum format);
+GLuint gen_texture_from_file(const char *file, int w, int h, GLenum format);
 
 #endif
