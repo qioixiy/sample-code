@@ -28,7 +28,13 @@ LIBS-x86 = -lwayland-egl -lglapi
 LIBS += $(LIBS-$(TARGET))
 
 # src
-SRCS := main.c egl/egl.c wayland/wayland.c gles/shader.c utils/file.c
+SRCS := main.c \
+	egl/egl.c \
+	wayland/wayland.c \
+	gles/shader.c \
+	gles/texture.c \
+	utils/file.c
+
 # objs
 OBJS := $(subst .c,.o,$(SRCS))
 

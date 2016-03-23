@@ -6,12 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const char* get_shader_code(const char*filename)
-{
-    const char* data = get_file_data(filename, get_file_size(filename));
-    return data;
-}
-
 GLuint load_shader_from_string(GLenum type, const char *shaderSrc)
 {
     GLuint shader;
@@ -108,10 +102,34 @@ GLuint load_program(const char *vertShaderSrc, const char *fragShaderSrc)
     return programObject;
 }
 
+char* get_shader_code(const char* filename)
+{
+    char* data = get_file_data(filename, get_file_size(filename));
+    return data;
+}
+
+GLuint get_program_object_showyuyv()
+{
+    char* vertShaderSrc = get_shader_code("gles/shaders/yuyvshow.vert");
+    char* fragShaderSrc = get_shader_code("gles/shaders/yuyvshow.frag");
+
+    GLuint program_object = load_program(vertShaderSrc, fragShaderSrc);
+
+    free(vertShaderSrc);
+    free(fragShaderSrc);
+
+    return program_object;
+}
+
 GLuint get_program_object_default()
 {
-    const char* vertShaderSrc = get_shader_code("gles/shaders/test.vert");
-    const char* fragShaderSrc = get_shader_code("gles/shaders/test.frag");
+    char* vertShaderSrc = get_shader_code("gles/shaders/test.vert");
+    char* fragShaderSrc = get_shader_code("gles/shaders/test.frag");
 
-    return load_program(vertShaderSrc, fragShaderSrc);
+    GLuint program_object = load_program(vertShaderSrc, fragShaderSrc);
+
+    free(vertShaderSrc);
+    free(fragShaderSrc);
+
+    return program_object;
 }

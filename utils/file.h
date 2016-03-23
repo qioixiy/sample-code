@@ -3,6 +3,6 @@
 #define _FILE_H_
 
 int get_file_size(const char* filename);
-const char* get_file_data(const char* filename, int size);
+char* get_file_data(const char* filename, int size);
 
 #endif

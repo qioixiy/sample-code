@@ -1,7 +1,13 @@
 
 #include "texture.h"
+#include "utils/file.h"
 
-GLuint gen_texture_from_data(unsigned char* data, int width, int height)
+struct texture {
+    
+};
+
+GLuint gen_texture_from_data(unsigned char* texture_data,
+                             int width, int height)
 {
     GLuint texId;
 
@@ -11,7 +17,7 @@ GLuint gen_texture_from_data(unsigned char* data, int width, int height)
     glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE_ALPHA,
                  width, height,
                  0, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE,
-                 buffer);
+                 texture_data);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -21,22 +27,11 @@ GLuint gen_texture_from_data(unsigned char* data, int width, int height)
     return texId;
 }
 
-GLuint gen_texture_from_file(unsigned char* file, int width, int height)
+GLuint gen_texture_from_file(const char *file, int w, int h)
 {
-    GLuint texId;
+    char *data = get_file_data(file, get_file_size(file));
 
-    glGenTextures(1, &texId);
-    glBindTexture(GL_TEXTURE_2D, texId);
+    GLuint texId = gen_texture_from_data(data, w, h);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE_ALPHA,
-                 width, height,
-                 0, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE,
-                 buffer);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    
     return texId;
 }
