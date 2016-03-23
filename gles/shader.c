@@ -10,7 +10,7 @@ GLuint load_shader_from_string(GLenum type, const char *shaderSrc)
 {
     GLuint shader;
     GLint compiled;
-   
+
     // Create the shader object
     shader = glCreateShader ( type );
 
@@ -19,7 +19,7 @@ GLuint load_shader_from_string(GLenum type, const char *shaderSrc)
 
     // Load the shader source
     glShaderSource(shader, 1, &shaderSrc, NULL);
-   
+
     // Compile the shader
     glCompileShader(shader);
 
@@ -66,7 +66,7 @@ GLuint load_program(const char *vertShaderSrc, const char *fragShaderSrc)
 
     // Create the program object
     programObject = glCreateProgram();
-   
+
     if (programObject == 0) {
         printf("glCreateProgram error\n");
         return 0;
@@ -110,6 +110,7 @@ char* get_shader_code(const char* filename)
 
 GLuint get_program_object_showyuyv()
 {
+
     char* vertShaderSrc = get_shader_code("gles/shaders/yuyvshow.vert");
     char* fragShaderSrc = get_shader_code("gles/shaders/yuyvshow.frag");
 
@@ -123,8 +124,8 @@ GLuint get_program_object_showyuyv()
 
 GLuint get_program_object_default()
 {
-    char* vertShaderSrc = get_shader_code("gles/shaders/test.vert");
-    char* fragShaderSrc = get_shader_code("gles/shaders/test.frag");
+    char* vertShaderSrc = get_shader_code("gles/shaders/default.vert");
+    char* fragShaderSrc = get_shader_code("gles/shaders/default.frag");
 
     GLuint program_object = load_program(vertShaderSrc, fragShaderSrc);
 

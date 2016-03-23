@@ -24,6 +24,22 @@ void* display_dispatch_thread(void* p)
     return 0;
 }
 
+void show_default(GLuint program_object, int width, int height)
+{
+    // Use the program object
+    glUseProgram(program_object);
+
+    GLfloat vVertices[] = {0.0f, 0.5f, 0.0f,
+                           -0.5f, -0.5f, 0.0f,
+                           0.5f, -0.5f, 0.0f};
+// Load the vertex data
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices);
+    glEnableVertexAttribArray(0);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+}
+
 void show_yuyv(GLuint program_object, int width, int height)
 {
     // Get the attribute locations
@@ -34,9 +50,12 @@ void show_yuyv(GLuint program_object, int width, int height)
     GLint texture_width = glGetUniformLocation(program_object, "texture_width");
 
     // Load the textures
-    GLuint texture_id_yuyv =
-        gen_texture_from_file("res/640x480.yuv2.yuv", width, height,
-                              GL_LUMINANCE_ALPHA);
+    static GLuint texture_id_yuyv = 0;
+
+    if (0 == texture_id_yuyv) {
+        texture_id_yuyv = gen_texture_from_file("res/640x480.yuv2.yuv", width, height,
+                                                GL_LUMINANCE_ALPHA);
+    }
     
     GLfloat vVertices[] = { -1.0f,  1.0f, 0.0f,  // Position 0
                             0.0f,  0.0f,        // TexCoord 0 
@@ -59,18 +78,20 @@ void show_yuyv(GLuint program_object, int width, int height)
                           GL_FALSE, 5 * sizeof(GLfloat), &vVertices[3]);
     glEnableVertexAttribArray(positionLoc);
     glEnableVertexAttribArray(texCoordLoc);
-    // Bind the base map
+    // Bind the base texture
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture_id_yuyv);
-    // Set the base map sampler to texture unit to 0
+    // Set the base sampler to texture unit to 0
     glUniform1i(texture_yuyv_loc, 0);
     glUniform1f(texture_width, width);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+}
 
-    /* glViewport(0, 0, width/2, height/2);        */
-    /* glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices); */
-    /* glViewport(width/2, height/2, width/2, height/2);        */
-    /* glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices); */
+void show_rgba(GLuint program_object, int width, int height)
+{
+    void *cairo_buffer = create_cairo_databuffer(width, height);
+    GLuint texture_id_cairo =
+        gen_texture_from_data(cairo_buffer, width, height, GL_RGBA);
 }
 
 void* render_thread(void* p)
@@ -85,38 +106,23 @@ void* render_thread(void* p)
     egl = egl_init((EGLNativeDisplayType)window->p_wl_display,
                    (EGLNativeWindowType)p_wl_egl_window);
 
+    GLuint program_object_default = get_program_object_default();
     GLuint program_object_showyuyv = get_program_object_showyuyv();
 
-    void *cairo_buffer = create_cairo_databuffer(width, height);
-    GLuint texture_id_cairo =
-        gen_texture_from_data(cairo_buffer, width, height, GL_RGBA);
-
     while(1) {
-/* // Use the program object */
-/*         glUseProgram(program_object); */
-/* // Set the viewport */
-/*         glViewport(0, 0, width/2, height/2); */
-/* // Clear the color buffer */
-/*         glClearColor(1.0, 1.0, 1.0, 1.0); */
-/*         glClear(GL_COLOR_BUFFER_BIT); */
-
-/*         GLfloat vVertices[] = {0.0f, 0.5f, 0.0f, */
-/*                                -0.5f, -0.5f, 0.0f, */
-/*                                0.5f, -0.5f, 0.0f}; */
-/* // Load the vertex data */
-/*         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices); */
-/*         glEnableVertexAttribArray(0); */
-/*         glDrawArrays(GL_TRIANGLES, 0, 3); */
-
-/*         glViewport(width/2, height/2, width/2, height/2); */
-/*         glDrawArrays(GL_TRIANGLES, 0, 3); */
-
-        // Set the viewport
-        glViewport(0, 0, width, height);
         // Clear the color buffer
+        glClearColor(1.0, 1.0, 1.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        // Set the viewport
+        glViewport(0, 0, width/2, height/2);
+        show_default(program_object_default, width, height);
+
+        glViewport(width/2, 0, width/2, height/2);
         show_yuyv(program_object_showyuyv, width, height);
+
+        show_rgba(program_object_showyuyv, width, height);
+
         eglSwapBuffers(egl->display, egl->surface);
 
         printf("render\n");
