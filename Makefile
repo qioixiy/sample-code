@@ -1,7 +1,9 @@
 
 # Makefile
-
 CURPWD = $(PWD)
+
+OUT_DIR ?= out
+BUILD_DIR = $(CURPWD)/$(OUT_DIR)/$(TARGET)
 
 ROOTFS =
 ifeq ($(TARGET), ARM)
@@ -27,13 +29,29 @@ LIBS += $(LIBS-$(TARGET))
 
 # src
 SRCS := main.c egl/egl.c wayland/wayland.c gles/shader.c utils/file.c
+# objs
+OBJS := $(subst .c,.o,$(SRCS))
 
 all:
 	TARGET=ARM make target
 	TARGET=x86 make target
 
-target:
-	$(CC) $(INC) $(SRCS) $(LIB) $(LIBS) -o test-$(TARGET)
+pre:
+	@echo BUILD_DIR=$(BUILD_DIR)
+	@[ -d $(BUILD_DIR) ] || mkdir $(BUILD_DIR) -p
 
+# egl/%.o: egl/%.c
+# 	$(CC) -c $(INC) $< -o $(BUILD_DIR)/$@
+
+%.o: %.c
+	@echo "%.o: %.c" $^
+	@[ -d $(BUILD_DIR)/$(<D) ] || mkdir $(BUILD_DIR)/$(<D) -p
+	$(CC) -c $(INC) $< -o $(BUILD_DIR)/$@
+
+target: pre $(OBJS)
+	@echo OBJS=$(OBJS)
+	cd $(BUILD_DIR) && $(CC) $(OBJS) $(LIB) $(LIBS) -o $(BUILD_DIR)/test
+
+.PHONY: clean
 clean:
-	-rm test-*
+	-@rm $(BUILD_DIR) -rf
