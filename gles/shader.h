@@ -7,6 +7,7 @@
 
 GLuint load_program(const char *vertShaderSrc, const char *fragShaderSrc);
 GLuint get_program_object_default();
+GLuint get_program_object_drawrect();
 GLuint get_program_object_showyuyv();
 GLuint get_program_object_showrgba();
 

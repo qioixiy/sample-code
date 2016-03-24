@@ -1,4 +1,6 @@
 
+#include <stdlib.h>
+
 #include "texture.h"
 #include "utils/file.h"
 

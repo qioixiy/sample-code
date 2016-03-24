@@ -36,7 +36,8 @@ SRCS := main.c \
 	gles/shader.c \
 	gles/texture.c \
 	utils/file.c \
-	cairo/cairo.c
+	cairo/cairo.c \
+	gui/ui.c
 
 # objs
 OBJS := $(subst .c,.o,$(SRCS))

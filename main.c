@@ -36,8 +36,24 @@ void show_default(GLuint program_object, int width, int height)
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices);
     glEnableVertexAttribArray(0);
     glDrawArrays(GL_TRIANGLES, 0, 3);
+}
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+void draw_rect(GLuint program_object)
+{
+    // Use the program object
+    glUseProgram(program_object);
+    GLint colorLoc = glGetUniformLocation(program_object, "colorLoc");
+    GLfloat rgba[4] = {0.0f, 0.0f, 0.0f, 1.0f};
+    glUniform4fv(colorLoc, 1, rgba);
+    GLfloat vVertices[] = {-1.0f, 1.0f, 0.0f,
+                           1.0f, 1.0f, 0.0f,
+                           1.0f, -1.0f, 0.0f,
+                           -1.0f, -1.0f, 0.0f};
+
+// Load the vertex data
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices);
+    glEnableVertexAttribArray(0);
+    glDrawArrays(GL_TRIANGLES, 0, 4);
 }
 
 void show_yuyv(GLuint program_object, int width, int height)
@@ -83,7 +99,8 @@ void show_yuyv(GLuint program_object, int width, int height)
     glBindTexture(GL_TEXTURE_2D, texture_id_yuyv);
     // Set the base sampler to texture unit to 0
     glUniform1i(texture_yuyv_loc, 0);
-    glUniform1f(texture_width, width);
+    glUniform1f(texture_width, (GLfloat)width);
+
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
 }
 
@@ -130,7 +147,14 @@ void show_rgba(GLuint program_object, int width, int height)
     glBindTexture(GL_TEXTURE_2D, texture_id_rgba);
     // Set the base sampler to texture unit to 0
     glUniform1i(texture_rgba_loc, 0);
+
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+}
+
+GLuint program_object_default;
+void draw_block()
+{
+    show_default(program_object_default, 640, 480);
 }
 
 void* render_thread(void* p)
@@ -145,10 +169,13 @@ void* render_thread(void* p)
     egl = egl_init((EGLNativeDisplayType)window->p_wl_display,
                    (EGLNativeWindowType)p_wl_egl_window);
 
-    GLuint program_object_default = get_program_object_default();
+    program_object_default = get_program_object_default();
     GLuint program_object_showyuyv = get_program_object_showyuyv();
     GLuint program_object_showrgba = get_program_object_showrgba();
+    GLuint program_object_drawrect = get_program_object_drawrect();
 
+    init_window();
+    
     while(1) {
         // Clear the color buffer
         glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -167,6 +194,10 @@ void* render_thread(void* p)
 
         glViewport(0, height/2, width/2, height/2);
         show_rgba(program_object_showrgba, width, height);
+
+        draw();
+        glViewport(width/2, height/2, width/2, height/2);
+        draw_rect(program_object_drawrect);
 
         eglSwapBuffers(egl->display, egl->surface);
 

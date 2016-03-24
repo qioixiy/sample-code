@@ -122,6 +122,20 @@ GLuint get_program_object_default()
 
 }
 
+GLuint get_program_object_drawrect()
+{
+    char* vertShaderSrc = get_shader_code("gles/shaders/drawrect.vert");
+    char* fragShaderSrc = get_shader_code("gles/shaders/drawrect.frag");
+
+    GLuint program_object = load_program(vertShaderSrc, fragShaderSrc);
+
+    free(vertShaderSrc);
+    free(fragShaderSrc);
+
+    return program_object;
+
+}
+
 GLuint get_program_object_showyuyv()
 {
 
