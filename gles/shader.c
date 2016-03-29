@@ -104,8 +104,14 @@ GLuint load_program(const char *vertShaderSrc, const char *fragShaderSrc)
 
 char* get_shader_code(const char* filename)
 {
-    char* data = get_file_data(filename, get_file_size(filename));
-    return data;
+    int file_size = get_file_size(filename);
+    char* data = get_file_data(filename, file_size);
+    char *ret = malloc(file_size+1);
+    memcpy(ret, data, file_size);
+    ret[file_size] = '\0';
+    free(data);
+
+    return ret;
 }
 
 GLuint get_program_object_default()

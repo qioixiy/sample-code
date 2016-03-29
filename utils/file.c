@@ -8,7 +8,6 @@
 #include <errno.h>
 #include <sys/stat.h>
 
-
 int file_is_exist(const char* filename)
 {
     return 0 == access((filename), F_OK);
@@ -49,4 +48,9 @@ char* get_file_data(const char* filename, int size)
     }
 
     return data;
+}
+
+char* get_string_from_file()
+{
+    ;
 }
