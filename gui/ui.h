@@ -22,6 +22,7 @@ struct widget_op {
     int (*show)(struct widget*);
     int (*hide)(struct widget*);
     int (*draw)(struct widget*);
+    int (*add_sub_widget)(struct widget*, struct widget*);
 };
 struct widget {
     struct node node;

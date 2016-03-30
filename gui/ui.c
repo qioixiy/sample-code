@@ -11,6 +11,7 @@ int widget_destory(struct widget*);
 int widget_show(struct widget*);
 int widget_hide(struct widget*);
 int widget_draw(struct widget*);
+int widget_add_sub_widget(struct widget*, struct widget*);
 
 static struct widget_op s_widget_op = {
     .create = widget_create,
@@ -18,6 +19,7 @@ static struct widget_op s_widget_op = {
     .show = widget_show,
     .hide = widget_hide,
     .draw = widget_draw,
+    .add_sub_widget = widget_add_sub_widget,
 };
 
 struct widget* widget_create(int x, int y, int w, int h)
@@ -68,6 +70,18 @@ int widget_draw(struct widget* wid)
     wid->bg_color.r = ++wid->bg_color.r % 256;
     draw_rect(r,g,b);
 
+    struct node *n = &wid->node;
+    if (n->child) {
+        widget_draw((struct widget*)n->child);
+    }
+
+    return 0;
+}
+int widget_add_sub_widget(struct widget* p, struct widget* c)
+{
+    p->node.child = &c->node;
+    c->win = p->win;
+
     return 0;
 }
 
@@ -90,8 +104,13 @@ static struct window* window_create(int x, int y, int width, int height)
 
     /* create widget */
     struct widget *wid = s_widget_op.create(0, 0, width, height);
+    struct widget *child_wid = s_widget_op.create(
+        width/4, height/4, width/2, height/2);
+    child_wid->bg_color.r = 128;
+
     wid->win = win;
     win->root_widget = wid;
+    wid->op->add_sub_widget(wid, child_wid);
 
     return win;
 }
