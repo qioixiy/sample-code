@@ -26,10 +26,19 @@ void* display_dispatch_thread(void* p)
     return 0;
 }
 
+#define SHOW_NV12
 void* render_thread(void* p)
 {
-    /* egl init */
+    /* egl init */    
     int width = 640, height = 480;
+#if defined SHOW_YUYV
+    width = 640;
+    height = 480;
+#endif
+#if defined SHOW_NV12
+    width = 720;
+    height = 480;
+#endif
     struct wl_egl_window* p_wl_egl_window
         = wl_egl_window_create(window->p_wl_surface, width, height);
     if (!p_wl_egl_window) {
@@ -54,7 +63,12 @@ void* render_thread(void* p)
         show_default(width, height);
 
         glViewport(width/2, 0, width/2, height/2);
+#if defined SHOW_YUYV
         show_yuyv(width, height);
+#endif
+#if defined SHOW_NV12
+        show_nv12(width, height);
+#endif
 
         glViewport(0, height/2, width/2, height/2);
         show_rgba(width, height);

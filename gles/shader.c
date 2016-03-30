@@ -158,6 +158,20 @@ GLuint get_program_object_showyuyv()
     return program_object;
 }
 
+GLuint get_program_object_shownv12()
+{
+
+    char* vertShaderSrc = get_shader_code("gles/shaders/nv12show.vert");
+    char* fragShaderSrc = get_shader_code("gles/shaders/nv12show.frag");
+
+    GLuint program_object = load_program(vertShaderSrc, fragShaderSrc);
+
+    free(vertShaderSrc);
+    free(fragShaderSrc);
+
+    return program_object;
+}
+
 GLuint get_program_object_showrgba()
 {
 

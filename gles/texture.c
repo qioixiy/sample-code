@@ -34,7 +34,9 @@ GLuint gen_texture_from_data(unsigned char* texture_data,
 
 GLuint gen_texture_from_file(const char *file, int w, int h, GLenum format)
 {
-    char *data = get_file_data(file, get_file_size(file));
+
+    int size = get_file_size(file);
+    unsigned char *data = get_file_data(file, size);
 
     GLuint texId = gen_texture_from_data(data, w, h, format);
     free(data);

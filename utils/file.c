@@ -23,14 +23,14 @@ int get_file_size(const char* filename)
     return buf.st_size;
 }
 
-char* get_file_data(const char* filename, int size)
+unsigned char* get_file_data(const char* filename, int size)
 {
     if (!file_is_exist(filename)) {
         printf("error: file %s is not exist\n", filename);
         return NULL;
     }
     int fd = open(filename, O_RDONLY|O_NONBLOCK);
-    char* data = malloc(size);
+    unsigned char* data = malloc(size);
 
     int index = 0;
     for(;index < size;) {
@@ -50,7 +50,7 @@ char* get_file_data(const char* filename, int size)
     return data;
 }
 
-char* get_string_from_file()
+unsigned char* get_string_from_file()
 {
     ;
 }
