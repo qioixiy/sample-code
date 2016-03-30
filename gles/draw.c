@@ -151,8 +151,3 @@ void show_rgba(int width, int height)
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
 }
-        
-void redraw_window()
-{
-    draw_rect(1.0, 0.0, 0.0);
-}

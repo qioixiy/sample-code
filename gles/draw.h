@@ -6,6 +6,5 @@ void show_rgba(int width, int height);
 void show_yuyv(int width, int height);
 void draw_rect(float r, float g, float b);
 void show_default(int width, int height);
-void redraw_window(void);
 
 #endif

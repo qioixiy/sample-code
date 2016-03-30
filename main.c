@@ -11,6 +11,7 @@
 #include "gles/texture.h"
 #include "gles/draw.h"
 #include "cairo/cairo.h"
+#include "gui/ui.h"
 
 struct window_wayland *window;
 struct egl_wayland* egl;
@@ -37,7 +38,7 @@ void* render_thread(void* p)
     egl = egl_init((EGLNativeDisplayType)window->p_wl_display,
                    (EGLNativeWindowType)p_wl_egl_window);
 
-    init_window();
+    struct window* pwin = init_window(width/2, height/2, width/2, height/2);
     
     while(1) {
         // Clear the color buffer
@@ -59,7 +60,7 @@ void* render_thread(void* p)
         show_rgba(width, height);
 
         glViewport(width/2, height/2, width/2, height/2);
-        redraw_window();
+        pwin->op->draw(pwin);
         
         eglSwapBuffers(egl->display, egl->surface);
         

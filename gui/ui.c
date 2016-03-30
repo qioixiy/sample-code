@@ -3,117 +3,109 @@
 #include <stdlib.h>
 
 #include "ui.h"
-#include "node.h"
 
-struct color_rgba {
-    int r, g, b, a;
-};
+#include "gles/draw.h"
 
-/* widget */
-struct widget;
-struct widget_op {
-    struct widget* (*create)(int x, int y, int w, int h);
-    int (*show)(struct widget*);
-    int (*hide)(struct widget*);
-    int (*draw)(struct widget*);
-};
-struct widget {
-    struct node node;
-
-    int abs_x, abs_y;
-    int width, height;
-    int is_show;
-    struct color_rgba bg_color;
-
-    struct widget_op *op;
-};
 struct widget* widget_create(int x, int y, int w, int h);
+int widget_destory(struct widget*);
 int widget_show(struct widget*);
 int widget_hide(struct widget*);
 int widget_draw(struct widget*);
+
 static struct widget_op s_widget_op = {
     .create = widget_create,
+    .destory = widget_destory,
     .show = widget_show,
     .hide = widget_hide,
     .draw = widget_draw,
 };
+
 struct widget* widget_create(int x, int y, int w, int h)
 {
-    struct widget* widget = malloc(sizeof(struct widget));
-    widget->abs_x = x;
-    widget->abs_y = y;
-    widget->width = w;
-    widget->width = h;
+    struct widget* wid = malloc(sizeof(struct widget));
+    wid->node.child = NULL;
+    wid->node.parents = NULL;
+    wid->node.sibling = NULL;
+    wid->abs_x = x;
+    wid->abs_y = y;
+    wid->width = w;
+    wid->height = h;
+    wid->bg_color.r = 0;
+    wid->bg_color.g = 0;
+    wid->bg_color.b = 0;
+    wid->bg_color.a = 0;
+   
+    wid->op = &s_widget_op;
 
-    printf("%d, %d, %d, %d\n",
-           widget->abs_x,
-           widget->abs_y,
-           widget->width,
-           widget->width);
-    
-    widget->op = &s_widget_op;
-
-    return widget;
+    return wid;
 }
-int widget_show(struct widget* widget)
+int widget_destory(struct widget* wid)
+{
+    free(wid);
+}
+int widget_show(struct widget* wid)
 {
     return 0;
 }
-int widget_hide(struct widget* widget)
+int widget_hide(struct widget* wid)
 {
     return 0;
 }
-int widget_draw(struct widget* widget)
+int widget_draw(struct widget* wid)
 {
-    glViewport(0,0,100,100/* widget->abs_x, widget->abs_y, */
-               /* widget->width, widget->height */);
+    int x,y,w,h;
+    x = wid->win->abs_x + wid->abs_x;
+    y = wid->win->abs_y + wid->abs_y;
+    w = wid->width;
+    h = wid->height;
+
+    glViewport(x,y,w,h);
+
+    float r,g,b;
+    r = wid->bg_color.r/256.0f;
+    g = wid->bg_color.g;
+    b = wid->bg_color.b;
+    wid->bg_color.r = ++wid->bg_color.r % 256;
+    draw_rect(r,g,b);
+
     return 0;
 }
 
 /* window */
-struct window;
-struct window_op {
-    struct window* (*create)(int width, int height);
-    struct window* (*draw)(struct window*);
-};
-struct window {
-    struct widget* widget;
-    struct window_op *op;
-};
-struct window* window_create(int width, int height);
-struct window* window_draw(struct window*);
+static struct window* window_create(int x, int y, int width, int height);
+static struct window* window_draw(struct window*);
+
 static struct window_op s_window_op = {
     .create = window_create,
     .draw = window_draw,
 };
-struct window* window_create(int width, int height)
+static struct window* window_create(int x, int y, int width, int height)
 {
-    struct window* window = malloc(sizeof(struct window));
-    window->op = &s_window_op;
+    struct window* win = malloc(sizeof(struct window));
+    win->abs_x = x;
+    win->abs_y = y;
+    win->width = width;
+    win->height = height;
+    win->op = &s_window_op;
 
     /* create widget */
-    window->widget = s_widget_op.create(0, 0, width, height);
+    struct widget *wid = s_widget_op.create(0, 0, width, height);
+    wid->win = win;
+    win->root_widget = wid;
 
-    return window;
+    return win;
 }
-struct window* window_draw(struct window* win)
+static struct window* window_draw(struct window* win)
 {
-    struct widget* win_widget = win->widget;
+    struct widget* win_widget = win->root_widget;
     win_widget->op->draw(win_widget);
 
     return win;
 }
 
-static struct window* pwin;
-int init_window()
+struct window* init_window(int x, int y, int w, int h)
 {
-    int width = 100;
-    int height = 100;
-    pwin = s_window_op.create(width, height);
-}
+    struct window* pwin = s_window_op.create(x, y, w, h);
 
-void redraw()
-{
-    pwin->op->draw(pwin);
+    return pwin;
 }
-
