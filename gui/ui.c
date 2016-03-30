@@ -108,9 +108,14 @@ static struct window* window_create(int x, int y, int width, int height)
         width/4, height/4, width/2, height/2);
     child_wid->bg_color.r = 128;
 
+    struct widget *child_child_wid = s_widget_op.create(
+        width/8, height/8, width/4, height/4);
+    child_child_wid->bg_color.r = 128/2;
+
     wid->win = win;
     win->root_widget = wid;
     wid->op->add_sub_widget(wid, child_wid);
+    wid->op->add_sub_widget(child_wid, child_child_wid);
 
     return win;
 }
