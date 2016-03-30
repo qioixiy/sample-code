@@ -1,11 +1,12 @@
 
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "ui.h"
 #include "node.h"
 
-struct color_rgb {
-    int r, g, b;
+struct color_rgba {
+    int r, g, b, a;
 };
 
 /* widget */
@@ -22,7 +23,7 @@ struct widget {
     int abs_x, abs_y;
     int width, height;
     int is_show;
-    struct color_rgb bg_color;
+    struct color_rgba bg_color;
 
     struct widget_op *op;
 };
@@ -66,7 +67,6 @@ int widget_draw(struct widget* widget)
 {
     glViewport(0,0,100,100/* widget->abs_x, widget->abs_y, */
                /* widget->width, widget->height */);
-    draw_block();
     return 0;
 }
 
@@ -98,10 +98,13 @@ struct window* window_create(int width, int height)
 }
 struct window* window_draw(struct window* win)
 {
-    return win->widget->op->draw(win);
+    struct widget* win_widget = win->widget;
+    win_widget->op->draw(win_widget);
+
+    return win;
 }
 
-struct window* pwin;
+static struct window* pwin;
 int init_window()
 {
     int width = 100;
@@ -109,7 +112,8 @@ int init_window()
     pwin = s_window_op.create(width, height);
 }
 
-void draw()
+void redraw()
 {
     pwin->op->draw(pwin);
 }
+

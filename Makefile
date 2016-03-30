@@ -35,6 +35,7 @@ SRCS := main.c \
 	wayland/wayland.c \
 	gles/shader.c \
 	gles/texture.c \
+	gles/draw.c \
 	utils/file.c \
 	cairo/cairo.c \
 	gui/ui.c
@@ -54,9 +55,9 @@ pre:
 # 	$(CC) -c $(INC) $< -o $(BUILD_DIR)/$@
 
 %.o: %.c
-	@echo "%.o: %.c" $^
+#	@echo "%.o: %.c" $^
 	@[ -d $(BUILD_DIR)/$(<D) ] || mkdir $(BUILD_DIR)/$(<D) -p
-	$(CC) -c $(INC) $< -o $(BUILD_DIR)/$@
+	@$(CC) -c $(INC) $< -o $(BUILD_DIR)/$@
 
 target: pre $(OBJS)
 	@echo OBJS=$(OBJS)

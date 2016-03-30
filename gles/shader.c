@@ -1,4 +1,6 @@
 
+#include <string.h>
+
 #include "shader.h"
 
 #include <utils/file.h>
