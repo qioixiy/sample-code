@@ -47,22 +47,27 @@ void* render_thread(void* p)
     egl = egl_init((EGLNativeDisplayType)window->p_wl_display,
                    (EGLNativeWindowType)p_wl_egl_window);
 
-    struct window* pwin = init_window(width/2, height/2, width/2, height/2);
-    
+    struct window* pwin = init_window(0, height/3, width/3, height/3);
+    struct window* pwin2 = init_window(width/3, height/3, width/3, height/3);
+    struct window* pwin3 = init_window(width*2/3, height/3, width/3, height/3);
+
+    /* init */
+    glEnable (GL_BLEND);
+    /* glBlendFunc(GL_SRC_ALPHA, GL_ONE); */
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
     while(1) {
         // Clear the color buffer
         glClearColor(1.0, 1.0, 1.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glEnable (GL_BLEND);
-        /* glBlendFunc(GL_SRC_ALPHA, GL_ONE); */
-        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-
+        /* 1 */
         // Set the viewport
-        glViewport(0, 0, width/2, height/2);
+        glViewport(0, 0, width/3, height/3);
         show_default(width, height);
 
-        glViewport(width/2, 0, width/2, height/2);
+        /* 2 */
+        glViewport(width/3, 0, width/3, height/3);
 #if defined SHOW_YUYV
         show_yuyv(width, height);
 #endif
@@ -70,12 +75,15 @@ void* render_thread(void* p)
         show_nv12(width, height);
 #endif
 
-        glViewport(0, height/2, width/2, height/2);
+        /* 3 */
+        glViewport(width*2/3, 0, width/3, height/3);
         show_rgba(width, height);
 
-        glViewport(width/2, height/2, width/2, height/2);
+        /* 4 */
         pwin->op->draw(pwin);
-        
+        pwin2->op->draw(pwin2);
+        pwin3->op->draw(pwin3);
+
         eglSwapBuffers(egl->display, egl->surface);
         
         //printf("render\n");
