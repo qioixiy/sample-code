@@ -164,7 +164,7 @@ void show_nv12(int width, int height)
     glUniform1i(texture_uv_loc, 1);
 
     glUniform1f(texture_width, (GLfloat)width);
-    
+
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);    
 }
 void show_rgba(int width, int height)

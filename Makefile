@@ -33,6 +33,7 @@ LIBS += $(LIBS-cairo) $(LIBS-$(TARGET))
 SRCS := main.c \
 	egl/egl.c \
 	wayland/wayland.c \
+	gles/gles.c \
 	gles/shader.c \
 	gles/texture.c \
 	gles/draw.c \
@@ -60,8 +61,8 @@ pre:
 	@$(CC) -c $(INC) $< -o $(BUILD_DIR)/$@
 
 target: pre $(OBJS)
-	@echo OBJS=$(OBJS)
-	cd $(BUILD_DIR) && $(CC) $(OBJS) $(LIB) $(LIBS) -o $(BUILD_DIR)/test
+#	@echo OBJS=$(OBJS)
+	@cd $(BUILD_DIR) && $(CC) $(OBJS) $(LIB) $(LIBS) -o $(BUILD_DIR)/test
 
 .PHONY: clean
 clean:

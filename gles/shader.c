@@ -104,6 +104,13 @@ GLuint load_program(const char *vertShaderSrc, const char *fragShaderSrc)
     return programObject;
 }
 
+void dump_gl_program(GLuint progam)
+{
+    GLuint numActiveAttribs;
+    glGetProgramiv(progam, GL_ACTIVE_ATTRIBUTES, &numActiveAttribs);
+    printf("GL_ACTIVE_ATTRIBUTES=%d\n", numActiveAttribs);
+}
+
 char* get_shader_code(const char* filename)
 {
     int file_size = get_file_size(filename);

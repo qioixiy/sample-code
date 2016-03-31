@@ -5,7 +5,8 @@
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 
-GLuint load_program(const char *vertShaderSrc, const char *fragShaderSrc);
+GLuint load_program(const char*, const char*);
+void dump_gl_program(GLuint);
 GLuint get_program_object_default();
 GLuint get_program_object_drawrect();
 GLuint get_program_object_showyuyv();

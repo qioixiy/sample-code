@@ -7,6 +7,7 @@
 
 #include "wayland/wayland.h"
 #include "egl/egl.h"
+#include "gles/gles.h"
 #include "gles/shader.h"
 #include "gles/texture.h"
 #include "gles/draw.h"
@@ -52,6 +53,8 @@ void* render_thread(void* p)
     struct window* pwin3 = init_window(width*2/3, height/3, width/3, height/3);
 
     /* init */
+    print_gles_env();
+
     glEnable (GL_BLEND);
     /* glBlendFunc(GL_SRC_ALPHA, GL_ONE); */
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
