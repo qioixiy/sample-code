@@ -124,10 +124,11 @@ static const struct wl_pointer_listener pointer_listener = {
 	pointer_handle_motion,
 	pointer_handle_button,
 	pointer_handle_axis,
-	pointer_handle_frame,
-	pointer_handle_axis_source,
-	pointer_handle_axis_stop,
-	pointer_handle_axis_discrete,
+    /* newest wayland version have this listener*/
+	/* pointer_handle_frame, */
+	/* pointer_handle_axis_source, */
+	/* pointer_handle_axis_stop, */
+	/* pointer_handle_axis_discrete, */
 };
 
 static void seat_handle_capabilities(void *data, struct wl_seat *seat,

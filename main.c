@@ -41,7 +41,7 @@ void* render_thread(void* p)
     height = 480;
 #endif
     struct wl_egl_window* p_wl_egl_window
-        = wl_egl_window_create(window->p_wl_surface, width, height);
+        = (struct wl_egl_window*)wl_egl_window_create(window->p_wl_surface, width, height);
     if (!p_wl_egl_window) {
         printf("wl_egl_window_create error\n");
     }
@@ -62,8 +62,9 @@ void* render_thread(void* p)
     while(1) {
         // Clear the color buffer
         glClearColor(1.0, 1.0, 1.0, 1.0);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        glDepthFunc(GL_LEQUAL);
         /* 1 */
         // Set the viewport
         glViewport(0, 0, width/3, height/3);
