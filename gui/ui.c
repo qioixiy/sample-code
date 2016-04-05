@@ -102,21 +102,6 @@ static struct window* window_create(int x, int y, int width, int height)
     win->height = height;
     win->op = &s_window_op;
 
-    /* create widget */
-    struct widget *wid = s_widget_op.create(0, 0, width, height);
-    struct widget *child_wid = s_widget_op.create(
-        width/4, height/4, width/2, height/2);
-    child_wid->bg_color.r = 128;
-
-    struct widget *child_child_wid = s_widget_op.create(
-        width/8, height/8, width/4, height/4);
-    child_child_wid->bg_color.r = 128/2;
-
-    wid->win = win;
-    win->root_widget = wid;
-    wid->op->add_sub_widget(wid, child_wid);
-    wid->op->add_sub_widget(child_wid, child_child_wid);
-
     return win;
 }
 static struct window* window_draw(struct window* win)
@@ -127,9 +112,32 @@ static struct window* window_draw(struct window* win)
     return win;
 }
 
+int create_demo_widget(struct window* win,
+                       int w, int h)
+{
+    /* create widget */
+    struct widget *root_wid = s_widget_op.create(0, 0, w, h);
+    struct widget *child_wid =
+        s_widget_op.create(w/4, h/4, w/2, h/2);
+    child_wid->bg_color.r = 128;
+
+    struct widget *child_child_wid =
+        s_widget_op.create(w/8, h/8, w/4, h/4);
+    child_child_wid->bg_color.r = 128/2;
+
+    root_wid->win = win;
+    root_wid->op->add_sub_widget(root_wid, child_wid);
+    root_wid->op->add_sub_widget(child_wid, child_child_wid);
+    win->root_widget = root_wid;
+
+    return 0;
+}
+
 struct window* init_window(int x, int y, int w, int h)
 {
-    struct window* pwin = s_window_op.create(x, y, w, h);
+    struct window* win = s_window_op.create(x, y, w, h);
 
-    return pwin;
+    create_demo_widget(win, w, h);
+
+    return win;
 }
