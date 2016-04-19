@@ -64,18 +64,20 @@ void* create_cairo_databuffer(int width, int height)
     memset(buffer_cairo_surface, 0xff, width*height*channals);
     
     /* draw */
+    const char *show_string = "hello world 你好世界！";
+    int font_size = 50;
     cairo_set_source_rgb(cr, 0.0, 0.0, 0.0);
-    cairo_select_font_face(cr, "Georgia",
+    cairo_select_font_face(cr, "宋体",/* Georgia */
                            CAIRO_FONT_SLANT_NORMAL,
                            CAIRO_FONT_WEIGHT_BOLD);
-    cairo_set_font_size(cr, 20);
-    cairo_text_extents(cr, "helloworld", &te);
+    cairo_set_font_size(cr, font_size);
+    cairo_text_extents(cr, show_string, &te);
     cairo_move_to (cr, width/2 - te.width / 2 - te.x_bearing,
                    height/2 - te.height / 2 - te.y_bearing);
-    cairo_show_text (cr, "helloworld");
+    cairo_show_text (cr, show_string);
     
     /* to png */
-    cairo_surface_write_to_png(surface, "/tmp/frame.png");
+    cairo_surface_write_to_png(surface, "out.png");
 
     return buffer_cairo_surface;
 }
@@ -85,5 +87,6 @@ int main_cairo()
     int width = 640;
     int height = 480;
     create_cairo_databuffer(width, height);
+
     destory_cairo();
 }
