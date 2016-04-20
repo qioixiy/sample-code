@@ -67,7 +67,7 @@ void* create_cairo_databuffer(int width, int height)
     const char *show_string = "hello world 你好世界！";
     int font_size = 50;
     cairo_set_source_rgb(cr, 0.0, 0.0, 0.0);
-    cairo_select_font_face(cr, "宋体",/* Georgia */
+    cairo_select_font_face(cr, "宋体", //宋体, MYingHei, Georgia
                            CAIRO_FONT_SLANT_NORMAL,
                            CAIRO_FONT_WEIGHT_BOLD);
     cairo_set_font_size(cr, font_size);
