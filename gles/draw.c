@@ -22,6 +22,24 @@ void show_default(int width, int height)
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
+void draw_vertexs(GLfloat *vVerticess, int len)
+{
+    int index = 0;
+
+    static GLuint program_object;
+    if (!program_object) {
+        program_object = get_program_object_default();
+    }
+    // Use the program object
+    glUseProgram(program_object);
+
+// Load the vertex data
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVerticess);
+ 
+    glDrawArrays(GL_TRIANGLES, 0, len);
+}
+
 void draw_rect(float r, float g, float b)
 {
     static GLuint program_object;

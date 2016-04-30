@@ -13,6 +13,7 @@ endif
 
 # compiler
 CC = $(CROSS_COMPILE)gcc
+CXX = $(CROSS_COMPILE)g++
 
 # include
 INC = -I$(ROOTFS)/usr/include -I$(CURPWD)
@@ -25,12 +26,13 @@ LIBS = -lpthread -lGLESv2 -lEGL -lwayland-client
 LIBS-ARM = -lffi -ldrm -lpvr_wlegl -lIMGegl -lsrv_um -lpvr2d\
 	-ldrm_omap -lm -lwayland-server -lgbm -ludev -lglib-2.0\
 	-ldw -lelf -lz -lbz2 -lcap
-LIBS-x86 = -lwayland-egl # -lglapi
+LIBS-x86 = -lwayland-egl -lstdc++ # -lglapi
 LIBS-cairo = -lcairo -lpng -lpixman-1 -lfreetype -lfontconfig -lexpat
 LIBS += $(LIBS-cairo) $(LIBS-$(TARGET))
 
 # src
-SRCS := main.c \
+C_SRCS := \
+	main.c \
 	egl/egl.c \
 	wayland/wayland.c \
 	gles/gles.c \
@@ -40,29 +42,34 @@ SRCS := main.c \
 	utils/file.c \
 	cairo/cairo.c \
 	gui/ui.c
+CXX_SRCS := \
+	utils/obj/loader.cpp
 
 # objs
-OBJS := $(subst .c,.o,$(SRCS))
+OBJS := $(subst .c,.o,$(C_SRCS))
+OBJS += $(subst .cpp,.opp,$(CXX_SRCS))
 
 all:
-	TARGET=ARM make target
-	TARGET=x86 make target
+	TARGET=x86 make target-test
+#	TARGET=ARM make target-test
 
 pre:
+	echo OBJS=$(OBJS)
 	@echo BUILD_DIR=$(BUILD_DIR)
 	@[ -d $(BUILD_DIR) ] || mkdir $(BUILD_DIR) -p
 
-# egl/%.o: egl/%.c
-# 	$(CC) -c $(INC) $< -o $(BUILD_DIR)/$@
-
 %.o: %.c
-#	@echo "%.o: %.c" $^
+	@echo CC $^
 	@[ -d $(BUILD_DIR)/$(<D) ] || mkdir $(BUILD_DIR)/$(<D) -p
 	@$(CC) -c $(INC) $< -o $(BUILD_DIR)/$@
 
-target: pre $(OBJS)
-#	@echo OBJS=$(OBJS)
-	@cd $(BUILD_DIR) && $(CC) $(OBJS) $(LIB) $(LIBS) -o $(BUILD_DIR)/test
+%.opp: %.cpp
+	@echo CXX $^
+	@[ -d $(BUILD_DIR)/$(<D) ] || mkdir $(BUILD_DIR)/$(<D) -p
+	@$(CXX) -c $(INC) $< -o $(BUILD_DIR)/$@
+
+target-test: pre $(OBJS)
+	cd $(BUILD_DIR) && $(CC) $(OBJS) $(LIB) $(LIBS) -o $(BUILD_DIR)/test
 
 .PHONY: clean
 clean:
