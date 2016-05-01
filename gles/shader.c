@@ -123,72 +123,48 @@ char* get_shader_code(const char* filename)
     return ret;
 }
 
-GLuint get_program_object_default()
+static GLuint make_program_object(const char *vert, const char *frag)
 {
-    char* vertShaderSrc = get_shader_code("gles/shaders/default.vert");
-    char* fragShaderSrc = get_shader_code("gles/shaders/default.frag");
-
+    char* vertShaderSrc = get_shader_code(vert);
+    char* fragShaderSrc = get_shader_code(frag);
     GLuint program_object = load_program(vertShaderSrc, fragShaderSrc);
-
     free(vertShaderSrc);
     free(fragShaderSrc);
 
     return program_object;
+}
 
+GLuint get_program_object_default()
+{
+    const char *vert = "gles/shaders/default.vert";
+    const char *frag = "gles/shaders/default.frag";
+    return make_program_object(vert, frag);
 }
 
 GLuint get_program_object_drawrect()
 {
-    char* vertShaderSrc = get_shader_code("gles/shaders/drawrect.vert");
-    char* fragShaderSrc = get_shader_code("gles/shaders/drawrect.frag");
-
-    GLuint program_object = load_program(vertShaderSrc, fragShaderSrc);
-
-    free(vertShaderSrc);
-    free(fragShaderSrc);
-
-    return program_object;
-
+    const char *vert = "gles/shaders/drawrect.vert";
+    const char *frag = "gles/shaders/drawrect.frag";
+    return make_program_object(vert, frag);
 }
 
 GLuint get_program_object_showyuyv()
 {
-
-    char* vertShaderSrc = get_shader_code("gles/shaders/yuyvshow.vert");
-    char* fragShaderSrc = get_shader_code("gles/shaders/yuyvshow.frag");
-
-    GLuint program_object = load_program(vertShaderSrc, fragShaderSrc);
-
-    free(vertShaderSrc);
-    free(fragShaderSrc);
-
-    return program_object;
+    const char *vert = "gles/shaders/yuyvshow.vert";
+    const char *frag = "gles/shaders/yuyvshow.frag";
+    return make_program_object(vert, frag);
 }
 
 GLuint get_program_object_shownv12()
 {
-
-    char* vertShaderSrc = get_shader_code("gles/shaders/nv12show.vert");
-    char* fragShaderSrc = get_shader_code("gles/shaders/nv12show.frag");
-
-    GLuint program_object = load_program(vertShaderSrc, fragShaderSrc);
-
-    free(vertShaderSrc);
-    free(fragShaderSrc);
-
-    return program_object;
+    const char *vert = "gles/shaders/nv12show.vert";
+    const char *frag = "gles/shaders/nv12show.frag";
+    return make_program_object(vert, frag);
 }
 
 GLuint get_program_object_showrgba()
 {
-
-    char* vertShaderSrc = get_shader_code("gles/shaders/rgbashow.vert");
-    char* fragShaderSrc = get_shader_code("gles/shaders/rgbashow.frag");
-
-    GLuint program_object = load_program(vertShaderSrc, fragShaderSrc);
-
-    free(vertShaderSrc);
-    free(fragShaderSrc);
-
-    return program_object;
+    const char *vert = "gles/shaders/rgbashow.vert";
+    const char *frag = "gles/shaders/rgbashow.frag";
+    return make_program_object(vert, frag);
 }

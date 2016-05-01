@@ -41,7 +41,8 @@ C_SRCS := \
 	gles/draw.c \
 	utils/file.c \
 	cairo/cairo.c \
-	gui/ui.c
+	gui/ui.c \
+	utils/util.c
 CXX_SRCS := \
 	utils/obj/loader.cpp
 

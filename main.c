@@ -85,16 +85,18 @@ void* render_thread(void* p)
 
         /* 4 */
         pwin->op->draw(pwin);
+        /* 5 */
         pwin2->op->draw(pwin2);
+        /* 6 */
         pwin3->op->draw(pwin3);
 
+        /* 7 */
         glViewport(0, height*2/3, width/3, height/3);
-        extern int obj_draw();
         obj_test_draw();
 
         eglSwapBuffers(egl->display, egl->surface);
         
-        //printf("render\n");
+        FPS();
     }
 
     return NULL;
