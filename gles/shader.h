@@ -12,5 +12,6 @@ GLuint get_program_object_drawrect();
 GLuint get_program_object_showyuyv();
 GLuint get_program_object_shownv12();
 GLuint get_program_object_showrgba();
+GLuint get_program_object_mvptest();
 
 #endif

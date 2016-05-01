@@ -61,7 +61,7 @@ void* render_thread(void* p)
 
     while(1) {
         // Clear the color buffer
-        glClearColor(1.0, 1.0, 1.0, 1.0);
+        glClearColor(.0, .0, .0, .5);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glDepthFunc(GL_LEQUAL);
@@ -93,6 +93,10 @@ void* render_thread(void* p)
         /* 7 */
         glViewport(0, height*2/3, width/3, height/3);
         obj_test_draw();
+
+        /* 8 */
+        glViewport(width/3, height*2/3, width/3, height/3);
+        mvptest();
 
         eglSwapBuffers(egl->display, egl->surface);
         

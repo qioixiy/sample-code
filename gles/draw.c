@@ -1,6 +1,7 @@
 
 #include "draw.h"
 #include "cairo/cairo.h"
+#include "utils/Matrix.h"
 
 #include <GLES2/gl2.h>
 
@@ -235,4 +236,70 @@ void show_rgba(int width, int height)
     glUniform1i(texture_rgba_loc, 0);
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+}
+
+Matrix mvp_update ()
+{
+    Matrix mvpMatrix;
+    Matrix perspective;
+    Matrix modelview;
+    float aspect;
+   
+    static float angle = .0f;
+    angle += .5f;
+
+    // Compute the window aspect ratio
+    aspect = (GLfloat)320/(GLfloat)480;
+    // Generate a perspective matrix with a 60 degree FOV
+    MatrixLoadIdentity(&perspective);
+    Perspective(&perspective, 60.0f, aspect, 1.0f, 20.0f);
+    // Generate a model view matrix to rotate/translate the cube
+    MatrixLoadIdentity(&modelview);
+    // Translate away from the viewer
+    Translate(&modelview, 0.0, 0.0, -2.0);
+    // Rotate the cube
+    Rotate(&modelview, angle, 1.0, 0.0, 1.0);
+    // Compute the final MVP by multiplying the 
+    // modevleiw and perspective matrices together
+    MatrixMultiply(&mvpMatrix, &modelview, &perspective);
+
+    return mvpMatrix;
+}
+
+void mvptest()
+{
+    static GLuint program_object;
+    if (!program_object) {
+        program_object = get_program_object_mvptest();
+    }
+    glUseProgram(program_object);
+
+    // Get the attribute
+    GLint a_position = glGetAttribLocation(program_object, "a_position");
+    GLint a_color = glGetAttribLocation(program_object, "a_color");
+    // Get the mvp Matrix locations
+    GLint u_mvpMatrix = glGetUniformLocation(program_object, "u_mvpMatrix");
+
+    // vertex position
+    static const GLfloat vertices[] = {
+        .0f, .5f, .0f,
+        -.5f, -.5f, .0f,
+        .5f, -.5f, .0f,
+    };
+	static const GLfloat colors[3][3] = {
+		{ 1, 0, 0 },
+		{ 0, 1, 0 },
+		{ 0, 0, 1 }
+	};
+
+    /* Load the vertex data */
+    glVertexAttribPointer(a_position, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    glVertexAttribPointer(a_color, 3, GL_FLOAT, GL_FALSE, 0, colors);
+    glEnableVertexAttribArray(a_position);
+    glEnableVertexAttribArray(a_color);
+
+    Matrix mvpMatrix = mvp_update();
+    glUniformMatrix4fv(u_mvpMatrix, 1, GL_FALSE, (GLfloat*)&mvpMatrix);
+
+    glDrawArrays(GL_TRIANGLES, 0, 3);
 }

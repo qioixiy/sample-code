@@ -168,3 +168,10 @@ GLuint get_program_object_showrgba()
     const char *frag = "gles/shaders/rgbashow.frag";
     return make_program_object(vert, frag);
 }
+
+GLuint get_program_object_mvptest()
+{
+    const char *vert = "gles/shaders/mvptest.vert";
+    const char *frag = "gles/shaders/mvptest.frag";
+    return make_program_object(vert, frag);
+}

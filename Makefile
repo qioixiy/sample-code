@@ -22,7 +22,7 @@ INC += -I$(INC-cairo)
 
 # lib
 LIB = -L$(ROOTFS)/usr/lib -L$(ROOTFS)/lib -L.
-LIBS = -lpthread -lGLESv2 -lEGL -lwayland-client
+LIBS = -lpthread -lm -lGLESv2 -lEGL -lwayland-client
 LIBS-ARM = -lffi -ldrm -lpvr_wlegl -lIMGegl -lsrv_um -lpvr2d\
 	-ldrm_omap -lm -lwayland-server -lgbm -ludev -lglib-2.0\
 	-ldw -lelf -lz -lbz2 -lcap
@@ -42,7 +42,8 @@ C_SRCS := \
 	utils/file.c \
 	cairo/cairo.c \
 	gui/ui.c \
-	utils/util.c
+	utils/util.c \
+	utils/Matrix.c
 CXX_SRCS := \
 	utils/obj/loader.cpp
 
