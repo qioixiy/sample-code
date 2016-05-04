@@ -22,11 +22,11 @@ INC += -I$(INC-cairo)
 
 # lib
 LIB = -L$(ROOTFS)/usr/lib -L$(ROOTFS)/lib -L.
-LIBS = -lpthread -lm -lGLESv2 -lEGL -lwayland-client
+LIBS = -lpthread -lm -lstdc++ -lGLESv2 -lEGL -lwayland-client
 LIBS-ARM = -lffi -ldrm -lpvr_wlegl -lIMGegl -lsrv_um -lpvr2d\
 	-ldrm_omap -lm -lwayland-server -lgbm -ludev -lglib-2.0\
 	-ldw -lelf -lz -lbz2 -lcap
-LIBS-x86 = -lwayland-egl -lstdc++ # -lglapi
+LIBS-x86 = -lwayland-egl -lglapi
 LIBS-cairo = -lcairo -lpng -lpixman-1 -lfreetype -lfontconfig -lexpat
 LIBS += $(LIBS-cairo) $(LIBS-$(TARGET))
 
@@ -53,7 +53,7 @@ OBJS += $(subst .cpp,.opp,$(CXX_SRCS))
 
 all:
 	TARGET=x86 make target-test
-#	TARGET=ARM make target-test
+	TARGET=ARM make target-test
 
 pre:
 	echo OBJS=$(OBJS)
