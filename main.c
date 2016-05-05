@@ -56,12 +56,14 @@ void* render_thread(void* p)
     print_gles_env();
 
     glEnable (GL_BLEND);
-    /* glBlendFunc(GL_SRC_ALPHA, GL_ONE); */
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+    //glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     while(1) {
         // Clear the color buffer
-        glClearColor(.0, .0, .0, .5);
+        //glClearColor(.0, .0, .0, .5);
+        glClearColor(.0, .0, .0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glDepthFunc(GL_LEQUAL);
