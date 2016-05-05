@@ -62,12 +62,13 @@ void* create_cairo_databuffer(int width, int height)
     cr = create_cairo_context(width, height, channals,
                               &surface, &buffer_cairo_surface);
     //memset(buffer_cairo_surface, 0xff, width*height*channals);
-    
+
     /* draw */
+    const char *font_name = "MYingHei"; //宋体, MYingHei, Georgia
     const char *show_string = "hello world 你好世界！";
     int font_size = 50;
     cairo_set_source_rgb(cr, .5, .5, .5);
-    cairo_select_font_face(cr, "宋体", //宋体, MYingHei, Georgia
+    cairo_select_font_face(cr, font_name,
                            CAIRO_FONT_SLANT_NORMAL,
                            CAIRO_FONT_WEIGHT_BOLD);
     cairo_set_font_size(cr, font_size);
@@ -77,7 +78,7 @@ void* create_cairo_databuffer(int width, int height)
     cairo_show_text (cr, show_string);
     
     /* to png */
-    //cairo_surface_write_to_png(surface, "out.png");
+    cairo_surface_write_to_png(surface, "/tmp/out.png");
 
     return buffer_cairo_surface;
 }
