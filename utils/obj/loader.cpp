@@ -104,6 +104,7 @@ int obj_test_draw()
         loader.loadOBJ("./utils/obj/monkey.obj");
         len = loader.vertices.size();
         verts = new GLfloat[len*3];
+
         if (!verts) {
             printf("new Err\n");
             return -1;
@@ -113,7 +114,26 @@ int obj_test_draw()
             verts[index*3 + 1] = loader.vertices[index].y;
             verts[index*3 + 2] = loader.vertices[index].z;
         }
+        printf("vertices@0x%p,len=%d\n", verts, len);
     }
     
     draw_vertexs(verts, len);
+}
+
+int load_obj_from_file(const char *filename,
+                       GLfloat **pverts, int *verts_len)
+{
+    static Loader loader;
+    loader.loadOBJ(filename);
+    int len = loader.vertices.size();
+    GLfloat *verts = (GLfloat *)malloc(sizeof(GLfloat) * 3 * len);
+    for (int index = 0; index < len; index++) {
+        verts[index*3 + 0] = loader.vertices[index].x;
+        verts[index*3 + 1] = loader.vertices[index].y;
+        verts[index*3 + 2] = loader.vertices[index].z;
+    }
+    *pverts = verts;
+    *verts_len = len;
+
+    return 0;
 }

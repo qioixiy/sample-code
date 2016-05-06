@@ -105,8 +105,11 @@ void* render_thread(void* p)
         glViewport(width/3, height*2/3, width/3, height/3);
         mvptest();
 
+        /* 9 */
+        glViewport(width*2/3, height*2/3, width/3, height/3);
+        draw_vertexs_update();
+
         eglSwapBuffers(egl->display, egl->surface);
-        
         FPS();
     }
 

@@ -1,11 +1,12 @@
 
+#include <stdio.h>
+#include <GLES2/gl2.h>
+
 #include "draw.h"
 #include "shader.h"
 #include "texture.h"
 #include "cairo/cairo.h"
 #include "utils/Matrix.h"
-
-#include <GLES2/gl2.h>
 
 void show_default(int width, int height)
 {
@@ -304,4 +305,53 @@ void mvptest()
     glUniformMatrix4fv(u_mvpMatrix, 1, GL_FALSE, (GLfloat*)&mvpMatrix);
 
     glDrawArrays(GL_TRIANGLES, 0, 3);
+}
+
+void draw_vertexs_update()
+{
+    static GLuint program_object;
+    if (!program_object) {
+        program_object = make_program_object(
+            "gles/shaders/obj.vert",
+            "gles/shaders/obj.frag");
+    }
+    glUseProgram(program_object);
+
+    static GLfloat *verts;
+    static int verts_len;
+    if (!verts) {
+        int load_obj_from_file(const char*, GLfloat**, int*);
+        load_obj_from_file("./utils/obj/monkey.obj",
+                           &verts, &verts_len);
+        printf("vertices@0x%p,len=%d\n", verts, verts_len);
+    }
+
+    // Get the attribute
+    GLint a_position = glGetAttribLocation(program_object, "a_position");
+    GLint a_color = glGetAttribLocation(program_object, "a_color");
+    // Get the mvp Matrix locations
+    GLint u_mvpMatrix = glGetUniformLocation(program_object, "u_mvpMatrix");
+
+    // vertex position
+    static const GLfloat vertices[] = {
+        .0f, .5f, .0f,
+        -.5f, -.5f, .0f,
+        .5f, -.5f, .0f,
+    };
+	static const GLfloat colors[3][3] = {
+		{ 1, 0, 0 },
+		{ 0, 1, 0 },
+		{ 0, 0, 1 }
+	};
+
+    Matrix mvpMatrix = mvp_update();
+    glUniformMatrix4fv(u_mvpMatrix, 1, GL_FALSE, (GLfloat*)&mvpMatrix);
+
+    /* Load the vertex data */
+    glVertexAttribPointer(a_position, 3, GL_FLOAT, GL_FALSE, 0, verts);
+    glVertexAttribPointer(a_color, 3, GL_FLOAT, GL_FALSE, 0, colors);
+    glEnableVertexAttribArray(a_position);
+    glEnableVertexAttribArray(a_color);
+
+    glDrawArrays(GL_LINE_LOOP, 0, verts_len);
 }

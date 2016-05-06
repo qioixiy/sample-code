@@ -23,6 +23,7 @@ public:
 
 extern "C" {
     int obj_test_draw();
+    int load_obj_from_file(const char*, GLfloat**, int*);
 }
 
 #endif // UTIL_H
