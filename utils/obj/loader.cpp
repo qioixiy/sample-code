@@ -1,7 +1,9 @@
 
-#include "loader.h"
+#include <string.h>
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
+
+#include "loader.h"
 
 Loader::Loader()
 {

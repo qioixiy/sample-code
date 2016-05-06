@@ -1,6 +1,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <EGL/egl.h>
+#include <GLES2/gl2.h>
 
 #include "ui.h"
 

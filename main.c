@@ -1,9 +1,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
+#include <wayland-egl.h>
+#include <wayland-client.h>
 
 #include "wayland/wayland.h"
 #include "egl/egl.h"
@@ -12,6 +15,7 @@
 #include "gles/texture.h"
 #include "gles/draw.h"
 #include "cairo/cairo.h"
+#include "utils/util.h"
 #include "gui/ui.h"
 
 struct window_wayland *window;
@@ -94,6 +98,7 @@ void* render_thread(void* p)
 
         /* 7 */
         glViewport(0, height*2/3, width/3, height/3);
+        extern int obj_test_draw();
         obj_test_draw();
 
         /* 8 */

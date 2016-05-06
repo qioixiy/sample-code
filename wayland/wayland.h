@@ -4,7 +4,6 @@
 
 #include <EGL/egl.h>
 
-
 struct window_wayland {
     struct wl_display *p_wl_display;
     struct wl_registry* p_wl_registry;

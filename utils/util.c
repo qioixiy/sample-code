@@ -9,7 +9,7 @@ int FPS()
     static float deltatime;
     static float totaltime = 0.0f;
     static unsigned int frames = 0;
-    static first_flag = 0;
+    static int first_flag = 0;
     if (first_flag == 0) {
         first_flag = 1;
         gettimeofday (&t1 , &tz);

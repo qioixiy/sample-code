@@ -5,6 +5,8 @@
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 
+GLuint make_program_object(const char *vert, const char *frag);
+
 GLuint load_program(const char*, const char*);
 void dump_gl_program(GLuint);
 GLuint get_program_object_default();

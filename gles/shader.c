@@ -123,7 +123,7 @@ char* get_shader_code(const char* filename)
     return ret;
 }
 
-static GLuint make_program_object(const char *vert, const char *frag)
+GLuint make_program_object(const char *vert, const char *frag)
 {
     char* vertShaderSrc = get_shader_code(vert);
     char* fragShaderSrc = get_shader_code(frag);

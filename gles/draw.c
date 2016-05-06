@@ -1,5 +1,7 @@
 
 #include "draw.h"
+#include "shader.h"
+#include "texture.h"
 #include "cairo/cairo.h"
 #include "utils/Matrix.h"
 

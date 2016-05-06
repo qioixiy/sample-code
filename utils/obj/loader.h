@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <cstring>
 #include <glm/glm.hpp>
 
 using namespace std;
