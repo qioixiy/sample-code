@@ -192,10 +192,14 @@ void show_nv12(int width, int height)
 void show_rgba(int width, int height)
 {
     static GLuint program_object;
+    static GLuint texture_id_rgba = 0;
+
     if (!program_object) {
         program_object = get_program_object_showrgba();
+        void *cairo_buffer = my_cairo_draw(width, height);
+        texture_id_rgba = gen_texture_from_data(
+            cairo_buffer, width, height, GL_RGBA);
     }
-    glUseProgram(program_object);
 
     // Get the attribute locations
     GLint positionLoc = glGetAttribLocation(program_object, "a_position");
@@ -203,14 +207,7 @@ void show_rgba(int width, int height)
     // Get the sampler location
     GLint texture_rgba_loc
         = glGetUniformLocation(program_object, "s_texture_rgba");
-    
-    void *cairo_buffer = create_cairo_databuffer(width, height);
-    static GLuint texture_id_rgba = 0;
-    if (0 == texture_id_rgba) {
-        texture_id_rgba =
-            gen_texture_from_data(cairo_buffer, width, height, GL_RGBA);
-    }
-    
+
     GLfloat vVertices[] = { -1.0f,  1.0f, 0.0f,  // Position 0
                             0.0f,  0.0f,        // TexCoord 0 
                             -1.0f, -1.0f, 0.0f,  // Position 1
