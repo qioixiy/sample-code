@@ -32,7 +32,7 @@ LIBS += $(LIBS-cairo) $(LIBS-$(TARGET))
 
 # src
 C_SRCS := \
-	main.c \
+	app/main.c \
 	egl/egl.c \
 	wayland/wayland.c \
 	gles/gles.c \
