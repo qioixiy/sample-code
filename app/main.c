@@ -52,10 +52,6 @@ void* render_thread(void* p)
     egl = egl_init((EGLNativeDisplayType)window->p_wl_display,
                    (EGLNativeWindowType)p_wl_egl_window);
 
-    struct window* pwin = init_window(0, height/3, width/3, height/3);
-    struct window* pwin2 = init_window(width/3, height/3, width/3, height/3);
-    struct window* pwin3 = init_window(width*2/3, height/3, width/3, height/3);
-
     /* init */
     print_gles_env();
 
@@ -64,20 +60,32 @@ void* render_thread(void* p)
     //glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    int index = -1;
+    int step = 3;
+    int step_width = width/step;
+    int step_height = height/step;
+    struct window* pwin = init_window(0, 0, width/step, height/step);
+
+#define next_viewport()                                                 \
+    /* Set the viewport */                                              \
+        glViewport(index%step*step_width,                               \
+                   ++index/step*step_height,                            \
+                   step_width, step_height);                            \
+
     while(1) {
+        index = 0;
         // Clear the color buffer
         //glClearColor(.0, .0, .0, .5);
         glClearColor(.0, .0, .0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
         glDepthFunc(GL_LEQUAL);
-        /* 1 */
-        // Set the viewport
-        glViewport(0, 0, width/3, height/3);
+
+        pwin->op->draw(pwin);
+
+        next_viewport();
         show_default(width, height);
 
-        /* 2 */
-        glViewport(width/3, 0, width/3, height/3);
+        next_viewport();
 #if defined SHOW_YUYV
         show_yuyv(width, height);
 #endif
@@ -85,29 +93,21 @@ void* render_thread(void* p)
         show_nv12(width, height);
 #endif
 
-        /* 3 */
-        glViewport(width*2/3, 0, width/3, height/3);
+        next_viewport();
         show_rgba(width, height);
 
-        /* 4 */
-        pwin->op->draw(pwin);
-        /* 5 */
-        pwin2->op->draw(pwin2);
-        /* 6 */
-        pwin3->op->draw(pwin3);
-
-        /* 7 */
-        glViewport(0, height*2/3, width/3, height/3);
+        next_viewport();
         extern int obj_test_draw();
         obj_test_draw();
 
-        /* 8 */
-        glViewport(width/3, height*2/3, width/3, height/3);
+        next_viewport();
         mvptest();
 
-        /* 9 */
-        glViewport(width*2/3, height*2/3, width/3, height/3);
+        next_viewport();
         draw_vertexs_update();
+
+        next_viewport();
+        draw_tetrahedron();
 
         eglSwapBuffers(egl->display, egl->surface);
         FPS();

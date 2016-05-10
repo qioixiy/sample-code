@@ -9,5 +9,6 @@ void draw_rect(float r, float g, float b);
 void show_default(int width, int height);
 void mvptest();
 void draw_vertexs_update();
+void draw_tetrahedron();
 
 #endif
