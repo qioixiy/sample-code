@@ -23,6 +23,13 @@ dd if=720x576.420p.yuv of=Image.V bs=1 count=103680 skip=518400
 * `find . -type f -name *.c -exec mv {} {}pp \;`
 * `find . -type f -name *.cpp | xargs -n 1 rename 's/\.cpp$/.c/' \;`
 
+## 代码统计
+* find -name "*.cpp" -exec wc -l {} \;
+* wc -l *; 当前目录以及子目录的所有文件行数：find  . * | xargs wc -l
+* find -name "*.cpp" -exec wc -l {} \;
+* find -name "*.h" -exec wc -l {} \;|awk '{a+=$1}END{print a}'
+* wc -l `find . -name "*.h"`|tail -n1
+
 ## media,yuv rgb
 * vooya
 

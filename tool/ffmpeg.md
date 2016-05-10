@@ -13,3 +13,6 @@ ffmpeg -s 480x272 -pix_fmt yuv420p -i src01_480x272.yuv -s 1280x720 -sws_flags n
 ## ffmpeg encoder
 ffmpeg -s 720x480 -pix_fmt nv12 -i test.yuv -vcodec mpeg4 output.avi
 ffmpeg -s 720x480 -pix_fmt nv12 -i front.yuv -s 720x480 out.jpg
+
+## rtsp stream
+rtsp://218.204.223.237:554/live/1/66251FC11353191F/e7ooqwcfbqjoo80j.sdp
