@@ -1,9 +1,7 @@
 #extension GL_OES_standard_derivatives : enable
 precision mediump float;
 
-uniform sampler2D s_texture_rgba;
 varying vec2 v_texCoord;
-
 
 #define pi 3.14159265358979
 #define sqrt3_divide_6 0.289

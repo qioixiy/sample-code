@@ -10,5 +10,6 @@ void show_default(int width, int height);
 void mvptest();
 void draw_vertexs_update();
 void draw_tetrahedron();
+void draw_antialiasfiltering();
 
 #endif

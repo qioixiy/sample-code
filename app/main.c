@@ -83,6 +83,12 @@ void* render_thread(void* p)
         pwin->op->draw(pwin);
 
         next_viewport();
+        draw_tetrahedron();
+
+        next_viewport();
+        draw_antialiasfiltering();
+
+        next_viewport();
         show_default(width, height);
 
         next_viewport();
@@ -105,9 +111,6 @@ void* render_thread(void* p)
 
         next_viewport();
         draw_vertexs_update();
-
-        next_viewport();
-        draw_tetrahedron();
 
         eglSwapBuffers(egl->display, egl->surface);
         FPS();
