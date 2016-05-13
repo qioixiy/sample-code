@@ -17,6 +17,7 @@
 #include "cairo/cairo.h"
 #include "utils/util.h"
 #include "gui/ui.h"
+#include "log/log.h"
 
 struct window_wayland *window;
 struct egl_wayland* egl;
@@ -121,12 +122,16 @@ void* render_thread(void* p)
 
 int main(int argc, char **argv)
 {
+    logl("start");
+
     /* wayland init */
     window = wayland_init();
     pthread_t pid;
     pthread_create(&pid, NULL, display_dispatch_thread, NULL);
 
     render_thread(NULL);
+
+    logl("end");
 
     return 0;
 }
