@@ -251,17 +251,17 @@ Matrix mvp_update ()
 
     // Generate a perspective matrix with a 60 degree FOV
     MatrixLoadIdentity(&perspective);
-    Perspective(&perspective, 60.0f, aspect, 4.0f, 10.0f);
+    Perspective(&perspective, 60.0f, aspect, .0f, 10.0f);
 
     static float angle = .0f;
-    angle += .001f;
+    angle += .1f;
 
     // Generate a model view matrix to rotate/translate the cube
     MatrixLoadIdentity(&modelview);
     // Translate away from the viewer
-    Translate(&modelview, 0.0, 0.0, -7.0);
+    Translate(&modelview, 0.0, 0.0, 0.0);
     // Rotate the cube
-    Rotate(&modelview, angle, .0, .0, 1.0);
+    Rotate(&modelview, angle, 1.0, 1.0, 1.0);
     // Compute the final MVP by multiplying the 
     // modevleiw and perspective matrices together
     MatrixMultiply(&mvpMatrix, &modelview, &perspective);
@@ -449,17 +449,36 @@ void draw_simple()
         float Position[3];
         float Color[4];
     } Vertex;
- 
     const Vertex Vertices[] = {
         {{1, -1, 0}, {1, 0, 0, 1}},
         {{1, 1, 0}, {0, 1, 0, 1}},
         {{-1, 1, 0}, {0, 0, 1, 1}},
-        {{-1, -1, 0}, {0, 0, 0, 1}}
+        {{-1, -1, 0}, {1, 1, 0, 1}},
+        {{1, -1, -1}, {1, 0, 1, 1}},
+        {{1, 1, -1}, {0, 1, 1, 1}},
+        {{-1, 1, -1}, {1, 1, 1, 1}},
+        {{-1, -1, -1}, {0, 0, 0, 1}}
     };
  
     const GLubyte Indices[] = {
+        // Front
         0, 1, 2,
-        2, 3, 0
+        2, 3, 0,
+        // Back
+        4, 6, 5,
+        4, 7, 6,
+        // Left
+        2, 7, 3,
+        7, 6, 2,
+        // Right
+        0, 4, 1,
+        4, 1, 5,
+        // Top
+        6, 2, 1, 
+        1, 6, 5,
+        // Bottom
+        0, 3, 7,
+        0, 7, 4    
     };
 
     Matrix matrix = mvp_update();
