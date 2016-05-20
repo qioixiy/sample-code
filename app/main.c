@@ -115,7 +115,7 @@ void* render_thread(void* p)
         draw_vertexs_update();
 
         next_viewport();
-        draw_simple();
+        //draw_simple();
 
         eglSwapBuffers(egl->display, egl->surface);
         FPS();
