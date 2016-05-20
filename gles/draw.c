@@ -249,16 +249,16 @@ Matrix mvp_update ()
     angle += .5f;
 
     // Compute the window aspect ratio
-    aspect = (GLfloat)320/(GLfloat)480;
+    aspect = (GLfloat)720/(GLfloat)480;
     // Generate a perspective matrix with a 60 degree FOV
     MatrixLoadIdentity(&perspective);
-    Perspective(&perspective, 60.0f, aspect, 1.0f, 20.0f);
+    Perspective(&perspective, 60.0f, aspect, 4.0f, 10.0f);
     // Generate a model view matrix to rotate/translate the cube
     MatrixLoadIdentity(&modelview);
     // Translate away from the viewer
     Translate(&modelview, 0.0, 0.0, -2.0);
     // Rotate the cube
-    Rotate(&modelview, angle, 1.0, 0.0, 1.0);
+    Rotate(&modelview, angle, .0, .0, 1.0);
     // Compute the final MVP by multiplying the 
     // modevleiw and perspective matrices together
     MatrixMultiply(&mvpMatrix, &modelview, &perspective);
@@ -441,23 +441,25 @@ void draw_simple()
     glUseProgram(program_object);
     GLint _positionSlot = glGetAttribLocation(program_object, "Position");
     GLint _colorSlot = glGetAttribLocation(program_object, "SourceColor");
-
+    GLuint _projectionUniform = glGetUniformLocation(program_object, "Projection");
     typedef struct {
         float Position[3];
         float Color[4];
     } Vertex;
  
     const Vertex Vertices[] = {
-        {{1, -1, 0}, {1, 0, 0, 1}},
-        {{1, 1, 0}, {0, 1, 0, 1}},
-        {{-1, 1, 0}, {0, 0, 1, 1}},
-        {{-1, -1, 0}, {0, 0, 0, 1}}
+        {{1, -1, -7}, {1, 0, 0, 1}},
+        {{1, 1, -7}, {0, 1, 0, 1}},
+        {{-1, 1, -7}, {0, 0, 1, 1}},
+        {{-1, -1, -7}, {0, 0, 0, 1}}
     };
  
     const GLubyte Indices[] = {
         0, 1, 2,
         2, 3, 0
     };
+
+    Matrix matrix = mvp_update();
 
     /* setupVBOs */
     GLuint vertexBuffer;
@@ -477,7 +479,9 @@ void draw_simple()
                           sizeof(Vertex), (GLvoid*) (sizeof(float) *3));
     glEnableVertexAttribArray(_positionSlot);
     glEnableVertexAttribArray(_colorSlot);
- 
+
+    glUniformMatrix4fv(_projectionUniform, 1, GL_FALSE, (GLfloat*)&matrix);
+
     glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]),
                    GL_UNSIGNED_BYTE, 0);
 }
