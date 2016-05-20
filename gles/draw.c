@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <math.h>
 #include <GLES2/gl2.h>
 
 #include "draw.h"
@@ -245,18 +246,20 @@ Matrix mvp_update ()
     Matrix modelview;
     float aspect;
    
-    static float angle = .0f;
-    angle += .5f;
-
     // Compute the window aspect ratio
     aspect = (GLfloat)720/(GLfloat)480;
+
     // Generate a perspective matrix with a 60 degree FOV
     MatrixLoadIdentity(&perspective);
     Perspective(&perspective, 60.0f, aspect, 4.0f, 10.0f);
+
+    static float angle = .0f;
+    angle += .001f;
+
     // Generate a model view matrix to rotate/translate the cube
     MatrixLoadIdentity(&modelview);
     // Translate away from the viewer
-    Translate(&modelview, 0.0, 0.0, -2.0);
+    Translate(&modelview, 0.0, 0.0, -7.0);
     // Rotate the cube
     Rotate(&modelview, angle, .0, .0, 1.0);
     // Compute the final MVP by multiplying the 
@@ -448,10 +451,10 @@ void draw_simple()
     } Vertex;
  
     const Vertex Vertices[] = {
-        {{1, -1, -7}, {1, 0, 0, 1}},
-        {{1, 1, -7}, {0, 1, 0, 1}},
-        {{-1, 1, -7}, {0, 0, 1, 1}},
-        {{-1, -1, -7}, {0, 0, 0, 1}}
+        {{1, -1, 0}, {1, 0, 0, 1}},
+        {{1, 1, 0}, {0, 1, 0, 1}},
+        {{-1, 1, 0}, {0, 0, 1, 1}},
+        {{-1, -1, 0}, {0, 0, 0, 1}}
     };
  
     const GLubyte Indices[] = {
