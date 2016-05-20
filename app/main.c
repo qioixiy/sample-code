@@ -62,7 +62,7 @@ void* render_thread(void* p)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     int index = -1;
-    int step = 3;
+    int step = 4;
     int step_width = width/step;
     int step_height = height/step;
     struct window* pwin = init_window(0, 0, width/step, height/step);
@@ -112,6 +112,9 @@ void* render_thread(void* p)
 
         next_viewport();
         draw_vertexs_update();
+
+        next_viewport();
+        draw_simple();
 
         eglSwapBuffers(egl->display, egl->surface);
         FPS();

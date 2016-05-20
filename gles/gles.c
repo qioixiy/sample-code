@@ -25,3 +25,12 @@ void print_gles_env(void)
     print_get(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS,
               &maxCombinedTextureUnits);
 }
+
+/* void setupFrameBuffer() */
+/* { */
+/*     GLuint framebuffer; */
+/*     glGenFramebuffers(1, &framebuffer); */
+/*     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer); */
+/*     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,  */
+/*                               GL_RENDERBUFFER, _colorRenderBuffer); */
+/* } */

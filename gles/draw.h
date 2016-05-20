@@ -11,5 +11,6 @@ void mvptest();
 void draw_vertexs_update();
 void draw_tetrahedron();
 void draw_antialiasfiltering();
+void draw_simple();
 
 #endif

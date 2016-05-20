@@ -428,3 +428,56 @@ void draw_antialiasfiltering()
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
 }
+
+void draw_simple()
+{
+    static GLuint program_object;
+    if (!program_object) {
+        program_object = make_program_object(
+           "gles/shaders/simple.vert",
+           "gles/shaders/simple.frag");
+    }
+
+    glUseProgram(program_object);
+    GLint _positionSlot = glGetAttribLocation(program_object, "Position");
+    GLint _colorSlot = glGetAttribLocation(program_object, "SourceColor");
+
+    typedef struct {
+        float Position[3];
+        float Color[4];
+    } Vertex;
+ 
+    const Vertex Vertices[] = {
+        {{1, -1, 0}, {1, 0, 0, 1}},
+        {{1, 1, 0}, {0, 1, 0, 1}},
+        {{-1, 1, 0}, {0, 0, 1, 1}},
+        {{-1, -1, 0}, {0, 0, 0, 1}}
+    };
+ 
+    const GLubyte Indices[] = {
+        0, 1, 2,
+        2, 3, 0
+    };
+
+    /* setupVBOs */
+    GLuint vertexBuffer;
+    GLuint indexBuffer;
+    glGenBuffers(1, &vertexBuffer);
+    glGenBuffers(1, &indexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices,
+                 GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices,
+                 GL_STATIC_DRAW);
+
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 
+                          sizeof(Vertex), 0);
+    glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, 
+                          sizeof(Vertex), (GLvoid*) (sizeof(float) *3));
+    glEnableVertexAttribArray(_positionSlot);
+    glEnableVertexAttribArray(_colorSlot);
+ 
+    glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]),
+                   GL_UNSIGNED_BYTE, 0);
+}
