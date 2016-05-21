@@ -5,6 +5,8 @@ CURPWD = $(PWD)
 OUT_DIR ?= out
 BUILD_DIR = $(CURPWD)/$(OUT_DIR)/$(TARGET)
 
+TARGET ?= x86
+
 ROOTFS =
 ifeq ($(TARGET), ARM)
 	ROOTFS=/home/cndul/work/zxq/IVI/ZXQ/external/VisionSDK/vision_sdk/linux/targetfs
@@ -31,8 +33,10 @@ LIBS-cairo = -lcairo -lpng -lpixman-1 -lfreetype -lfontconfig -lexpat
 LIBS += $(LIBS-cairo) $(LIBS-$(TARGET))
 
 # src
+APP_SRCS := \
+	app/render.c \
+	app/show_image.c
 C_SRCS := \
-	app/main.c \
 	egl/egl.c \
 	wayland/wayland.c \
 	gles/gles.c \
@@ -50,13 +54,11 @@ CXX_SRCS := \
 # objs
 OBJS := $(subst .c,.o,$(C_SRCS))
 OBJS += $(subst .cpp,.opp,$(CXX_SRCS))
+APP_OBJS := $(subst .c,.o,$(APP_SRCS))
 
-all:
-	TARGET=x86 make target-test
-	TARGET=ARM make target-test
+all: apps
 
 pre:
-	echo OBJS=$(OBJS)
 	@echo BUILD_DIR=$(BUILD_DIR)
 	@[ -d $(BUILD_DIR) ] || mkdir $(BUILD_DIR) -p
 
@@ -70,8 +72,14 @@ pre:
 	@[ -d $(BUILD_DIR)/$(<D) ] || mkdir $(BUILD_DIR)/$(<D) -p
 	@$(CXX) -c $(INC) $< -o $(BUILD_DIR)/$@
 
-target-test: pre $(OBJS)
-	cd $(BUILD_DIR) && $(CC) $(OBJS) $(LIB) $(LIBS) -o $(BUILD_DIR)/test
+apps: pre $(OBJS) app
+	@echo finish
+
+app: $(APP_OBJS)
+	@for a in $^; do \
+		echo CCLD `basename $$a .o` && \
+		cd $(BUILD_DIR) && $(CC) $$a $(OBJS) $(LIB) \
+		$(LIBS) -o $(BUILD_DIR)/`basename $$a .o`; done
 
 .PHONY: clean
 clean:

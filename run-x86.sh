@@ -1,1 +1,1 @@
-make && ./out/x86/test
+make && ./out/x86/render
