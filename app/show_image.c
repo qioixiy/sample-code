@@ -16,6 +16,7 @@
 #include "gles/draw.h"
 #include "cairo/cairo.h"
 #include "utils/util.h"
+#include "utils/png_load.h"
 #include "gui/ui.h"
 #include "log/log.h"
 
@@ -32,18 +33,61 @@ void* display_dispatch_thread(void* p)
     return 0;
 }
 
+void show_png()
+{
+    static GLuint program_object;
+    static GLuint texture_id_rgba = 0;
+    static unsigned char *png_buf;
+    static int width, height;
+
+    if (!program_object) {
+        program_object = get_program_object_showrgba();
+        load_png_image("utils/png-test.png", &png_buf, &width, &height);
+        texture_id_rgba = gen_texture_from_data(
+            png_buf, width, height, GL_RGBA);
+    }
+
+    // Get the attribute locations
+    GLint positionLoc = glGetAttribLocation(program_object, "a_position");
+    GLint texCoordLoc = glGetAttribLocation(program_object, "a_texCoord");
+    // Get the sampler location
+    GLint texture_rgba_loc
+        = glGetUniformLocation(program_object, "s_texture_rgba");
+
+    GLfloat vVertices[] = { -1.0f,  1.0f, 0.0f,  // Position 0
+                            0.0f,  0.0f,        // TexCoord 0 
+                            -1.0f, -1.0f, 0.0f,  // Position 1
+                            0.0f,  1.0f,        // TexCoord 1
+                            1.0f, -1.0f, 0.0f,  // Position 2
+                            1.0f,  1.0f,        // TexCoord 2
+                            1.0f,  1.0f, 0.0f,  // Position 3
+                            1.0f,  0.0f         // TexCoord 3
+    };
+    GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
+      
+    // Use the program object
+    glUseProgram(program_object);
+    // Load the vertex position
+    glVertexAttribPointer(positionLoc, 3, GL_FLOAT,
+                          GL_FALSE, 5 * sizeof(GLfloat), vVertices);
+    // Load the texture coordinate
+    glVertexAttribPointer(texCoordLoc, 2, GL_FLOAT,
+                          GL_FALSE, 5 * sizeof(GLfloat), &vVertices[3]);
+    glEnableVertexAttribArray(positionLoc);
+    glEnableVertexAttribArray(texCoordLoc);
+    // Bind the base texture
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture_id_rgba);
+    // Set the base sampler to texture unit to 0
+    glUniform1i(texture_rgba_loc, 0);
+
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+}
+
 void* render_thread(void* p)
 {
     /* egl init */    
-    int width = 640, height = 480;
-#if defined SHOW_YUYV
-    width = 640;
-    height = 480;
-#endif
-#if defined SHOW_NV12
-    width = 720;
-    height = 480;
-#endif
+    int width = 512, height = 512;
     struct wl_egl_window* p_wl_egl_window
         = (struct wl_egl_window*)wl_egl_window_create(window->p_wl_surface, width, height);
     if (!p_wl_egl_window) {
@@ -60,61 +104,16 @@ void* render_thread(void* p)
     //glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    int index = -1;
-    int step = 4;
-    int step_width = width/step;
-    int step_height = height/step;
-    struct window* pwin = init_window(0, 0, width/step, height/step);
-
-#define next_viewport()                                                 \
-    /* Set the viewport */                                              \
-        glViewport(index%step*step_width,                               \
-                   ++index/step*step_height,                            \
-                   step_width, step_height);                            \
+    /* Set the viewport */
+    glViewport(0, 0, width, height);
 
     while(1) {
-        index = 0;
-        // Clear the color buffer
-        //glClearColor(.0, .0, .0, .5);
         glClearColor(.0, .0, .0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //glDepthFunc(GL_LEQUAL);
         glEnable(GL_DEPTH_TEST);
 
-        pwin->op->draw(pwin);
-
-        next_viewport();
-        draw_tetrahedron();
-
-        next_viewport();
-        draw_antialiasfiltering();
-
-        next_viewport();
-        show_default(width, height);
-
-        next_viewport();
-#if defined SHOW_YUYV
-        show_yuyv(width, height);
-#endif
-#if defined SHOW_NV12
-        show_nv12(width, height);
-#endif
-
-        next_viewport();
-        show_rgba(width, height);
-
-        next_viewport();
-        extern int obj_test_draw();
-        obj_test_draw();
-
-        next_viewport();
-        mvptest();
-
-        next_viewport();
-        draw_vertexs_update();
-
-        next_viewport();
-        //draw_simple();
+        show_png();
 
         eglSwapBuffers(egl->display, egl->surface);
         FPS();

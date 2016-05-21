@@ -47,7 +47,8 @@ C_SRCS := \
 	cairo/cairo.c \
 	gui/ui.c \
 	utils/util.c \
-	utils/Matrix.c
+	utils/Matrix.c \
+	utils/png_load.c
 CXX_SRCS := \
 	utils/obj/loader.cpp
 
