@@ -50,21 +50,23 @@ static int init_gl()
 
     program = make_program_object("gles/shaders/cube.vert",
                                   "gles/shaders/cube.frag");
+	glUseProgram(program);
     
 	glBindAttribLocation(program, 0, "in_position");
 	glBindAttribLocation(program, 1, "in_normal");
 	glBindAttribLocation(program, 2, "in_color");
 	glBindAttribLocation(program, 3, "in_texuv");
 
-	glUseProgram(program);
-
-	modelviewmatrix = glGetUniformLocation(program, "modelviewMatrix");
+	modelviewmatrix =
+        glGetUniformLocation(program, "modelviewMatrix");
 	modelviewprojectionmatrix =
 		glGetUniformLocation(program, "modelviewprojectionMatrix");
-	normalmatrix = glGetUniformLocation(program, "normalMatrix");
-
-    texture_rgba_loc = glGetUniformLocation(program, "texture");
-	glViewport(0, 0, 512, 512);
+	normalmatrix =
+        glGetUniformLocation(program, "normalMatrix");
+    texture_rgba_loc =
+        glGetUniformLocation(program, "texture");
+    uniform_texture =
+        glGetUniformLocation(program, "uniform_texture");
 
     static unsigned char *png_buf;
     static int width, height;
@@ -88,9 +90,9 @@ static int init_gl()
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    uniform_texture = glGetUniformLocation(program, "uniform_texture");
     glUniform1i(uniform_texture, 0);
+
+	glViewport(0, 0, 512, 512);
 
 	return 0;
 }
@@ -235,15 +237,12 @@ static void draw()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices);
-	glEnableVertexAttribArray(0);
-
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, vNormals);
-	glEnableVertexAttribArray(1);
-
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, vColors);
-	glEnableVertexAttribArray(2);
-
 	glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 0, vTexUVs);
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
 	glEnableVertexAttribArray(3);
 
     float distance = 8.0;
@@ -277,7 +276,8 @@ static void draw()
 	normal[8] = modelview.m[2][2];
 
 	glUniformMatrix4fv(modelviewmatrix, 1, GL_FALSE, &modelview.m[0][0]);
-	glUniformMatrix4fv(modelviewprojectionmatrix, 1, GL_FALSE, &modelviewprojection.m[0][0]);
+	glUniformMatrix4fv(modelviewprojectionmatrix,
+                       1, GL_FALSE, &modelviewprojection.m[0][0]);
 	glUniformMatrix3fv(normalmatrix, 1, GL_FALSE, normal);
 
 	glEnable(GL_CULL_FACE);
