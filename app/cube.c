@@ -46,116 +46,13 @@ static int init_gl()
 	GLuint vertex_shader, fragment_shader;
 	GLint ret;
 
-	static const char *vertex_shader_source =
-        "uniform mat4 modelviewMatrix;      \n"
-        "uniform mat4 modelviewprojectionMatrix;\n"
-        "uniform mat3 normalMatrix;         \n"
-        "                                   \n"
-        "attribute vec4 in_position;        \n"
-        "attribute vec3 in_normal;          \n"
-        "attribute vec4 in_color;           \n"
-        "attribute vec2 in_texuv;           \n"
-        "\n"
-        "vec4 lightSource = vec4(2.0, 2.0, 20.0, 0.0);\n"
-        "                                   \n"
-        "varying float VaryingLight;        \n"
-        "varying vec2 vVaryingTexUV;        \n"
-        "                                   \n"
-        "void main()                        \n"
-        "{                                  \n"
-        "    gl_Position = modelviewprojectionMatrix * in_position;\n"
-        "    vec3 vEyeNormal = normalMatrix * in_normal;\n"
-        "    vec4 vPosition4 = modelviewMatrix * in_position;\n"
-        "    vec3 vPosition3 = vPosition4.xyz / vPosition4.w;\n"
-        "    vec3 vLightDir = normalize(lightSource.xyz - vPosition3);\n"
-        "    VaryingLight = max(0.0, dot(vEyeNormal, vLightDir));\n"
-        "    vVaryingTexUV = in_texuv;      \n"
-        "}                                  \n";
-
-	static const char *fragment_shader_source =
-        "#extension GL_OES_EGL_image_external : require\n"
-        "                                   \n"
-        "precision mediump float;           \n"
-        "                                   \n"
-        "uniform samplerExternalOES texture;\n"
-        "                                   \n"
-        "varying float VaryingLight;        \n"
-        "varying vec2 vVaryingTexUV;        \n"
-        "                                   \n"
-        "void main()                        \n"
-        "{                                  \n"
-        "    vec4 t = texture2D(texture, vVaryingTexUV);\n"
-        "    gl_FragColor = vec4(VaryingLight * t.rgb, 1.0);\n"
-        "}                                  \n";
-
-	vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-
-	glShaderSource(vertex_shader, 1, &vertex_shader_source, NULL);
-	glCompileShader(vertex_shader);
-
-	glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &ret);
-	if (!ret) {
-		char *log;
-
-		ERROR("vertex shader compilation failed!:");
-		glGetShaderiv(vertex_shader, GL_INFO_LOG_LENGTH, &ret);
-		if (ret > 1) {
-			log = malloc(ret);
-			glGetShaderInfoLog(vertex_shader, ret, NULL, log);
-			ERROR("%s", log);
-		}
-
-		return -1;
-	}
-
-	fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-
-	glShaderSource(fragment_shader, 1, &fragment_shader_source, NULL);
-	glCompileShader(fragment_shader);
-
-	glGetShaderiv(fragment_shader, GL_COMPILE_STATUS, &ret);
-	if (!ret) {
-		char *log;
-
-		ERROR("fragment shader compilation failed!:");
-		glGetShaderiv(fragment_shader, GL_INFO_LOG_LENGTH, &ret);
-
-		if (ret > 1) {
-			log = malloc(ret);
-			glGetShaderInfoLog(fragment_shader, ret, NULL, log);
-			ERROR("%s", log);
-		}
-
-		return -1;
-	}
-
-	program = glCreateProgram();
-
-	glAttachShader(program, vertex_shader);
-	glAttachShader(program, fragment_shader);
-
+    program = make_program_object("gles/shaders/cube.vert",
+                                  "gles/shaders/cube.frag");
+    
 	glBindAttribLocation(program, 0, "in_position");
 	glBindAttribLocation(program, 1, "in_normal");
 	glBindAttribLocation(program, 2, "in_color");
 	glBindAttribLocation(program, 3, "in_texuv");
-
-	glLinkProgram(program);
-
-	glGetProgramiv(program, GL_LINK_STATUS, &ret);
-	if (!ret) {
-		char *log;
-
-		printf("program linking failed!:");
-		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &ret);
-
-		if (ret > 1) {
-			log = malloc(ret);
-			glGetProgramInfoLog(program, ret, NULL, log);
-			printf("%s", log);
-		}
-
-		return -1;
-	}
 
 	glUseProgram(program);
 
