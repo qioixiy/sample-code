@@ -35,7 +35,9 @@ LIBS += $(LIBS-cairo) $(LIBS-$(TARGET))
 # src
 APP_SRCS := \
 	app/render.c \
-	app/show_image.c
+	app/show_image.c \
+	app/cube.c \
+
 C_SRCS := \
 	egl/egl.c \
 	wayland/wayland.c \
@@ -48,9 +50,10 @@ C_SRCS := \
 	gui/ui.c \
 	utils/util.c \
 	utils/Matrix.c \
-	utils/png_load.c
+	utils/png_load.c \
+
 CXX_SRCS := \
-	utils/obj/loader.cpp
+	utils/obj/loader.cpp \
 
 # objs
 OBJS := $(subst .c,.o,$(C_SRCS))
