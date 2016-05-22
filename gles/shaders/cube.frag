@@ -12,5 +12,4 @@ void main()
 {
     vec4 t = texture2D(texture, vVaryingTexUV);
     gl_FragColor = vec4(VaryingLight * t.rgb, 1.0);
-//    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }

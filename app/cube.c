@@ -38,6 +38,8 @@ void* display_dispatch_thread(void* p)
 GLuint program;
 GLint modelviewmatrix, modelviewprojectionmatrix, normalmatrix, uniform_texture;
 GLuint texture_name;
+GLuint texture_id_rgba;
+GLint texture_rgba_loc;
 
 #define ERROR printf
 static int init_gl()
@@ -61,11 +63,23 @@ static int init_gl()
 		glGetUniformLocation(program, "modelviewprojectionMatrix");
 	normalmatrix = glGetUniformLocation(program, "normalMatrix");
 
+    texture_rgba_loc = glGetUniformLocation(program, "texture");
 	glViewport(0, 0, 512, 512);
 
+    static unsigned char *png_buf;
+    static int width, height;
+    load_png_image("utils/png-test.png", &png_buf, &width, &height);
+    texture_id_rgba = gen_texture_from_data(
+        png_buf, width, height, GL_RGBA);
+
 	// Texture.
-	glGenTextures(1, &texture_name);
-	glBindTexture(GL_TEXTURE_2D, texture_name);
+	/* glGenTextures(1, &texture_name); */
+	/* glBindTexture(GL_TEXTURE_2D, texture_name); */
+    // Bind the base texture
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture_id_rgba);
+    // Set the base sampler to texture unit to 0
+    glUniform1i(texture_rgba_loc, 0);
 
 	if (glGetError() != GL_NO_ERROR) {
 		ERROR("glBindTexture!");
