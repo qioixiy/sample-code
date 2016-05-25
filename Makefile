@@ -37,6 +37,7 @@ APP_SRCS := \
 	app/render.c \
 	app/show_image.c \
 	app/cube.c \
+	app/cube2.c \
 
 C_SRCS := \
 	egl/egl.c \
