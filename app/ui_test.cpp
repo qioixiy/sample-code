@@ -33,9 +33,46 @@ void* display_dispatch_thread(void* p)
     return 0;
 }
 
-void render_main(surface *surf)
+
+widget* create_root_widget(surface* surf, int w, int h)
 {
-    surf->redraw();
+    /* create root widget */
+    widget *root_wid = new widget(0, 0, w, h);
+    root_wid->set_name("root_wid");
+    root_wid->surf = surf;
+    root_wid->bg_color.r = 128;
+
+    // add child widget
+    widget *child_wid = new widget(w/4, h/4, w/2, h/2);
+    child_wid->set_name("child_wid");
+    child_wid->bg_color.g = 128;
+    root_wid->add_sub_widget(child_wid);
+
+    // add child's sibling widget
+    widget *child_sibling_wid = new widget(w/8, h/8, w/4, h/4);
+    child_sibling_wid->bg_color.b = 128;
+    root_wid->add_sub_widget(child_sibling_wid);
+
+    // add child's child widget
+    widget *child_child_wid = new widget(w/16, h/16, w/4, h/4);
+    child_child_wid->bg_color.r = 128;
+    child_child_wid->bg_color.b = 128;
+    child_wid->add_sub_widget(child_child_wid);
+
+
+    surf->set_root_widget(root_wid);
+    root_wid->dump();
+
+    return root_wid;
+}
+
+surface* surface_init(int x, int y, int w, int h)
+{
+    surface* surf = new surface(x, y, w, h);
+
+    surf->set_root_widget(create_root_widget(surf, w, h));
+
+    return surf;
 }
 
 void* render_thread(void* p)
@@ -45,7 +82,7 @@ void* render_thread(void* p)
     struct wl_egl_window* p_wl_egl_window
         = (struct wl_egl_window*)wl_egl_window_create(window->p_wl_surface, width, height);
     if (!p_wl_egl_window) {
-        printf("wl_egl_window_create error\n");
+        log_e("wl_egl_window_create error\n");
     }
     egl = egl_init((EGLNativeDisplayType)window->p_wl_display,
                    (EGLNativeWindowType)p_wl_egl_window);
@@ -65,13 +102,11 @@ void* render_thread(void* p)
     surface *surf = surface_init(0, 0, width, height);
 
     while(1) {
-        /* Set the viewport */
         glViewport(0, 0, width, height);
-
         glClearColor(.0, .0, .0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        render_main(surf);
+        surf->redraw();
 
         eglSwapBuffers(egl->display, egl->surface);
         FPS();

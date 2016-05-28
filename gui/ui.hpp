@@ -54,6 +54,7 @@ class surface {
 public:
     surface(int x, int y, int width, int height);
     int set_root_widget(widget*);
+    void draw(Node *);
     void redraw();
 
 protected:

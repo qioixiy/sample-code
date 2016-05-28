@@ -3,6 +3,10 @@
 #define _LOG_H_
 #include <stdio.h>
 
+#ifdef _cplusplus
+extern "C" {
+#endif
+
 #define __op printf
 
 #define RED(fmt) "\x1b[31m" fmt "\x1b[0m"
@@ -15,5 +19,9 @@
 #define log_e(...) __op(RED("E:") __VA_ARGS__)
 #define log log_d
 #define logl(...) log(__VA_ARGS__ "\n")
+
+#ifdef _cplusplus
+}
+#endif
 
 #endif

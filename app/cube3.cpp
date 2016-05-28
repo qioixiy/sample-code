@@ -229,7 +229,7 @@ static void draw()
     glEnableVertexAttribArray(texCoordLoc);
     glVertexAttribPointer(texCoordLoc, 2, GL_FLOAT, GL_FALSE, 0, cubeTexels);
     
-    glDrawArrays(GL_TRIANGLES, 0, cubeVertices - 2);
+    glDrawArrays(GL_TRIANGLES, 0, cubeVertices);
 }
 
 void* render_thread(void* p)
