@@ -14,8 +14,8 @@ ifeq ($(TARGET), ARM)
 endif
 
 # compiler
-CC = $(CROSS_COMPILE)gcc
-CXX = $(CROSS_COMPILE)g++
+CC = $(CROSS_COMPILE)gcc -g
+CXX = $(CROSS_COMPILE)g++ -g
 
 # include
 INC = -I$(ROOTFS)/usr/include -I$(CURPWD)
@@ -33,7 +33,7 @@ LIBS-cairo = -lcairo -lpng -lpixman-1 -lfreetype -lfontconfig -lexpat
 LIBS += $(LIBS-cairo) $(LIBS-$(TARGET))
 
 # src
-APP_SRCS := \
+APP_C_SRCS := \
 	app/render.c \
 	app/show_image.c \
 	app/cube.c \
@@ -42,7 +42,6 @@ APP_SRCS := \
 APP_CPP_SRCS := \
 	app/ui_test.cpp \
 	app/cube3.cpp
-
 
 C_SRCS := \
 	egl/egl.c \
@@ -53,7 +52,6 @@ C_SRCS := \
 	gles/draw.c \
 	utils/file.c \
 	cairo/cairo.c \
-	gui/ui.c \
 	utils/util.c \
 	utils/Matrix.c \
 	utils/png_load.c \
@@ -61,11 +59,14 @@ C_SRCS := \
 
 CXX_SRCS := \
 	utils/obj/loader.cpp \
+	gui/ui.cpp \
+	gui/node.cpp \
 
 # objs
 OBJS := $(subst .c,.o,$(C_SRCS))
 OBJS += $(subst .cpp,.opp,$(CXX_SRCS))
-APP_OBJS := $(subst .c,.o,$(APP_SRCS))
+APP_C_OBJS := $(subst .c,.o,$(APP_C_SRCS))
+APP_CPP_OBJS := $(subst .cpp,.opp,$(APP_CPP_SRCS))
 
 all: apps
 
@@ -83,14 +84,18 @@ pre:
 	@[ -d $(BUILD_DIR)/$(<D) ] || mkdir $(BUILD_DIR)/$(<D) -p
 	@$(CXX) -c $(INC) $< -o $(BUILD_DIR)/$@
 
-apps: pre $(OBJS) app
+apps: pre $(OBJS) app_c app_cxx
 	@echo finish
-
-app: $(APP_OBJS)
+app_c: $(APP_C_OBJS)
 	@for a in $^; do \
 		echo CCLD `basename $$a .o` && \
-		cd $(BUILD_DIR) && $(CC) $$a $(OBJS) $(LIB) \
+		cd $(BUILD_DIR) && $(CC) $$a $(OBJS) $(LIB)\
 		$(LIBS) -o $(BUILD_DIR)/`basename $$a .o`; done
+app_cxx: $(APP_CPP_OBJS)
+	@for a in $^; do \
+		echo CXXLD `basename $$a .opp` && \
+		cd $(BUILD_DIR) && $(CXX) $$a $(OBJS) $(LIB)\
+		$(LIBS) -o $(BUILD_DIR)/`basename $$a .opp`; done
 
 .PHONY: clean
 clean:

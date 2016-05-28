@@ -18,7 +18,6 @@
 #include "utils/util.h"
 #include "utils/png_load.h"
 #include "utils/Matrix.h"
-#include "gui/ui.h"
 #include "log/log.h"
 
 struct window_wayland *window;

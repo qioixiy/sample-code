@@ -16,7 +16,9 @@
 #include "gles/draw.h"
 #include "cairo/cairo.h"
 #include "utils/util.h"
+#include "utils/png_load.h"
 #include "log/log.h"
+#include "gui/ui.hpp"
 
 struct window_wayland *window;
 struct egl_wayland* egl;
@@ -31,19 +33,15 @@ void* display_dispatch_thread(void* p)
     return 0;
 }
 
-#define SHOW_NV12
+void render_main(surface *surf)
+{
+    surf->redraw();
+}
+
 void* render_thread(void* p)
 {
     /* egl init */    
-    int width = 640, height = 480;
-#if defined SHOW_YUYV
-    width = 640;
-    height = 480;
-#endif
-#if defined SHOW_NV12
-    width = 720;
-    height = 480;
-#endif
+    int width = 480, height = 640;
     struct wl_egl_window* p_wl_egl_window
         = (struct wl_egl_window*)wl_egl_window_create(window->p_wl_surface, width, height);
     if (!p_wl_egl_window) {
@@ -55,63 +53,25 @@ void* render_thread(void* p)
     /* init */
     print_gles_env();
 
+    // blend
     glEnable (GL_BLEND);
     //glBlendFunc(GL_SRC_ALPHA, GL_ONE);
     //glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    // depth
+    glDepthFunc(GL_LEQUAL);
+    glEnable(GL_DEPTH_TEST);
 
-    int index = -1;
-    int step = 4;
-    int step_width = width/step;
-    int step_height = height/step;
-
-#define next_viewport()                                                 \
-    /* Set the viewport */                                              \
-        glViewport(index%step*step_width,                               \
-                   ++index/step*step_height,                            \
-                   step_width, step_height);                            \
+    surface *surf = surface_init(0, 0, width, height);
 
     while(1) {
-        index = 0;
-        // Clear the color buffer
-        //glClearColor(.0, .0, .0, .5);
+        /* Set the viewport */
+        glViewport(0, 0, width, height);
+
         glClearColor(.0, .0, .0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        //glDepthFunc(GL_LEQUAL);
-        glEnable(GL_DEPTH_TEST);
 
-        next_viewport();
-        draw_tetrahedron();
-
-        next_viewport();
-        draw_antialiasfiltering();
-
-        next_viewport();
-        show_default(width, height);
-
-        next_viewport();
-#if defined SHOW_YUYV
-        show_yuyv(width, height);
-#endif
-#if defined SHOW_NV12
-        show_nv12(width, height);
-#endif
-
-        next_viewport();
-        show_rgba(width, height);
-
-        next_viewport();
-        extern int obj_test_draw();
-        obj_test_draw();
-
-        next_viewport();
-        mvptest();
-
-        next_viewport();
-        draw_vertexs_update();
-
-        next_viewport();
-        //draw_simple();
+        render_main(surf);
 
         eglSwapBuffers(egl->display, egl->surface);
         FPS();

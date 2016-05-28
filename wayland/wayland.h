@@ -4,6 +4,11 @@
 
 #include <EGL/egl.h>
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 struct window_wayland {
     struct wl_display *p_wl_display;
     struct wl_registry* p_wl_registry;
@@ -20,5 +25,9 @@ struct window_wayland {
 };
 
 struct window_wayland* wayland_init();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
