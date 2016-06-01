@@ -4,6 +4,11 @@
 #include <GLES2/gl2.h>
 #include <EGL/egl.h>
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 typedef struct
 {
     GLfloat m[4][4];
@@ -17,5 +22,9 @@ void Perspective(Matrix *result, float fovy, float aspect, float nearZ, float fa
 void Ortho(Matrix *result, float left, float right, float bottom, float top, float nearZ, float farZ);
 void MatrixMultiply(Matrix *result, Matrix *srcA, Matrix *srcB);
 void MatrixLoadIdentity(Matrix *result);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

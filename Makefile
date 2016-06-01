@@ -39,6 +39,11 @@ APP_SRCS := \
 	app/cube.c \
 	app/cube2.c \
 
+APP_CPP_SRCS := \
+	app/ui_test.cpp \
+	app/cube3.cpp
+
+
 C_SRCS := \
 	egl/egl.c \
 	wayland/wayland.c \
@@ -52,6 +57,7 @@ C_SRCS := \
 	utils/util.c \
 	utils/Matrix.c \
 	utils/png_load.c \
+	utils/blender2opengles/cube.c \
 
 CXX_SRCS := \
 	utils/obj/loader.cpp \
