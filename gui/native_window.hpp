@@ -1,4 +1,7 @@
 
+#ifndef _NATIVE_WINDOW_HPP_
+#define _NATIVE_WINDOW_HPP_
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -17,23 +20,16 @@
 #include "utils/util.h"
 #include "utils/png_load.h"
 #include "utils/Matrix.h"
-#include "gui/ui.hpp"
 
-class app {
+class native_window {
+public:
+    int width;
+    int height;
+    struct window_wayland *win;
+    struct egl_wayland* egl;
 
 public:
-    int quit;
-    void* (*draw)(void*);
-    pthread_t dispatch_pid;
-    window* win;
-
-public:
-    app();
-    virtual ~app();
-    int run();
-    int set_window(window*);
-
-private:
-    void* render_thread(void*);
-    static void* display_dispatch_thread(void*);
+    native_window(int = 100, int = 100);
 };
+
+#endif

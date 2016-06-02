@@ -3,6 +3,7 @@
 #define _WINDOW_HPP_
 
 #include "window.hpp"
+#include "native_window.hpp"
 #include "node.hpp"
 
 class widget;
@@ -13,16 +14,19 @@ class window {
     friend class widget;
 
 public:
-    window(int x, int y, int width, int height);
+    window(int x = 0, int y = 0, int width = 100, int height = 100);
+    void draw(Node*);
+    void redraw();
     int set_root_widget(widget*);
     widget* get_root_widget();
-    void draw(Node *);
-    void redraw();
+    native_window* get_native_window();
+    void set_native_window(native_window*);
 
 protected:
     int abs_x, abs_y;
     int width, height;
 
+    native_window *mp_native_window;
     widget* root_widget;
 };
 

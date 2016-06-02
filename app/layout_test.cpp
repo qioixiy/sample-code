@@ -54,9 +54,11 @@ widget* create_root_widget(window* win, int w, int h)
 }
 
 window* win;
-window* window_init(int x, int y, int w, int h)
+window* window_init()
 {
-    window* win = new window(x, y, w, h);
+    int w = 720;
+    int h = 480;
+    window* win = new window(0, 0, w, h);
 
     win->set_root_widget(create_root_widget(win, w, h));
 
@@ -74,7 +76,7 @@ void gl_init()
     glDepthFunc(GL_LEQUAL);
     glEnable(GL_DEPTH_TEST);
 
-    glViewport(0, 0, 512, 512);
+    //glViewport(0, 0, 512, 512);
     glClearColor(.0, .0, .0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
@@ -82,7 +84,7 @@ void gl_init()
 void init()
 {
     gl_init();
-    win = window_init(0, 0, 512, 512);
+    win = window_init();
 }
 
 void* draw(void* p)
@@ -97,8 +99,7 @@ int main(int argc, char **argv)
     app *_app = new app();
 
     init();
-
-    _app->set_drawable(draw);
+    _app->set_window(win);
     _app->run();
 
     return 0;

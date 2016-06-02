@@ -15,6 +15,7 @@ window::window(int x, int y, int width, int height)
     abs_y = y;
     width = width;
     height = height;
+    mp_native_window = new native_window(width, height);
 }
 
 void window::draw(Node *node)
@@ -56,6 +57,10 @@ void window::draw(Node *node)
 void window::redraw()
 {
     draw(root_widget);
+
+    // swap back,front buffer
+    eglSwapBuffers(get_native_window()->egl->display,
+                   get_native_window()->egl->surface);
 }
 
 int window::set_root_widget(widget* wid)
@@ -68,4 +73,14 @@ int window::set_root_widget(widget* wid)
 widget* window::get_root_widget()
 {
     return root_widget;
+}
+
+native_window* window::get_native_window()
+{
+    return mp_native_window;
+}
+
+void window::set_native_window(native_window* nwin)
+{
+    mp_native_window = nwin;
 }

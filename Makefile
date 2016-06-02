@@ -42,7 +42,6 @@ APP_C_SRCS := \
 APP_CPP_SRCS := \
 	app/ui_test.cpp \
 	app/cube3.cpp \
-	app/app_main_test.cpp \
 	app/layout_test.cpp \
 
 C_SRCS := \
@@ -64,6 +63,7 @@ CXX_SRCS := \
 	gui/common.cpp \
 	gui/node.cpp \
 	gui/window.cpp \
+	gui/native_window.cpp \
 	gui/widget.cpp \
 	common/app.cpp \
 
