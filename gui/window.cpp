@@ -64,3 +64,8 @@ int window::set_root_widget(widget* wid)
 
     return 0;
 }
+
+widget* window::get_root_widget()
+{
+    return root_widget;
+}

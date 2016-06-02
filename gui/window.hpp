@@ -15,6 +15,7 @@ class window {
 public:
     window(int x, int y, int width, int height);
     int set_root_widget(widget*);
+    widget* get_root_widget();
     void draw(Node *);
     void redraw();
 
