@@ -41,7 +41,8 @@ APP_C_SRCS := \
 
 APP_CPP_SRCS := \
 	app/ui_test.cpp \
-	app/cube3.cpp
+	app/cube3.cpp \
+	app/app_main_test.cpp \
 
 C_SRCS := \
 	egl/egl.c \
@@ -61,6 +62,7 @@ CXX_SRCS := \
 	utils/obj/loader.cpp \
 	gui/ui.cpp \
 	gui/node.cpp \
+	common/app.cpp \
 
 # objs
 OBJS := $(subst .c,.o,$(C_SRCS))
