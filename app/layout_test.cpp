@@ -21,13 +21,18 @@
 #include "gui/ui.hpp"
 #include "common/app.hpp"
 
-widget* create_root_widget(window* win, int w, int h)
+window* win;
+window* window_init(int w, int h)
 {
+    window* win = new window(0, 0, w, h);
+
     /* create root widget */
     widget *root_wid = new widget(0, 0, w, h);
-    root_wid->set_name("root_wid");
+    root_wid->set_name("root");
     root_wid->win = win;
     root_wid->bg_color.r = 128;
+    root_wid->dump();
+    win->set_root_widget(root_wid);
 
     // add child widget
     widget *child_wid = new widget(w/4, h/4, w/2, h/2);
@@ -45,22 +50,6 @@ widget* create_root_widget(window* win, int w, int h)
     child_child_wid->bg_color.r = 128;
     child_child_wid->bg_color.b = 128;
     child_wid->add_sub_widget(child_child_wid);
-
-
-    win->set_root_widget(root_wid);
-    root_wid->dump();
-
-    return root_wid;
-}
-
-window* win;
-window* window_init()
-{
-    int w = 720;
-    int h = 480;
-    window* win = new window(0, 0, w, h);
-
-    win->set_root_widget(create_root_widget(win, w, h));
 
     return win;
 }
@@ -84,7 +73,7 @@ void gl_init()
 void init()
 {
     gl_init();
-    win = window_init();
+    win = window_init(720, 480);
 }
 
 void* draw(void* p)
