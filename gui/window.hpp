@@ -7,13 +7,13 @@
 
 class widget;
 
-/* surface */
-class surface {
+/* window */
+class window {
 
     friend class widget;
 
 public:
-    surface(int x, int y, int width, int height);
+    window(int x, int y, int width, int height);
     int set_root_widget(widget*);
     void draw(Node *);
     void redraw();
@@ -25,6 +25,6 @@ protected:
     widget* root_widget;
 };
 
-surface* surface_init(int x, int y, int w, int h);
+window* window_init(int x, int y, int w, int h);
 
 #endif

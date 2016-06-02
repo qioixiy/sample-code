@@ -29,8 +29,8 @@ int widget::hide()
 int widget::redraw()
 {
     int x,y,w,h;
-    x = surf->abs_x + abs_x;
-    y = surf->abs_y + abs_y;
+    x = win->abs_x + abs_x;
+    y = win->abs_y + abs_y;
     w = width;
     h = height;
 
@@ -43,7 +43,7 @@ int widget::redraw()
 int widget::add_sub_widget(struct widget* wid)
 {
     wid->link_this_to_parent_last(this);
-    wid->surf = surf;
+    wid->win = win;
 
     return 0;
 }

@@ -8,8 +8,8 @@
 #include "window.hpp"
 #include "widget.hpp"
 
-/* surface */
-surface::surface(int x, int y, int width, int height)
+/* window */
+window::window(int x, int y, int width, int height)
 {
     abs_x = x;
     abs_y = y;
@@ -17,7 +17,7 @@ surface::surface(int x, int y, int width, int height)
     height = height;
 }
 
-void surface::draw(Node *node)
+void window::draw(Node *node)
 {
     if (!node) {
         printf("node==null\n");
@@ -53,12 +53,12 @@ void surface::draw(Node *node)
     index--;
 }
 
-void surface::redraw()
+void window::redraw()
 {
     draw(root_widget);
 }
 
-int surface::set_root_widget(widget* wid)
+int window::set_root_widget(widget* wid)
 {
     root_widget = wid;
 

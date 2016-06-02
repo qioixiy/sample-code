@@ -5,12 +5,12 @@
 #include "node.hpp"
 #include "common.hpp"
 
-class surface;
+class window;
 
 /* widget */
 class widget : public Node {
 
-    friend class surface;
+    friend class window;
 
 public:
     widget(int x, int y, int w, int h);
@@ -25,7 +25,7 @@ public:
     int width, height;
     int is_show;
     color_rgba bg_color;
-    surface *surf;
+    window *win;
 };
 
 #endif
