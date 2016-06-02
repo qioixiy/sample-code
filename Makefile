@@ -60,8 +60,10 @@ C_SRCS := \
 
 CXX_SRCS := \
 	utils/obj/loader.cpp \
-	gui/ui.cpp \
+	gui/common.cpp \
 	gui/node.cpp \
+	gui/window.cpp \
+	gui/widget.cpp \
 	common/app.cpp \
 
 # objs
