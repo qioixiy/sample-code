@@ -78,6 +78,7 @@ all: apps
 pre:
 	@echo BUILD_DIR=$(BUILD_DIR)
 	@[ -d $(BUILD_DIR) ] || mkdir $(BUILD_DIR) -p
+	@[ -d $(BUILD_DIR)/bin ] || mkdir $(BUILD_DIR)/bin -p
 
 %.o: %.c
 	@echo CC $^
@@ -95,12 +96,12 @@ app_c: $(APP_C_OBJS)
 	@for a in $^; do \
 		echo CCLD `basename $$a .o` && \
 		cd $(BUILD_DIR) && $(CC) $$a $(OBJS) $(LIB)\
-		$(LIBS) -o $(BUILD_DIR)/`basename $$a .o`; done
+		$(LIBS) -o $(BUILD_DIR)/bin/`basename $$a .o`; done
 app_cxx: $(APP_CPP_OBJS)
 	@for a in $^; do \
 		echo CXXLD `basename $$a .opp` && \
 		cd $(BUILD_DIR) && $(CXX) $$a $(OBJS) $(LIB)\
-		$(LIBS) -o $(BUILD_DIR)/`basename $$a .opp`; done
+		$(LIBS) -o $(BUILD_DIR)/bin/`basename $$a .opp`; done
 
 .PHONY: clean
 clean:
