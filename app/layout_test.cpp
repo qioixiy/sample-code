@@ -21,34 +21,24 @@
 #include "gui/ui.hpp"
 #include "common/app.hpp"
 
-window* win;
 window* window_init(int w, int h)
 {
     window* win = new window(0, 0, w, h);
 
-    /* create root widget */
-    widget *root_wid = new widget(0, 0, w, h);
-    root_wid->set_name("root");
-    root_wid->win = win;
-    root_wid->bg_color.r = 128;
-    root_wid->dump();
-    win->set_root_widget(root_wid);
-
     // add child widget
     widget *child_wid = new widget(w/4, h/4, w/2, h/2);
     child_wid->set_name("child_wid");
-    child_wid->bg_color.g = 128;
-    root_wid->add_sub_widget(child_wid);
+    child_wid->bg_color = {128};
+    win->get_root_widget()->add_sub_widget(child_wid);
 
     // add child's sibling widget
     widget *child_sibling_wid = new widget(w/8, h/8, w/4, h/4);
-    child_sibling_wid->bg_color.b = 128;
-    root_wid->add_sub_widget(child_sibling_wid);
+    child_sibling_wid->bg_color = {0, 128};
+    win->get_root_widget()->add_sub_widget(child_sibling_wid);
 
     // add child's child widget
     widget *child_child_wid = new widget(w/16, h/16, w/4, h/4);
-    child_child_wid->bg_color.r = 128;
-    child_child_wid->bg_color.b = 128;
+    child_child_wid->bg_color = {0, 0, 128};
     child_wid->add_sub_widget(child_child_wid);
 
     return win;
@@ -70,25 +60,12 @@ void gl_init()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void init()
-{
-    gl_init();
-    win = window_init(720, 480);
-}
-
-void* draw(void* p)
-{
-    win->redraw();
-
-    return NULL;
-}
-
 int main(int argc, char **argv)
 {
     app *_app = new app();
 
-    init();
-    _app->set_window(win);
+    gl_init();
+    _app->set_window(window_init(720, 480));
     _app->run();
 
     return 0;

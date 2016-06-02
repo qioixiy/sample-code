@@ -18,9 +18,10 @@ public:
     void draw(Node*);
     void redraw();
     int set_root_widget(widget*);
+    void set_native_window(native_window*);
+    void init();
     widget* get_root_widget();
     native_window* get_native_window();
-    void set_native_window(native_window*);
 
 protected:
     int abs_x, abs_y;

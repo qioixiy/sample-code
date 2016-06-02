@@ -13,9 +13,11 @@ window::window(int x, int y, int width, int height)
 {
     abs_x = x;
     abs_y = y;
-    width = width;
-    height = height;
+    this->width = width;
+    this->height = height;
     mp_native_window = new native_window(width, height);
+
+    init();
 }
 
 void window::draw(Node *node)
@@ -83,4 +85,15 @@ native_window* window::get_native_window()
 void window::set_native_window(native_window* nwin)
 {
     mp_native_window = nwin;
+}
+
+void window::init()
+{
+    /* create root widget */
+    widget *root_wid = new widget(0, 0, width, height);
+    root_wid->set_name("root");
+    root_wid->win = this;
+    root_wid->bg_color = {128, 128, 128};
+    root_wid->dump();
+    set_root_widget(root_wid);
 }
