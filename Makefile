@@ -17,6 +17,8 @@ endif
 CC = $(CROSS_COMPILE)gcc -g
 CXX = $(CROSS_COMPILE)g++ -g
 
+CXX_FLAGS = -std=c++11
+
 # include
 INC = -I$(ROOTFS)/usr/include -I$(CURPWD)
 INC-cairo=$(ROOTFS)/usr/include/cairo
@@ -88,7 +90,7 @@ pre:
 %.opp: %.cpp
 	@echo CXX $^
 	@[ -d $(BUILD_DIR)/$(<D) ] || mkdir $(BUILD_DIR)/$(<D) -p
-	@$(CXX) -c $(INC) $< -o $(BUILD_DIR)/$@
+	@$(CXX) -c $(INC) $(CXX_FLAGS) $< -o $(BUILD_DIR)/$@
 
 apps: pre $(OBJS) app_c app_cxx
 	@echo finish
