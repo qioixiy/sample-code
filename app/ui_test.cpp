@@ -33,30 +33,37 @@ void* display_dispatch_thread(void* p)
     return 0;
 }
 
+/*
+ * root--------child^1--------child^2
+ *                |
+ *                |sibling
+ *             child^1#s1
+ *             child^1#s2
+ */
 widget* create_root_widget(window* win, int w, int h)
 {
     /* create root widget */
     widget *root_wid = new widget(0, 0, w, h);
     root_wid->set_name("root_wid");
     root_wid->win = win;
-    root_wid->bg_color.r = 128;
 
     // add child widget
     widget *child_wid = new widget(w/4, h/4, w/2, h/2);
     child_wid->set_name("child_wid");
     child_wid->bg_color.g = 128;
-    root_wid->add_sub_widget(child_wid);
+    root_wid->add_child_widget(child_wid);
 
     // add child's sibling widget
     widget *child_sibling_wid = new widget(w/8, h/8, w/4, h/4);
+    child_sibling_wid->set_name("child_sibling_wid");
     child_sibling_wid->bg_color.b = 128;
-    root_wid->add_sub_widget(child_sibling_wid);
+    root_wid->add_child_widget(child_sibling_wid);
 
     // add child's child widget
-    widget *child_child_wid = new widget(w/16, h/16, w/4, h/4);
+    widget *child_child_wid = new widget_image(w/16, h/16, w/4, h/4);
     child_child_wid->bg_color.r = 128;
     child_child_wid->bg_color.b = 128;
-    child_wid->add_sub_widget(child_child_wid);
+    child_wid->add_child_widget(child_child_wid);
 
 
     win->set_root_widget(root_wid);

@@ -15,10 +15,11 @@ class widget : public Node {
 public:
     widget(int x, int y, int w, int h);
     int destory();
-    virtual int show();
     virtual int hide();
+    virtual int show();
+    virtual int draw();
     virtual int redraw();
-    int add_sub_widget(widget*);
+    int add_child_widget(widget*);
 
 public:
     int abs_x, abs_y;

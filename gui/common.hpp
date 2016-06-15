@@ -12,6 +12,7 @@ struct point {
 
 struct color_rgba {
     int r, g, b, a;
+
     color_rgba(int r = 0, int g = 0, int b = 0, int a = 0) {
         this->r = r;
         this->g = g;

@@ -16,16 +16,31 @@ widget::widget(int x, int y, int w, int h)
     abs_y = y;
     width = w;
     height = h;
+
+    show();
 }
 
 int widget::show()
 {
+    is_show = 1;
     return 0;
 }
 int widget::hide()
 {
+    is_show = 0;
     return 0;
 }
+
+int widget::draw()
+{
+    if (!is_show) {
+        return -1;
+    }
+    draw_rect(bg_color.r, bg_color.g, bg_color.b);
+
+    return 0;
+}
+
 int widget::redraw()
 {
     int x,y,w,h;
@@ -35,12 +50,13 @@ int widget::redraw()
     h = height;
 
     glViewport(x,y,w,h);
-    draw_rect(bg_color.r, bg_color.g, bg_color.b);
+
+    draw();
 
     return 0;
 }
 
-int widget::add_sub_widget(struct widget* wid)
+int widget::add_child_widget(struct widget* wid)
 {
     wid->link_this_to_parent_last(this);
     wid->win = win;

@@ -29,17 +29,17 @@ window* window_init(int w, int h)
     widget *child_wid = new widget(w/4, h/4, w/2, h/2);
     child_wid->set_name("child_wid");
     child_wid->bg_color = {128};
-    win->get_root_widget()->add_sub_widget(child_wid);
+    win->get_root_widget()->add_child_widget(child_wid);
 
     // add child's sibling widget
     widget *child_sibling_wid = new widget(w/8, h/8, w/4, h/4);
     child_sibling_wid->bg_color = {0, 128};
-    win->get_root_widget()->add_sub_widget(child_sibling_wid);
+    win->get_root_widget()->add_child_widget(child_sibling_wid);
 
     // add child's child widget
     widget *child_child_wid = new widget(w/16, h/16, w/4, h/4);
     child_child_wid->bg_color = {0, 0, 128};
-    child_wid->add_sub_widget(child_child_wid);
+    child_wid->add_child_widget(child_child_wid);
 
     return win;
 }
