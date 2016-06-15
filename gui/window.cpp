@@ -7,6 +7,7 @@
 
 #include "window.hpp"
 #include "widget.hpp"
+#include "log/log.h"
 
 /* window */
 window::window(int x, int y, int width, int height)
@@ -61,8 +62,12 @@ void window::redraw()
     draw(root_widget);
 
     /* swap back,front buffer */
-    // eglSwapBuffers(get_native_window()->egl->display,
-    //                get_native_window()->egl->surface);
+    int ret = eglSwapBuffers(get_native_window()->egl->display,
+                             get_native_window()->egl->surface);
+    if (1 != ret) {
+        log_e("eglSwapBuffers error\n");
+        quit = 1;
+    }
 }
 
 int window::set_root_widget(widget* wid)
@@ -85,6 +90,11 @@ native_window* window::get_native_window()
 void window::set_native_window(native_window* nwin)
 {
     mp_native_window = nwin;
+}
+
+bool window::need_quit()
+{
+    return quit == 1;
 }
 
 void window::init()

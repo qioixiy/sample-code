@@ -22,8 +22,10 @@ public:
     void init();
     widget* get_root_widget();
     native_window* get_native_window();
+    bool need_quit();
 
 protected:
+    int quit;
     int abs_x, abs_y;
     int width, height;
 

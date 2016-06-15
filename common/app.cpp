@@ -34,6 +34,8 @@ void* app::display_thread(void* p)
     while(!quit) {
         win->redraw();
         FPS();
+
+        quit = win->need_quit();
     }
 
     return NULL;

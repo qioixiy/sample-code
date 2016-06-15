@@ -122,12 +122,6 @@ void* render_thread(void* p)
 
         win->redraw();
 
-        int ret = eglSwapBuffers(egl->display, egl->surface);
-        if (1 != ret) {
-            log_e("eglSwapBuffers error\n");
-            quit = 1;
-        }
-
         FPS();
     }
 
