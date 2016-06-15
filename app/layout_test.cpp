@@ -29,10 +29,8 @@
  *                |
  *             child^1#s2
  */
-window* window_init(int w, int h)
+int window_init_layout(window* win, int w, int h)
 {
-    window* win = new window(0, 0, w, h);
-
     // add child widget
     widget *child_wid = new widget(w/4, h/4, w/2, h/2);
     child_wid->set_name("child");
@@ -60,7 +58,7 @@ window* window_init(int w, int h)
 
     win->get_root_widget()->dump();
 
-    return win;
+    return 0;
 }
 
 void gl_init()
@@ -81,10 +79,13 @@ void gl_init()
 
 int main(int argc, char **argv)
 {
+    int w = 480, h = 640;
     app *_app = new app();
+    window* win = new window(0, 0, w, h);
+    window_init_layout(win, w, h);
 
     gl_init();
-    _app->set_window(window_init(480, 640));
+    _app->set_window(win);
     _app->run();
 
     return 0;
