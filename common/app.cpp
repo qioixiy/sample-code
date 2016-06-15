@@ -19,10 +19,10 @@ app::~app()
 
 int app::run()
 {
-    render_thread(NULL);
+    display_thread(NULL);
 }
 
-void* app::render_thread(void* p)
+void* app::display_thread(void* p)
 {
     // display dispatch thread
     int ret = pthread_create(&dispatch_pid, NULL,
@@ -52,6 +52,8 @@ void* app::display_dispatch_thread(void* p)
             break;
         }
     }
+
+    _app->quit = 1;
 
     return (void*)ret;
 }

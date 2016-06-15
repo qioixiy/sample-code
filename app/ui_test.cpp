@@ -76,6 +76,8 @@ window* window_init(int x, int y, int w, int h)
 
 void* render_thread(void* p)
 {
+    int quit = 0;
+
     /* egl init */    
     int width = 480, height = 640;
     struct wl_egl_window* p_wl_egl_window
@@ -101,14 +103,19 @@ void* render_thread(void* p)
 
     window *win = window_init(0, 0, width, height);
 
-    while(1) {
+    while(!quit) {
         glViewport(0, 0, width, height);
         glClearColor(.0, .0, .0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         win->redraw();
 
-        eglSwapBuffers(egl->display, egl->surface);
+        int ret = eglSwapBuffers(egl->display, egl->surface);
+        if (1 != ret) {
+            log_e("eglSwapBuffers error\n");
+            quit = 1;
+        }
+
         FPS();
     }
 

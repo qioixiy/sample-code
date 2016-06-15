@@ -34,6 +34,6 @@ public:
     int set_window(window*);
 
 private:
-    void* render_thread(void*);
+    void* display_thread(void*);
     static void* display_dispatch_thread(void*);
 };
