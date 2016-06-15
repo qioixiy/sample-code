@@ -38,6 +38,7 @@ void* display_dispatch_thread(void* p)
  *                |
  *                |sibling
  *             child^1#s1
+ *                |
  *             child^1#s2
  */
 widget* create_root_widget(window* win, int w, int h)
@@ -50,21 +51,25 @@ widget* create_root_widget(window* win, int w, int h)
     // add child widget
     widget *child_wid = new widget(w/4, h/4, w/2, h/2);
     child_wid->set_name("child_wid");
-    child_wid->bg_color.g = 128;
+    child_wid->bg_color.r = 128;
     root_wid->add_child_widget(child_wid);
 
     // add child's sibling widget
     widget *child_sibling_wid = new widget(w/8, h/8, w/4, h/4);
     child_sibling_wid->set_name("child_sibling_wid");
-    child_sibling_wid->bg_color.b = 128;
+    child_sibling_wid->bg_color.g = 128;
     root_wid->add_child_widget(child_sibling_wid);
 
     // add child's child widget
-    widget *child_child_wid = new widget_image(w/16, h/16, w/4, h/4);
-    child_child_wid->bg_color.r = 128;
+    widget *child_child_wid = new widget(w/16, h/16, w/4, h/4);
     child_child_wid->bg_color.b = 128;
     child_wid->add_child_widget(child_child_wid);
 
+    // add child's sibling widget
+    widget_image *child_sibling2_wid
+        = new widget_image(w/32, h/32, w/4, h/4);
+    child_sibling2_wid->set_image("utils/png-test.png");
+    child_wid->add_child_widget(child_sibling2_wid);
 
     win->set_root_widget(root_wid);
     root_wid->dump();

@@ -67,6 +67,7 @@ CXX_SRCS := \
 	gui/window.cpp \
 	gui/native_window.cpp \
 	gui/widget.cpp \
+	gui/widget_image.cpp \
 	common/app.cpp \
 
 # objs

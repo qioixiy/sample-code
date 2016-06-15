@@ -27,11 +27,11 @@ void window::draw(Node *node)
         return;
     }
 
-    static int index = 0;
-    index++;
+    static int depth = 0;
+    depth++;
 
-    if (index > 100) {
-        printf("dead loop %p %d\n", node, index);
+    if (depth > 100) {
+        printf("depth>100, dead loop %p\n", node);
         usleep(100);
     }
 
@@ -53,7 +53,7 @@ void window::draw(Node *node)
         }
     }
 
-    index--;
+    depth--;
 }
 
 void window::redraw()
