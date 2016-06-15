@@ -60,9 +60,9 @@ void window::redraw()
 {
     draw(root_widget);
 
-    // swap back,front buffer
-    eglSwapBuffers(get_native_window()->egl->display,
-                   get_native_window()->egl->surface);
+    /* swap back,front buffer */
+    // eglSwapBuffers(get_native_window()->egl->display,
+    //                get_native_window()->egl->surface);
 }
 
 int window::set_root_widget(widget* wid)
