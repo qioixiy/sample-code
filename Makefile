@@ -9,7 +9,7 @@ TARGET ?= x86
 
 ROOTFS =
 ifeq ($(TARGET), ARM)
-	ROOTFS=/home/cndul/work/zxq/IVI/ZXQ/external/VisionSDK/vision_sdk/linux/targetfs
+	ROOTFS=/home/cndul/work/zxq/targetfs
 	CROSS_COMPILE=arm-linux-gnueabihf-
 endif
 
