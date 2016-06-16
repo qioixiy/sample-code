@@ -33,9 +33,6 @@ int widget::hide()
 
 int widget::draw()
 {
-    if (!is_show) {
-        return -1;
-    }
     draw_rect(bg_color.r, bg_color.g, bg_color.b);
 
     return 0;
@@ -43,6 +40,10 @@ int widget::draw()
 
 int widget::redraw()
 {
+    if (!is_show) {
+        return -1;
+    }
+
     int x,y,w,h;
     x = win->abs_x + abs_x;
     y = win->abs_y + abs_y;
