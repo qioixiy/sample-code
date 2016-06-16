@@ -6,9 +6,8 @@
 
 #define PNG_BYTES_TO_CHECK 4
 
-int load_png_image( const char *filepath,
-                    unsigned char **pbuf,
-                    int *width, int *height)
+int load_png_image(const char *filepath,
+                   struct pngload_attribute *png_attr)
 {
     FILE *fp;
     png_structp png_ptr;
@@ -21,7 +20,7 @@ int load_png_image( const char *filepath,
     if( fp == NULL ) { 
         return -1;
     }
-        
+
     png_ptr = png_create_read_struct( PNG_LIBPNG_VER_STRING, 0, 0, 0 );
     info_ptr = png_create_info_struct( png_ptr );
 
@@ -52,19 +51,21 @@ int load_png_image( const char *filepath,
     /* 获取图像的色彩类型 */
     color_type = png_get_color_type( png_ptr, info_ptr );
     /* 获取图像的宽高 */
-    *width = w = png_get_image_width( png_ptr, info_ptr );
-    *height = h = png_get_image_height( png_ptr, info_ptr );
+    png_attr->width = w = png_get_image_width( png_ptr, info_ptr );
+    png_attr->height = h = png_get_image_height( png_ptr, info_ptr );
     printf("w=%d,h=%d\n", w, h);
     /* 获取图像的所有行像素数据，row_pointers里边就是rgba数据 */
     row_pointers = png_get_rows( png_ptr, info_ptr );
     unsigned char *data;
     int index = 0;
+
     /* 根据不同的色彩类型进行相应处理 */
+    png_attr->color_type = color_type;
     switch( color_type ) {
     case PNG_COLOR_TYPE_RGB_ALPHA:
         printf("rgba\n");
         data = malloc(w*h*4);
-        *pbuf = data;
+        png_attr->buf = data;
         for( y=0; y<h; ++y ) {
             for( x=0; x<w*4; ) {
                 /* 以下是RGBA数据，需要自己补充代码，保存RGBA数据 */
@@ -79,7 +80,7 @@ int load_png_image( const char *filepath,
     case PNG_COLOR_TYPE_RGB:
         printf("rgb\n");
         data = malloc(w*h*3);
-        *pbuf = data;
+        png_attr->buf = data;
         for( y=0; y<h; ++y ) {
             for( x=0; x<w*3; ) {
                 data[index++] = row_pointers[y][x++]; // red
@@ -98,12 +99,27 @@ int load_png_image( const char *filepath,
     return 0;
 }
 
+GLuint png_color_type_GL(int color_type)
+{
+    GLuint ret;
+    switch(color_type) {
+    case PNG_COLOR_TYPE_RGB_ALPHA:
+        ret = GL_RGBA;
+        break;
+    case PNG_COLOR_TYPE_RGB:
+        ret = GL_RGB;
+        break;
+    default:
+        printf("unkown png color\n");
+    }
+    return ret;
+}
+
 #if defined DEBUG
 #define t_main main
 #endif
 int t_main()
 {
-    unsigned char *buf;
-    int width, height;
-    load_png_image("png-test.png", &buf, &width, &height);
+    struct pngload_attribute png_attr;
+    load_png_image("png-test.png", &png_attr);
 }

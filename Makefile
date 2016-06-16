@@ -45,6 +45,7 @@ APP_CPP_SRCS := \
 	app/ui_test.cpp \
 	app/cube3.cpp \
 	app/layout_test.cpp \
+	app/test_project1.cpp \
 
 C_SRCS := \
 	egl/egl.c \

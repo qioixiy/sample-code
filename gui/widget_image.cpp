@@ -26,9 +26,11 @@ void widget_image::show_png()
 
     if (!program_object) {
         program_object = get_program_object_showrgba();
-        load_png_image(filePath.c_str(), &png_buf, &width, &height);
+        struct pngload_attribute png_attr;
+        load_png_image(filePath.c_str(), &png_attr);
         texture_id_rgba = gen_texture_from_data(
-            png_buf, width, height, GL_RGBA);
+            png_attr.buf, png_attr.width, png_attr.height,
+            png_color_type_GL(png_attr.color_type));
     }
 
     // Get the attribute locations

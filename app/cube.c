@@ -67,11 +67,11 @@ static int init_gl()
     uniform_texture =
         glGetUniformLocation(program, "uniform_texture");
 
-    static unsigned char *png_buf;
-    static int width, height;
-    load_png_image("utils/png-test.png", &png_buf, &width, &height);
+    static struct pngload_attribute png_attr;
+    load_png_image("utils/png-test.png", &png_attr);
     texture_id_rgba = gen_texture_from_data(
-        png_buf, width, height, GL_RGBA);
+        png_attr.buf, png_attr.width, png_attr.height,
+        png_color_type_GL(png_attr.color_type));
 
 	// Texture.
 	/* glGenTextures(1, &texture_name); */
