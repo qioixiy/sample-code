@@ -69,7 +69,9 @@ CXX_SRCS := \
 	gui/native_window.cpp \
 	gui/widget.cpp \
 	gui/widget_image.cpp \
+	gui/painter_image_png.cpp \
 	common/app.cpp \
+	gles/glsl_program_object.cpp \
 
 # objs
 OBJS := $(subst .c,.o,$(C_SRCS))

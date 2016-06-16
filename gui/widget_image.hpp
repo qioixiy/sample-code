@@ -3,6 +3,7 @@
 #define _WIDGET_IMAGE_HPP_
 
 #include "widget.hpp"
+#include "painter_image_png.hpp"
 
 class widget_image : public widget {
 public:
@@ -13,7 +14,7 @@ public:
 
 private:
     string filePath;
-    void show_png();
+    painter_image_png *m_painter;
 };
 
 #endif

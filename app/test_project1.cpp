@@ -32,29 +32,17 @@
 int window_init_layout(window* win, int w, int h)
 {
     // add child widget
-    widget_image *child_wid = new widget_image(0, 0, 480, 640);
+    widget_image *child_wid = new widget_image(0, 0, 240, 320);
     child_wid->set_name("navi");
-    child_wid->set_image("10d4/zh-cn/navi_front.png");
+    child_wid->set_image("res/png/10d4/navi_front.png");
     win->get_root_widget()->add_child_widget(child_wid);
 
-    // // add child's sibling widget
-    // widget *child_sibling_wid = new widget(w/8, h/8, w/4, h/4);
-    // child_sibling_wid->set_name("child_sibling");
-    // child_sibling_wid->bg_color = {0, 128};
-    // win->get_root_widget()->add_child_widget(child_sibling_wid);
-
-    // // add child's child widget
-    // widget *child_child_wid = new widget(w/16, h/16, w/4, h/4);
-    // child_sibling_wid->set_name("child_child");
-    // child_child_wid->bg_color = {0, 0, 128};
-    // child_wid->add_child_widget(child_child_wid);
-
-    // // add child's sibling widget
-    // // widget_image *child_sibling2_wid
-    // //     = new widget_image(w/32, h/32, w/4, h/4);
-    // // child_sibling_wid->set_name("child_sibling_2");
-    // // child_sibling2_wid->set_image("utils/png-test.png");
-    // // child_wid->add_child_widget(child_sibling2_wid);
+    // add child's sibling widget
+    widget_image *child_sibling2_wid
+        = new widget_image(240, 320, 240, 320);
+    child_sibling2_wid->set_name("calib");
+    child_sibling2_wid->set_image("res/png/10d4/carbox_black.png");
+    child_wid->add_child_widget(child_sibling2_wid);
 
     win->get_root_widget()->dump();
 
