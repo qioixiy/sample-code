@@ -27,4 +27,6 @@ int FPS()
         totaltime -= 2.0f;
         frames = 0;
     }
+
+    return 0;
 }

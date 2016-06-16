@@ -39,7 +39,7 @@ int window_init_layout(window* win, int w, int h)
 
     // add child's sibling widget
     widget_image *child_sibling2_wid
-        = new widget_image(240, 320, 240, 320);
+        = new widget_image(240+240/4, 0+320/4, 240/2, 320/2);
     child_sibling2_wid->set_name("calib");
     child_sibling2_wid->set_image("res/png/10d4/carbox_black.png");
     child_wid->add_child_widget(child_sibling2_wid);

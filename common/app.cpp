@@ -3,6 +3,7 @@
 #include <errno.h>
 #include <pthread.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "app.hpp"
 #include "gui/native_window.hpp"
