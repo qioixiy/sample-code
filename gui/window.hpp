@@ -17,17 +17,19 @@ public:
     window(int x = 0, int y = 0, int width = 100, int height = 100);
     void draw(Node*);
     void redraw();
-    int set_root_widget(widget*);
     void set_native_window(native_window*);
     void init();
     widget* get_root_widget();
     native_window* get_native_window();
     bool need_quit();
+    int set_root_widget(widget*);
+
+public:
+    int width, height;
 
 protected:
     int quit;
     int abs_x, abs_y;
-    int width, height;
 
     native_window *mp_native_window;
     widget* root_widget;
