@@ -1,11 +1,17 @@
-
 # Makefile
 CURPWD = $(PWD)
 
 OUT_DIR ?= out
+SRC_DIR = $(CURPWD)
 BUILD_DIR = $(CURPWD)/$(OUT_DIR)/$(TARGET)
+export
 
 TARGET ?= x86
+V =
+Q = @
+ifeq ($(V), 1)
+	Q =
+endif
 
 ROOTFS =
 ifeq ($(TARGET), ARM)
@@ -17,12 +23,13 @@ endif
 CC = $(CROSS_COMPILE)gcc -g
 CXX = $(CROSS_COMPILE)g++ -g
 
-CXX_FLAGS = -std=c++11
-
 # include
 INC = -I$(ROOTFS)/usr/include -I$(CURPWD)
 INC-cairo=$(ROOTFS)/usr/include/cairo
 INC += -I$(INC-cairo)
+
+CFLAGS = $(INC)
+CXXFLAGS = -std=c++11
 
 # lib
 LIB = -L$(ROOTFS)/usr/lib -L$(ROOTFS)/lib -L.
@@ -41,7 +48,7 @@ APP_C_SRCS := \
 	app/cube.c \
 	app/cube2.c \
 
-APP_CPP_SRCS := \
+APP_CXX_SRCS := \
 	app/ui_test.cpp \
 	app/cube3.cpp \
 	app/layout_test.cpp \
@@ -74,41 +81,49 @@ CXX_SRCS := \
 	gles/glsl_program_object.cpp \
 
 # objs
-OBJS := $(subst .c,.o,$(C_SRCS))
-OBJS += $(subst .cpp,.opp,$(CXX_SRCS))
+OBJS_C := $(subst .c,.o,$(C_SRCS))
+OBJS_CXX := $(subst .cpp,.o,$(CXX_SRCS))
+OBJS := $(OBJS_C) $(OBJS_CXX)
 APP_C_OBJS := $(subst .c,.o,$(APP_C_SRCS))
-APP_CPP_OBJS := $(subst .cpp,.opp,$(APP_CPP_SRCS))
+APP_CXX_OBJS := $(subst .cpp,.o,$(APP_CXX_SRCS))
 
 all: apps
+	@echo all ok
 
 pre:
 	@echo BUILD_DIR=$(BUILD_DIR)
 	@[ -d $(BUILD_DIR) ] || mkdir $(BUILD_DIR) -p
 	@[ -d $(BUILD_DIR)/bin ] || mkdir $(BUILD_DIR)/bin -p
 
-%.o: %.c
+objs: $(OBJS_C) $(OBJS_CXX)
+	@echo objs ready
+
+$(APP_C_OBJS) $(OBJS_C): %.o: %.c
 	@echo CC $^
 	@[ -d $(BUILD_DIR)/$(<D) ] || mkdir $(BUILD_DIR)/$(<D) -p
-	@$(CC) -c $(INC) $< -o $(BUILD_DIR)/$@
+	$(Q)$(CC) -c $(CFLAGS) $< -o $(BUILD_DIR)/$@
 
-%.opp: %.cpp
+$(APP_CXX_OBJS) $(OBJS_CXX): %.o: %.cpp
 	@echo CXX $^
 	@[ -d $(BUILD_DIR)/$(<D) ] || mkdir $(BUILD_DIR)/$(<D) -p
-	@$(CXX) -c $(INC) $(CXX_FLAGS) $< -o $(BUILD_DIR)/$@
+	$(Q)$(CXX) -c $(INC) $(CXXFLAGS) $< -o $(BUILD_DIR)/$@
 
-apps: pre $(OBJS) app_c app_cxx
-	@echo finish
+apps: pre objs app_c app_cxx
+	@echo build apps ok
+
 app_c: $(APP_C_OBJS)
-	@for a in $^; do \
-		echo CCLD `basename $$a .o` && \
-		cd $(BUILD_DIR) && $(CC) $$a $(OBJS) $(LIB)\
-		$(LIBS) -o $(BUILD_DIR)/bin/`basename $$a .o`; done
+	$(Q)for a in $^; do \
+		echo CCLD `basename $$a .o` \
+			&& cd $(BUILD_DIR) \
+			&& $(CC) $$a $(OBJS) $(LIB) $(LIBS) -o $(BUILD_DIR)/bin/`basename $$a .o`; \
+	done
 app_cxx: $(APP_CPP_OBJS)
-	@for a in $^; do \
-		echo CXXLD `basename $$a .opp` && \
-		cd $(BUILD_DIR) && $(CXX) $$a $(OBJS) $(LIB)\
-		$(LIBS) -o $(BUILD_DIR)/bin/`basename $$a .opp`; done
+	$(Q)for a in $^; do \
+		echo CXXLD `basename $$a .o` \
+			&& cd $(BUILD_DIR) \
+			&& $(CXX) $$a $(OBJS) $(LIB) $(LIBS) -o $(BUILD_DIR)/bin/`basename $$a .o`; \
+done
 
-.PHONY: clean
+.PHONY: clean all
 clean:
 	-@rm $(BUILD_DIR) -rf
