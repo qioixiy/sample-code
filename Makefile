@@ -4,6 +4,7 @@ CURPWD = $(PWD)
 OUT_DIR ?= out
 SRC_DIR = $(CURPWD)
 BUILD_DIR = $(CURPWD)/$(OUT_DIR)/$(TARGET)
+#BUILD_DIR=.
 export
 
 TARGET ?= x86
@@ -86,6 +87,7 @@ OBJS_CXX := $(subst .cpp,.o,$(CXX_SRCS))
 OBJS := $(OBJS_C) $(OBJS_CXX)
 APP_C_OBJS := $(subst .c,.o,$(APP_C_SRCS))
 APP_CXX_OBJS := $(subst .cpp,.o,$(APP_CXX_SRCS))
+APPS := $(APP_C_OBJS) $(APP_CXX_OBJS)
 
 all: apps
 	@echo all ok
@@ -117,7 +119,7 @@ app_c: $(APP_C_OBJS)
 			&& cd $(BUILD_DIR) \
 			&& $(CC) $$a $(OBJS) $(LIB) $(LIBS) -o $(BUILD_DIR)/bin/`basename $$a .o`; \
 	done
-app_cxx: $(APP_CPP_OBJS)
+app_cxx: $(APP_CXX_OBJS)
 	$(Q)for a in $^; do \
 		echo CXXLD `basename $$a .o` \
 			&& cd $(BUILD_DIR) \
@@ -126,4 +128,4 @@ done
 
 .PHONY: clean all
 clean:
-	-@rm $(BUILD_DIR) -rf
+	-@rm $(addprefix $(BUILD_DIR)/,$(OBJS) $(APPS)) -rf
