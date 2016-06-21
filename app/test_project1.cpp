@@ -86,11 +86,11 @@ int main(int argc, char **argv)
 {
     int w = 480, h = 640;
     app *_app = new app();
-    frame* win = new frame(0, 0, w, h);
-    frame_init_layout(win);
+    frame* f = new frame(0, 0, w, h);
+    frame_init_layout(f);
 
     gl_init();
-    _app->set_window(win);
+    _app->set_window(f);
     _app->run();
 
     return 0;

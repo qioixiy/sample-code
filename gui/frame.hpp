@@ -16,13 +16,16 @@ public:
     frame(int x = 0, int y = 0, int width = 100, int height = 100);
     void draw(Node*);
     void redraw();
-    void set_native_window(native_window*);
     void init();
-    widget* get_root_widget();
-    native_window* get_native_window();
     bool need_quit();
-    int set_root_widget(widget*);
     widget* find_widget_with_xy(int x, int y);
+
+    // root widget
+    int set_root_widget(widget*);
+    widget* get_root_widget();
+    // native window
+    void set_native_window(native_window*);
+    native_window* get_native_window();
 
 private:
 
