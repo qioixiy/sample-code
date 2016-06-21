@@ -18,7 +18,8 @@ public:
     virtual int show();
     virtual int draw();
     virtual int redraw();
-    int add_child_widget(widget*);
+    widget* add_child_widget(widget*);
+    rect get_screen_rect();
 
 public:
     int abs_x, abs_y;

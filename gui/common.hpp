@@ -33,6 +33,9 @@ struct rect {
         }
         return false;
     }
+    bool inside(int x, int y) {
+        return inside(point(x, y));
+    }
 };
 
 struct color_rgba {

@@ -1,6 +1,7 @@
 
 #include <cstdio>
 #include <cmath>
+#include <queue>
 
 #include "node.hpp"
 
@@ -142,26 +143,43 @@ void   Node::unlink( void )
     this->child_tail   = NULL;
 }
 
-void Node::dump( FILE *out, const char *name)
+int Node::get_sibling_depth()
 {
-    fprintf( out, "GLUI_node: %s\n", name );
-    fprintf( out, "   parent: %p     child_head: %p    child_tail: %p\n",
-             (void *) parent_node,
-             (void *) child_head,
-             (void *) child_tail );
-    fprintf( out, "   next: %p       prev: %p\n",
-             (void *) next_sibling,
-             (void *) prev_sibling );
+    int ret = 0;
+
+    Node* node = this->first_sibling();
+    while((node != this) && (node = node->next()))
+        ret++;
+
+    return ret;
 }
 
 void Node::dump()
 {
-    printf("node:%s\n", name.c_str());
-    printf("\tparent: %p\tchild_head: %p\tchild_tail: %p\n",
-           (void *) parent_node,
-           (void *) child_head,
-           (void *) child_tail );
-    printf("\tnext: %p\tprev: %p\n",
-           (void *) next_sibling,
-           (void *) prev_sibling );
+    queue<Node*> *q1 = new queue<Node*>();
+    queue<Node*> *q2 = new queue<Node*>();
+    q1->push(this);
+
+    Node* node = this;
+    while(!q1->empty()) {
+        // pop->handle->push
+        while(!q1->empty()) {
+            // pop
+            Node* n = q1->front(); q1->pop();
+
+            // handle
+            printf("%s[%d] ", n->get_name().c_str(), n->get_sibling_depth());
+
+            // push
+            Node* next_child = n->first_child();
+            while (next_child) {
+                q2->push(next_child);
+                next_child = next_child->next();
+            }
+        }
+        printf("\n");
+        queue<Node*> *temp = q1;
+        q1 = q2;
+        q2 = temp;
+    }
 }

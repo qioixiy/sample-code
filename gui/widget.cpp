@@ -44,6 +44,8 @@ int widget::redraw()
         return -1;
     }
 
+    //printf("widget redraw %s\n", this->get_name().c_str());
+
     int x,y,w,h;
     x = f->abs_x + abs_x;
     y = f->abs_y + abs_y;
@@ -57,10 +59,18 @@ int widget::redraw()
     return 0;
 }
 
-int widget::add_child_widget(struct widget* wid)
+widget* widget::add_child_widget(widget* wid)
 {
     wid->link_this_to_parent_last(this);
     wid->f = f;
 
-    return 0;
+    return this;
+}
+
+rect widget::get_screen_rect()
+{
+    return rect(f->abs_x + abs_x,
+                f->abs_y + abs_y,
+                f->abs_x + abs_x + width,
+                f->abs_y + abs_y + height);
 }

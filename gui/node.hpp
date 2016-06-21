@@ -28,6 +28,7 @@ public:
     Node *last_sibling();
     Node *prev();
     Node *next();
+    int get_sibling_depth();
 
     Node *first_child()   { return child_head; }
     Node *last_child()    { return child_tail; }
@@ -46,7 +47,6 @@ public:
     }
 
     void dump();
-    void dump(FILE *out, const char *name);
 
 protected:
     string name;

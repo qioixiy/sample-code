@@ -21,47 +21,66 @@
 #include "gui/ui.hpp"
 #include "common/app.hpp"
 
+/*
+     frame: root
+             |
+           navi--calibStitched--calibFront
+                       |            |
+                    carbox         tips
+    
+ */
 int frame_init_layout(frame* f)
 {
-    // add child widget
-    widget_image *child_wid =
+    widget* root_wid = f->get_root_widget();
+
+    // navi widget
+    widget_image *navi_wid =
         new widget_image(0, 0, f->width/2, f->height/2);
-    child_wid->set_name("navi");
-    child_wid->set_image("res/png/10d4/navi_front.png");
-    f->get_root_widget()->add_child_widget(child_wid);
+    navi_wid->set_name("navi");
+    navi_wid->set_image("res/png/10d4/navi_front.png");
 
-    // add child widget: calibFront.png
-    widget_image *child_front_wid =
-        new widget_image(0, f->height/2, f->width, f->height/2);
-    child_front_wid->set_name("calibFront");
-    child_front_wid->set_image("res/png/calibFront.png");
-    child_wid->add_child_widget(child_front_wid);
-
-    // add child widget: calibStitched.png
-    widget_image *child_stitched_wid =
+    // calibStitched widget
+    widget_image *calibStitched_wid =
         new widget_image(f->width/2, 0, f->width/2, f->height/2);
-    child_stitched_wid->set_name("calibStitched");
-    child_stitched_wid->set_image("res/png/calibStitched.png");
-    child_wid->add_child_widget(child_stitched_wid);
+    calibStitched_wid->set_name("calibStitched");
+    calibStitched_wid->set_image("res/png/calibStitched.png");
 
-    // add child's sibling widget
-    widget_image *child_sibling2_wid
+    // carbox widget
+    widget_image *carbox_wid
         = new widget_image(f->width*5/8, f->height/8,
                            f->width/4, f->height/4);
-    child_sibling2_wid->set_name("calib");
-    child_sibling2_wid->set_image("res/png/10d4/carbox_black.png");
-    child_wid->add_child_widget(child_sibling2_wid);
+    carbox_wid->set_name("carbox");
+    carbox_wid->set_image("res/png/10d4/carbox_black.png");
 
-    // add child's sibling3 widget
-    widget_image *child_sibling3_wid
+    // calibFront widget
+    widget_image *calibFront_wid =
+        new widget_image(0, f->height/2, f->width, f->height/2);
+    calibFront_wid->set_name("calibFront");
+    calibFront_wid->set_image("res/png/calibFront.png");
+
+    // tips widget
+    widget_image *tips_wid
         = new widget_image(f->width/2 - 487/4,
                            f->height - 150/2 - 5,
                            487/2, 150/2);
-    child_sibling3_wid->set_name("tip");
-    child_sibling3_wid->set_image("res/png/10d4/tip_high_speed.png");
-    child_wid->add_child_widget(child_sibling3_wid);
+    tips_wid->set_name("tip");
+    tips_wid->set_image("res/png/10d4/tip_high_speed.png");
 
-    f->get_root_widget()->dump();
+    // set order 1
+    // root_wid->add_child_widget(navi_wid);
+    // root_wid->add_child_widget(calibStitched_wid);
+    // root_wid->add_child_widget(carbox_wid);
+    // root_wid->add_child_widget(calibFront_wid);
+    // root_wid->add_child_widget(tips_wid);
+
+    // case 2
+    root_wid->add_child_widget(navi_wid);
+    root_wid->add_child_widget(calibStitched_wid);
+    calibStitched_wid->add_child_widget(carbox_wid);
+    root_wid->add_child_widget(calibFront_wid);
+    calibFront_wid->add_child_widget(tips_wid);
+
+    root_wid->dump();
 
     return 0;
 }
