@@ -29,19 +29,19 @@
  *                |
  *             child^1#s2
  */
-int window_init_layout(window* win, int w, int h)
+int frame_init_layout(frame* f, int w, int h)
 {
     // add child widget
     widget *child_wid = new widget(w/4, h/4, w/2, h/2);
     child_wid->set_name("child");
     child_wid->bg_color = {128};
-    win->get_root_widget()->add_child_widget(child_wid);
+    f->get_root_widget()->add_child_widget(child_wid);
 
     // add child's sibling widget
     widget *child_sibling_wid = new widget(w/8, h/8, w/4, h/4);
     child_sibling_wid->set_name("child_sibling");
     child_sibling_wid->bg_color = {0, 128};
-    win->get_root_widget()->add_child_widget(child_sibling_wid);
+    f->get_root_widget()->add_child_widget(child_sibling_wid);
 
     // add child's child widget
     widget *child_child_wid = new widget(w/16, h/16, w/4, h/4);
@@ -56,7 +56,7 @@ int window_init_layout(window* win, int w, int h)
     child_sibling2_wid->set_image("utils/png-test.png");
     child_wid->add_child_widget(child_sibling2_wid);
 
-    win->get_root_widget()->dump();
+    f->get_root_widget()->dump();
 
     return 0;
 }
@@ -81,8 +81,8 @@ int main(int argc, char **argv)
 {
     int w = 480, h = 640;
     app *_app = new app();
-    window* win = new window(0, 0, w, h);
-    window_init_layout(win, w, h);
+    frame* win = new frame(0, 0, w, h);
+    frame_init_layout(win, w, h);
 
     gl_init();
     _app->set_window(win);

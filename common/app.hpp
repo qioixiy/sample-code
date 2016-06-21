@@ -25,13 +25,13 @@ public:
     int quit;
     void* (*draw)(void*);
     pthread_t dispatch_pid;
-    window* win;
+    frame* f;
 
 public:
     app();
     virtual ~app();
     int run();
-    int set_window(window*);
+    int set_window(frame*);
 
 private:
     void* display_thread(void*);

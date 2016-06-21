@@ -73,7 +73,7 @@ CXX_SRCS := \
 	utils/obj/loader.cpp \
 	gui/common.cpp \
 	gui/node.cpp \
-	gui/window.cpp \
+	gui/frame.cpp \
 	gui/native_window.cpp \
 	gui/widget.cpp \
 	gui/widget_image.cpp \

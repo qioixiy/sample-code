@@ -5,12 +5,11 @@
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 
-#include "window.hpp"
+#include "frame.hpp"
 #include "widget.hpp"
 #include "log/log.h"
 
-/* window */
-window::window(int x, int y, int width, int height)
+frame::frame(int x, int y, int width, int height)
 {
     abs_x = x;
     abs_y = y;
@@ -21,7 +20,7 @@ window::window(int x, int y, int width, int height)
     init();
 }
 
-void window::draw(Node *node)
+void frame::draw(Node *node)
 {
     if (!node) {
         printf("node==null\n");
@@ -57,7 +56,7 @@ void window::draw(Node *node)
     depth--;
 }
 
-void window::redraw()
+void frame::redraw()
 {
     draw(root_widget);
 
@@ -70,39 +69,39 @@ void window::redraw()
     }
 }
 
-int window::set_root_widget(widget* wid)
+int frame::set_root_widget(widget* wid)
 {
     root_widget = wid;
 
     return 0;
 }
 
-widget* window::get_root_widget()
+widget* frame::get_root_widget()
 {
     return root_widget;
 }
 
-native_window* window::get_native_window()
+native_window* frame::get_native_window()
 {
     return mp_native_window;
 }
 
-void window::set_native_window(native_window* nwin)
+void frame::set_native_window(native_window* nwin)
 {
     mp_native_window = nwin;
 }
 
-bool window::need_quit()
+bool frame::need_quit()
 {
     return quit == 1;
 }
 
-void window::init()
+void frame::init()
 {
     /* create root widget */
     widget *root_wid = new widget(0, 0, width, height);
     root_wid->set_name("root");
-    root_wid->win = this;
+    root_wid->f = this;
     root_wid->bg_color = {128, 128, 128};
     root_wid->dump();
     set_root_widget(root_wid);

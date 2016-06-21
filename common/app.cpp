@@ -33,10 +33,10 @@ void* app::display_thread(void* p)
     }
 
     while(!quit) {
-        win->redraw();
+        f->redraw();
         FPS();
 
-        quit = win->need_quit();
+        quit = f->need_quit();
     }
 
     return NULL;
@@ -49,7 +49,7 @@ void* app::display_dispatch_thread(void* p)
     int ret = 0;
     while (ret != -1) {
         ret = wl_display_dispatch(
-            _app->win->get_native_window()->win->p_wl_display);
+            _app->f->get_native_window()->win->p_wl_display);
         if (ret < 0) {
             log_e("wl_display_dispatch error:%s", strerror(errno));
             break;
@@ -61,7 +61,7 @@ void* app::display_dispatch_thread(void* p)
     return (void*)ret;
 }
 
-int app::set_window(window* win)
+int app::set_window(frame* f)
 {
-    this->win = win;
+    this->f = f;
 }

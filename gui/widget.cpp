@@ -6,7 +6,7 @@
 #include <GLES2/gl2.h>
 
 #include "widget.hpp"
-#include "window.hpp"
+#include "frame.hpp"
 
 #include "gles/draw.h"
 
@@ -45,8 +45,8 @@ int widget::redraw()
     }
 
     int x,y,w,h;
-    x = win->abs_x + abs_x;
-    y = win->abs_y + abs_y;
+    x = f->abs_x + abs_x;
+    y = f->abs_y + abs_y;
     w = width;
     h = height;
 
@@ -60,7 +60,7 @@ int widget::redraw()
 int widget::add_child_widget(struct widget* wid)
 {
     wid->link_this_to_parent_last(this);
-    wid->win = win;
+    wid->f = f;
 
     return 0;
 }

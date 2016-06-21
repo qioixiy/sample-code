@@ -1,20 +1,19 @@
 
-#ifndef _WINDOW_HPP_
-#define _WINDOW_HPP_
+#ifndef _FRAME_HPP_
+#define _FRAME_HPP_
 
-#include "window.hpp"
+#include "frame.hpp"
 #include "native_window.hpp"
 #include "node.hpp"
 
 class widget;
-
-/* window */
-class window {
+/* frame */
+class frame {
 
     friend class widget;
 
 public:
-    window(int x = 0, int y = 0, int width = 100, int height = 100);
+    frame(int x = 0, int y = 0, int width = 100, int height = 100);
     void draw(Node*);
     void redraw();
     void set_native_window(native_window*);
@@ -35,6 +34,6 @@ protected:
     widget* root_widget;
 };
 
-window* window_init(int x, int y, int w, int h);
+frame* frame_init(int x, int y, int w, int h);
 
 #endif

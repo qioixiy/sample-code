@@ -5,12 +5,11 @@
 #include "node.hpp"
 #include "common.hpp"
 
-class window;
-
+class frame;
 /* widget */
 class widget : public Node {
 
-    friend class window;
+    friend class frame;
 
 public:
     widget(int x, int y, int w, int h);
@@ -26,7 +25,7 @@ public:
     int width, height;
     int is_show;
     color_rgba bg_color;
-    window *win;
+    frame *f;
 };
 
 #endif

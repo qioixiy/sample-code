@@ -41,12 +41,12 @@ void* display_dispatch_thread(void* p)
  *                |
  *             child^1#s2
  */
-widget* create_root_widget(window* win, int w, int h)
+widget* create_root_widget(frame* f, int w, int h)
 {
     /* create root widget */
     widget *root_wid = new widget(0, 0, w, h);
     root_wid->set_name("root_wid");
-    root_wid->win = win;
+    root_wid->f = f;
 
     // add child widget
     widget *child_wid = new widget(w/4, h/4, w/2, h/2);
@@ -71,19 +71,19 @@ widget* create_root_widget(window* win, int w, int h)
     child_sibling2_wid->set_image("utils/png-test.png");
     child_wid->add_child_widget(child_sibling2_wid);
 
-    win->set_root_widget(root_wid);
+    f->set_root_widget(root_wid);
     root_wid->dump();
 
     return root_wid;
 }
 
-window* window_init(int x, int y, int w, int h)
+frame* frame_init(int x, int y, int w, int h)
 {
-    window* win = new window(x, y, w, h);
+    frame* f = new frame(x, y, w, h);
 
-    win->set_root_widget(create_root_widget(win, w, h));
+    f->set_root_widget(create_root_widget(f, w, h));
 
-    return win;
+    return f;
 }
 
 void* render_thread(void* p)
@@ -113,14 +113,14 @@ void* render_thread(void* p)
     glDepthFunc(GL_LEQUAL);
     glEnable(GL_DEPTH_TEST);
 
-    window *win = window_init(0, 0, width, height);
+    frame *f = frame_init(0, 0, width, height);
 
     while(!quit) {
         glViewport(0, 0, width, height);
         glClearColor(.0, .0, .0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        win->redraw();
+        f->redraw();
 
         FPS();
     }
