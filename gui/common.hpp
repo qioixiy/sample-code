@@ -10,6 +10,31 @@ struct point {
     }
 };
 
+struct rect {
+    point p1, p2;
+
+    rect(point p1, point p2) {
+        this->p1 = p1;
+        this->p2 = p2;
+    }
+    rect(int x, int y) {
+        this->p2.x = x;
+        this->p2.y = y;
+    }
+    rect(int x1, int y1, int x2, int y2) {
+        this->p1 = point(x1, y1);
+        this->p2 = point(x2, y2);
+    }
+
+    bool inside(point p) {
+        if ((p1.x <= p.x && p.x < p2.x)
+            && p1.y <= p.y && p.y < p2.y) {
+            return true;
+        }
+        return false;
+    }
+};
+
 struct color_rgba {
     int r, g, b, a;
 
