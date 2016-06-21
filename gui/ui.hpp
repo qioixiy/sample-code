@@ -8,4 +8,14 @@
 #include "widget.hpp"
 #include "widget_image.hpp"
 
+/*
+  frame--root_widget
+            |
+        child_widget--sibling_widget
+            |
+        child_widget
+            |
+        child_widget
+ */
+
 #endif

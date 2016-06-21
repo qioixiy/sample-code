@@ -22,6 +22,9 @@ public:
     native_window* get_native_window();
     bool need_quit();
     int set_root_widget(widget*);
+    widget* find_widget_with_xy(int x, int y);
+
+private:
 
 public:
     int width, height;

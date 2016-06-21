@@ -96,6 +96,12 @@ bool frame::need_quit()
     return quit == 1;
 }
 
+widget* frame::find_widget_with_xy(int x, int y)
+{
+    
+    return root_widget;
+}
+
 void frame::init()
 {
     /* create root widget */

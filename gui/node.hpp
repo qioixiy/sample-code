@@ -6,6 +6,18 @@
 
 using namespace std;
 
+/*   sibling
+ * o (root)
+ * |
+c* o--o--o--o--o
+h* |  |  |  |
+i* o  o  o  o--o
+l* |  |
+d* o  o--o--o--o
+ * |  |  |     |
+ * o  o  o--o  o
+ */
+
 class Node 
 {
 public:
