@@ -25,6 +25,7 @@ struct window_wayland {
 };
 
 struct window_wayland* wayland_init();
+int wayland_display_run(struct wl_display*);
 
 #ifdef __cplusplus
 }

@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
 
 #include "widget.hpp"
 #include "frame.hpp"

@@ -23,13 +23,15 @@
 
 class native_window {
 public:
+    native_window(int = 100, int = 100);
+
+public:
     int width;
     int height;
     struct window_wayland *win;
     struct egl_wayland* egl;
 
-public:
-    native_window(int = 100, int = 100);
+    int swapBuffer();
 };
 
 #endif

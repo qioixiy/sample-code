@@ -2,14 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
 
 #include <stack>
 
 #include "frame.hpp"
 #include "widget.hpp"
-#include "log/log.h"
 
 frame::frame(int x, int y, int width, int height)
 {
@@ -20,6 +17,17 @@ frame::frame(int x, int y, int width, int height)
     mp_native_window = new native_window(width, height);
 
     init();
+}
+
+void frame::init()
+{
+    /* create root widget */
+    widget *root_wid = new widget(0, 0, width, height);
+    root_wid->set_name("root");
+    root_wid->f = this;
+    root_wid->bg_color = {128, 128, 128};
+    //root_wid->dump();
+    set_root_widget(root_wid);
 }
 
 /*
@@ -62,13 +70,7 @@ void frame::redraw()
 
     draw(root_widget);
 
-    /* swap back,front buffer */
-    int ret = eglSwapBuffers(get_native_window()->egl->display,
-                             get_native_window()->egl->surface);
-    if (1 != ret) {
-        log_e("eglSwapBuffers error\n");
-        quit = 1;
-    }
+    get_native_window()->swapBuffer();
 }
 
 int frame::set_root_widget(widget* wid)
@@ -128,15 +130,4 @@ widget* frame::find_widget_with_xy(int x, int y)
         }
     }
     return ret_wid;
-}
-
-void frame::init()
-{
-    /* create root widget */
-    widget *root_wid = new widget(0, 0, width, height);
-    root_wid->set_name("root");
-    root_wid->f = this;
-    root_wid->bg_color = {128, 128, 128};
-    //root_wid->dump();
-    set_root_widget(root_wid);
 }

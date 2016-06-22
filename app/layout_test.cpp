@@ -85,7 +85,7 @@ int main(int argc, char **argv)
     frame_init_layout(win, w, h);
 
     gl_init();
-    _app->set_window(win);
+    _app->set_frame(win);
     _app->run();
 
     return 0;

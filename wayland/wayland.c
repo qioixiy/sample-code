@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <errno.h>
 #include <string.h>
 #include <wayland-client.h>
 
@@ -291,4 +292,28 @@ struct window_wayland* wayland_init()
     wl_display_flush(window.p_wl_display);
 
     return &window;
+}
+
+static void* wayland_display_dispatch_thread(void* p)
+{
+    int ret = 0;
+
+    struct wl_display* dis = p;
+    while (ret != -1) {
+        ret = wl_display_dispatch(dis);
+        if (ret < 0) {
+            printf("wl_display_dispatch error:%s", strerror(errno));
+            break;
+        }
+    };
+    return ret;
+}
+
+int wayland_display_run(struct wl_display* dis)
+{
+    // display dispatch thread
+    pthread_t pid;
+    int ret = pthread_create(&pid, NULL,
+                             wayland_display_dispatch_thread, dis);
+    return ret;
 }

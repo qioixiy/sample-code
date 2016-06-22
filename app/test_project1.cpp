@@ -1,7 +1,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <pthread.h>
 
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
@@ -109,8 +108,11 @@ int main(int argc, char **argv)
     frame_init_layout(f);
 
     gl_init();
-    _app->set_window(f);
+    _app->set_frame(f);
     _app->run();
+
+    delete f;
+    delete _app;
 
     return 0;
 }
