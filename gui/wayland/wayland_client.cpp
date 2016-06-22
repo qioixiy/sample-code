@@ -6,6 +6,10 @@
 #include "gui/ui.hpp"
 #include "wayland_client.hpp"
 
+#ifdef yunos
+#include <weston/WindowManager-client-protocol.h>
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -315,8 +319,16 @@ int wayland_client::init()
         printf("wl_compositor_create_surface error\n");
         return -4;
     }
+
+#ifdef yunos
+    p_wl_shell_surface = wl_shell_wm_get_shell_surface(
+        p_wl_shell, p_wl_surface,
+        WINDOW_MANAGER_SHELL_SURFACE_TYPE_TYPE_CAR_SURROUND, 0, 0, 0);
+    wl_shell_surface_set_visibility(p_wl_shell_surface, 1);
+#else
     p_wl_shell_surface =
         wl_shell_get_shell_surface(p_wl_shell, p_wl_surface);
+#endif
     if (!p_wl_shell_surface) {
         printf("wl_shell_get_shell_surface error\n");
         return -5;

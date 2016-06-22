@@ -17,6 +17,7 @@ endif
 ROOTFS =
 ifeq ($(TARGET), ARM)
 	ROOTFS=/home/cndul/work/zxq/targetfs
+	INC = -Dyunos
 	CROSS_COMPILE=arm-linux-gnueabihf-
 endif
 
@@ -25,7 +26,7 @@ CC = $(CROSS_COMPILE)gcc -g
 CXX = $(CROSS_COMPILE)g++ -g
 
 # include
-INC = -I$(ROOTFS)/usr/include -I$(CURPWD)
+INC += -I$(ROOTFS)/usr/include -I$(CURPWD)
 INC-cairo=$(ROOTFS)/usr/include/cairo
 INC += -I$(INC-cairo)
 
