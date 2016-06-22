@@ -6,13 +6,12 @@
 #include <wayland-client.h>
 #include "event/input.hpp"
 
+class native_window;
 class wayland_client {
 public:
     wayland_client();
     virtual ~wayland_client();
-    int raise_event(event*) {
-        return 0;
-    }
+    int raise_event(int);
 
 protected:
     int init();
@@ -33,12 +32,14 @@ public:
     struct wl_shell* p_wl_shell;
 
     // touch
-    wl_fixed_t touch_point_x;
-    wl_fixed_t touch_point_y;
-    int touch_status;
+    wl_fixed_t touch_x;
+    wl_fixed_t touch_y;
+    int touch_type;
     // pointer
-    wl_fixed_t sx_w, sy_w;
-    uint32_t state_w;
+    wl_fixed_t pointer_sx_w, pointer_sy_w;
+    uint32_t pointer_state_w;
+
+    native_window *win;
 };
 
 #endif

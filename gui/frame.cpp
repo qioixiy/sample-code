@@ -14,6 +14,7 @@ frame::frame(int x, int y, int width, int height)
     this->width = width;
     this->height = height;
     mp_native_window = new native_window(width, height);
+    mp_native_window->f = this;
 
     init();
 }
@@ -63,10 +64,6 @@ void frame::draw(Node *node)
 
 void frame::redraw()
 {
-    widget* wid = find_widget_with_xy(400, 100);
-    printf("find in %s[%d, %d, %d, %d]\n", wid->get_name().c_str(),
-           wid->abs_x, wid->abs_y, wid->width, wid->height);
-
     draw(root_widget);
 
     get_native_window()->swapBuffer();
@@ -131,8 +128,71 @@ widget* frame::find_widget_with_xy(int x, int y)
     return ret_wid;
 }
 
+widget* frame::find_widget_with_xy(point p)
+{
+    return find_widget_with_xy(p.x, p.y);
+}
+
+point frame::point_screen_to_gl_window(point p)
+{
+    point p1 = point(p.x, this->height - p.y);
+    return p1;
+}
+
 int frame::dispatch_event()
 {
-    std::lock_guard<std::mutex> _lock_guard(event_queue_lock);
+    event* ev = pop_event();
+    //printf("%x\n", ev);
+    if (ev) {
+        switch(ev->et) {
+        case EVENT_TOUCH: {
+            touch_event *tev = dynamic_cast<touch_event*>(ev);
+            if (tev) {
+                point p = point_screen_to_gl_window(point(tev->x, tev->y));
+                widget* wid = find_widget_with_xy(p);
+                printf("find [%d, %d] in %s[%d, %d, %d, %d]\n",
+                       p.x, p.y,
+                       wid->get_name().c_str(),
+                       wid->abs_x, wid->abs_y, wid->width, wid->height);
+            }
+            break;
+        }
+        case EVENT_POINTER: {
+            pointer_event *pev = dynamic_cast<pointer_event*>(ev);
+            if (pev) {
+                point p = point_screen_to_gl_window(point(pev->x, pev->y));
+                widget* wid = find_widget_with_xy(p);
+                printf("find [%d, %d] in %s[%d, %d, %d, %d]\n",
+                       p.x, p.y,
+                       wid->get_name().c_str(),
+                       wid->abs_x, wid->abs_y, wid->width, wid->height);
+            }
+            break;
+        }
+        default:
+            break;
+        }
+        delete ev;
+    }
     return 0;
+}
+frame* frame::push_event(event* e)
+{
+    std::lock_guard<std::mutex> _lock_guard(event_queue_lock);
+    event_queue.push(e);
+    //printf("+:%ld\n", event_queue.size());
+
+    return this;
+}
+event* frame::pop_event()
+{
+    event* ret = NULL;
+
+    std::lock_guard<std::mutex> _lock_guard(event_queue_lock);
+    if (!event_queue.empty()) {
+        ret = event_queue.front();
+        event_queue.pop();
+        //printf("-:%ld\n", event_queue.size());
+    }
+    return ret;
 }

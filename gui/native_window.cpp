@@ -3,7 +3,7 @@
 #include <wayland-client.h>
 
 #include "native_window.hpp"
-
+#include "frame.hpp"
 #include "gles/gles.h"
 #include "utils/util.h"
 
@@ -11,6 +11,7 @@ native_window::native_window(int width, int height)
 {
     /* wayland init */
     wc = new wayland_client;
+    wc->win = this;
 
     /* wayland egl init */
     struct wl_egl_window* p_wl_egl_window

@@ -5,21 +5,40 @@
 #include "event.hpp"
 
 class input_event :public event {
-    double x, y;
 
 public:
     input_event(int x, int y)
         :x(x), y(y){
         ;
     }
+
+public:
+    int x, y;
 };
 
 class touch_event :public input_event {
 public:
-    touch_event(int x, int y)
+    touch_event(int x, int y, int type)
         : input_event(x, y) {
-        ;
+        this->type = type;
+        et = EVENT_TOUCH;
     }
+
+public:
+    int type;
 };
+
+class pointer_event :public input_event {
+public:
+    pointer_event(int x, int y, int type)
+        : input_event(x, y) {
+        this->type = type;
+        et = EVENT_POINTER;
+    }
+
+public:
+    int type;
+};
+
 
 #endif

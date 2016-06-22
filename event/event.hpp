@@ -3,11 +3,21 @@
 
 enum event_type{
     EVENT_TOUCH,
+    EVENT_POINTER,
     EVENT_FRAME,
 };
 
 class event {
-    
+public:
+    event() {
+        ;
+    }
+    virtual ~event() {
+        ;
+    }
+
+public:
+    event_type et;
 };
 
 #endif

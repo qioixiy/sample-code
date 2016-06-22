@@ -5,6 +5,7 @@
 #include "wayland/wayland_client.hpp"
 #include "egl/egl.h"
 
+class frame;
 class native_window {
 public:
     native_window(int = 100, int = 100);
@@ -16,6 +17,7 @@ public:
     int height;
     wayland_client *wc;
     struct egl_wayland* egl;
+    frame *f;
 };
 
 #endif

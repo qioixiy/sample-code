@@ -5,6 +5,7 @@
 #include <queue>
 #include <mutex>
 
+#include "common.hpp"
 #include "frame.hpp"
 #include "native_window.hpp"
 #include "node.hpp"
@@ -22,6 +23,7 @@ public:
     void redraw();
     void init();
     bool need_quit();
+    widget* find_widget_with_xy(point);
     widget* find_widget_with_xy(int x, int y);
 
     // root widget
@@ -32,12 +34,17 @@ public:
     native_window* get_native_window();
     // event
     int dispatch_event();
+    frame* push_event(event*);
+    event* pop_event();
 
-private:
+    // other
+    point point_screen_to_gl_window(point);
 
 public:
     int width, height;
-    queue<event> event_queue;
+
+private:
+    queue<event*> event_queue;
     std::mutex event_queue_lock;
 
 protected:
