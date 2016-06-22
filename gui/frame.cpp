@@ -5,6 +5,8 @@
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 
+#include <stack>
+
 #include "frame.hpp"
 #include "widget.hpp"
 #include "log/log.h"
@@ -30,46 +32,33 @@ void frame::draw(Node *node)
         return;
     }
 
-    static int depth = 0;
-    depth++;
+    stack<Node*> s;
+    s.push(node);
 
-    if (depth > 100) {
-        printf("depth>100, dead loop %p\n", node);
-        usleep(100);
-    }
-
-    widget *wid = dynamic_cast<widget *>(node);
-    wid->redraw();
-
-    // draw childrens
-    if (node->first_child()) {  // have children
-        draw(node->first_child());
-    }
-
-    // draw slibing
-    while (node = node->next()) {
-        wid = dynamic_cast<widget *>(node);
-        if (wid) {
-            wid->redraw();
-        } else {
-            printf("not a widget");
+    while(!s.empty()) {
+        // pop
+        Node* n = s.top(); s.pop();
+        // handle
+        widget *wid = dynamic_cast<widget *>(n);
+        wid->redraw();
+        // push form the tail child node
+        Node* fn = n->first_child();
+        Node* sn = n->last_child();
+        if (fn && sn) {
+            while(sn != fn) {
+                s.push(sn);
+                sn = sn->prev();
+            }
+            s.push(sn);
         }
     }
-
-    depth--;
 }
 
 void frame::redraw()
 {
-    // widget* wid = dynamic_cast<widget*>(root_widget->first_child());
-    // printf("%d, %d, %d, %d\n",
-    //        wid->abs_x, wid->abs_y, wid->width, wid->height);
-
-    // if (this->find_widget_with_xy(100, 100, &wid)) {
-    //     printf("find\n");
-    // } else {
-    //     printf("not find\n");
-    // }
+    widget* wid = find_widget_with_xy(400, 100);
+    printf("find in %s[%d, %d, %d, %d]\n", wid->get_name().c_str(),
+           wid->abs_x, wid->abs_y, wid->width, wid->height);
 
     draw(root_widget);
 
@@ -109,35 +98,36 @@ bool frame::need_quit()
     return quit == 1;
 }
 
-bool frame::find_widget_with_xy(int x, int y, widget** wid_ret)
+widget* frame::find_widget_with_xy(int x, int y)
 {
     bool ret = false;
+    widget* ret_wid = root_widget;
+
     Node* node = root_widget;
-    widget *wid = root_widget;
+    stack<Node*> s;
+    s.push(node);
 
-    rect r = wid->get_screen_rect();
-    if (ret = r.inside(x, y)) {
-        *wid_ret = wid;
-    }
-
-    // find in childrens
-    if (node->first_child()) {  // have children
-        ret = find_widget_with_xy(x, y, wid_ret);
-    }
-
-    // find in slibing
-    while (node = node->next()) {
-        wid = dynamic_cast<widget*>(node);
-        if (wid) {
-            rect r = wid->get_screen_rect();
-            if (ret = r.inside(x, y)) {
-                *wid_ret = wid;
+    while(!s.empty()) {
+        // pop
+        Node* n = s.top(); s.pop();
+        // handle
+        widget *wid = dynamic_cast<widget *>(n);
+        rect r = wid->get_screen_rect();
+        if (ret = r.inside(x, y)) {
+            ret_wid = wid;
+        }
+        // push form the tail child node
+        Node* fn = n->first_child();
+        Node* sn = n->last_child();
+        if (fn && sn) {
+            while(sn != fn) {
+                s.push(sn);
+                sn = sn->prev();
             }
-        } else {
-            printf("not a widget");
+            s.push(sn);
         }
     }
-    return ret;
+    return ret_wid;
 }
 
 void frame::init()

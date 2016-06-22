@@ -182,4 +182,7 @@ void Node::dump()
         q1 = q2;
         q2 = temp;
     }
+
+    delete q1;
+    delete q2;
 }

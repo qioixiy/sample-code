@@ -18,7 +18,7 @@ public:
     void redraw();
     void init();
     bool need_quit();
-    bool find_widget_with_xy(int x, int y, widget**);
+    widget* find_widget_with_xy(int x, int y);
 
     // root widget
     int set_root_widget(widget*);
