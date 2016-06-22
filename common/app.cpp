@@ -1,12 +1,6 @@
 
-#include <stddef.h>
-#include <pthread.h>
-#include <string.h>
-#include <unistd.h>
-
 #include "app.hpp"
-#include "gui/native_window.hpp"
-#include "log/log.h"
+#include "utils/util.h"
 
 app::app() {
     ;
@@ -20,6 +14,7 @@ app::~app()
 int app::run()
 {
     while(!quit) {
+        f->dispatch_event();
         f->redraw();
         FPS();
 

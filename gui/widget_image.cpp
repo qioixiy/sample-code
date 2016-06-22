@@ -1,11 +1,5 @@
 #include "widget_image.hpp"
 
-#include "log/log.h"
-#include "utils/png_load.h"
-#include "gles/draw.h"
-#include "gles/texture.h"
-#include "gles/shader.h"
-
 widget_image::widget_image(int x, int y, int w, int h)
     :widget(x, y, w, h)
     ,m_painter(NULL)

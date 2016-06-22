@@ -75,6 +75,7 @@ CXX_SRCS := \
 	gui/node.cpp \
 	gui/frame.cpp \
 	gui/native_window.cpp \
+	gui/wayland/wayland_client.cpp \
 	gui/widget.cpp \
 	gui/widget_image.cpp \
 	gui/painter_image_png.cpp \

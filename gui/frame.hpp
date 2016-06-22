@@ -2,9 +2,13 @@
 #ifndef _FRAME_HPP_
 #define _FRAME_HPP_
 
+#include <queue>
+#include <mutex>
+
 #include "frame.hpp"
 #include "native_window.hpp"
 #include "node.hpp"
+#include "event/event.hpp"
 
 class widget;
 /* frame */
@@ -26,11 +30,15 @@ public:
     // native window
     void set_native_window(native_window*);
     native_window* get_native_window();
+    // event
+    int dispatch_event();
 
 private:
 
 public:
     int width, height;
+    queue<event> event_queue;
+    std::mutex event_queue_lock;
 
 protected:
     int quit;

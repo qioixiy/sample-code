@@ -1,7 +1,6 @@
 
 #include "painter_image_png.hpp"
 
-#include "log/log.h"
 #include "gles/draw.h"
 #include "gles/texture.h"
 #include "gles/shader.h"

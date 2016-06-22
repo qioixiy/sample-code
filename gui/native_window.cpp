@@ -1,25 +1,35 @@
+#include <stdio.h>
+#include <wayland-egl.h>
+#include <wayland-client.h>
 
 #include "native_window.hpp"
+
+#include "gles/gles.h"
+#include "utils/util.h"
 
 native_window::native_window(int width, int height)
 {
     /* wayland init */
-    win = wayland_init();
-    wayland_display_run(win->p_wl_display);
+    wc = new wayland_client;
 
     /* wayland egl init */
     struct wl_egl_window* p_wl_egl_window
         = (struct wl_egl_window*)wl_egl_window_create(
-            win->p_wl_surface, width, height);
+            wc->p_wl_surface, width, height);
     if (!p_wl_egl_window) {
         printf("wl_egl_window_create error\n");
     }
 
     /* egl */
-    egl = egl_init((EGLNativeDisplayType)win->p_wl_display,
+    egl = egl_init((EGLNativeDisplayType)wc->p_wl_display,
                    (EGLNativeWindowType)p_wl_egl_window);
 
     print_gles_env();
+}
+
+native_window::~native_window()
+{
+    delete wc;
 }
 
 /* swap back,front buffer */

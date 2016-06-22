@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
 #include <stack>
 
 #include "frame.hpp"
@@ -130,4 +129,10 @@ widget* frame::find_widget_with_xy(int x, int y)
         }
     }
     return ret_wid;
+}
+
+int frame::dispatch_event()
+{
+    std::lock_guard<std::mutex> _lock_guard(event_queue_lock);
+    return 0;
 }
