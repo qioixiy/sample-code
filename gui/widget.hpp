@@ -16,17 +16,22 @@ public:
     int destory();
     virtual int hide();
     virtual int show();
+    virtual int get_show_status();
     virtual int draw();
     virtual int redraw();
     widget* add_child_widget(widget*);
     rect get_screen_rect();
+    void reverse_show_status();
 
 public:
     int abs_x, abs_y;
     int width, height;
-    int is_show;
     color_rgba bg_color;
     frame *f;
+
+private:
+    int cur_show_status;
+    int origin_show_status;
 };
 
 #endif

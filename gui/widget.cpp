@@ -15,17 +15,19 @@ widget::widget(int x, int y, int w, int h)
     width = w;
     height = h;
 
+    origin_show_status = cur_show_status = 0;
+
     show();
 }
 
 int widget::show()
 {
-    is_show = 1;
+    origin_show_status = cur_show_status = 1;
     return 0;
 }
 int widget::hide()
 {
-    is_show = 0;
+    origin_show_status = cur_show_status = 0;
     return 0;
 }
 
@@ -38,7 +40,7 @@ int widget::draw()
 
 int widget::redraw()
 {
-    if (!is_show) {
+    if (!cur_show_status) {
         return -1;
     }
 
@@ -71,4 +73,18 @@ rect widget::get_screen_rect()
                 f->abs_y + abs_y,
                 f->abs_x + abs_x + width,
                 f->abs_y + abs_y + height);
+}
+
+int widget::get_show_status()
+{
+    return cur_show_status;
+}
+
+void widget::reverse_show_status()
+{
+    if (get_show_status()) {
+        hide();
+    } else {
+        show();
+    }
 }

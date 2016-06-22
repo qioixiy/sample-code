@@ -155,7 +155,7 @@ int frame::dispatch_event()
                        wid->get_name().c_str(),
                        wid->abs_x, wid->abs_y,
                        wid->width, wid->height);
-                //wid->is_show = (wid->is_show == 0) ? 1 :0;
+                wid->reverse_show_status();
             }
             break;
         }
@@ -169,7 +169,7 @@ int frame::dispatch_event()
                        wid->get_name().c_str(),
                        wid->abs_x, wid->abs_y,
                        wid->width, wid->height);
-                wid->is_show = (wid->is_show == 0) ? 1 :0;
+                wid->reverse_show_status();
             }
             break;
         }
