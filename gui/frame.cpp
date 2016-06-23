@@ -49,6 +49,9 @@ void frame::draw(Node *node)
         Node* n = s.top(); s.pop();
         // handle
         widget *wid = dynamic_cast<widget *>(n);
+        if (!wid->get_show_status()) {
+            continue;
+        }
         wid->redraw();
         // push form the tail child node
         Node* fn = n->first_child();

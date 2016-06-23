@@ -16,19 +16,19 @@ widget::widget(int x, int y, int w, int h)
     width = w;
     height = h;
 
-    origin_show_status = cur_show_status = 0;
+    cur_show_status = 0;
 
     show();
 }
 
 int widget::show()
 {
-    origin_show_status = cur_show_status = 1;
+    cur_show_status = 1;
     return 0;
 }
 int widget::hide()
 {
-    origin_show_status = cur_show_status = 0;
+    cur_show_status = 0;
     return 0;
 }
 

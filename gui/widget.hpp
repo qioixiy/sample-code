@@ -40,7 +40,6 @@ public:
 
 private:
     int cur_show_status;
-    int origin_show_status;
 };
 
 #endif

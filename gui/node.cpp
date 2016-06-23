@@ -117,7 +117,7 @@ void Node::link_this_to_sibling_prev( Node *sibling )
     this->parent_node = sibling->parent_node;
 }
 
-void   Node::unlink( void )
+void Node::unlink( void )
 {
     /* Unlink from prev sibling */
     if ( this->prev_sibling != NULL ) {
