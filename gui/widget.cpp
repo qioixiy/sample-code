@@ -9,6 +9,7 @@
 #include "gles/draw.h"
 
 widget::widget(int x, int y, int w, int h)
+    : debug(0)
 {
     abs_x = x;
     abs_y = y;
@@ -91,32 +92,44 @@ void widget::reverse_show_status()
 // touch
 int widget::touch_down_handler(int x, int y)
 {
-    printf("%d %d\n", x, y);
+    if (debug) {
+        printf("%d %d\n", x, y);
+    }
     return false;
 }
 int widget::touch_up_handler(int x, int y)
 {
-    printf("%d %d\n", x, y);
+    if (debug) {
+        printf("%d %d\n", x, y);
+    }
     return false;
 }
 int widget::touch_motion_handler(int x, int y)
 {
-    printf("%d %d\n", x, y);
+    if (debug) {
+        printf("%d %d\n", x, y);
+    }
     return false;
 }
 // pointer
 int widget::pointer_motion_handler(int x, int y)
 {
-    printf("%d %d\n", x, y);
+    if (debug) {
+        printf("%d %d\n", x, y);
+    }
     return false;
 }
 int widget::pointer_button_handler(int button, int state)
 {
-    printf("%d %d\n", button, state);
+    if (debug) {
+        printf("%d %d\n", button, state);
+    }
     return false;
 }
 int widget::pointer_axis_handler(int axis, int value)
 {
-    printf("%d %d\n", axis, value);
+    if (debug) {
+        printf("%d %d\n", axis, value);
+    }
     return false;
 }

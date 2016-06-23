@@ -32,6 +32,7 @@ public:
     virtual int pointer_axis_handler(int axis, int value);
 
 public:
+    int debug;
     int abs_x, abs_y;
     int width, height;
     color_rgba bg_color;
