@@ -180,23 +180,42 @@ int frame::dispatch_event()
     }
     return 0;
 }
+
 frame* frame::push_event(event* e)
 {
-    std::lock_guard<std::mutex> _lock_guard(event_queue_lock);
     event_queue.push(e);
     //printf("+:%ld\n", event_queue.size());
 
     return this;
 }
+
 event* frame::pop_event()
 {
     event* ret = NULL;
 
-    std::lock_guard<std::mutex> _lock_guard(event_queue_lock);
-    if (!event_queue.empty()) {
-        ret = event_queue.front();
-        event_queue.pop();
-        //printf("-:%ld\n", event_queue.size());
-    }
+    event_queue.wait_and_pop(ret);
+    //printf("-:%ld\n", event_queue.size());
+
     return ret;
+}
+
+bool frame::have_event()
+{
+    return !event_queue.empty();
+}
+
+void* dispatch_event_thread(void* p)
+{
+    frame *f = reinterpret_cast<frame*>(p);
+    int quit = 0;
+
+    while(!quit) {
+        f->dispatch_event();
+    }
+}
+
+int frame::dispatch_event_run(int flag)
+{
+    pthread_t pid;
+    int p = pthread_create(&pid, NULL, dispatch_event_thread, this);
 }

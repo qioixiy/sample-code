@@ -7,8 +7,9 @@
 
 #include "common.hpp"
 #include "frame.hpp"
-#include "native_window.hpp"
 #include "node.hpp"
+#include "threadsafe_queue.hpp"
+#include "native_window.hpp"
 #include "event/event.hpp"
 
 class widget;
@@ -32,6 +33,8 @@ public:
     int dispatch_event();
     frame* push_event(event*);
     event* pop_event();
+    bool have_event();
+    int dispatch_event_run(int);
 
 private:
     void draw(Node*);
@@ -44,8 +47,7 @@ public:
     int width, height;
 
 private:
-    queue<event*> event_queue;
-    std::mutex event_queue_lock;
+    threadsafe_queue<event*> event_queue;
 
 protected:
     int quit;
@@ -54,7 +56,5 @@ protected:
     native_window *mp_native_window;
     widget* root_widget;
 };
-
-frame* frame_init(int x, int y, int w, int h);
 
 #endif

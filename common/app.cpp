@@ -13,8 +13,8 @@ app::~app()
 
 int app::run()
 {
+    f->dispatch_event_run(1);
     while(!quit) {
-        f->dispatch_event();
         f->redraw();
         FPS();
 
