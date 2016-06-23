@@ -11,7 +11,7 @@ void widget_image::set_image(string filePath)
 {
     this->filePath = filePath;
     if (!m_painter) {
-        m_painter = new painter_image_png(filePath);
+        m_painter = new painter::image_png(filePath);
     }
 }
 

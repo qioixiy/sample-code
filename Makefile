@@ -79,7 +79,7 @@ CXX_SRCS := \
 	gui/wayland/wayland_client.cpp \
 	gui/widget.cpp \
 	gui/widget_image.cpp \
-	gui/painter_image_png.cpp \
+	gui/painter.cpp \
 	common/app.cpp \
 	gles/glsl_program_object.cpp \
 

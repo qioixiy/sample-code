@@ -1,23 +1,23 @@
 
-#include "painter_image_png.hpp"
+#include "painter.hpp"
 
 #include "gles/draw.h"
 #include "gles/texture.h"
 #include "gles/shader.h"
 
-painter_image_png::painter_image_png(string file)
+painter::image_png::image_png(string file)
     :load(0)
     ,m_glsl_object(NULL)
 {
     file_path = file;
 }
 
-painter_image_png::~painter_image_png()
+painter::image_png::~image_png()
 {
     ;
 }
 
-int painter_image_png::set_source(string file)
+int painter::image_png::set_source(string file)
 {
     if (file != file_path) {
         file_path = file;
@@ -25,7 +25,7 @@ int painter_image_png::set_source(string file)
     }
 }
 
-int painter_image_png::run()
+int painter::image_png::run()
 {
     if (!m_glsl_object) {
         m_glsl_object = new glsl_program_object();

@@ -3,7 +3,7 @@
 #define _WIDGET_IMAGE_HPP_
 
 #include "widget.hpp"
-#include "painter_image_png.hpp"
+#include "painter.hpp"
 
 class widget_image : public widget {
 public:
@@ -14,7 +14,7 @@ public:
 
 private:
     string filePath;
-    painter_image_png *m_painter;
+    painter::image_png *m_painter;
 };
 
 #endif
