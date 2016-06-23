@@ -38,6 +38,7 @@ public:
     }
 
 public:
+    // 0 motion, 1 button, 2 axis
     int type;
 };
 

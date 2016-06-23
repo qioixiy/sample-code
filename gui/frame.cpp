@@ -8,7 +8,7 @@
 #include "widget.hpp"
 
 frame::frame(int x, int y, int width, int height)
-    : debug(1)
+    : debug(0)
 {
     abs_x = x;
     abs_y = y;
@@ -166,6 +166,7 @@ int frame::dispatch_event()
                 case 2: wid->touch_motion_handler(x, y); break;
                 default:
                     printf("unkown touch type\n");
+                    break;
                 }
             }
             break;
@@ -182,6 +183,16 @@ int frame::dispatch_event()
                            wid->get_name().c_str(),
                            wid->abs_x, wid->abs_y,
                            wid->width, wid->height);
+                }
+                int v1 = pev->x;
+                int v2 = pev->y;
+                switch(pev->type) {
+                case 0: wid->pointer_motion_handler(v1, v2); break;
+                case 1: wid->pointer_button_handler(v1, v2); break;
+                case 2: wid->pointer_axis_handler(v1, v2); break;
+                default:
+                    printf("unkown pointer type\n");
+                    break;
                 }
             }
             break;

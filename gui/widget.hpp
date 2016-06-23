@@ -23,10 +23,13 @@ public:
     rect get_screen_rect();
     void reverse_show_status();
 
-    // handler
-    virtual int touch_down_handler(int lx, int ly);
-    virtual int touch_up_handler(int lx, int ly);
-    virtual int touch_motion_handler(int lx, int ly);
+    // event handler
+    virtual int touch_down_handler(int x, int y);
+    virtual int touch_up_handler(int x, int y);
+    virtual int touch_motion_handler(int x, int y);
+    virtual int pointer_motion_handler(int x, int y);
+    virtual int pointer_button_handler(int button, int state);
+    virtual int pointer_axis_handler(int axis, int value);
 
 public:
     int abs_x, abs_y;

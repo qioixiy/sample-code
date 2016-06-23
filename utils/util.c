@@ -4,6 +4,7 @@
 
 int FPS()
 {
+    static float step = 10.0f;
     static struct timeval t1, t2;
     static struct timezone tz;
     static float deltatime;
@@ -21,10 +22,10 @@ int FPS()
 
     totaltime += deltatime;
     frames++;
-    if (totaltime > 2.0f) {
+    if (totaltime > step) {
         printf("%4d frames rendered in %1.4f seconds -> FPS=%3.4f\n",
                frames, totaltime, frames/totaltime);
-        totaltime -= 2.0f;
+        totaltime -= step;
         frames = 0;
     }
 

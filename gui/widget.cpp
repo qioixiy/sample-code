@@ -89,14 +89,34 @@ void widget::reverse_show_status()
     }
 }
 // touch
-int widget::touch_down_handler(int lx, int ly)
+int widget::touch_down_handler(int x, int y)
 {
+    printf("%d %d\n", x, y);
     return false;
 }
-int widget::touch_up_handler(int lx, int ly)
+int widget::touch_up_handler(int x, int y)
 {
+    printf("%d %d\n", x, y);
     return false;
 }
-int widget::touch_motion_handler(int lx, int ly) {
+int widget::touch_motion_handler(int x, int y)
+{
+    printf("%d %d\n", x, y);
+    return false;
+}
+// pointer
+int widget::pointer_motion_handler(int x, int y)
+{
+    printf("%d %d\n", x, y);
+    return false;
+}
+int widget::pointer_button_handler(int button, int state)
+{
+    printf("%d %d\n", button, state);
+    return false;
+}
+int widget::pointer_axis_handler(int axis, int value)
+{
+    printf("%d %d\n", axis, value);
     return false;
 }

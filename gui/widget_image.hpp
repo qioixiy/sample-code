@@ -12,9 +12,8 @@ public:
     virtual int draw();
     void set_image(string filePath);
 // touch
-    virtual int touch_down_handler(int lx, int ly);
-    virtual int touch_up_handler(int lx, int ly);
-    virtual int touch_motion_handler(int lx, int ly);
+    virtual int touch_down_handler(int, int);
+    virtual int touch_up_handler(int, int);
 
 private:
     string filePath;

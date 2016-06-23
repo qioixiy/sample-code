@@ -26,17 +26,12 @@ int widget_image::draw()
 }
 
 // touch
-int widget_image::touch_down_handler(int lx, int ly)
+int widget_image::touch_down_handler(int, int)
 {
-    printf("%d %d\n", lx, ly);
-    return false;
+    reverse_show_status();
+    return 0;
 }
-int widget_image::touch_up_handler(int lx, int ly)
+int widget_image::touch_up_handler(int, int)
 {
-    printf("%d %d\n", lx, ly);
-    return false;
-}
-int widget_image::touch_motion_handler(int lx, int ly) {
-    printf("%d %d\n", lx, ly);
-    return false;
+    return 0;
 }

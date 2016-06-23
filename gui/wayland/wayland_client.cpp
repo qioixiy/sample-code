@@ -85,10 +85,12 @@ static void
 pointer_handle_motion(void *data, struct wl_pointer *pointer,
                       uint32_t time, wl_fixed_t sx_w, wl_fixed_t sy_w)
 {
+    //printf("%s\n", __func__);
+
     wayland_client *wc = reinterpret_cast<wayland_client*>(data);
     wc->pointer_state_w = 0;
-    wc->pointer_sx_w = sx_w;
-    wc->pointer_sy_w = sy_w;
+    wc->pointer_sx_w = wl_fixed_to_double(sx_w);
+    wc->pointer_sy_w = wl_fixed_to_double(sy_w);
     wc->raise_event(1);
 }
 
@@ -96,14 +98,24 @@ static void
 pointer_handle_button(void *data, struct wl_pointer *pointer, uint32_t serial,
                       uint32_t time, uint32_t button, uint32_t state_w)
 {
-    printf("%s\n", __func__);
+    //printf("%s %d %d\n", __func__, button, state_w);
+    wayland_client *wc = reinterpret_cast<wayland_client*>(data);
+    wc->pointer_state_w = 1;
+    wc->pointer_sx_w = button;
+    wc->pointer_sy_w = state_w;
+    wc->raise_event(1);
 }
 
 static void
 pointer_handle_axis(void *data, struct wl_pointer *pointer,
                     uint32_t time, uint32_t axis, wl_fixed_t value)
 {
-    printf("%s\n", __func__);
+    //printf("%s %d %d\n", __func__, axis, value);
+    wayland_client *wc = reinterpret_cast<wayland_client*>(data);
+    wc->pointer_state_w = 2;
+    wc->pointer_sx_w = axis;
+    wc->pointer_sy_w = wl_fixed_to_double(value);
+    wc->raise_event(1);
 }
 
 static void
@@ -243,7 +255,7 @@ handle_ping(void *data, struct wl_shell_surface *shell_surface,
             uint32_t serial)
 {
 	wl_shell_surface_pong(shell_surface, serial);
-    printf("handle_ping\n");
+    //printf("handle_ping\n");
 }
 
 static void
@@ -372,8 +384,8 @@ int wayland_client::raise_event(int type) {
     } else if (type == 1) {
         win->f->push_event(
             new pointer_event(
-                wl_fixed_to_double(pointer_sx_w),
-                wl_fixed_to_double(pointer_sy_w),
+                pointer_sx_w,
+                pointer_sy_w,
                 pointer_state_w));
     }
     return 0;
