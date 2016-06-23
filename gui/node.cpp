@@ -1,6 +1,5 @@
 
 #include <cstdio>
-#include <cmath>
 #include <queue>
 
 #include "node.hpp"

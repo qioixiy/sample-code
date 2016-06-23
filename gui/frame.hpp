@@ -19,12 +19,8 @@ class frame {
 
 public:
     frame(int x = 0, int y = 0, int width = 100, int height = 100);
-    void draw(Node*);
     void redraw();
-    void init();
     bool need_quit();
-    widget* find_widget_with_xy(point);
-    widget* find_widget_with_xy(int x, int y);
 
     // root widget
     int set_root_widget(widget*);
@@ -37,7 +33,11 @@ public:
     frame* push_event(event*);
     event* pop_event();
 
-    // other
+private:
+    void draw(Node*);
+    void init();
+    widget* find_widget_with_xy(point);
+    widget* find_widget_with_xy(int x, int y);
     point point_screen_to_gl_window(point);
 
 public:
