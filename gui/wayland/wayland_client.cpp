@@ -101,8 +101,8 @@ pointer_handle_button(void *data, struct wl_pointer *pointer, uint32_t serial,
     //printf("%s %d %d\n", __func__, button, state_w);
     wayland_client *wc = reinterpret_cast<wayland_client*>(data);
     wc->pointer_state_w = 1;
-    wc->pointer_sx_w = button;
-    wc->pointer_sy_w = state_w;
+    wc->pointer.button = button;
+    wc->pointer.state_w = state_w;
     wc->raise_event(1);
 }
 
@@ -113,8 +113,8 @@ pointer_handle_axis(void *data, struct wl_pointer *pointer,
     //printf("%s %d %d\n", __func__, axis, value);
     wayland_client *wc = reinterpret_cast<wayland_client*>(data);
     wc->pointer_state_w = 2;
-    wc->pointer_sx_w = axis;
-    wc->pointer_sy_w = wl_fixed_to_double(value);
+    wc->pointer.axis = axis;
+    wc->pointer.value = wl_fixed_to_double(value);
     wc->raise_event(1);
 }
 
@@ -386,7 +386,7 @@ int wayland_client::raise_event(int type) {
             new pointer_event(
                 pointer_sx_w,
                 pointer_sy_w,
-                pointer_state_w));
+                pointer.v1, pointer.v2, pointer_state_w));
     }
     return 0;
 }

@@ -11,9 +11,11 @@ public:
 
     virtual int draw();
     void set_image(string filePath);
-// touch
+
+    // touch
     virtual int touch_down_handler(int, int);
     virtual int touch_up_handler(int, int);
+    int pointer_button_handler(int button, int state);
 
 private:
     string filePath;

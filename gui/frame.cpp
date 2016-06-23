@@ -187,9 +187,17 @@ int frame::dispatch_event()
                 int v1 = pev->x;
                 int v2 = pev->y;
                 switch(pev->type) {
-                case 0: wid->pointer_motion_handler(v1, v2); break;
-                case 1: wid->pointer_button_handler(v1, v2); break;
-                case 2: wid->pointer_axis_handler(v1, v2); break;
+                case 0:
+                    wid->pointer_motion_handler(v1, v2);
+                    break;
+                case 1:
+                    wid->pointer_button_handler(
+                        pev->pointer.button, pev->pointer.state_w);
+                    break;
+                case 2:
+                    wid->pointer_axis_handler(
+                        pev->pointer.axis, pev->pointer.value);
+                    break;
                 default:
                     printf("unkown pointer type\n");
                     break;

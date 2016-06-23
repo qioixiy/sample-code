@@ -25,6 +25,13 @@ int widget_image::draw()
     return 0;
 }
 
+int widget_image::pointer_button_handler(int button, int state)
+{
+    if (state) {
+        reverse_show_status();
+    }
+}
+
 // touch
 int widget_image::touch_down_handler(int, int)
 {

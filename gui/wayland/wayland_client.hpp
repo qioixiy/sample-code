@@ -37,6 +37,20 @@ public:
     int touch_type;
     // pointer
     wl_fixed_t pointer_sx_w, pointer_sy_w;
+    union {
+        struct {                // button
+            uint32_t button;
+            uint32_t state_w;
+        };
+        struct {                // axis
+            uint32_t axis;
+            uint32_t value;
+        };
+        struct {
+            uint32_t v1;
+            uint32_t v2;
+        };
+    }pointer;
     uint32_t pointer_state_w;
 
     native_window *win;
