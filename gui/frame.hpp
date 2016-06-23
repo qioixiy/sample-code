@@ -50,6 +50,7 @@ private:
     threadsafe_queue<event*> event_queue;
 
 protected:
+    int debug;
     int quit;
     int abs_x, abs_y;
 

@@ -25,6 +25,7 @@ public:
     }
 
 public:
+    // 0 down, 1 up, 2 motion
     int type;
 };
 

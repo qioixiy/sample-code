@@ -8,6 +8,7 @@
 #include "widget.hpp"
 
 frame::frame(int x, int y, int width, int height)
+    : debug(1)
 {
     abs_x = x;
     abs_y = y;
@@ -150,12 +151,22 @@ int frame::dispatch_event()
             if (tev) {
                 point p = point_screen_to_gl_window(point(tev->x, tev->y));
                 widget* wid = find_widget_with_xy(p);
-                printf("find [%d, %d] in %s[%d, %d, %d, %d]\n",
-                       p.x, p.y,
-                       wid->get_name().c_str(),
-                       wid->abs_x, wid->abs_y,
-                       wid->width, wid->height);
-                wid->reverse_show_status();
+                if (debug) {
+                    printf("find [%d, %d] in %s[%d, %d, %d, %d]\n",
+                           p.x, p.y,
+                           wid->get_name().c_str(),
+                           wid->abs_x, wid->abs_y,
+                           wid->width, wid->height);
+                }
+                int x = p.x;
+                int y = p.y;
+                switch(tev->type) {
+                case 0: wid->touch_down_handler(x, y); break;
+                case 1: wid->touch_up_handler(x, y); break;
+                case 2: wid->touch_motion_handler(x, y); break;
+                default:
+                    printf("unkown touch type\n");
+                }
             }
             break;
         }
@@ -164,12 +175,14 @@ int frame::dispatch_event()
             if (pev) {
                 point p = point_screen_to_gl_window(point(pev->x, pev->y));
                 widget* wid = find_widget_with_xy(p);
-                printf("find [%d, %d] in %s[%d, %d, %d, %d]\n",
-                       p.x, p.y,
-                       wid->get_name().c_str(),
-                       wid->abs_x, wid->abs_y,
-                       wid->width, wid->height);
-                wid->reverse_show_status();
+
+                if (debug) {
+                    printf("find [%d, %d] in %s[%d, %d, %d, %d]\n",
+                           p.x, p.y,
+                           wid->get_name().c_str(),
+                           wid->abs_x, wid->abs_y,
+                           wid->width, wid->height);
+                }
             }
             break;
         }

@@ -88,3 +88,15 @@ void widget::reverse_show_status()
         show();
     }
 }
+// touch
+int widget::touch_down_handler(int lx, int ly)
+{
+    return false;
+}
+int widget::touch_up_handler(int lx, int ly)
+{
+    return false;
+}
+int widget::touch_motion_handler(int lx, int ly) {
+    return false;
+}

@@ -24,3 +24,19 @@ int widget_image::draw()
     m_painter ? m_painter->run() : 0;
     return 0;
 }
+
+// touch
+int widget_image::touch_down_handler(int lx, int ly)
+{
+    printf("%d %d\n", lx, ly);
+    return false;
+}
+int widget_image::touch_up_handler(int lx, int ly)
+{
+    printf("%d %d\n", lx, ly);
+    return false;
+}
+int widget_image::touch_motion_handler(int lx, int ly) {
+    printf("%d %d\n", lx, ly);
+    return false;
+}
