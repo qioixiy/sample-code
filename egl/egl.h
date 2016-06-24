@@ -10,7 +10,7 @@ extern "C"
 {
 #endif
 
-struct egl_wayland {
+struct egl_env {
     EGLDisplay display;
     EGLSurface surface;
 
@@ -19,7 +19,7 @@ struct egl_wayland {
     EGLConfig config[MAX_CONFIG];
 };
 
-struct egl_wayland* egl_init(EGLNativeDisplayType, EGLNativeWindowType);
+struct egl_env* egl_init(EGLNativeDisplayType, EGLNativeWindowType);
 
 #ifdef __cplusplus
 }

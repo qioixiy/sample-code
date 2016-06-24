@@ -1,16 +1,17 @@
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "egl.h"
 
-static struct egl_wayland egl;
-
-struct egl_wayland*
+struct egl_env*
 egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
          EGLNativeWindowType _EGLNativeWindowType)
 {
-    egl.display = eglGetDisplay(_EGLNativeDisplayType/* EGL_DEFAULT_DISPLAY */);
-    if(egl.display == EGL_NO_DISPLAY)
+    struct egl_env *egl = malloc(sizeof(struct egl_env));
+
+    egl->display = eglGetDisplay(_EGLNativeDisplayType/* EGL_DEFAULT_DISPLAY */);
+    if(egl->display == EGL_NO_DISPLAY)
     {
         printf("Unable to open connection to local windowing system\n");
         return NULL;
@@ -18,9 +19,9 @@ egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
 
     EGLint majorVersion;
     EGLint minorVersion;
-    if(EGL_FALSE == eglInitialize(egl.display, &majorVersion, &minorVersion))
+    if(EGL_FALSE == eglInitialize(egl->display, &majorVersion, &minorVersion))
     {
-        printf("Unable to initialize EGL. Handle and recover\n");
+        printf("Unable to initialize EGL-> Handle and recover\n");
         switch(eglGetError()) {
         case EGL_BAD_DISPLAY:
             printf("display doesn't specify a valid EGLDisplay\n");
@@ -60,9 +61,9 @@ egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
     };
 
     EGLint numConfigs;
-    if(!eglChooseConfig(egl.display,
+    if(!eglChooseConfig(egl->display,
                         eglChooseConfigAttribList,
-                        egl.config, MAX_CONFIG,
+                        egl->config, MAX_CONFIG,
                         &numConfigs)) {
         printf("eglChooseConfig error\n");
         return NULL;
@@ -75,11 +76,11 @@ egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
         EGL_NONE
     };
 
-    egl.context = eglCreateContext(egl.display,
-                                   egl.config[0],
+    egl->context = eglCreateContext(egl->display,
+                                   egl->config[0],
                                    EGL_NO_CONTEXT,
                                    ContextAttribList);
-    if(egl.context == EGL_NO_CONTEXT)
+    if(egl->context == EGL_NO_CONTEXT)
     {
         if(eglGetError() == EGL_BAD_CONFIG)
         {
@@ -93,11 +94,11 @@ egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
         EGL_RENDER_BUFFER, EGL_BACK_BUFFER,
         EGL_NONE
     };
-    egl.surface = eglCreateWindowSurface(egl.display,
-                                         egl.config[0],
+    egl->surface = eglCreateWindowSurface(egl->display,
+                                         egl->config[0],
                                          _EGLNativeWindowType,
                                          CreateWindowSurfaceAttribList);
-    if(egl.surface == EGL_NO_SURFACE)
+    if(egl->surface == EGL_NO_SURFACE)
     {
         switch(eglGetError())
         {
@@ -120,8 +121,8 @@ egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
     }
 
     /* Making an EGLContext Current */
-    int ret = eglMakeCurrent(egl.display, egl.surface,
-                             egl.surface, egl.context);
+    int ret = eglMakeCurrent(egl->display, egl->surface,
+                             egl->surface, egl->context);
     if (ret != EGL_TRUE) {
         printf("eglMakeCurrent error\n");
         return NULL;
@@ -136,8 +137,8 @@ egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
     glViewport(0, 0, 1024, 768);
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
-    eglSwapBuffers(egl.display, egl.surface);
+    eglSwapBuffers(egl->display, egl->surface);
 #endif
     
-    return &egl;
+    return egl;
 }

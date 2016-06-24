@@ -19,7 +19,7 @@
 #include "log/log.h"
 
 struct window_wayland *window;
-struct egl_wayland* egl;
+struct egl_env* egl;
 
 void* display_dispatch_thread(void* p)
 {

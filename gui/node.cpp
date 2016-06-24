@@ -159,7 +159,6 @@ void Node::dump()
     queue<Node*> *q2 = new queue<Node*>();
     q1->push(this);
 
-    Node* node = this;
     while(!q1->empty()) {
         // pop->handle->push
         while(!q1->empty()) {

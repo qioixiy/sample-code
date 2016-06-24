@@ -16,7 +16,7 @@ public:
     int width;
     int height;
     wayland_client *wc;
-    struct egl_wayland* egl;
+    struct egl_env* egl;
     frame *f;
 };
 

@@ -21,7 +21,7 @@
 #include "gui/ui.hpp"
 
 struct window_wayland *native_window;
-struct egl_wayland* egl;
+struct egl_env* egl;
 
 void* display_dispatch_thread(void* p)
 {
