@@ -136,42 +136,42 @@ GLuint make_program_object(const char *vert, const char *frag)
 
 GLuint get_program_object_default()
 {
-    const char *vert = "gles/shaders/default.vert";
-    const char *frag = "gles/shaders/default.frag";
+    const char *vert = "res/glsl_shaders/default.vert";
+    const char *frag = "res/glsl_shaders/default.frag";
     return make_program_object(vert, frag);
 }
 
 GLuint get_program_object_drawrect()
 {
-    const char *vert = "gles/shaders/drawrect.vert";
-    const char *frag = "gles/shaders/drawrect.frag";
+    const char *vert = "res/glsl_shaders/drawrect.vert";
+    const char *frag = "res/glsl_shaders/drawrect.frag";
     return make_program_object(vert, frag);
 }
 
 GLuint get_program_object_showyuyv()
 {
-    const char *vert = "gles/shaders/yuyvshow.vert";
-    const char *frag = "gles/shaders/yuyvshow.frag";
+    const char *vert = "res/glsl_shaders/yuyvshow.vert";
+    const char *frag = "res/glsl_shaders/yuyvshow.frag";
     return make_program_object(vert, frag);
 }
 
 GLuint get_program_object_shownv12()
 {
-    const char *vert = "gles/shaders/nv12show.vert";
-    const char *frag = "gles/shaders/nv12show.frag";
+    const char *vert = "res/glsl_shaders/nv12show.vert";
+    const char *frag = "res/glsl_shaders/nv12show.frag";
     return make_program_object(vert, frag);
 }
 
 GLuint get_program_object_showrgba()
 {
-    const char *vert = "gles/shaders/rgbashow.vert";
-    const char *frag = "gles/shaders/rgbashow.frag";
+    const char *vert = "res/glsl_shaders/rgbashow.vert";
+    const char *frag = "res/glsl_shaders/rgbashow.frag";
     return make_program_object(vert, frag);
 }
 
 GLuint get_program_object_mvptest()
 {
-    const char *vert = "gles/shaders/mvptest.vert";
-    const char *frag = "gles/shaders/mvptest.frag";
+    const char *vert = "res/glsl_shaders/mvptest.vert";
+    const char *frag = "res/glsl_shaders/mvptest.frag";
     return make_program_object(vert, frag);
 }
