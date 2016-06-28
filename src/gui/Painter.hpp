@@ -4,7 +4,8 @@
 #include <string>
 using namespace std;
 
-#include "gles/glslProgramObject.hpp"
+#include "gles/GLSLProgObjRGBA.hpp"
+#include "gles/GLSLProgObjDrawRect.hpp"
 #include "utils/png_load.h"
 
 class Painter {
@@ -15,7 +16,7 @@ public :
     virtual int Run(void);
 
 protected:
-    glslProgramObject *m_glslProgramObject;
+    GLSLProgObj *m_GLSLProgObj;
 };
 
 class PainterImagePng : public Painter {

@@ -82,7 +82,10 @@ CXX_SRCS := \
 	gui/Painter.cpp \
 	gui/egl/egl.cpp \
 	app/app.cpp \
-	gles/glslProgramObject.cpp \
+	gles/GLSLProgObj.cpp \
+	gles/GLSLProgObjRGBA.cpp \
+	gles/GLSLProgObjDrawRect.cpp \
+	gles/Shader.cpp \
 
 # objs
 OBJS_C := $(subst .c,.o,$(C_SRCS))

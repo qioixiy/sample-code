@@ -6,13 +6,13 @@
 #include "gles/shader.h"
 
 Painter::Painter()
+    : m_GLSLProgObj(NULL)
 {
-    m_glslProgramObject = new glslProgramObject();
 }
 
 Painter::~Painter()
 {
-    delete m_glslProgramObject;
+    delete m_GLSLProgObj;
 }
 
 int Painter::Run(void)
@@ -24,7 +24,7 @@ PainterImagePng::PainterImagePng(string file)
     :load(0)
     , file_path(file)
 {
-    ;
+    m_GLSLProgObj = new GLSLProgObjRGBA();
 }
 
 PainterImagePng::~PainterImagePng()
@@ -46,25 +46,26 @@ int PainterImagePng::Run()
         load = 1;
         struct pngload_attribute png_attr;
         load_png_image(file_path.c_str(), &png_attr);
-        GLuint texture_id_rgba = gen_texture_from_data(
-            png_attr.buf, png_attr.width, png_attr.height,
-            png_color_type_GL(png_attr.color_type));
-        m_glslProgramObject->texture_id_rgba = texture_id_rgba;
+        (dynamic_cast<GLSLProgObjRGBA*>(m_GLSLProgObj))->texture =
+            gen_texture_from_data(
+                png_attr.buf, png_attr.width, png_attr.height,
+                png_color_type_GL(png_attr.color_type));
     }
 
-    m_glslProgramObject->Run();
+    m_GLSLProgObj->Run();
 }
 
 // PainterDrawRect
 PainterDrawRect::PainterDrawRect(int r, int g, int b)
     : r(r), g(g), b(b)
 {
-    ;
+    m_GLSLProgObj = new GLSLProgObjDrawRect(r, g, b);
 }
 
 int PainterDrawRect::Run()
 {
-    draw_rect(r, g, b);
+    m_GLSLProgObj->Run();
+
     return 0;
 };
 
@@ -73,4 +74,6 @@ void PainterDrawRect::SetColor(int r, int g, int b)
     this->r = r;
     this->g = g;
     this->b = b;
+    (dynamic_cast<GLSLProgObjDrawRect*>(m_GLSLProgObj))
+        ->SetColor(r, g, b);
 }

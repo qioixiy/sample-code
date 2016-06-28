@@ -1,23 +1,13 @@
-#include "glslProgramObject.hpp"
+#include "GLSLProgObjRGBA.hpp"
 
-#include "log/log.h"
-#include "gles/draw.h"
-#include "gles/texture.h"
-#include "gles/shader.h"
-
-glslProgramObject::glslProgramObject()
+GLSLProgObjRGBA::GLSLProgObjRGBA()
 {
-    init();
+    ;
 }
 
-int glslProgramObject::init()
+int GLSLProgObjRGBA::Runner()
 {
-    program_object = get_program_object_showrgba();
-    return 0;
-}
-
-int glslProgramObject::Run()
-{
+    GLuint program_object = objs["rgba"]->GetObject();
 // Get the attribute locations
     GLint positionLoc = glGetAttribLocation(program_object, "a_position");
     GLint texCoordLoc = glGetAttribLocation(program_object, "a_texCoord");
@@ -48,9 +38,11 @@ int glslProgramObject::Run()
     glEnableVertexAttribArray(texCoordLoc);
 // Bind the base texture
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture_id_rgba);
+    glBindTexture(GL_TEXTURE_2D, texture);
 // Set the base sampler to texture unit to 0
     glUniform1i(texture_rgba_loc, 0);
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+
+    return 0;
 }
