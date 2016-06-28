@@ -41,7 +41,7 @@ int Widget::draw()
 
 int Widget::redraw()
 {
-    if (!mCurShowStatus) {
+    if (!getShowStatus()) {
         return -1;
     }
 

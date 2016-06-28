@@ -18,7 +18,7 @@
 #include "utils/png_load.h"
 #include "log/log.h"
 #include "gui/ui.hpp"
-#include "common/app.hpp"
+#include "app/app.hpp"
 
 /*
      Frame: root

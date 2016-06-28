@@ -45,16 +45,16 @@ LIBS += $(LIBS-cairo) $(LIBS-$(TARGET))
 
 # src
 APP_C_SRCS := \
-	app/render.c \
-	app/show_image.c \
-	app/cube.c \
-	app/cube2.c \
+	test/render.c \
+	test/show_image.c \
+	test/cube.c \
+	test/cube2.c \
 
 APP_CXX_SRCS := \
-	app/ui_test.cpp \
-	app/cube3.cpp \
-	app/layout_test.cpp \
-	app/test_project1.cpp \
+	test/ui_test.cpp \
+	test/cube3.cpp \
+	test/layout_test.cpp \
+	test/test_project1.cpp \
 
 C_SRCS := \
 	egl/egl.c \
@@ -81,7 +81,7 @@ CXX_SRCS := \
 	gui/WidgetImage.cpp \
 	gui/Painter.cpp \
 	gui/egl/egl.cpp \
-	common/app.cpp \
+	app/app.cpp \
 	gles/glslProgramObject.cpp \
 
 # objs
