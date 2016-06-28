@@ -3,7 +3,6 @@
 #define _WIDGET_IMAGE_HPP_
 
 #include "Widget.hpp"
-#include "Painter.hpp"
 
 class WidgetImage : public Widget {
 public:
@@ -19,7 +18,7 @@ public:
 
 private:
     string filePath;
-    Painter::ImagePng *m_Painter;
+    Painter *mpPainter;
 };
 
 #endif

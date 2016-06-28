@@ -2,7 +2,7 @@
 
 WidgetImage::WidgetImage(int x, int y, int w, int h)
     :Widget(x, y, w, h)
-    ,m_Painter(NULL)
+    ,mpPainter(NULL)
 {
     ;
 }
@@ -10,11 +10,11 @@ WidgetImage::WidgetImage(int x, int y, int w, int h)
 void WidgetImage::SetImage(string filePath)
 {
     this->filePath = filePath;
-    if (m_Painter) {
-        delete m_Painter;
-        m_Painter = NULL;
+    if (mpPainter) {
+        delete mpPainter;
+        mpPainter = NULL;
     }
-    m_Painter = new Painter::ImagePng(filePath);
+    mpPainter = new PainterImagePng(filePath);
 }
 
 int WidgetImage::draw()
@@ -23,7 +23,7 @@ int WidgetImage::draw()
         return Widget::draw();
     }
 
-    m_Painter ? m_Painter->Run() : 0;
+    mpPainter ? mpPainter->Run() : 0;
     return 0;
 }
 

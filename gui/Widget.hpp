@@ -4,6 +4,7 @@
 
 #include "Node.hpp"
 #include "Common.hpp"
+#include "Painter.hpp"
 
 class Frame;
 /* Widget */
@@ -22,14 +23,15 @@ public:
     Widget* add_child_Widget(Widget*);
     rect getScreenRect();
     void reverse_show_status();
+    void SetBgColor(int r, int g, int b);
 
     // Event handler
     virtual int touchDownHandler(int x, int y);
     virtual int touchUpHandler(int x, int y);
-    virtual int touch_motion_handler(int x, int y);
-    virtual int pointer_motion_handler(int x, int y);
+    virtual int touchMotionHandler(int x, int y);
+    virtual int pointerMotionHandler(int x, int y);
     virtual int pointerButtonHandler(int button, int state);
-    virtual int pointer_axis_handler(int axis, int value);
+    virtual int pointerAxisHandler(int axis, int value);
 
 public:
     int debug;
@@ -39,7 +41,8 @@ public:
     Frame *f;
 
 private:
-    int cur_show_status;
+    int mCurShowStatus;
+    Painter *mpPainter;
 };
 
 #endif

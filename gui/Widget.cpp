@@ -6,8 +6,6 @@
 #include "Widget.hpp"
 #include "Frame.hpp"
 
-#include "gles/draw.h"
-
 Widget::Widget(int x, int y, int w, int h)
     : debug(0)
 {
@@ -16,32 +14,34 @@ Widget::Widget(int x, int y, int w, int h)
     width = w;
     height = h;
 
-    cur_show_status = 0;
+    mCurShowStatus = 0;
 
     show();
+
+    mpPainter = new PainterDrawRect(bg_color.r, bg_color.g, bg_color.b);
 }
 
 int Widget::show()
 {
-    cur_show_status = 1;
+    mCurShowStatus = 1;
     return 0;
 }
 int Widget::hide()
 {
-    cur_show_status = 0;
+    mCurShowStatus = 0;
     return 0;
 }
 
 int Widget::draw()
 {
-    draw_rect(bg_color.r, bg_color.g, bg_color.b);
+    mpPainter->Run();
 
     return 0;
 }
 
 int Widget::redraw()
 {
-    if (!cur_show_status) {
+    if (!mCurShowStatus) {
         return -1;
     }
 
@@ -78,7 +78,7 @@ rect Widget::getScreenRect()
 
 int Widget::getShowStatus()
 {
-    return cur_show_status;
+    return mCurShowStatus;
 }
 
 void Widget::reverse_show_status()
@@ -89,6 +89,14 @@ void Widget::reverse_show_status()
         show();
     }
 }
+
+void Widget::SetBgColor(int r, int g, int b)
+{
+    PainterDrawRect* _PainterDrawRect =
+        dynamic_cast<PainterDrawRect*>(mpPainter);
+    _PainterDrawRect->SetColor(r, g, b);
+}
+
 // touch
 int Widget::touchDownHandler(int x, int y)
 {
@@ -104,7 +112,7 @@ int Widget::touchUpHandler(int x, int y)
     }
     return false;
 }
-int Widget::touch_motion_handler(int x, int y)
+int Widget::touchMotionHandler(int x, int y)
 {
     if (debug) {
         printf("%d %d\n", x, y);
@@ -112,7 +120,7 @@ int Widget::touch_motion_handler(int x, int y)
     return false;
 }
 // pointer
-int Widget::pointer_motion_handler(int x, int y)
+int Widget::pointerMotionHandler(int x, int y)
 {
     if (debug) {
         printf("%d %d\n", x, y);
@@ -126,7 +134,7 @@ int Widget::pointerButtonHandler(int button, int state)
     }
     return false;
 }
-int Widget::pointer_axis_handler(int axis, int value)
+int Widget::pointerAxisHandler(int axis, int value)
 {
     if (debug) {
         printf("%d %d\n", axis, value);

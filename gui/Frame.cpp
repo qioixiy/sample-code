@@ -26,8 +26,8 @@ void Frame::init()
     Widget *root_wid = new Widget(0, 0, width, height);
     root_wid->SetName("root");
     root_wid->f = this;
-    root_wid->bg_color = {128, 128, 128};
-    //root_wid->dump();
+    root_wid->SetBgColor(128, 128, 128);
+    root_wid->dump();
     SetRootWidget(root_wid);
 }
 
@@ -166,7 +166,7 @@ int Frame::DispatchEvent()
                 switch(tev->type) {
                 case 0: wid->touchDownHandler(x, y); break;
                 case 1: wid->touchUpHandler(x, y); break;
-                case 2: wid->touch_motion_handler(x, y); break;
+                case 2: wid->touchMotionHandler(x, y); break;
                 default:
                     printf("unkown touch type\n");
                     break;
@@ -191,14 +191,14 @@ int Frame::DispatchEvent()
                 int v2 = pev->y;
                 switch(pev->type) {
                 case 0:
-                    wid->pointer_motion_handler(v1, v2);
+                    wid->pointerMotionHandler(v1, v2);
                     break;
                 case 1:
                     wid->pointerButtonHandler(
                         pev->pointer.button, pev->pointer.state_w);
                     break;
                 case 2:
-                    wid->pointer_axis_handler(
+                    wid->pointerAxisHandler(
                         pev->pointer.axis, pev->pointer.value);
                     break;
                 default:

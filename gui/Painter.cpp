@@ -5,19 +5,19 @@
 #include "gles/texture.h"
 #include "gles/shader.h"
 
-Painter::ImagePng::ImagePng(string file)
+PainterImagePng::PainterImagePng(string file)
     :load(0)
-    ,m_glsl_object(NULL)
+    ,m_glslProgramObject(NULL)
 {
     file_path = file;
 }
 
-Painter::ImagePng::~ImagePng()
+PainterImagePng::~PainterImagePng()
 {
     ;
 }
 
-int Painter::ImagePng::set_source(string file)
+int PainterImagePng::set_source(string file)
 {
     if (file != file_path) {
         file_path = file;
@@ -25,10 +25,10 @@ int Painter::ImagePng::set_source(string file)
     }
 }
 
-int Painter::ImagePng::Run()
+int PainterImagePng::Run()
 {
-    if (!m_glsl_object) {
-        m_glsl_object = new glslProgramObject();
+    if (!m_glslProgramObject) {
+        m_glslProgramObject = new glslProgramObject();
     }
 
     if (!load) {
@@ -37,8 +37,28 @@ int Painter::ImagePng::Run()
         GLuint texture_id_rgba = gen_texture_from_data(
             png_attr.buf, png_attr.width, png_attr.height,
             png_color_type_GL(png_attr.color_type));
-        m_glsl_object->texture_id_rgba = texture_id_rgba;
+        m_glslProgramObject->texture_id_rgba = texture_id_rgba;
     }
 
-    m_glsl_object->Run();
+    m_glslProgramObject->Run();
+}
+
+// PainterDrawRect
+PainterDrawRect::PainterDrawRect(int r, int g, int b)
+    : r(r), g(g), b(b)
+{
+    ;
+}
+
+int PainterDrawRect::Run()
+{
+    draw_rect(r, g, b);
+    return 0;
+};
+
+void PainterDrawRect::SetColor(int r, int g, int b)
+{
+    this->r = r;
+    this->g = g;
+    this->b = b;
 }
