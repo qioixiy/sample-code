@@ -9,7 +9,13 @@ using namespace std;
 
 class Painter {
 public :
-    virtual int Run(void) = 0;
+    Painter();
+    virtual ~Painter();
+
+    virtual int Run(void);
+
+protected:
+    glslProgramObject *m_glslProgramObject;
 };
 
 class PainterImagePng : public Painter {
@@ -17,13 +23,11 @@ public:
     PainterImagePng(string);
     ~PainterImagePng();
     virtual int Run(void);
-    int set_source(string);
+    int SetImageFilePath(string);
 
 private:
     string file_path;
-    struct pngload_attribute png_attr;
     int load;
-    glslProgramObject *m_glslProgramObject;
 };
 
 class PainterDrawRect : public Painter {

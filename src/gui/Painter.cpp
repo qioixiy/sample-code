@@ -5,11 +5,26 @@
 #include "gles/texture.h"
 #include "gles/shader.h"
 
+Painter::Painter()
+{
+    m_glslProgramObject = new glslProgramObject();
+}
+
+Painter::~Painter()
+{
+    delete m_glslProgramObject;
+}
+
+int Painter::Run(void)
+{
+    return 0;
+}
+
 PainterImagePng::PainterImagePng(string file)
     :load(0)
-    ,m_glslProgramObject(NULL)
+    , file_path(file)
 {
-    file_path = file;
+    ;
 }
 
 PainterImagePng::~PainterImagePng()
@@ -17,7 +32,7 @@ PainterImagePng::~PainterImagePng()
     ;
 }
 
-int PainterImagePng::set_source(string file)
+int PainterImagePng::SetImageFilePath(string file)
 {
     if (file != file_path) {
         file_path = file;
@@ -27,12 +42,9 @@ int PainterImagePng::set_source(string file)
 
 int PainterImagePng::Run()
 {
-    if (!m_glslProgramObject) {
-        m_glslProgramObject = new glslProgramObject();
-    }
-
     if (!load) {
         load = 1;
+        struct pngload_attribute png_attr;
         load_png_image(file_path.c_str(), &png_attr);
         GLuint texture_id_rgba = gen_texture_from_data(
             png_attr.buf, png_attr.width, png_attr.height,
