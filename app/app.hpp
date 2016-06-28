@@ -5,9 +5,8 @@ public:
     app();
     virtual ~app();
     int run();
-    int set_Frame(Frame*);
+    int SetFrame(Frame*);
 
 public:
-    int quit;
     Frame* f;
 };

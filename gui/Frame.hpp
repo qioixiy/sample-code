@@ -21,7 +21,7 @@ class Frame {
 public:
     Frame(int x = 0, int y = 0, int width = 100, int height = 100);
     void redraw();
-    bool needQuit();
+    bool NeedQuit();
 
     // root Widget
     int SetRootWidget(Widget*);

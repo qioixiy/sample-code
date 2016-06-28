@@ -95,7 +95,7 @@ void Frame::SetNativeWindow(NativeWindow* nwin)
     mpNativeWindow = nwin;
 }
 
-bool Frame::needQuit()
+bool Frame::NeedQuit()
 {
     return quit == 1;
 }
@@ -242,9 +242,8 @@ bool Frame::HaveEvent()
 void* DispatchEvent_thread(void* p)
 {
     Frame *f = reinterpret_cast<Frame*>(p);
-    int quit = 0;
 
-    while(!quit) {
+    while(!f->NeedQuit()) {
         f->DispatchEvent();
     }
 }

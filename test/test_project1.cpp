@@ -66,18 +66,18 @@ int Frame_init_layout(Frame* f)
     tips_wid->SetImage("res/png/10d4/tip_high_speed.png");
 
     // set order 1
-    // root_wid->add_child_Widget(navi_wid);
-    // root_wid->add_child_Widget(calibStitched_wid);
-    // root_wid->add_child_Widget(carbox_wid);
-    // root_wid->add_child_Widget(calibFront_wid);
-    // root_wid->add_child_Widget(tips_wid);
+    // root_wid->AddChildWidget(navi_wid);
+    // root_wid->AddChildWidget(calibStitched_wid);
+    // root_wid->AddChildWidget(carbox_wid);
+    // root_wid->AddChildWidget(calibFront_wid);
+    // root_wid->AddChildWidget(tips_wid);
 
     // case 2
-    root_wid->add_child_Widget(navi_wid);
-    root_wid->add_child_Widget(calibStitched_wid);
-    calibStitched_wid->add_child_Widget(carbox_wid);
-    root_wid->add_child_Widget(calibFront_wid);
-    calibFront_wid->add_child_Widget(tips_wid);
+    root_wid->AddChildWidget(navi_wid);
+    root_wid->AddChildWidget(calibStitched_wid);
+    calibStitched_wid->AddChildWidget(carbox_wid);
+    root_wid->AddChildWidget(calibFront_wid);
+    calibFront_wid->AddChildWidget(tips_wid);
 
     root_wid->dump();
 
@@ -112,7 +112,7 @@ int main(int argc, char **argv)
     Frame_init_layout(f);
 
     gl_init();
-    _app->set_Frame(f);
+    _app->SetFrame(f);
     _app->run();
 
     delete f;

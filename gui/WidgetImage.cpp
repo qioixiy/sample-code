@@ -30,14 +30,14 @@ int WidgetImage::draw()
 int WidgetImage::pointerButtonHandler(int button, int state)
 {
     if (state) {
-        reverse_show_status();
+        reverseShowStatus();
     }
 }
 
 // touch
 int WidgetImage::touchDownHandler(int, int)
 {
-    reverse_show_status();
+    reverseShowStatus();
     return 0;
 }
 int WidgetImage::touchUpHandler(int, int)

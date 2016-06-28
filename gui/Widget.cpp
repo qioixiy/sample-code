@@ -60,7 +60,7 @@ int Widget::redraw()
     return 0;
 }
 
-Widget* Widget::add_child_Widget(Widget* wid)
+Widget* Widget::AddChildWidget(Widget* wid)
 {
     wid->link_this_to_parent_last(this);
     wid->f = f;
@@ -81,7 +81,7 @@ int Widget::getShowStatus()
     return mCurShowStatus;
 }
 
-void Widget::reverse_show_status()
+void Widget::reverseShowStatus()
 {
     if (getShowStatus()) {
         hide();

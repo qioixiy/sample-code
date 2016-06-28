@@ -35,26 +35,26 @@ int Frame_init_layout(Frame* f, int w, int h)
     Widget *child_wid = new Widget(w/4, h/4, w/2, h/2);
     child_wid->SetName("child");
     child_wid->bg_color = {128};
-    f->GetRootWidget()->add_child_Widget(child_wid);
+    f->GetRootWidget()->AddChildWidget(child_wid);
 
     // add child's sibling Widget
     Widget *child_sibling_wid = new Widget(w/8, h/8, w/4, h/4);
     child_sibling_wid->SetName("child_sibling");
     child_sibling_wid->bg_color = {0, 128};
-    f->GetRootWidget()->add_child_Widget(child_sibling_wid);
+    f->GetRootWidget()->AddChildWidget(child_sibling_wid);
 
     // add child's child Widget
     Widget *child_child_wid = new Widget(w/16, h/16, w/4, h/4);
     child_sibling_wid->SetName("child_child");
     child_child_wid->bg_color = {0, 0, 128};
-    child_wid->add_child_Widget(child_child_wid);
+    child_wid->AddChildWidget(child_child_wid);
 
     // add child's sibling Widget
     WidgetImage *child_sibling2_wid
         = new WidgetImage(w/32, h/32, w/4, h/4);
     child_sibling_wid->SetName("child_sibling_2");
     child_sibling2_wid->SetImage("utils/png-test.png");
-    child_wid->add_child_Widget(child_sibling2_wid);
+    child_wid->AddChildWidget(child_sibling2_wid);
 
     f->GetRootWidget()->dump();
 
@@ -85,7 +85,7 @@ int main(int argc, char **argv)
     Frame_init_layout(win, w, h);
 
     gl_init();
-    _app->set_Frame(win);
+    _app->SetFrame(win);
     _app->run();
 
     return 0;

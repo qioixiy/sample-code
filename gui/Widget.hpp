@@ -20,9 +20,9 @@ public:
     virtual int getShowStatus();
     virtual int draw();
     virtual int redraw();
-    Widget* add_child_Widget(Widget*);
+    Widget* AddChildWidget(Widget*);
     rect getScreenRect();
-    void reverse_show_status();
+    void reverseShowStatus();
     void SetBgColor(int r, int g, int b);
 
     // Event handler
