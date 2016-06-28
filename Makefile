@@ -80,6 +80,7 @@ CXX_SRCS := \
 	gui/Widget.cpp \
 	gui/WidgetImage.cpp \
 	gui/Painter.cpp \
+	gui/egl/egl.cpp \
 	common/app.cpp \
 	gles/glsl_program_object.cpp \
 
@@ -117,7 +118,7 @@ apps: pre objs app_c app_cxx
 
 app_c: $(APP_C_OBJS)
 	$(Q)for a in $^; do \
-		echo CCLD `basename $$a .o` \
+		echo CLD `basename $$a .o` \
 			&& cd $(BUILD_DIR) \
 			&& $(CC) $$a $(OBJS) $(LIB) $(LIBS) -o $(BUILD_DIR)/bin/`basename $$a .o`; \
 	done

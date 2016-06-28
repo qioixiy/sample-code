@@ -3,20 +3,20 @@
 #define _NATIVE_WINDOW_HPP_
 
 #include "wayland/WaylandClient.hpp"
-#include "egl/egl.h"
+#include "gui/egl/egl.hpp"
 
 class Frame;
 class NativeWindow {
 public:
     NativeWindow(int = 100, int = 100);
     virtual ~NativeWindow();
-    int swapBuffer();
+    int SwapBackBuffer();
 
 public:
     int width;
     int height;
     WaylandClient *wc;
-    struct egl_env* egl;
+    EGLEnv* egl;
     Frame *f;
 };
 

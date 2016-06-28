@@ -19,22 +19,23 @@ NativeWindow::NativeWindow(int width, int height)
             wc->p_wl_surface, width, height);
     if (!p_wl_egl_window) {
         printf("wl_egl_window_create error\n");
+        return;
     }
 
-    /* egl */
-    egl = egl_init((EGLNativeDisplayType)wc->p_wl_display,
-                   (EGLNativeWindowType)p_wl_egl_window);
+    egl = new EGLEnv((EGLNativeDisplayType)wc->p_wl_display,
+                     (EGLNativeWindowType)p_wl_egl_window);
 
     print_gles_env();
 }
 
 NativeWindow::~NativeWindow()
 {
+    delete egl;
     delete wc;
 }
 
 /* swap back,front buffer */
-int NativeWindow::swapBuffer()
+int NativeWindow::SwapBackBuffer()
 {
     int ret = eglSwapBuffers(egl->display, egl->surface);
     if (1 != ret) {

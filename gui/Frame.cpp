@@ -70,7 +70,7 @@ void Frame::redraw()
 {
     draw(rootWidget);
 
-    GetNativeWindow()->swapBuffer();
+    GetNativeWindow()->SwapBackBuffer();
 }
 
 int Frame::SetRootWidget(Widget* wid)
