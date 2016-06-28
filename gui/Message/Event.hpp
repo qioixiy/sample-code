@@ -1,13 +1,29 @@
+#ifndef _EVENT_HPP_
+#define _EVENT_HPP_
 
-#ifndef _INPUT_HPP_
-#define _INPUT_HPP_
+enum EventType{
+    EVENT_TOUCH,
+    EVENT_POINTER,
+};
 
-#include "event.hpp"
-
-class input_event :public event {
+class Event {
+public:
+    Event() {
+        ;
+    }
+    virtual ~Event() {
+        ;
+    }
 
 public:
-    input_event(int x, int y)
+    EventType et;
+};
+
+
+class InputEvent :public Event {
+
+public:
+    InputEvent(int x, int y)
         :x(x), y(y){
         ;
     }
@@ -16,10 +32,10 @@ public:
     int x, y;
 };
 
-class touch_event :public input_event {
+class TouchEvent :public InputEvent {
 public:
-    touch_event(int x, int y, int type)
-        : input_event(x, y) {
+    TouchEvent(int x, int y, int type)
+        : InputEvent(x, y) {
         this->type = type;
         et = EVENT_TOUCH;
     }
@@ -29,10 +45,10 @@ public:
     int type;
 };
 
-class pointer_event :public input_event {
+class PointerEvent :public InputEvent {
 public:
-    pointer_event(int x, int y, int v1, int v2, int type)
-        : input_event(x, y) {
+    PointerEvent(int x, int y, int v1, int v2, int type)
+        : InputEvent(x, y) {
         this->type = type;
         et = EVENT_POINTER;
         pointer.v1 = v1;
@@ -57,6 +73,5 @@ public:
         };
     }pointer;
 };
-
 
 #endif

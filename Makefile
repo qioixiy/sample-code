@@ -72,14 +72,14 @@ C_SRCS := \
 
 CXX_SRCS := \
 	utils/obj/loader.cpp \
-	gui/common.cpp \
-	gui/node.cpp \
-	gui/frame.cpp \
-	gui/native_window.cpp \
-	gui/wayland/wayland_client.cpp \
-	gui/widget.cpp \
-	gui/widget_image.cpp \
-	gui/painter.cpp \
+	gui/Common.cpp \
+	gui/Node.cpp \
+	gui/Frame.cpp \
+	gui/NativeWindow.cpp \
+	gui/wayland/WaylandClient.cpp \
+	gui/Widget.cpp \
+	gui/WidgetImage.cpp \
+	gui/Painter.cpp \
 	common/app.cpp \
 	gles/glsl_program_object.cpp \
 

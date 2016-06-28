@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <queue>
 
-#include "node.hpp"
+#include "Node.hpp"
 
 Node::Node()
 {

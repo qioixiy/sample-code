@@ -41,47 +41,47 @@ void* display_dispatch_thread(void* p)
  *                |
  *             child^1#s2
  */
-widget* create_root_widget(frame* f, int w, int h)
+Widget* create_root_Widget(Frame* f, int w, int h)
 {
-    /* create root widget */
-    widget *root_wid = new widget(0, 0, w, h);
-    root_wid->set_name("root_wid");
+    /* create root Widget */
+    Widget *root_wid = new Widget(0, 0, w, h);
+    root_wid->SetName("root_wid");
     root_wid->f = f;
 
-    // add child widget
-    widget *child_wid = new widget(w/4, h/4, w/2, h/2);
-    child_wid->set_name("child_wid");
+    // add child Widget
+    Widget *child_wid = new Widget(w/4, h/4, w/2, h/2);
+    child_wid->SetName("child_wid");
     child_wid->bg_color.r = 128;
-    root_wid->add_child_widget(child_wid);
+    root_wid->add_child_Widget(child_wid);
 
-    // add child's sibling widget
-    widget *child_sibling_wid = new widget(w/8, h/8, w/4, h/4);
-    child_sibling_wid->set_name("child_sibling_wid");
+    // add child's sibling Widget
+    Widget *child_sibling_wid = new Widget(w/8, h/8, w/4, h/4);
+    child_sibling_wid->SetName("child_sibling_wid");
     child_sibling_wid->bg_color.g = 128;
-    root_wid->add_child_widget(child_sibling_wid);
+    root_wid->add_child_Widget(child_sibling_wid);
 
-    // add child's child widget
-    widget *child_child_wid = new widget(w/16, h/16, w/4, h/4);
+    // add child's child Widget
+    Widget *child_child_wid = new Widget(w/16, h/16, w/4, h/4);
     child_child_wid->bg_color.b = 128;
-    child_wid->add_child_widget(child_child_wid);
+    child_wid->add_child_Widget(child_child_wid);
 
-    // add child's sibling widget
-    widget_image *child_sibling2_wid
-        = new widget_image(w/32, h/32, w/4, h/4);
+    // add child's sibling Widget
+    Widget_image *child_sibling2_wid
+        = new Widget_image(w/32, h/32, w/4, h/4);
     child_sibling2_wid->set_image("utils/png-test.png");
-    child_wid->add_child_widget(child_sibling2_wid);
+    child_wid->add_child_Widget(child_sibling2_wid);
 
-    f->set_root_widget(root_wid);
+    f->SetRootWidget(root_wid);
     root_wid->dump();
 
     return root_wid;
 }
 
-frame* frame_init(int x, int y, int w, int h)
+Frame* Frame_init(int x, int y, int w, int h)
 {
-    frame* f = new frame(x, y, w, h);
+    Frame* f = new Frame(x, y, w, h);
 
-    f->set_root_widget(create_root_widget(f, w, h));
+    f->SetRootWidget(create_root_Widget(f, w, h));
 
     return f;
 }
@@ -113,7 +113,7 @@ void* render_thread(void* p)
     glDepthFunc(GL_LEQUAL);
     glEnable(GL_DEPTH_TEST);
 
-    frame *f = frame_init(0, 0, width, height);
+    Frame *f = Frame_init(0, 0, width, height);
 
     while(!quit) {
         glViewport(0, 0, width, height);

@@ -4,20 +4,20 @@
 
 #include <EGL/egl.h>
 #include <wayland-client.h>
-#include "event/input.hpp"
+#include "gui/Message/Event.hpp"
 
-class native_window;
-class wayland_client {
+class NativeWindow;
+class WaylandClient {
 public:
-    wayland_client();
-    virtual ~wayland_client();
-    int raise_event(int);
+    WaylandClient();
+    virtual ~WaylandClient();
+    int raiseEvent(int);
 
 protected:
     int init();
 
 private:
-    int dispatcher_run();
+    int DispatcherRun();
 
 public:
     struct wl_display *p_wl_display;
@@ -53,7 +53,7 @@ public:
     }pointer;
     uint32_t pointer_state_w;
 
-    native_window *win;
+    NativeWindow *win;
 };
 
 #endif

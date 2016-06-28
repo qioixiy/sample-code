@@ -1,14 +1,13 @@
 #include "gui/ui.hpp"
-#include "event/event.hpp"
 
 class app {
 public:
     app();
     virtual ~app();
     int run();
-    int set_frame(frame*);
+    int set_Frame(Frame*);
 
 public:
     int quit;
-    frame* f;
+    Frame* f;
 };

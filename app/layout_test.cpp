@@ -29,34 +29,34 @@
  *                |
  *             child^1#s2
  */
-int frame_init_layout(frame* f, int w, int h)
+int Frame_init_layout(Frame* f, int w, int h)
 {
-    // add child widget
-    widget *child_wid = new widget(w/4, h/4, w/2, h/2);
-    child_wid->set_name("child");
+    // add child Widget
+    Widget *child_wid = new Widget(w/4, h/4, w/2, h/2);
+    child_wid->SetName("child");
     child_wid->bg_color = {128};
-    f->get_root_widget()->add_child_widget(child_wid);
+    f->GetRootWidget()->add_child_Widget(child_wid);
 
-    // add child's sibling widget
-    widget *child_sibling_wid = new widget(w/8, h/8, w/4, h/4);
-    child_sibling_wid->set_name("child_sibling");
+    // add child's sibling Widget
+    Widget *child_sibling_wid = new Widget(w/8, h/8, w/4, h/4);
+    child_sibling_wid->SetName("child_sibling");
     child_sibling_wid->bg_color = {0, 128};
-    f->get_root_widget()->add_child_widget(child_sibling_wid);
+    f->GetRootWidget()->add_child_Widget(child_sibling_wid);
 
-    // add child's child widget
-    widget *child_child_wid = new widget(w/16, h/16, w/4, h/4);
-    child_sibling_wid->set_name("child_child");
+    // add child's child Widget
+    Widget *child_child_wid = new Widget(w/16, h/16, w/4, h/4);
+    child_sibling_wid->SetName("child_child");
     child_child_wid->bg_color = {0, 0, 128};
-    child_wid->add_child_widget(child_child_wid);
+    child_wid->add_child_Widget(child_child_wid);
 
-    // add child's sibling widget
-    widget_image *child_sibling2_wid
-        = new widget_image(w/32, h/32, w/4, h/4);
-    child_sibling_wid->set_name("child_sibling_2");
+    // add child's sibling Widget
+    Widget_image *child_sibling2_wid
+        = new Widget_image(w/32, h/32, w/4, h/4);
+    child_sibling_wid->SetName("child_sibling_2");
     child_sibling2_wid->set_image("utils/png-test.png");
-    child_wid->add_child_widget(child_sibling2_wid);
+    child_wid->add_child_Widget(child_sibling2_wid);
 
-    f->get_root_widget()->dump();
+    f->GetRootWidget()->dump();
 
     return 0;
 }
@@ -81,11 +81,11 @@ int main(int argc, char **argv)
 {
     int w = 480, h = 640;
     app *_app = new app();
-    frame* win = new frame(0, 0, w, h);
-    frame_init_layout(win, w, h);
+    Frame* win = new Frame(0, 0, w, h);
+    Frame_init_layout(win, w, h);
 
     gl_init();
-    _app->set_frame(win);
+    _app->set_Frame(win);
     _app->run();
 
     return 0;

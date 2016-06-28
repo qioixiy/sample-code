@@ -2,12 +2,12 @@
 #ifndef _WIDGET_IMAGE_HPP_
 #define _WIDGET_IMAGE_HPP_
 
-#include "widget.hpp"
-#include "painter.hpp"
+#include "Widget.hpp"
+#include "Painter.hpp"
 
-class widget_image : public widget {
+class Widget_image : public Widget {
 public:
-    widget_image(int x, int y, int w, int h);
+    Widget_image(int x, int y, int w, int h);
 
     virtual int draw();
     void set_image(string filePath);

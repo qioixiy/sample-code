@@ -2,22 +2,22 @@
 #ifndef _NATIVE_WINDOW_HPP_
 #define _NATIVE_WINDOW_HPP_
 
-#include "wayland/wayland_client.hpp"
+#include "wayland/WaylandClient.hpp"
 #include "egl/egl.h"
 
-class frame;
-class native_window {
+class Frame;
+class NativeWindow {
 public:
-    native_window(int = 100, int = 100);
-    virtual ~native_window();
+    NativeWindow(int = 100, int = 100);
+    virtual ~NativeWindow();
     int swapBuffer();
 
 public:
     int width;
     int height;
-    wayland_client *wc;
+    WaylandClient *wc;
     struct egl_env* egl;
-    frame *f;
+    Frame *f;
 };
 
 #endif

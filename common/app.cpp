@@ -13,16 +13,16 @@ app::~app()
 
 int app::run()
 {
-    f->dispatch_event_run(1);
+    f->DispatchEventRun(1);
     while(!quit) {
         f->redraw();
         FPS();
 
-        quit = f->need_quit();
+        quit = f->needQuit();
     }
 }
 
-int app::set_frame(frame* f)
+int app::set_Frame(Frame* f)
 {
     this->f = f;
 }

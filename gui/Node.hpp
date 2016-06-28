@@ -39,7 +39,7 @@ public:
     void link_this_to_sibling_next(Node *sibling);
     void link_this_to_sibling_prev(Node *sibling);
     void unlink();
-    void set_name(const char*name) {
+    void SetName(const char*name) {
         this->name = name;
     }
     string get_name() {
@@ -49,12 +49,12 @@ public:
     void dump();
 
 protected:
-    string name;
     Node *parent_node;
     Node *child_head;
     Node *child_tail;
     Node *next_sibling;
     Node *prev_sibling;
+    string name;
 };
 
 #endif

@@ -21,63 +21,63 @@
 #include "common/app.hpp"
 
 /*
-     frame: root
+     Frame: root
              |
            navi--calibStitched--calibFront
                        |            |
                     carbox         tips
     
  */
-int frame_init_layout(frame* f)
+int Frame_init_layout(Frame* f)
 {
-    widget* root_wid = f->get_root_widget();
+    Widget* root_wid = f->GetRootWidget();
 
-    // navi widget
-    widget_image *navi_wid =
-        new widget_image(0, 0, f->width/2, f->height/2);
-    navi_wid->set_name("navi");
+    // navi Widget
+    Widget_image *navi_wid =
+        new Widget_image(0, 0, f->width/2, f->height/2);
+    navi_wid->SetName("navi");
     navi_wid->set_image("res/png/10d4/navi_front.png");
 
-    // calibStitched widget
-    widget_image *calibStitched_wid =
-        new widget_image(f->width/2, 0, f->width/2, f->height/2);
-    calibStitched_wid->set_name("calibStitched");
+    // calibStitched Widget
+    Widget_image *calibStitched_wid =
+        new Widget_image(f->width/2, 0, f->width/2, f->height/2);
+    calibStitched_wid->SetName("calibStitched");
     calibStitched_wid->set_image("res/png/calibStitched.png");
 
-    // carbox widget
-    widget_image *carbox_wid
-        = new widget_image(f->width*5/8, f->height/8,
+    // carbox Widget
+    Widget_image *carbox_wid
+        = new Widget_image(f->width*5/8, f->height/8,
                            f->width/4, f->height/4);
-    carbox_wid->set_name("carbox");
+    carbox_wid->SetName("carbox");
     carbox_wid->set_image("res/png/10d4/carbox_black.png");
 
-    // calibFront widget
-    widget_image *calibFront_wid =
-        new widget_image(0, f->height/2, f->width, f->height/2);
-    calibFront_wid->set_name("calibFront");
+    // calibFront Widget
+    Widget_image *calibFront_wid =
+        new Widget_image(0, f->height/2, f->width, f->height/2);
+    calibFront_wid->SetName("calibFront");
     calibFront_wid->set_image("res/png/calibFront.png");
 
-    // tips widget
-    widget_image *tips_wid
-        = new widget_image(f->width/2 - 487/4,
+    // tips Widget
+    Widget_image *tips_wid
+        = new Widget_image(f->width/2 - 487/4,
                            f->height - 150/2 - 5,
                            487/2, 150/2);
-    tips_wid->set_name("tip");
+    tips_wid->SetName("tip");
     tips_wid->set_image("res/png/10d4/tip_high_speed.png");
 
     // set order 1
-    // root_wid->add_child_widget(navi_wid);
-    // root_wid->add_child_widget(calibStitched_wid);
-    // root_wid->add_child_widget(carbox_wid);
-    // root_wid->add_child_widget(calibFront_wid);
-    // root_wid->add_child_widget(tips_wid);
+    // root_wid->add_child_Widget(navi_wid);
+    // root_wid->add_child_Widget(calibStitched_wid);
+    // root_wid->add_child_Widget(carbox_wid);
+    // root_wid->add_child_Widget(calibFront_wid);
+    // root_wid->add_child_Widget(tips_wid);
 
     // case 2
-    root_wid->add_child_widget(navi_wid);
-    root_wid->add_child_widget(calibStitched_wid);
-    calibStitched_wid->add_child_widget(carbox_wid);
-    root_wid->add_child_widget(calibFront_wid);
-    calibFront_wid->add_child_widget(tips_wid);
+    root_wid->add_child_Widget(navi_wid);
+    root_wid->add_child_Widget(calibStitched_wid);
+    calibStitched_wid->add_child_Widget(carbox_wid);
+    root_wid->add_child_Widget(calibFront_wid);
+    calibFront_wid->add_child_Widget(tips_wid);
 
     root_wid->dump();
 
@@ -108,11 +108,11 @@ int main(int argc, char **argv)
     int w = 480, h = 640;
 #endif
     app *_app = new app();
-    frame* f = new frame(0, 0, w, h);
-    frame_init_layout(f);
+    Frame* f = new Frame(0, 0, w, h);
+    Frame_init_layout(f);
 
     gl_init();
-    _app->set_frame(f);
+    _app->set_Frame(f);
     _app->run();
 
     delete f;

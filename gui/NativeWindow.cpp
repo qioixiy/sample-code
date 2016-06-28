@@ -2,15 +2,15 @@
 #include <wayland-egl.h>
 #include <wayland-client.h>
 
-#include "native_window.hpp"
-#include "frame.hpp"
+#include "NativeWindow.hpp"
+#include "Frame.hpp"
 #include "gles/gles.h"
 #include "utils/util.h"
 
-native_window::native_window(int width, int height)
+NativeWindow::NativeWindow(int width, int height)
 {
     /* wayland init */
-    wc = new wayland_client;
+    wc = new WaylandClient;
     wc->win = this;
 
     /* wayland egl init */
@@ -28,13 +28,13 @@ native_window::native_window(int width, int height)
     print_gles_env();
 }
 
-native_window::~native_window()
+NativeWindow::~NativeWindow()
 {
     delete wc;
 }
 
 /* swap back,front buffer */
-int native_window::swapBuffer()
+int NativeWindow::swapBuffer()
 {
     int ret = eglSwapBuffers(egl->display, egl->surface);
     if (1 != ret) {

@@ -2,28 +2,28 @@
 #ifndef _WIDGET_HPP_
 #define _WIDGET_HPP_
 
-#include "node.hpp"
-#include "common.hpp"
+#include "Node.hpp"
+#include "Common.hpp"
 
-class frame;
-/* widget */
-class widget : public Node {
+class Frame;
+/* Widget */
+class Widget : public Node {
 
-    friend class frame;
+    friend class Frame;
 
 public:
-    widget(int x, int y, int w, int h);
+    Widget(int x, int y, int w, int h);
     int destory();
     virtual int hide();
     virtual int show();
-    virtual int get_show_status();
+    virtual int getShowStatus();
     virtual int draw();
     virtual int redraw();
-    widget* add_child_widget(widget*);
-    rect get_screen_rect();
+    Widget* add_child_Widget(Widget*);
+    rect getScreenRect();
     void reverse_show_status();
 
-    // event handler
+    // Event handler
     virtual int touch_down_handler(int x, int y);
     virtual int touch_up_handler(int x, int y);
     virtual int touch_motion_handler(int x, int y);
@@ -35,8 +35,8 @@ public:
     int debug;
     int abs_x, abs_y;
     int width, height;
-    color_rgba bg_color;
-    frame *f;
+    rgba bg_color;
+    Frame *f;
 
 private:
     int cur_show_status;

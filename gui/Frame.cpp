@@ -4,37 +4,37 @@
 #include <unistd.h>
 #include <stack>
 
-#include "frame.hpp"
-#include "widget.hpp"
+#include "Frame.hpp"
+#include "Widget.hpp"
 
-frame::frame(int x, int y, int width, int height)
+Frame::Frame(int x, int y, int width, int height)
     : debug(0)
 {
     abs_x = x;
     abs_y = y;
     this->width = width;
     this->height = height;
-    mp_native_window = new native_window(width, height);
-    mp_native_window->f = this;
+    mpNativeWindow = new NativeWindow(width, height);
+    mpNativeWindow->f = this;
 
     init();
 }
 
-void frame::init()
+void Frame::init()
 {
-    /* create root widget */
-    widget *root_wid = new widget(0, 0, width, height);
-    root_wid->set_name("root");
+    /* create root Widget */
+    Widget *root_wid = new Widget(0, 0, width, height);
+    root_wid->SetName("root");
     root_wid->f = this;
     root_wid->bg_color = {128, 128, 128};
     //root_wid->dump();
-    set_root_widget(root_wid);
+    SetRootWidget(root_wid);
 }
 
 /*
   depth-first scan
  */
-void frame::draw(Node *node)
+void Frame::draw(Node *node)
 {
     if (!node) {
         printf("node==null\n");
@@ -48,8 +48,8 @@ void frame::draw(Node *node)
         // pop
         Node* n = s.top(); s.pop();
         // handle
-        widget *wid = dynamic_cast<widget *>(n);
-        if (!wid->get_show_status()) {
+        Widget *wid = dynamic_cast<Widget *>(n);
+        if (!wid->getShowStatus()) {
             continue;
         }
         wid->redraw();
@@ -66,46 +66,46 @@ void frame::draw(Node *node)
     }
 }
 
-void frame::redraw()
+void Frame::redraw()
 {
-    draw(root_widget);
+    draw(rootWidget);
 
-    get_native_window()->swapBuffer();
+    GetNativeWindow()->swapBuffer();
 }
 
-int frame::set_root_widget(widget* wid)
+int Frame::SetRootWidget(Widget* wid)
 {
-    root_widget = wid;
+    rootWidget = wid;
 
     return 0;
 }
 
-widget* frame::get_root_widget()
+Widget* Frame::GetRootWidget()
 {
-    return root_widget;
+    return rootWidget;
 }
 
-native_window* frame::get_native_window()
+NativeWindow* Frame::GetNativeWindow()
 {
-    return mp_native_window;
+    return mpNativeWindow;
 }
 
-void frame::set_native_window(native_window* nwin)
+void Frame::SetNativeWindow(NativeWindow* nwin)
 {
-    mp_native_window = nwin;
+    mpNativeWindow = nwin;
 }
 
-bool frame::need_quit()
+bool Frame::needQuit()
 {
     return quit == 1;
 }
 
-widget* frame::find_widget_with_xy(int x, int y)
+Widget* Frame::findWidgetWithxy(int x, int y)
 {
     bool ret = false;
-    widget* ret_wid = root_widget;
+    Widget* ret_wid = rootWidget;
 
-    Node* node = root_widget;
+    Node* node = rootWidget;
     stack<Node*> s;
     s.push(node);
 
@@ -113,8 +113,8 @@ widget* frame::find_widget_with_xy(int x, int y)
         // pop
         Node* n = s.top(); s.pop();
         // handle
-        widget *wid = dynamic_cast<widget *>(n);
-        rect r = wid->get_screen_rect();
+        Widget *wid = dynamic_cast<Widget *>(n);
+        rect r = wid->getScreenRect();
         if (ret = r.inside(x, y)) {
             ret_wid = wid;
         }
@@ -132,28 +132,28 @@ widget* frame::find_widget_with_xy(int x, int y)
     return ret_wid;
 }
 
-widget* frame::find_widget_with_xy(point p)
+Widget* Frame::findWidgetWithxy(point p)
 {
-    return find_widget_with_xy(p.x, p.y);
+    return findWidgetWithxy(p.x, p.y);
 }
 
-point frame::point_screen_to_gl_window(point p)
+point Frame::pointScreenToGlWindow(point p)
 {
     point p1 = point(p.x, this->height - p.y);
     return p1;
 }
 
-int frame::dispatch_event()
+int Frame::DispatchEvent()
 {
-    event* ev = pop_event();
+    Event* ev = PopEvent();
     //printf("%x\n", ev);
     if (ev) {
         switch(ev->et) {
         case EVENT_TOUCH: {
-            touch_event *tev = dynamic_cast<touch_event*>(ev);
+            TouchEvent *tev = dynamic_cast<TouchEvent*>(ev);
             if (tev) {
-                point p = point_screen_to_gl_window(point(tev->x, tev->y));
-                widget* wid = find_widget_with_xy(p);
+                point p = pointScreenToGlWindow(point(tev->x, tev->y));
+                Widget* wid = findWidgetWithxy(p);
                 if (debug) {
                     printf("find [%d, %d] in %s[%d, %d, %d, %d]\n",
                            p.x, p.y,
@@ -175,10 +175,10 @@ int frame::dispatch_event()
             break;
         }
         case EVENT_POINTER: {
-            pointer_event *pev = dynamic_cast<pointer_event*>(ev);
+            PointerEvent *pev = dynamic_cast<PointerEvent*>(ev);
             if (pev) {
-                point p = point_screen_to_gl_window(point(pev->x, pev->y));
-                widget* wid = find_widget_with_xy(p);
+                point p = pointScreenToGlWindow(point(pev->x, pev->y));
+                Widget* wid = findWidgetWithxy(p);
 
                 if (debug) {
                     printf("find [%d, %d] in %s[%d, %d, %d, %d]\n",
@@ -216,41 +216,41 @@ int frame::dispatch_event()
     return 0;
 }
 
-frame* frame::push_event(event* e)
+Frame* Frame::PushEvent(Event* e)
 {
-    event_queue.push(e);
-    //printf("+:%ld\n", event_queue.size());
+    EventQueue.push(e);
+    //printf("+:%ld\n", EventQueue.size());
 
     return this;
 }
 
-event* frame::pop_event()
+Event* Frame::PopEvent()
 {
-    event* ret = NULL;
+    Event* ret = NULL;
 
-    event_queue.wait_and_pop(ret);
-    //printf("-:%ld\n", event_queue.size());
+    EventQueue.wait_and_pop(ret);
+    //printf("-:%ld\n", EventQueue.size());
 
     return ret;
 }
 
-bool frame::have_event()
+bool Frame::HaveEvent()
 {
-    return !event_queue.empty();
+    return !EventQueue.empty();
 }
 
-void* dispatch_event_thread(void* p)
+void* DispatchEvent_thread(void* p)
 {
-    frame *f = reinterpret_cast<frame*>(p);
+    Frame *f = reinterpret_cast<Frame*>(p);
     int quit = 0;
 
     while(!quit) {
-        f->dispatch_event();
+        f->DispatchEvent();
     }
 }
 
-int frame::dispatch_event_run(int flag)
+int Frame::DispatchEventRun(int flag)
 {
     pthread_t pid;
-    int p = pthread_create(&pid, NULL, dispatch_event_thread, this);
+    int p = pthread_create(&pid, NULL, DispatchEvent_thread, this);
 }

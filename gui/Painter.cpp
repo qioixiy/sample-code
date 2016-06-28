@@ -1,5 +1,5 @@
 
-#include "painter.hpp"
+#include "Painter.hpp"
 
 #include "gles/draw.h"
 #include "gles/texture.h"

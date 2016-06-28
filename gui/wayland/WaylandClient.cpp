@@ -4,7 +4,7 @@
 #include <errno.h>
 #include <pthread.h>
 #include "gui/ui.hpp"
-#include "wayland_client.hpp"
+#include "WaylandClient.hpp"
 
 #ifdef yunos
 #include <weston/WindowManager-client-protocol.h>
@@ -19,49 +19,49 @@ static void touch_handle_down(void *data, struct wl_touch *wl_touch,
                               struct wl_surface *surface,
                               int32_t id, wl_fixed_t x_w, wl_fixed_t y_w)
 {
-    wayland_client *wc = reinterpret_cast<wayland_client*>(data);
+    WaylandClient *wc = reinterpret_cast<WaylandClient*>(data);
     wc->touch_x = x_w;
     wc->touch_y = y_w;
     wc->touch_type = 0;
-    wc->raise_event(0);
+    wc->raiseEvent(0);
 }
 
 static void touch_handle_up(void *data, struct wl_touch *wl_touch,
                             uint32_t serial, uint32_t time, int32_t id)
 {
-    wayland_client *wc = reinterpret_cast<wayland_client*>(data);
+    WaylandClient *wc = reinterpret_cast<WaylandClient*>(data);
     wc->touch_type = 1;
-    wc->raise_event(0);
+    wc->raiseEvent(0);
 }
 
 static void touch_handle_motion(void *data, struct wl_touch *wl_touch,
                                 uint32_t time, int32_t id,
                                 wl_fixed_t x_w, wl_fixed_t y_w)
 {
-    wayland_client *wc = reinterpret_cast<wayland_client*>(data);
+    WaylandClient *wc = reinterpret_cast<WaylandClient*>(data);
     wc->touch_type = 2;
-    wc->raise_event(0);
+    wc->raiseEvent(0);
 }
 
-static void touch_handle_frame(void *data, struct wl_touch *wl_touch)
+static void touch_handle_Frame(void *data, struct wl_touch *wl_touch)
 {
-    wayland_client *wc = reinterpret_cast<wayland_client*>(data);
+    WaylandClient *wc = reinterpret_cast<WaylandClient*>(data);
     wc->touch_type = 3;
-    wc->raise_event(0);
+    wc->raiseEvent(0);
 }
 
 static void touch_handle_cancel(void *data, struct wl_touch *wl_touch)
 {
-    wayland_client *wc = reinterpret_cast<wayland_client*>(data);
+    WaylandClient *wc = reinterpret_cast<WaylandClient*>(data);
     wc->touch_type = 4;
-    wc->raise_event(0);
+    wc->raiseEvent(0);
 }
 
 static const struct wl_touch_listener touch_listener = {
 	touch_handle_down,
 	touch_handle_up,
 	touch_handle_motion,
-	touch_handle_frame,
+	touch_handle_Frame,
 	touch_handle_cancel,
 };
 
@@ -87,11 +87,11 @@ pointer_handle_motion(void *data, struct wl_pointer *pointer,
 {
     //printf("%s\n", __func__);
 
-    wayland_client *wc = reinterpret_cast<wayland_client*>(data);
+    WaylandClient *wc = reinterpret_cast<WaylandClient*>(data);
     wc->pointer_state_w = 0;
     wc->pointer_sx_w = wl_fixed_to_double(sx_w);
     wc->pointer_sy_w = wl_fixed_to_double(sy_w);
-    wc->raise_event(1);
+    wc->raiseEvent(1);
 }
 
 static void
@@ -99,11 +99,11 @@ pointer_handle_button(void *data, struct wl_pointer *pointer, uint32_t serial,
                       uint32_t time, uint32_t button, uint32_t state_w)
 {
     //printf("%s %d %d\n", __func__, button, state_w);
-    wayland_client *wc = reinterpret_cast<wayland_client*>(data);
+    WaylandClient *wc = reinterpret_cast<WaylandClient*>(data);
     wc->pointer_state_w = 1;
     wc->pointer.button = button;
     wc->pointer.state_w = state_w;
-    wc->raise_event(1);
+    wc->raiseEvent(1);
 }
 
 static void
@@ -111,15 +111,15 @@ pointer_handle_axis(void *data, struct wl_pointer *pointer,
                     uint32_t time, uint32_t axis, wl_fixed_t value)
 {
     //printf("%s %d %d\n", __func__, axis, value);
-    wayland_client *wc = reinterpret_cast<wayland_client*>(data);
+    WaylandClient *wc = reinterpret_cast<WaylandClient*>(data);
     wc->pointer_state_w = 2;
     wc->pointer.axis = axis;
     wc->pointer.value = wl_fixed_to_double(value);
-    wc->raise_event(1);
+    wc->raiseEvent(1);
 }
 
 static void
-pointer_handle_frame(void *data, struct wl_pointer *pointer)
+pointer_handle_Frame(void *data, struct wl_pointer *pointer)
 {
     printf("%s\n", __func__);
 }
@@ -152,7 +152,7 @@ static const struct wl_pointer_listener pointer_listener = {
 	pointer_handle_button,
 	pointer_handle_axis,
     /* newest wayland version have this listener*/
-	/* pointer_handle_frame, */
+	/* pointer_handle_Frame, */
 	/* pointer_handle_axis_source, */
 	/* pointer_handle_axis_stop, */
 	/* pointer_handle_axis_discrete, */
@@ -161,7 +161,7 @@ static const struct wl_pointer_listener pointer_listener = {
 static void seat_handle_capabilities(void *data, struct wl_seat *seat,
                                      unsigned int caps)
 {
-    wayland_client *wc = reinterpret_cast<wayland_client*>(data);
+    WaylandClient *wc = reinterpret_cast<WaylandClient*>(data);
     /* pointer */
 	if ((caps & WL_SEAT_CAPABILITY_POINTER) && !wc->p_wl_pointer) {
 		wc->p_wl_pointer = wl_seat_get_pointer(seat);
@@ -214,7 +214,7 @@ static void registry_handle_global(void *data, struct wl_registry *registry,
                                    uint32_t name,
                                    const char *interface, uint32_t version)
 {
-    wayland_client *wc = reinterpret_cast<wayland_client*>(data);
+    WaylandClient *wc = reinterpret_cast<WaylandClient*>(data);
     printf("interface=%s\n", interface);
 
 	if (strcmp(interface, "wl_compositor") == 0) {
@@ -296,18 +296,18 @@ static void* wayland_display_dispatch_thread(void* p)
 }
 #endif
 
-wayland_client::wayland_client()
+WaylandClient::WaylandClient()
 {
     init();
-    dispatcher_run();
+    DispatcherRun();
 }
 
-wayland_client::~wayland_client()
+WaylandClient::~WaylandClient()
 {
     ;
 }
 
-int wayland_client::init()
+int WaylandClient::init()
 {
     p_wl_display = wl_display_connect(NULL);
     if (!p_wl_display) {
@@ -365,7 +365,7 @@ int wayland_client::init()
     return 0;
 }
 
-int wayland_client::dispatcher_run()
+int WaylandClient::DispatcherRun()
 {
     // display dispatch thread
     pthread_t pid;
@@ -375,15 +375,15 @@ int wayland_client::dispatcher_run()
     return ret;
 }
 
-int wayland_client::raise_event(int type) {
+int WaylandClient::raiseEvent(int type) {
     if (type == 0) {
-        win->f->push_event(
-            new touch_event(
+        win->f->PushEvent(
+            new TouchEvent(
                 wl_fixed_to_double(touch_x),
                 wl_fixed_to_double(touch_y), touch_type));
     } else if (type == 1) {
-        win->f->push_event(
-            new pointer_event(
+        win->f->PushEvent(
+            new PointerEvent(
                 pointer_sx_w,
                 pointer_sy_w,
                 pointer.v1, pointer.v2, pointer_state_w));
