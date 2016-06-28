@@ -164,8 +164,8 @@ int Frame::DispatchEvent()
                 int x = p.x;
                 int y = p.y;
                 switch(tev->type) {
-                case 0: wid->touch_down_handler(x, y); break;
-                case 1: wid->touch_up_handler(x, y); break;
+                case 0: wid->touchDownHandler(x, y); break;
+                case 1: wid->touchUpHandler(x, y); break;
                 case 2: wid->touch_motion_handler(x, y); break;
                 default:
                     printf("unkown touch type\n");
@@ -194,7 +194,7 @@ int Frame::DispatchEvent()
                     wid->pointer_motion_handler(v1, v2);
                     break;
                 case 1:
-                    wid->pointer_button_handler(
+                    wid->pointerButtonHandler(
                         pev->pointer.button, pev->pointer.state_w);
                     break;
                 case 2:

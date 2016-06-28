@@ -90,14 +90,14 @@ void Widget::reverse_show_status()
     }
 }
 // touch
-int Widget::touch_down_handler(int x, int y)
+int Widget::touchDownHandler(int x, int y)
 {
     if (debug) {
         printf("%d %d\n", x, y);
     }
     return false;
 }
-int Widget::touch_up_handler(int x, int y)
+int Widget::touchUpHandler(int x, int y)
 {
     if (debug) {
         printf("%d %d\n", x, y);
@@ -119,7 +119,7 @@ int Widget::pointer_motion_handler(int x, int y)
     }
     return false;
 }
-int Widget::pointer_button_handler(int button, int state)
+int Widget::pointerButtonHandler(int button, int state)
 {
     if (debug) {
         printf("%d %d\n", button, state);

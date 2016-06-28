@@ -3,10 +3,10 @@
 
 #include <GLES2/gl2.h>
 
-class glsl_program_object {
+class glslProgramObject {
 public:
-    glsl_program_object();
-    int run();
+    glslProgramObject();
+    int Run();
 
 public:
     GLuint program_object;

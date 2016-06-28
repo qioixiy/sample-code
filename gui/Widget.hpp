@@ -24,11 +24,11 @@ public:
     void reverse_show_status();
 
     // Event handler
-    virtual int touch_down_handler(int x, int y);
-    virtual int touch_up_handler(int x, int y);
+    virtual int touchDownHandler(int x, int y);
+    virtual int touchUpHandler(int x, int y);
     virtual int touch_motion_handler(int x, int y);
     virtual int pointer_motion_handler(int x, int y);
-    virtual int pointer_button_handler(int button, int state);
+    virtual int pointerButtonHandler(int button, int state);
     virtual int pointer_axis_handler(int axis, int value);
 
 public:

@@ -1,22 +1,22 @@
-#include "glsl_program_object.hpp"
+#include "glslProgramObject.hpp"
 
 #include "log/log.h"
 #include "gles/draw.h"
 #include "gles/texture.h"
 #include "gles/shader.h"
 
-glsl_program_object::glsl_program_object()
+glslProgramObject::glslProgramObject()
 {
     init();
 }
 
-int glsl_program_object::init()
+int glslProgramObject::init()
 {
     program_object = get_program_object_showrgba();
     return 0;
 }
 
-int glsl_program_object::run()
+int glslProgramObject::Run()
 {
 // Get the attribute locations
     GLint positionLoc = glGetAttribLocation(program_object, "a_position");

@@ -5,19 +5,19 @@
 #include "gles/texture.h"
 #include "gles/shader.h"
 
-painter::image_png::image_png(string file)
+Painter::ImagePng::ImagePng(string file)
     :load(0)
     ,m_glsl_object(NULL)
 {
     file_path = file;
 }
 
-painter::image_png::~image_png()
+Painter::ImagePng::~ImagePng()
 {
     ;
 }
 
-int painter::image_png::set_source(string file)
+int Painter::ImagePng::set_source(string file)
 {
     if (file != file_path) {
         file_path = file;
@@ -25,10 +25,10 @@ int painter::image_png::set_source(string file)
     }
 }
 
-int painter::image_png::run()
+int Painter::ImagePng::Run()
 {
     if (!m_glsl_object) {
-        m_glsl_object = new glsl_program_object();
+        m_glsl_object = new glslProgramObject();
     }
 
     if (!load) {
@@ -40,5 +40,5 @@ int painter::image_png::run()
         m_glsl_object->texture_id_rgba = texture_id_rgba;
     }
 
-    m_glsl_object->run();
+    m_glsl_object->Run();
 }

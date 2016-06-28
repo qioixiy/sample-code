@@ -33,37 +33,37 @@ int Frame_init_layout(Frame* f)
     Widget* root_wid = f->GetRootWidget();
 
     // navi Widget
-    Widget_image *navi_wid =
-        new Widget_image(0, 0, f->width/2, f->height/2);
+    WidgetImage *navi_wid =
+        new WidgetImage(0, 0, f->width/2, f->height/2);
     navi_wid->SetName("navi");
-    navi_wid->set_image("res/png/10d4/navi_front.png");
+    navi_wid->SetImage("res/png/10d4/navi_front.png");
 
     // calibStitched Widget
-    Widget_image *calibStitched_wid =
-        new Widget_image(f->width/2, 0, f->width/2, f->height/2);
+    WidgetImage *calibStitched_wid =
+        new WidgetImage(f->width/2, 0, f->width/2, f->height/2);
     calibStitched_wid->SetName("calibStitched");
-    calibStitched_wid->set_image("res/png/calibStitched.png");
+    calibStitched_wid->SetImage("res/png/calibStitched.png");
 
     // carbox Widget
-    Widget_image *carbox_wid
-        = new Widget_image(f->width*5/8, f->height/8,
+    WidgetImage *carbox_wid
+        = new WidgetImage(f->width*5/8, f->height/8,
                            f->width/4, f->height/4);
     carbox_wid->SetName("carbox");
-    carbox_wid->set_image("res/png/10d4/carbox_black.png");
+    carbox_wid->SetImage("res/png/10d4/carbox_black.png");
 
     // calibFront Widget
-    Widget_image *calibFront_wid =
-        new Widget_image(0, f->height/2, f->width, f->height/2);
+    WidgetImage *calibFront_wid =
+        new WidgetImage(0, f->height/2, f->width, f->height/2);
     calibFront_wid->SetName("calibFront");
-    calibFront_wid->set_image("res/png/calibFront.png");
+    calibFront_wid->SetImage("res/png/calibFront.png");
 
     // tips Widget
-    Widget_image *tips_wid
-        = new Widget_image(f->width/2 - 487/4,
+    WidgetImage *tips_wid
+        = new WidgetImage(f->width/2 - 487/4,
                            f->height - 150/2 - 5,
                            487/2, 150/2);
     tips_wid->SetName("tip");
-    tips_wid->set_image("res/png/10d4/tip_high_speed.png");
+    tips_wid->SetImage("res/png/10d4/tip_high_speed.png");
 
     // set order 1
     // root_wid->add_child_Widget(navi_wid);

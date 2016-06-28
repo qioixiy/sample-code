@@ -5,21 +5,21 @@
 #include "Widget.hpp"
 #include "Painter.hpp"
 
-class Widget_image : public Widget {
+class WidgetImage : public Widget {
 public:
-    Widget_image(int x, int y, int w, int h);
+    WidgetImage(int x, int y, int w, int h);
 
     virtual int draw();
-    void set_image(string filePath);
+    void SetImage(string filePath);
 
     // touch
-    virtual int touch_down_handler(int, int);
-    virtual int touch_up_handler(int, int);
-    virtual int pointer_button_handler(int button, int state);
+    virtual int touchDownHandler(int, int);
+    virtual int touchUpHandler(int, int);
+    virtual int pointerButtonHandler(int button, int state);
 
 private:
     string filePath;
-    painter::image_png *m_painter;
+    Painter::ImagePng *m_Painter;
 };
 
 #endif

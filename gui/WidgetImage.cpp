@@ -1,33 +1,33 @@
 #include "WidgetImage.hpp"
 
-Widget_image::Widget_image(int x, int y, int w, int h)
+WidgetImage::WidgetImage(int x, int y, int w, int h)
     :Widget(x, y, w, h)
-    ,m_painter(NULL)
+    ,m_Painter(NULL)
 {
     ;
 }
 
-void Widget_image::set_image(string filePath)
+void WidgetImage::SetImage(string filePath)
 {
     this->filePath = filePath;
-    if (m_painter) {
-        delete m_painter;
-        m_painter = NULL;
+    if (m_Painter) {
+        delete m_Painter;
+        m_Painter = NULL;
     }
-    m_painter = new painter::image_png(filePath);
+    m_Painter = new Painter::ImagePng(filePath);
 }
 
-int Widget_image::draw()
+int WidgetImage::draw()
 {
     if (filePath.empty()) {
         return Widget::draw();
     }
 
-    m_painter ? m_painter->run() : 0;
+    m_Painter ? m_Painter->Run() : 0;
     return 0;
 }
 
-int Widget_image::pointer_button_handler(int button, int state)
+int WidgetImage::pointerButtonHandler(int button, int state)
 {
     if (state) {
         reverse_show_status();
@@ -35,12 +35,12 @@ int Widget_image::pointer_button_handler(int button, int state)
 }
 
 // touch
-int Widget_image::touch_down_handler(int, int)
+int WidgetImage::touchDownHandler(int, int)
 {
     reverse_show_status();
     return 0;
 }
-int Widget_image::touch_up_handler(int, int)
+int WidgetImage::touchUpHandler(int, int)
 {
     return 0;
 }

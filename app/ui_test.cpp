@@ -66,9 +66,9 @@ Widget* create_root_Widget(Frame* f, int w, int h)
     child_wid->add_child_Widget(child_child_wid);
 
     // add child's sibling Widget
-    Widget_image *child_sibling2_wid
-        = new Widget_image(w/32, h/32, w/4, h/4);
-    child_sibling2_wid->set_image("utils/png-test.png");
+    WidgetImage *child_sibling2_wid
+        = new WidgetImage(w/32, h/32, w/4, h/4);
+    child_sibling2_wid->SetImage("utils/png-test.png");
     child_wid->add_child_Widget(child_sibling2_wid);
 
     f->SetRootWidget(root_wid);

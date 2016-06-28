@@ -4,23 +4,23 @@
 #include <string>
 using namespace std;
 
-#include "gles/glsl_program_object.hpp"
+#include "gles/glslProgramObject.hpp"
 #include "utils/png_load.h"
 
-class painter {
+class Painter {
 public :
-    class image_png {
+    class ImagePng {
     public:
-        image_png(string);
-        ~image_png();
-        int run(void);
+        ImagePng(string);
+        ~ImagePng();
+        int Run(void);
         int set_source(string);
 
     private:
         string file_path;
         struct pngload_attribute png_attr;
         int load;
-        glsl_program_object *m_glsl_object;
+        glslProgramObject *m_glsl_object;
     };
 };
 
