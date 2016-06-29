@@ -38,11 +38,11 @@ public:
     int abs_x, abs_y;
     int width, height;
     rgba bg_color;
+    Painter *mpPainter;
     Frame *f;
 
 private:
     int mCurShowStatus;
-    Painter *mpPainter;
 };
 
 #endif

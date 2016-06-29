@@ -18,7 +18,6 @@ public:
 
 private:
     string filePath;
-    Painter *mpPainter;
 };
 
 #endif

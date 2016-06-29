@@ -2,7 +2,6 @@
 
 WidgetImage::WidgetImage(int x, int y, int w, int h)
     :Widget(x, y, w, h)
-    ,mpPainter(NULL)
 {
     ;
 }
