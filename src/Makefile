@@ -72,7 +72,6 @@ C_SRCS := \
 
 CXX_SRCS := \
 	utils/obj/loader.cpp \
-	gui/Common.cpp \
 	gui/Node.cpp \
 	gui/Frame.cpp \
 	gui/NativeWindow.cpp \
