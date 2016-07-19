@@ -26,7 +26,7 @@ void Frame::init()
     Widget *root_wid = new Widget(0, 0, width, height);
     root_wid->SetName("root");
     root_wid->f = this;
-    root_wid->SetBgColor(128, 128, 128);
+    root_wid->SetBgColor(0, 0, 0);
     root_wid->dump();
     SetRootWidget(root_wid);
 }

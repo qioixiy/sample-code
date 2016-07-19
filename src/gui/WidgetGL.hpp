@@ -4,16 +4,35 @@
 
 #include "Widget.hpp"
 
+class FBO {
+public:
+    FBO(int=64, int=64);
+
+    void RenderToFBO();
+    void DrawScreenQuad();
+    bool checkFramebufferStatus();
+    bool FBOInit();
+    int UseFBO ();
+
+private:
+    GLuint texture;
+    GLint texWidth, texHeight;
+    GLuint framebuffer;
+    GLuint depthRenderbuffer;
+    GLint maxRenderbufferSize;
+
+    Shader *mpShader;
+    Shader *mpShaderFBO;
+};
+
 class WidgetGL : public Widget {
 public:
     WidgetGL(int x, int y, int w, int h);
 
     virtual int draw();
 
-    // touch
-    virtual int touchDownHandler(int, int);
-    virtual int touchUpHandler(int, int);
-    virtual int pointerButtonHandler(int button, int state);
+private:
+    FBO mFBO;
 };
 
 #endif

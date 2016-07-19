@@ -55,6 +55,7 @@ APP_CXX_SRCS := \
 	test/cube3.cpp \
 	test/layout_test.cpp \
 	test/test_project1.cpp \
+	test/fbo.cpp \
 
 C_SRCS := \
 	egl/egl.c \

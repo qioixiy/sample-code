@@ -7,6 +7,7 @@
 #include "Frame.hpp"
 #include "Widget.hpp"
 #include "WidgetImage.hpp"
+#include "WidgetGL.hpp"
 
 /*
   Frame--rootWidget
