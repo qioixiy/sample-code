@@ -47,8 +47,8 @@ static int init_gl()
 	GLuint vertex_shader, fragment_shader;
 	GLint ret;
 
-    program = make_program_object("gles/shaders/cube.vert",
-                                  "gles/shaders/cube.frag");
+    program = make_program_object("res/glsl_shaders/cube.vert",
+                                  "res/glsl_shaders/cube.frag");
 	glUseProgram(program);
     
 	glBindAttribLocation(program, 0, "in_position");

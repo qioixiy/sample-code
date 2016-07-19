@@ -312,8 +312,8 @@ void draw_vertexs_update()
     static GLuint program_object;
     if (!program_object) {
         program_object = make_program_object(
-            "gles/shaders/obj.vert",
-            "gles/shaders/obj.frag");
+            "res/glsl_shaders/obj.vert",
+            "res/glsl_shaders/obj.frag");
     }
     glUseProgram(program_object);
 
@@ -361,8 +361,8 @@ void draw_tetrahedron()
     static GLuint program_object;
     if (!program_object) {
         program_object = make_program_object(
-            "gles/shaders/tetrahedron.vert",
-            "gles/shaders/tetrahedron.frag");
+            "res/glsl_shaders/tetrahedron.vert",
+            "res/glsl_shaders/tetrahedron.frag");
     }
 
     // Get the attribute locations
@@ -399,8 +399,8 @@ void draw_antialiasfiltering()
     static GLuint program_object;
     if (!program_object) {
         program_object = make_program_object(
-            "gles/shaders/tetrahedron.vert",
-            "gles/shaders/antialiasfiltering.frag");
+            "res/glsl_shaders/tetrahedron.vert",
+            "res/glsl_shaders/antialiasfiltering.frag");
     }
 
     // Get the attribute locations
@@ -437,8 +437,8 @@ void draw_simple()
     static GLuint program_object;
     if (!program_object) {
         program_object = make_program_object(
-           "gles/shaders/simple.vert",
-           "gles/shaders/simple.frag");
+           "res/glsl_shaders/simple.vert",
+           "res/glsl_shaders/simple.frag");
     }
 
     glUseProgram(program_object);

@@ -146,8 +146,8 @@ static int init_gl()
 	GLuint vertex_shader, fragment_shader;
 	GLint ret;
 
-    program = make_program_object("gles/shaders/cube3.vert",
-                                  "gles/shaders/cube3.frag");
+    program = make_program_object("res/glsl_shaders/cube3.vert",
+                                  "res/glsl_shaders/cube3.frag");
 	glUseProgram(program);
     
 	glBindAttribLocation(program, 0, "in_position");
