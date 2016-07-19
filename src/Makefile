@@ -78,6 +78,7 @@ CXX_SRCS := \
 	gui/wayland/WaylandClient.cpp \
 	gui/Widget.cpp \
 	gui/WidgetImage.cpp \
+	gui/WidgetGL.cpp \
 	gui/Painter.cpp \
 	gui/egl/egl.cpp \
 	app/app.cpp \
