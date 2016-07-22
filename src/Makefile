@@ -56,6 +56,7 @@ APP_CXX_SRCS := \
 	test/layout_test.cpp \
 	test/test_project1.cpp \
 	test/fbo.cpp \
+	gui/Compositor.cpp
 
 C_SRCS := \
 	egl/egl.c \
