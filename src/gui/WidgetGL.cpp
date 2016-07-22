@@ -37,6 +37,9 @@ bool FBO::checkFramebufferStatus()
 
 void FBO::RenderToFBO()
 {
+    glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     GLuint program_object = mpShaderFBO->GetObject();
 
     GLint colorLoc = glGetUniformLocation(program_object, "u_colorLoc");
@@ -96,6 +99,11 @@ void FBO::DrawScreenQuad()
 
 int FBO::UseFBO ()
 {
+    GLint defaultFBO;
+	GLint defaultRBO;
+	glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
+	glGetIntegerv(GL_RENDERBUFFER_BINDING, &defaultRBO);
+
     glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE, &maxRenderbufferSize);
     if((maxRenderbufferSize <= texWidth) ||
        (maxRenderbufferSize <= texHeight))
@@ -103,8 +111,17 @@ int FBO::UseFBO ()
         printf("cannot use framebuffer objects as we need to create\n");
         return 0;
     }
+
+	// frame buffer object
     glGenFramebuffers(1, &framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+
+    // render buffer object
     glGenRenderbuffers(1, &depthRenderbuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, depthRenderbuffer);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16,
+                          texWidth, texHeight);
+
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth, texHeight,
@@ -113,20 +130,20 @@ int FBO::UseFBO ()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glBindRenderbuffer(GL_RENDERBUFFER, depthRenderbuffer);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16,
-                          texWidth, texHeight);
-    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+
+    // combine all
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
                            GL_TEXTURE_2D, texture, 0);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
                               GL_RENDERBUFFER, depthRenderbuffer);
 
     if (checkFramebufferStatus()) {
-        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         RenderToFBO();
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        glBindFramebuffer(GL_FRAMEBUFFER, defaultFBO);
+        glBindRenderbuffer(GL_RENDERBUFFER, defaultRBO);
+        //glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
         DrawScreenQuad();
     }
     glDeleteRenderbuffers(1, &depthRenderbuffer);

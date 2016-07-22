@@ -30,8 +30,8 @@ INC += -I$(ROOTFS)/usr/include -I$(CURPWD)
 INC-cairo=$(ROOTFS)/usr/include/cairo
 INC += -I$(INC-cairo)
 
-CFLAGS = $(INC)
-CXXFLAGS = -std=c++11
+CFLAGS = $(INC) -MMD -MP
+CXXFLAGS = $(CFLAGS) -std=c++11
 
 # lib
 LIB = -L$(ROOTFS)/usr/lib -L$(ROOTFS)/lib -L.
@@ -111,12 +111,12 @@ objs: $(OBJS_C) $(OBJS_CXX)
 $(APP_C_OBJS) $(OBJS_C): %.o: %.c
 	@echo CC $^
 	@[ -d $(BUILD_DIR)/$(<D) ] || mkdir $(BUILD_DIR)/$(<D) -p
-	$(Q)$(CC) -c $(CFLAGS) $< -o $(BUILD_DIR)/$@
+	$(Q)$(CC) $(CFLAGS) -c $< -o $(BUILD_DIR)/$@
 
 $(APP_CXX_OBJS) $(OBJS_CXX): %.o: %.cpp
 	@echo CXX $^
 	@[ -d $(BUILD_DIR)/$(<D) ] || mkdir $(BUILD_DIR)/$(<D) -p
-	$(Q)$(CXX) -c $(INC) $(CXXFLAGS) $< -o $(BUILD_DIR)/$@
+	$(Q)$(CXX) $(INC) $(CXXFLAGS) -c $< -o $(BUILD_DIR)/$@
 
 apps: pre objs app_c app_cxx
 	@echo build apps ok
@@ -137,3 +137,5 @@ done
 .PHONY: clean all
 clean:
 	-@rm $(addprefix $(BUILD_DIR)/,$(OBJS) $(APPS)) -rf
+
+-include $(OBJS:%.o=%.d)
