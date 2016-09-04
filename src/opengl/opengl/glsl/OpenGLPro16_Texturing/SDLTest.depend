@@ -1,0 +1,392 @@
+# depslib dependency file v1.0
+1375408126 source:/home/tao/cworkspace/SDLTest/main.cpp
+	<iostream>
+	"csdl.h"
+	"cgl.h"
+
+1375366177 source:/home/tao/cworkspace/SDLTest/sdl.cpp
+	"sdl.h"
+
+1375366126 /home/tao/cworkspace/SDLTest/sdl.h
+	<SDL/SDL.h>
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1375408814 source:/home/tao/cworkspace/SDLTest/cgl.cpp
+	"cgl.h"
+
+1375407879 /home/tao/cworkspace/SDLTest/cgl.h
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<SDL/SDL.h>
+	"util.h"
+
+1375407947 source:/home/tao/cworkspace/SDLTest/csdl.cpp
+	"csdl.h"
+
+1375407933 /home/tao/cworkspace/SDLTest/csdl.h
+	<SDL/SDL.h>
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	"cgl.h"
+
+1375369272 source:/home/tao/cworkspace/SDLTest/util.cpp
+	"util.h"
+
+1375369152 /home/tao/cworkspace/SDLTest/util.h
+	<glm/glm.hpp>
+	<vector>
+	<string>
+	<cstring>
+	<iostream>
+
+1376546672 source:/home/tao/cworkspace/SDLFramework/csdl.cpp
+	"csdl.h"
+
+1375407933 /home/tao/cworkspace/SDLFramework/csdl.h
+	<SDL/SDL.h>
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	"cgl.h"
+
+1376660045 /home/tao/cworkspace/SDLFramework/cgl.h
+	<SDL/SDL.h>
+	"util.h"
+	"shaderprogram.h"
+	"objobject.h"
+
+1376402323 /home/tao/cworkspace/SDLFramework/util.h
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<vector>
+	<string>
+	<cstring>
+	<iostream>
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1376660566 source:/home/tao/cworkspace/SDLFramework/main.cpp
+	<iostream>
+	"csdl.h"
+	"cgl.h"
+	"util.h"
+
+1376400114 source:/home/tao/cworkspace/SDLFramework/util.cpp
+	"util.h"
+
+1376708760 source:/home/tao/cworkspace/SDLFramework/cgl.cpp
+	"cgl.h"
+
+1375862686 /home/tao/cworkspace/SDLFramework/shader.h
+	"util.h"
+	"shader.h"
+
+1376659865 /home/tao/cworkspace/SDLFramework/shaderprogram.h
+	"util.h"
+	"shaderprogram.h"
+
+1376660016 source:/home/tao/cworkspace/SDLFramework/shaderprogram.cpp
+	"shaderprogram.h"
+	<fstream>
+	<sstream>
+	<sys/stat.h>
+
+1376399310 /home/tao/cworkspace/SDLFramework/teapot.h
+	"util.h"
+
+1376399259 source:/home/tao/cworkspace/SDLFramework/teapot.cpp
+	"teapot.h"
+
+1376659617 /home/tao/cworkspace/SDLFramework/objobject.h
+	"util.h"
+
+1376659640 source:/home/tao/cworkspace/SDLFramework/objobject.cpp
+	"objobject.h"
+
+1377260792 source:/home/tao/cworkspace/OpenGLPro12/cgl.cpp
+	"cgl.h"
+
+1377052910 /home/tao/cworkspace/OpenGLPro12/cgl.h
+	<SDL/SDL.h>
+	"util.h"
+	"shaderprogram.h"
+	"objobject.h"
+
+1376402323 /home/tao/cworkspace/OpenGLPro12/util.h
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<vector>
+	<string>
+	<cstring>
+	<iostream>
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1376659865 /home/tao/cworkspace/OpenGLPro12/shaderprogram.h
+	"util.h"
+	"shaderprogram.h"
+
+1376659617 /home/tao/cworkspace/OpenGLPro12/objobject.h
+	"util.h"
+
+1377052971 source:/home/tao/cworkspace/OpenGLPro12/csdl.cpp
+	"csdl.h"
+
+1377011584 /home/tao/cworkspace/OpenGLPro12/csdl.h
+	<SDL/SDL.h>
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	"cgl.h"
+
+1376660566 source:/home/tao/cworkspace/OpenGLPro12/main.cpp
+	<iostream>
+	"csdl.h"
+	"cgl.h"
+	"util.h"
+
+1376659640 source:/home/tao/cworkspace/OpenGLPro12/objobject.cpp
+	"objobject.h"
+
+1376660016 source:/home/tao/cworkspace/OpenGLPro12/shaderprogram.cpp
+	"shaderprogram.h"
+	<fstream>
+	<sstream>
+	<sys/stat.h>
+
+1376400114 source:/home/tao/cworkspace/OpenGLPro12/util.cpp
+	"util.h"
+
+1377604680 source:/home/tao/cworkspace/OpenGLPro13/cgl.cpp
+	"cgl.h"
+
+1377571936 /home/tao/cworkspace/OpenGLPro13/cgl.h
+	<SDL/SDL.h>
+	"util.h"
+	"shaderprogram.h"
+	"objobject.h"
+
+1377599741 /home/tao/cworkspace/OpenGLPro13/util.h
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<vector>
+	<string>
+	<cstring>
+	<iostream>
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<SDL/SDL_image.h>
+
+1376659865 /home/tao/cworkspace/OpenGLPro13/shaderprogram.h
+	"util.h"
+	"shaderprogram.h"
+
+1376659617 /home/tao/cworkspace/OpenGLPro13/objobject.h
+	"util.h"
+
+1377052971 source:/home/tao/cworkspace/OpenGLPro13/csdl.cpp
+	"csdl.h"
+
+1377011584 /home/tao/cworkspace/OpenGLPro13/csdl.h
+	<SDL/SDL.h>
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	"cgl.h"
+
+1377605144 source:/home/tao/cworkspace/OpenGLPro13/main.cpp
+	<iostream>
+	"csdl.h"
+	"cgl.h"
+	"util.h"
+
+1377599706 source:/home/tao/cworkspace/OpenGLPro13/objobject.cpp
+	"objobject.h"
+
+1376660016 source:/home/tao/cworkspace/OpenGLPro13/shaderprogram.cpp
+	"shaderprogram.h"
+	<fstream>
+	<sstream>
+	<sys/stat.h>
+
+1377605126 source:/home/tao/cworkspace/OpenGLPro13/util.cpp
+	"util.h"
+
+1377604680 source:/home/tao/git/OpenGLpro/GLSL_Lighting/cgl.cpp
+	"cgl.h"
+
+1377571936 /home/tao/git/OpenGLpro/GLSL_Lighting/cgl.h
+	<SDL/SDL.h>
+	"util.h"
+	"shaderprogram.h"
+	"objobject.h"
+
+1377599741 /home/tao/git/OpenGLpro/GLSL_Lighting/util.h
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<vector>
+	<string>
+	<cstring>
+	<iostream>
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<SDL/SDL_image.h>
+
+1376659865 /home/tao/git/OpenGLpro/GLSL_Lighting/shaderprogram.h
+	"util.h"
+	"shaderprogram.h"
+
+1376659617 /home/tao/git/OpenGLpro/GLSL_Lighting/objobject.h
+	"util.h"
+
+1377052971 source:/home/tao/git/OpenGLpro/GLSL_Lighting/csdl.cpp
+	"csdl.h"
+
+1377011584 /home/tao/git/OpenGLpro/GLSL_Lighting/csdl.h
+	<SDL/SDL.h>
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	"cgl.h"
+
+1377605144 source:/home/tao/git/OpenGLpro/GLSL_Lighting/main.cpp
+	<iostream>
+	"csdl.h"
+	"cgl.h"
+	"util.h"
+
+1377599706 source:/home/tao/git/OpenGLpro/GLSL_Lighting/objobject.cpp
+	"objobject.h"
+
+1376660016 source:/home/tao/git/OpenGLpro/GLSL_Lighting/shaderprogram.cpp
+	"shaderprogram.h"
+	<fstream>
+	<sstream>
+	<sys/stat.h>
+
+1377605126 source:/home/tao/git/OpenGLpro/GLSL_Lighting/util.cpp
+	"util.h"
+
+1385022845 source:/home/tao/git/OpenGLpro/GLSL_Texturing/cgl.cpp
+	"cgl.h"
+
+1377571936 /home/tao/git/OpenGLpro/GLSL_Texturing/cgl.h
+	<SDL/SDL.h>
+	"util.h"
+	"shaderprogram.h"
+	"objobject.h"
+
+1377599741 /home/tao/git/OpenGLpro/GLSL_Texturing/util.h
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<vector>
+	<string>
+	<cstring>
+	<iostream>
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<SDL/SDL_image.h>
+
+1376659865 /home/tao/git/OpenGLpro/GLSL_Texturing/shaderprogram.h
+	"util.h"
+	"shaderprogram.h"
+
+1376659617 /home/tao/git/OpenGLpro/GLSL_Texturing/objobject.h
+	"util.h"
+
+1377052971 source:/home/tao/git/OpenGLpro/GLSL_Texturing/csdl.cpp
+	"csdl.h"
+
+1377011584 /home/tao/git/OpenGLpro/GLSL_Texturing/csdl.h
+	<SDL/SDL.h>
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	"cgl.h"
+
+1385023023 source:/home/tao/git/OpenGLpro/GLSL_Texturing/main.cpp
+	<iostream>
+	"csdl.h"
+	"cgl.h"
+	"util.h"
+
+1377599706 source:/home/tao/git/OpenGLpro/GLSL_Texturing/objobject.cpp
+	"objobject.h"
+
+1376660016 source:/home/tao/git/OpenGLpro/GLSL_Texturing/shaderprogram.cpp
+	"shaderprogram.h"
+	<fstream>
+	<sstream>
+	<sys/stat.h>
+
+1377605126 source:/home/tao/git/OpenGLpro/GLSL_Texturing/util.cpp
+	"util.h"
+
+1385259953 source:/home/tao/codeDownload/GLSL_Texturing/cgl.cpp
+	"cgl.h"
+
+1385260999 /home/tao/codeDownload/GLSL_Texturing/cgl.h
+	<SDL/SDL.h>
+	"util.h"
+	"shaderprogram.h"
+	"objobject.h"
+
+1385260383 /home/tao/codeDownload/GLSL_Texturing/util.h
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<vector>
+	<string>
+	<cstring>
+	<iostream>
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<SDL/SDL_image.h>
+	<fstream>
+	<sstream>
+	<sys/stat.h>
+
+1385112470 /home/tao/codeDownload/GLSL_Texturing/shaderprogram.h
+	"util.h"
+	"shaderprogram.h"
+
+1385260256 /home/tao/codeDownload/GLSL_Texturing/objobject.h
+	"util.h"
+
+1377052970 source:/home/tao/codeDownload/GLSL_Texturing/csdl.cpp
+	"csdl.h"
+
+1377011584 /home/tao/codeDownload/GLSL_Texturing/csdl.h
+	<SDL/SDL.h>
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	"cgl.h"
+
+1385255718 source:/home/tao/codeDownload/GLSL_Texturing/main.cpp
+	<iostream>
+	"csdl.h"
+	"cgl.h"
+	"util.h"
+
+1385260820 source:/home/tao/codeDownload/GLSL_Texturing/objobject.cpp
+	"objobject.h"
+
+1385112490 source:/home/tao/codeDownload/GLSL_Texturing/shaderprogram.cpp
+	"shaderprogram.h"
+	<fstream>
+	<sstream>
+	<sys/stat.h>
+
+1385260683 source:/home/tao/codeDownload/GLSL_Texturing/util.cpp
+	"util.h"
+

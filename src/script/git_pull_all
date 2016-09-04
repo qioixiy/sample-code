@@ -1,0 +1,81 @@
+#!/usr/bin/env python
+import os
+import sys
+from optparse import OptionParser
+
+def inBlack(s):  
+    return highlight('') + "%s[30;2m%s%s[0m"%(chr(27), s, chr(27))   
+      
+def inRed(s):  
+    return highlight('') + "%s[31;2m%s%s[0m"%(chr(27), s, chr(27))  
+  
+def inGreen(s):  
+    return highlight('') + "%s[32;2m%s%s[0m"%(chr(27), s, chr(27))   
+      
+def inYellow(s):  
+    return highlight('') + "%s[33;2m%s%s[0m"%(chr(27), s, chr(27))   
+      
+def inBlue(s):  
+    return highlight('') + "%s[34;2m%s%s[0m"%(chr(27), s, chr(27))   
+      
+def inPurple(s):  
+    return highlight('') + "%s[35;2m%s%s[0m"%(chr(27), s, chr(27))   
+      
+def inWhite(s):  
+    return highlight('') + "%s[37;2m%s%s[0m"%(chr(27), s, chr(27))  
+      
+def highlight(s):  
+    return "%s[30;2m%s%s[1m"%(chr(27), s, chr(27))
+
+def run_print_cmd(cmd):
+    print(inGreen(cmd))
+    os.system(cmd)
+
+def pull_1(basepath, options, args):
+    print '--basepath:', basepath
+
+    for _entry in os.listdir(basepath) :
+        entry = basepath + '/' + _entry
+        if entry == os.path.abspath(sys.argv[0]):
+            continue
+
+        if os.path.exists(entry) :
+            if os.path.isdir(entry) :
+                git_dir = entry + '/.git'
+                if os.path.exists(git_dir) :
+                    print(inGreen(entry + " pulling ..."))
+                    if options.resetHard :
+                        run_print_cmd('git --git-dir ' + git_dir + ' --work-tree ' + entry + ' reset --hard')
+                    if options.cleanFlag:
+                        run_print_cmd('git --git-dir ' + git_dir + ' --work-tree ' + entry + ' clean -f')
+                    if options.pullFlag:
+                        run_print_cmd('git --git-dir ' + git_dir + ' --work-tree ' + entry + ' pull')
+                    if options.listFlag:
+                        run_print_cmd('echo ' + git_dir + ' >> .git-list')
+                else :
+                    #print "skip:", entry, 'is not a git repo'
+                    pull_1(entry, options, args)
+            else:
+                #print "skip:" + entry + ' is not a dir'
+                pass
+        else :
+            print "skip:" + entry + ' is no exist!'
+
+def main():
+    parser = OptionParser()
+    parser.add_option("-r", "--reset-hard", action="store_true", dest="resetHard", default=False,
+                      help="git reset --hard")
+    parser.add_option("-c", "--clean-f", action="store_true", dest="cleanFlag", default=False,
+                      help="git --clean -f")
+    parser.add_option("-p", "--pull", action="store_true", dest="pullFlag", default=False,
+                      help="git pull")
+    parser.add_option("-l", "--list", action="store_true", dest="listFlag", default=False,
+                      help="get git repo to list")
+
+    (options, args) = parser.parse_args()
+
+    run_print_cmd('echo > .git-list')
+    pull_1(os.getcwd(), options, args)
+
+if __name__ == "__main__":
+    main()

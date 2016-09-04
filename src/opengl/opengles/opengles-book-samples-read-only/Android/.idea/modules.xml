@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Ch10_MultiTexture/Ch10_MultiTexture.iml" filepath="$PROJECT_DIR$/Ch10_MultiTexture/Ch10_MultiTexture.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ch11_Stencil_Test/Ch11_Stencil_Test.iml" filepath="$PROJECT_DIR$/Ch11_Stencil_Test/Ch11_Stencil_Test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ch13_ParticleSystem/Ch13_ParticleSystem.iml" filepath="$PROJECT_DIR$/Ch13_ParticleSystem/Ch13_ParticleSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ch2_Hello_Triangle/Ch2_Hello_Triangle.iml" filepath="$PROJECT_DIR$/Ch2_Hello_Triangle/Ch2_Hello_Triangle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ch8_Simple_VertexShader/Ch8_Simple_VertexShader.iml" filepath="$PROJECT_DIR$/Ch8_Simple_VertexShader/Ch8_Simple_VertexShader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ch9_MipMap2D/Ch9_MipMap2D.iml" filepath="$PROJECT_DIR$/Ch9_MipMap2D/Ch9_MipMap2D.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ch9_Simple_Texture2D/Ch9_Simple_Texture2D.iml" filepath="$PROJECT_DIR$/Ch9_Simple_Texture2D/Ch9_Simple_Texture2D.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ch9_Simple_TextureCubemap/Ch9_Simple_TextureCubemap.iml" filepath="$PROJECT_DIR$/Ch9_Simple_TextureCubemap/Ch9_Simple_TextureCubemap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ch9_TextureWrap/Ch9_TextureWrap.iml" filepath="$PROJECT_DIR$/Ch9_TextureWrap/Ch9_TextureWrap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Common/Common.iml" filepath="$PROJECT_DIR$/Common/Common.iml" />
+    </modules>
+  </component>
+</project>
+

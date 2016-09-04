@@ -1,0 +1,1 @@
+dd if=if.bin of=of.bin bs=188 skip=100 #skip 100 TS stream package

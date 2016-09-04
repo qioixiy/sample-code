@@ -1,0 +1,11 @@
+#!/bin/sh
+
+SUBDIRS=`find ./ -maxdepth 1 -type d`
+
+for subdir in ${SUBDIRS}
+do
+  if [ "${subdir}" != "./" ];
+  then
+    echo ${subdir}
+  fi
+done

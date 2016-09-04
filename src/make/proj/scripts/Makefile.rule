@@ -1,0 +1,73 @@
+# Copyright (C) 2016
+
+define link_static_lib
+	echo link_static_lib
+endef
+
+LOCAL_BUILDDIR = $(SRC_BASE)/$(OUTDIR)
+
+OBJDIR = $(LOCAL_BUILDDIR)/obj/$(MODULE)
+LIBDIR = $(LOCAL_BUILDDIR)/lib
+BINDIR = $(LOCAL_BUILDDIR)/bin
+
+# update compilation flags base on "DEBUG"
+ifeq ($(DEBUG), TRUE)
+	CFLAGS += -g -Wall -Werror -O0
+else
+	CFLAGS += -Wall -Werror -O2
+endif
+LDFLAGS += -L$(LIBDIR)
+
+#VPATH += src
+vpath %.c %.cpp src
+
+# SRC_OBJ = $(LOCAL_SRC_FILES:.c=.o)
+SRC_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(notdir $(LOCAL_SRC_FILES)))
+
+ifeq ($(MAKELEVEL), 0)
+all : msg
+else
+all : lib bin
+endif
+
+lib : $(OBJDIR) $(LIBDIR) $(LIBDIR)/$(SRC_LIB)
+bin : $(BINDIR) $(BINDIR)/$(SRC_BIN)
+
+$(OBJDIR) $(LIBDIR) $(BINDIR) :
+	$(Q)mkdir -p $@
+
+# generate executive file
+ifneq ($(SRC_BIN),)
+$(BINDIR)/$(SRC_BIN) : $(SRC_OBJ)
+	$(Q)echo LINK $@
+	$(Q)$(CC) -o $@ $^ $(LDFLAGS)
+endif
+
+# generate library file
+ifneq ($(SRC_LIB),)
+$(LIBDIR)/$(SRC_LIB) : $(SRC_OBJ)
+	$(call link_static_lib)
+	@echo AR $@
+	$(Q)$(AR) rcs $@ $^
+endif
+
+$(warning $(SRC_OBJ))
+$(warning $(OBJDIR))
+$(SRC_OBJ) : $(OBJDIR)/%.o : %.c
+	$(Q)echo CC $@
+	$(Q)$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+
+msg:
+	@echo "You cannot directily execute this Makefile! \
+This Makefile should called by toplevel Makefile."
+
+# clean target
+clean:
+ifneq ($(SRC_LIB),)
+	$(RM) $(SRC_OBJ) $(LIBDIR)/$(SRC_LIB)
+endif
+ifneq ($(SRC_BIN),)
+	$(RM) $(SRC_OBJ) $(BINDIR)/$(SRC_BIN)
+endif
+
+.PHONY : all clean    
