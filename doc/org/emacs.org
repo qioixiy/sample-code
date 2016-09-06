@@ -1,0 +1,20 @@
+#+TITLE: emacs
+* 有用的链接
+** [[http://tuhdo.github.io/index.html][emacs-tutor]]
+** [[http://tuhdo.github.io/c-ide.html][C/C++ Development Environment for Emacs]]
+** [[https://wiki.archlinux.org/index.php/Emacs][archlinux emacs]]
+** source block
+#+BEGIN_SRC emacs-lisp
+  (message "天地玄黄，鸟生鱼汤")
+#+END_SRC
+
+#+BEGIN_SRC C++
+#include <stdio.h
+void a {
+    printf("a");
+}
+int main() {
+   int a;
+   
+}
+#+END_SRC

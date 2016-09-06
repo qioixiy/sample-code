@@ -1,0 +1,60 @@
+
+* 
+  [[http://v.youku.com/v_show/id_XNzkyOTIyMTI%3D.html][欧拉旋转]]
+  [[http://blog.csdn.net/zhang11wu4/article/details/49588289][摄像机矩阵详解]]
+  [[http://www.vision.caltech.edu/bouguetj/calib_doc/][Camera Calibration Toolbox for Matlab]]
+  [[http://www.robots.ox.ac.uk/~vgg/hzbook/code/][MATLAB Functions for Multiple View Geometry]]
+  [[http://www.cs.wustl.edu/~furukawa/research/mview/index.html][3D Photography Dataset]]
+  [[http://www.vision.caltech.edu/bouguetj/][Computer Vision Research Group Dept. of Electrical Engineering California Institute of Technology]]
+  [[http://www.vision.caltech.edu/index.html][computational foundations of vision]]
+  [[http://www.robots.ox.ac.uk/][Information Engineering]]
+
+* blog
+  [[http://ksimek.github.io/][A Computer Vision Blog]]
+
+* 基础
+  ** Matrix
+  [[http://www.ruanyifeng.com/blog/2015/09/matrix-multiplication.html][matrix-multiplication]]
+*** matrix [[http://www.cnblogs.com/mumuliang/archive/2011/06/22/2086782.html][url]]
+  1. OpenGL中的矩阵
+     m[0]  m[4]  m[8]   m[12]  
+     m[1]  m[5]  m[9]   m[13]  
+     m[2]  m[6]  m[10]  m[14]  
+     m[3]  m[7]  m[11]  m[15]  
+  对它定义的新坐标系，OpenGL是这么说的：
+  x轴向量(m[0], m[1], m[2]);
+  y轴向量(m[4], m[5], m[6]);
+  z轴向量(m[8], m[9], m[10]);
+  原点(m[12], m[13], m[14]);
+  2. 回过头，矩阵只不过是方程组的一种表达形式，这个矩阵对应的方程组应为：
+     x' = m[0]x  + m[1]y  +m[2]z  + m[3]w;
+     y' = m[4]x  + m[5]y  +m[6]z  + m[7]w;
+     z' = m[8]x  + m[9]y  +m[10]z + m[11]w;
+     w' = m[12]x + m[13]y +m[14]z + m[15]w;
+  3. 因为w和w’都是1，由这个方程组我唯一能看出来的是m[3],m[7],m[11]跟平移量有关系，它们和原点(Ox,Oy,Oz)有如下关系：
+     m[3] = - (m[0]*Ox + m[1]*Oy +m[2]*Oz) 
+     m[7] = - (m[4]*Ox + m[5]*Oy +m[6]*Oz) 
+     m[11] = - (m[8]*Ox + m[9]*Oy +m[10]*Oz) 
+  疑问：这跟OpenGL所说的貌似矛盾
+  一种说法,有筒子提出，我在2. 还原的方程组不正确，正确的方程组是
+  x'  = m[0]x   + m[4]y   +m[8]z   + m[12]w;
+  y'  = m[1]x   + m[5]y   +m[9]z   + m[13]w;
+  z'  = m[2]x   + m[6]y    +m[10]z + m[14]w;
+  w' = m[3]x   + m[7]y   +m[11]z  + m[15]w;
+  
+  即便如此，原点坐标也并不是OpenGL所说的12-14，更何况，这个方程组决定的坐标系的x轴方向已经变成了(m[0]，m[4]，m[8])。
+  B)..
+
+  当用矩阵表达变换时，实际上是使用的坐标系矩阵的逆矩阵。
+  也就是说，2方程组中的矩阵，若x'y'z'代表新坐标系统，则那里用的是由m0-15组成的矩阵的逆矩阵。
+  代表坐标系的矩阵(即由0-15组成的矩阵)M和某点在该坐标系下的向量表达v' 和 原先的向量v有： Mv' = v,即Mv' = Iv.
+  v'= M的逆矩阵*v. 
+  但:"opengl规定v*M,即得到v'" ?? 这说明M本身就是那个逆矩阵...-_-b
+  C)..
+  glLoadMatrix(M) , 是将当前坐标系置于M下。
+  此时接收的v实际上是M下的v。也就是2.中的方程左侧的是世界坐标系，右侧是M坐标系。这样才对。
+  也就是筒子说的是对的。 
+  D)
+  某个矩阵M定义的坐标系，即是有一个方程组，以这个M为系数，可以将M坐标系中的坐标变换到I中。
+  结论：我是错的。书是对的。主要是高反了矩阵定义的坐标系到底这个矩阵系数后面是旧的向量还是新的向量。即D)条。
+  
