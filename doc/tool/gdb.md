@@ -1,19 +1,3 @@
-## build gdb server
-- [BuildingCrossGDBandGDBserver](https://sourceware.org/gdb/wiki/BuildingCrossGDBandGDBserver)
-- example `./configure --target=arm-linux-gnueabihf
-cd gdb/gdbserver && ./configure --host=arm-linux-gnueabihf`
-
-##net debug
-- `./gdbserver 192.168.2.100:2345 hello
-(gdb) target remote 192.168.2.223:2345
-`
-
-##UART debug
-- 
-`gdbserver /dev/ttyO0 ./simple-touch
-(gdb) target remote /dev/ttyUSB0
-`
-
 ## debug macro
 -gcc -ggdb3
 -info macro
@@ -117,3 +101,27 @@ gdb ./test /data/coredump/core.%e.%p
 
 ## url
 [x gdb debug](http://wiki.x.org/wiki/Development/Documentation/ServerDebugging/)
+## build gdb server
+- [BuildingCrossGDBandGDBserver](https://sourceware.org/gdb/wiki/BuildingCrossGDBandGDBserver)
+- example `./configure --target=arm-linux-gnueabihf
+cd gdb/gdbserver && ./configure --host=arm-linux-gnueabihf`
+
+## net debug
+    `./gdbserver 192.168.2.100:2345 hello
+    (gdb) target remote 192.168.2.223:2345
+    `
+## gdb-adb
+    [adb forward交互流程][http://blog.csdn.net/mars5337/article/details/6395232]
+    [gdb+gdbserver交叉编译][http://blog.csdn.net/flyingcloude/article/details/9417795]
+
+## UART debug
+    `gdbserver /dev/ttyO0 ./simple-touch
+    (gdb) target remote /dev/ttyUSB0
+    `
+
+## build
+### host:arm target:arm
+    ./configure --host=arm-linux-gnueabihf --target=arm-linux-gnueabihf
+### host:x86 target:arm
+    ./configure --target=arm-linux-gnueabihf
+    cd gdb/gdbserver && ./configure --host=arm-linux-gnueabihf
