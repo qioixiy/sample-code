@@ -1,0 +1,7 @@
+# 基本概念 [[http://www.cppblog.com/cexer/archive/2009/11/15/100988.html][GUI框架]]
+消息发送者（message sender）
+消息监听者（message listener）
+消息检查者（message checker）
+消息处理者（message handler）
+消息分解者（message cracker）
+消息映射者（message mapper）
