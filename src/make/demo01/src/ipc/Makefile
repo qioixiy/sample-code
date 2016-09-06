@@ -1,9 +1,2 @@
-SRC_BASE = ../..
-
-CFLAGS +=
-CPPFLAGS += -I. -I./inc -I$(SRC_BASE)/include
-
-LOCAL_SRC_FILES = $(wildcard src/*.c)
-SRC_LIB = libipc.a
-
-include $(SRC_BASE)/$(mk_rule)
+LOCAL_FILES += src/ipc.c src/ipc_test.c
+LOCAL_LIB = libipc.a

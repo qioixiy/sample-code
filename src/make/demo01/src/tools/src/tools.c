@@ -1,5 +1,5 @@
 
-int ipc_init()
+int tools_init()
 {
     return 0;
 }

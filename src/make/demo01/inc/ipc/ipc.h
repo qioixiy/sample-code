@@ -1,0 +1,1 @@
+int ipc_init();

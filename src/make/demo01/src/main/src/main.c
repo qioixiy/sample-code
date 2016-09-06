@@ -1,6 +1,10 @@
 #include <ipc/ipc.h>
+#include <tools/tools.h>
 
 int main()
 {
-    return ipc_init();
+    tools_init();
+    ipc_init();
+
+    return 0;
 }

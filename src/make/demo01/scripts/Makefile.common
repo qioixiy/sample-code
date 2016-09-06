@@ -1,1 +1,4 @@
-export mk_rule = scripts/Makefile.rule
+define cmd_mkdir
+    $(Q)echo create dir $1
+	$(Q)mkdir -p $1
+endef

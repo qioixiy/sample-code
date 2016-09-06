@@ -1,0 +1,41 @@
+include scripts/Makefile.common
+build_file := $(MODULE)/Makefile
+
+include $(build_file)
+
+FILES = $(addprefix $(MODULE)/,$(LOCAL_FILES))
+#OBJS = $(patsubst %.c,$(MODULE)/%.o,$(notdir $(LOCAL_FILES)))
+OBJS = $(FILES:.c=.o)
+OBJS_DIR = $(OUTDIR)/$(sort $(dir $(OBJS)))
+OBJS_OUT = $(addprefix $(OUTDIR)/,$(OBJS))
+LIB_TARGET = $(LOCAL_LIB)
+BIN_TARGET = $(LOCAL_BIN)
+
+build: objs target
+
+ifneq ($(LIB_TARGET),)
+TARGET = $(OUTDIR)/$(LIB_TARGET)
+endif
+
+ifneq ($(BIN_TARGET),)
+LDFLAGS += -L$(OUTDIR)
+TARGET = $(OUTDIR)/$(BIN_TARGET)
+endif
+
+target: $(TARGET)
+
+objs: $(OBJS_DIR) $(OBJS_OUT)
+
+$(OBJS_DIR) :
+	$(call cmd_mkdir,$@)
+
+$(OBJS_OUT) : $(OUTDIR)/%.o : %.c
+	@echo CC $@
+	$(Q)$(CC) -c $(CFLAGS) $< -o $@
+
+$(OUTDIR)/$(LIB_TARGET):
+	@echo build static lib $@
+	$(Q)$(AR) rcs $@ $(OBJS_OUT)
+$(OUTDIR)/$(BIN_TARGET):
+	@echo build binary $@
+	$(Q)$(CC) -o $@ $(OBJS_OUT) $(LDFLAGS)

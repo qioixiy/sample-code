@@ -20,20 +20,22 @@ endif
 export BUILDDIR = $(ARCH)-$(PLATFORM)-$(BUILD_TYPE)
 export OUTDIR=$(OUT)/$(BUILDDIR)
 
+CC = gcc
+export CC
+
 MODULES_DIR = src
 MODULES = $(shell ls $(MODULES_DIR))
 
 all : $(OUTDIR) $(MODULES)
 $(OUTDIR):
-	$(Q)echo "Create directory $@"
+	@echo "Create directory $@"
 	$(Q)mkdir -p $@
 
 $(MODULES):
-	$(Q)echo BUILD MODULE $@
-	$(Q)$(MAKE) -C $(MODULES_DIR)/$@ MODULE=$@ --no-print-directory
-#	$(Q)$(MAKE) -f scripts/Makefile.build MODULE=$@
+	@echo build module[$(MODULES_DIR)/$@]
+	$(Q)$(MAKE) -f scripts/Makefile.build MODULE=$(MODULES_DIR)/$@ --no-print-directory
 
-main: tools ipc
+main: ipc tools
 
 clean :
 	$(Q)for subdir in $(MODULES); \
@@ -43,7 +45,7 @@ clean :
 distclean: clean
 
 cleanbuild:
-	$(Q)echo clean $(OUT)
+	@echo clean $(OUT)
 	$(Q)$(RM) -r $(OUT)
 
 tags:
@@ -68,5 +70,3 @@ help:
 # make KEYS="USERNAME SHELL ARCH" debug
 debug:
 	$(foreach k,$(KEYS),$(warning $k=$($k)))
-
-include scripts/Makefile.common
