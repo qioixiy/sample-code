@@ -14,6 +14,8 @@ extern "C" {
 #define GREEN(fmt) "\x1b[32m" fmt "\x1b[0m"
 #define YELLOW(fmt) "\x1b[33m" fmt "\x1b[0m"
 
+//#define log(fmt, ...) printf(fmt, ##__VA_ARGS__)
+//#define Log(fmt, args...) printf(fmt, ##args);
 #define log_d(...) __op("D:" __VA_ARGS__)
 #define log_i(...) __op(GREEN("I:") __VA_ARGS__)
 #define log_w(...) __op(YELLOW("W:") __VA_ARGS__)
