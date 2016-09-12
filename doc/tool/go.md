@@ -18,3 +18,8 @@ $go tool link testcrosscompile.o
 a.out
 $a.out
 linux
+
+### go env
+export GOROOT=$HOME/go
+export GOPATH=$HOME/gopath
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
