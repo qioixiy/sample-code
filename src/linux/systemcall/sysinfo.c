@@ -22,7 +22,7 @@ static int print_system_boot_time()
         boot_time = info.uptime - cur_time;
     }
     ptm = gmtime(&boot_time);
-    printf("uptime: %d\n", info.uptime);
+    printf("uptime: %d, cur_time: %d\n", info.uptime, cur_time);
     printf("System boot time: %d-%-d-%d %d:%d:%d\n", ptm->tm_year + 1900,
            ptm->tm_mon + 1, ptm->tm_mday, ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
     return 0;
