@@ -1,10 +1,10 @@
 #include "gui/ui.hpp"
 
-class app {
+class App {
 public:
-    app();
-    virtual ~app();
-    int run();
+    App();
+    virtual ~App();
+    int Run();
     int SetFrame(Frame*);
 
 public:

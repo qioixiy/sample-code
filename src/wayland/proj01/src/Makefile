@@ -83,7 +83,7 @@ CXX_SRCS := \
 	gui/WidgetGL.cpp \
 	gui/Painter.cpp \
 	gui/egl/egl.cpp \
-	app/app.cpp \
+	app/App.cpp \
 	gles/GLSLProgObj.cpp \
 	gles/GLSLProgObjRGBA.cpp \
 	gles/GLSLProgObjDrawRect.cpp \

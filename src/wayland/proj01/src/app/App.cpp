@@ -1,17 +1,17 @@
 
-#include "app.hpp"
+#include "App.hpp"
 #include "utils/util.h"
 
-app::app() {
+App::App() {
     ;
 }
 
-app::~app()
+App::~App()
 {
     ;
 }
 
-int app::run()
+int App::Run()
 {
     f->DispatchEventRun(1);
     while(!f->NeedQuit()) {
@@ -20,7 +20,7 @@ int app::run()
     }
 }
 
-int app::SetFrame(Frame* f)
+int App::SetFrame(Frame* _f)
 {
-    this->f = f;
+    f = _f;
 }

@@ -18,7 +18,7 @@
 #include "utils/png_load.h"
 #include "log/log.h"
 #include "gui/ui.hpp"
-#include "app/app.hpp"
+#include "app/App.hpp"
 
 /*
      Frame: root
@@ -26,7 +26,6 @@
            navi--calibStitched--calibFront
                        |            |
                     carbox         tips
-    
  */
 int Frame_init_layout(Frame* f)
 {
@@ -107,16 +106,13 @@ int main(int argc, char **argv)
 #else
     int w = 480, h = 640;
 #endif
-    app *_app = new app();
-    Frame* f = new Frame(0, 0, w, h);
-    Frame_init_layout(f);
+    App app;
+    Frame f(0, 0, w, h);
+    Frame_init_layout(&f);
 
     gl_init();
-    _app->SetFrame(f);
-    _app->run();
-
-    delete f;
-    delete _app;
+    app.SetFrame(&f);
+    app.Run();
 
     return 0;
 }

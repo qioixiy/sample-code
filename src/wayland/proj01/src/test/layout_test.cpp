@@ -19,7 +19,7 @@
 #include "utils/png_load.h"
 #include "log/log.h"
 #include "gui/ui.hpp"
-#include "app/app.hpp"
+#include "app/App.hpp"
 
 /*
  * root--------child^1--------child^2
@@ -80,13 +80,13 @@ void gl_init()
 int main(int argc, char **argv)
 {
     int w = 480, h = 640;
-    app *_app = new app();
+    App *app = new App();
     Frame* win = new Frame(0, 0, w, h);
     Frame_init_layout(win, w, h);
 
     gl_init();
-    _app->SetFrame(win);
-    _app->run();
+    app->SetFrame(win);
+    app->Run();
 
     return 0;
 }
