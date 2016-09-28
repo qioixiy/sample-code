@@ -3,10 +3,14 @@
 
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
+#include <string>
+
+using std::string;
 
 class Shader {
 public:
     Shader(const char *vert, const char *frag);
+    Shader(const string vert, const string frag);
     GLint GetObject();
 
 private:

@@ -5,6 +5,10 @@
 #include <iostream>
 #include <fstream>
 
+Shader::Shader(const string vert, const string frag)
+{
+  Shader(vert.c_str(), frag.c_str());
+}
 Shader::Shader(const char *vert, const char *frag)
 {
     char *pvert = getDataFromFile(vert);

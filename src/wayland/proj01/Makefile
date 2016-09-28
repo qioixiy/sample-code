@@ -1,3 +1,3 @@
 
 all:
-	cd src && OUT_DIR=$(PWD)/out make 
+	cd src && OUT_DIR=$(PWD)/out make

@@ -459,7 +459,7 @@ void draw_simple()
         {{-1, 1, -1}, {1, 1, 1, 1}},
         {{-1, -1, -1}, {0, 0, 0, 1}}
     };
- 
+
     const GLubyte Indices[] = {
         // Front
         0, 1, 2,

@@ -1,11 +1,20 @@
 #include "GLSLProgObj.hpp"
 
 #include "log/log.h"
+#include "log/Log.hpp"
 #include "gles/draw.h"
 #include "gles/texture.h"
 #include "gles/shader.h"
 
 map<string, Shader*> GLSLProgObj::objs;
+
+static string sGLSLBasePath = "res/glsl_shaders/";
+static string sGLSLShaders[][3] =
+{
+  {"default", "default.vert", "default.frag"},
+  {"rgba", "rgbashow.vert", "rgbashow.frag"},
+  {"drawrect", "drawrect.vert", "drawrect.frag"},
+};
 
 GLSLProgObj::GLSLProgObj()
 {
@@ -20,12 +29,12 @@ int GLSLProgObj::init()
     }
 
     flag = 1;
-    objs["default"] = new Shader("res/glsl_shaders/default.vert",
-                                  "res/glsl_shaders/default.frag");
-    objs["rgba"] = new Shader("res/glsl_shaders/rgbashow.vert",
-                              "res/glsl_shaders/rgbashow.frag");
-    objs["drawrect"] = new Shader("res/glsl_shaders/drawrect.vert",
-                                  "res/glsl_shaders/drawrect.frag");
+
+    for (int i = 0; i < sizeof(sGLSLShaders)/sizeof(sGLSLShaders[0]); i++) {
+      objs[sGLSLShaders[i][0]] = new Shader(
+        (sGLSLBasePath + sGLSLShaders[i][1]).c_str(),
+        (sGLSLBasePath + sGLSLShaders[i][2]).c_str());
+    }
 
     return 0;
 }
