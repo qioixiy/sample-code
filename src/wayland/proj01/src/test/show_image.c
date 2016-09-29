@@ -17,7 +17,7 @@
 #include "cairo/cairo.h"
 #include "utils/util.h"
 #include "utils/png_load.h"
-#include "log/log.h"
+#include "utils/log/log.h"
 
 struct window_wayland *window;
 struct egl_env* egl;

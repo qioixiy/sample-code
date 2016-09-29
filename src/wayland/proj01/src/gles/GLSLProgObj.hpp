@@ -10,17 +10,17 @@ using namespace std;
 
 class GLSLProgObj {
 public:
-    GLSLProgObj();
-    int Run();
+  GLSLProgObj();
+  int Run();
 
 protected:
-    virtual int Runner();
+  virtual int Runner();
 
 public:
-    static map<string, Shader*> objs;
+  static map<string, Shader*> objs;
 
 private:
-    static int init();
+  static int init();
 };
 
 #endif

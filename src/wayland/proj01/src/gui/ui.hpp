@@ -11,12 +11,12 @@
 
 /*
   Frame--rootWidget
-            |
-        child_Widget--sibling_Widget
-            |
-        child_Widget
-            |
-        child_Widget
- */
+  |
+  child_Widget--sibling_Widget
+  |
+  child_Widget
+  |
+  child_Widget
+*/
 
 #endif

@@ -6,18 +6,18 @@
 
 class WidgetImage : public Widget {
 public:
-    WidgetImage(int x, int y, int w, int h);
+  WidgetImage(int x, int y, int w, int h);
 
-    virtual int draw();
-    void SetImage(string filePath);
+  virtual int draw();
+  void SetImage(string filePath);
 
-    // touch
-    virtual int touchDownHandler(int, int);
-    virtual int touchUpHandler(int, int);
-    virtual int pointerButtonHandler(int button, int state);
+  // touch
+  virtual int touchDownHandler(int, int);
+  virtual int touchUpHandler(int, int);
+  virtual int pointerButtonHandler(int button, int state);
 
 private:
-    string filePath;
+  string filePath;
 };
 
 #endif

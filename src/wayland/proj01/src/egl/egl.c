@@ -77,9 +77,9 @@ egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
     };
 
     egl->context = eglCreateContext(egl->display,
-                                   egl->config[0],
-                                   EGL_NO_CONTEXT,
-                                   ContextAttribList);
+                                    egl->config[0],
+                                    EGL_NO_CONTEXT,
+                                    ContextAttribList);
     if(egl->context == EGL_NO_CONTEXT)
     {
         if(eglGetError() == EGL_BAD_CONFIG)
@@ -95,9 +95,9 @@ egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
         EGL_NONE
     };
     egl->surface = eglCreateWindowSurface(egl->display,
-                                         egl->config[0],
-                                         _EGLNativeWindowType,
-                                         CreateWindowSurfaceAttribList);
+                                          egl->config[0],
+                                          _EGLNativeWindowType,
+                                          CreateWindowSurfaceAttribList);
     if(egl->surface == EGL_NO_SURFACE)
     {
         switch(eglGetError())
@@ -139,6 +139,6 @@ egl_init(EGLNativeDisplayType _EGLNativeDisplayType,
     glClear(GL_COLOR_BUFFER_BIT);
     eglSwapBuffers(egl->display, egl->surface);
 #endif
-    
+
     return egl;
 }

@@ -5,7 +5,7 @@
 #include "utils/file.h"
 
 struct texture {
-    
+    ;
 };
 
 /*

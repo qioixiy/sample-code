@@ -6,33 +6,33 @@
 
 class FBO {
 public:
-    FBO(int=64, int=64);
+  FBO(int=64, int=64);
 
-    void RenderToFBO();
-    void DrawScreenQuad();
-    bool checkFramebufferStatus();
-    bool FBOInit();
-    int UseFBO ();
+  void RenderToFBO();
+  void DrawScreenQuad();
+  bool checkFramebufferStatus();
+  bool FBOInit();
+  int UseFBO ();
 
 private:
-    GLuint texture;
-    GLint texWidth, texHeight;
-    GLuint framebuffer;
-    GLuint depthRenderbuffer;
-    GLint maxRenderbufferSize;
+  GLuint texture;
+  GLint texWidth, texHeight;
+  GLuint framebuffer;
+  GLuint depthRenderbuffer;
+  GLint maxRenderbufferSize;
 
-    Shader *mpShader;
-    Shader *mpShaderFBO;
+  Shader *mpShader;
+  Shader *mpShaderFBO;
 };
 
 class WidgetGL : public Widget {
 public:
-    WidgetGL(int x, int y, int w, int h);
+  WidgetGL(int x, int y, int w, int h);
 
-    virtual int draw();
+  virtual int draw();
 
 private:
-    FBO mFBO;
+  FBO mFBO;
 };
 
 #endif

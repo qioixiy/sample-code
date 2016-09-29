@@ -8,16 +8,16 @@
 class Frame;
 class NativeWindow {
 public:
-    NativeWindow(int = 100, int = 100);
-    virtual ~NativeWindow();
-    int SwapBackBuffer();
+  NativeWindow(int = 100, int = 100);
+  virtual ~NativeWindow();
+  int SwapBackBuffer();
 
 public:
-    int width;
-    int height;
-    WaylandClient *wc;
-    EGLEnv* egl;
-    Frame *f;
+  int width;
+  int height;
+  WaylandClient *wc;
+  EGLEnv* egl;
+  Frame *f;
 };
 
 #endif

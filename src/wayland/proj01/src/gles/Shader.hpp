@@ -9,17 +9,17 @@ using std::string;
 
 class Shader {
 public:
-    Shader(const char *vert, const char *frag);
-    Shader(const string vert, const string frag);
-    GLint GetObject();
+  Shader(const char *vert, const char *frag);
+  Shader(const string vert, const string frag);
+  GLint GetObject();
 
 private:
-    int makeProgram(const char *vert, const char *frag);
-    GLint complier(GLenum type, const char *shaderSrc);
-    char *getDataFromFile(const char*);
+  int makeProgram(const char *vert, const char *frag);
+  GLint complier(GLenum type, const char *shaderSrc);
+  char *getDataFromFile(const char*);
 
 private:
-    GLint object;
+  GLint object;
 };
 
 #endif

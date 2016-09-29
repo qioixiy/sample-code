@@ -193,7 +193,7 @@ static void registry_handle_global(void *data, struct wl_registry *registry,
 
 	if (strcmp(interface, "wl_compositor") == 0) {
 		window.p_wl_compositor = wl_registry_bind(registry, name,
-                                           &wl_compositor_interface, 1);
+                                                  &wl_compositor_interface, 1);
 	} else if (strcmp(interface, "wl_shell") == 0) {
 		window.p_wl_shell = wl_registry_bind(registry, name, &wl_shell_interface, 1);
 	} else if (strcmp(interface, "wl_output") == 0) {
@@ -201,7 +201,7 @@ static void registry_handle_global(void *data, struct wl_registry *registry,
 		wl_output_add_listener(window.p_wl_output, &output_listener, NULL);
 	} else if (strcmp(interface, "wl_seat") == 0) {
 		window.p_wl_seat = wl_registry_bind(registry, name,
-                                     &wl_seat_interface, 1);
+                                            &wl_seat_interface, 1);
 		wl_seat_add_listener(window.p_wl_seat, &seat_listener, NULL);
 	}
 }

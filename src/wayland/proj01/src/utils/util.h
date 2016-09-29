@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-int FPS();
+    int FPS();
 
 #ifdef __cplusplus
 }

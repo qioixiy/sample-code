@@ -9,15 +9,15 @@ extern "C"
 {
 #endif
 
-struct pngload_attribute{
-    int width, height;
-    int color_type;
-    unsigned char *buf;
-};
+    struct pngload_attribute{
+        int width, height;
+        int color_type;
+        unsigned char *buf;
+    };
 
-int load_png_image(const char *filepath,
-                   struct pngload_attribute *png_attr);
-GLuint png_color_type_GL(int color_type);
+    int load_png_image(const char *filepath,
+                       struct pngload_attribute *png_attr);
+    GLuint png_color_type_GL(int color_type);
 
 #ifdef __cplusplus
 }

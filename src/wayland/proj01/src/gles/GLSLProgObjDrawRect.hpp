@@ -11,14 +11,14 @@ using namespace std;
 
 class GLSLProgObjDrawRect : public GLSLProgObj {
 public:
-    GLSLProgObjDrawRect(int r, int g, int b);
-    void SetColor(int r, int g, int b);
+  GLSLProgObjDrawRect(int r, int g, int b);
+  void SetColor(int r, int g, int b);
 
 protected:
-    virtual int Runner();
+  virtual int Runner();
 
 public:
-    int r, g, b;
+  int r, g, b;
 };
 
 #endif

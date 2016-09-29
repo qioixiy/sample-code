@@ -10,16 +10,16 @@ extern "C"
 {
 #endif
 
-struct egl_env {
-    EGLDisplay display;
-    EGLSurface surface;
+    struct egl_env {
+        EGLDisplay display;
+        EGLSurface surface;
 
-    EGLContext context;
+        EGLContext context;
 #define MAX_CONFIG 1
-    EGLConfig config[MAX_CONFIG];
-};
+        EGLConfig config[MAX_CONFIG];
+    };
 
-struct egl_env* egl_init(EGLNativeDisplayType, EGLNativeWindowType);
+    struct egl_env* egl_init(EGLNativeDisplayType, EGLNativeWindowType);
 
 #ifdef __cplusplus
 }

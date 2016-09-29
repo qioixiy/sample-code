@@ -88,7 +88,7 @@ CXX_SRCS := \
 	gles/GLSLProgObjRGBA.cpp \
 	gles/GLSLProgObjDrawRect.cpp \
 	gles/Shader.cpp \
-	log/Log.cpp \
+	utils/log/Log.cpp \
 
 # objs
 OBJS_C := $(subst .c,.o,$(C_SRCS))

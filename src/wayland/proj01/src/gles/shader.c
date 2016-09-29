@@ -32,7 +32,7 @@ GLuint load_shader_from_string(GLenum type, const char *shaderSrc)
         GLint infoLen = 0;
 
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
-      
+
         if (infoLen > 1) {
             char* infoLog = malloc(sizeof(char) * infoLen);
             glGetShaderInfoLog ( shader, infoLen, NULL, infoLog );
@@ -89,7 +89,7 @@ GLuint load_program(const char *vertShaderSrc, const char *fragShaderSrc)
         if (infoLen > 1) {
             char* infoLog = malloc(sizeof(char) * infoLen);
             glGetProgramInfoLog(programObject, infoLen, NULL, infoLog);
-            printf("Error linking program:%s\n", infoLog);            
+            printf("Error linking program:%s\n", infoLog);
             free(infoLog);
         }
 

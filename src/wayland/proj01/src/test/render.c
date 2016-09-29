@@ -16,7 +16,7 @@
 #include "gles/draw.h"
 #include "cairo/cairo.h"
 #include "utils/util.h"
-#include "log/log.h"
+#include "utils/log/log.h"
 
 struct window_wayland *window;
 struct egl_env* egl;
@@ -65,11 +65,11 @@ void* render_thread(void* p)
     int step_width = width/step;
     int step_height = height/step;
 
-#define next_viewport()                                                 \
-    /* Set the viewport */                                              \
-        glViewport(index%step*step_width,                               \
-                   ++index/step*step_height,                            \
-                   step_width, step_height);                            \
+#define next_viewport()                         \
+    /* Set the viewport */                      \
+        glViewport(index%step*step_width,       \
+                   ++index/step*step_height,    \
+                   step_width, step_height);    \
 
     while(1) {
         index = 0;

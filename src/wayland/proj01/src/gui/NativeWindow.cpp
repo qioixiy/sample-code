@@ -9,38 +9,38 @@
 
 NativeWindow::NativeWindow(int width, int height)
 {
-    /* wayland init */
-    wc = new WaylandClient;
-    wc->win = this;
+  /* wayland init */
+  wc = new WaylandClient;
+  wc->win = this;
 
-    /* wayland egl init */
-    struct wl_egl_window* p_wl_egl_window
-        = (struct wl_egl_window*)wl_egl_window_create(
-            wc->p_wl_surface, width, height);
-    if (!p_wl_egl_window) {
-        printf("wl_egl_window_create error\n");
-        return;
-    }
+  /* wayland egl init */
+  struct wl_egl_window* p_wl_egl_window
+    = (struct wl_egl_window*)wl_egl_window_create(
+      wc->p_wl_surface, width, height);
+  if (!p_wl_egl_window) {
+    printf("wl_egl_window_create error\n");
+    return;
+  }
 
-    egl = new EGLEnv((EGLNativeDisplayType)wc->p_wl_display,
-                     (EGLNativeWindowType)p_wl_egl_window);
+  egl = new EGLEnv((EGLNativeDisplayType)wc->p_wl_display,
+                   (EGLNativeWindowType)p_wl_egl_window);
 
-    print_gles_env();
+  print_gles_env();
 }
 
 NativeWindow::~NativeWindow()
 {
-    delete egl;
-    delete wc;
+  delete egl;
+  delete wc;
 }
 
 /* swap back,front buffer */
 int NativeWindow::SwapBackBuffer()
 {
-    int ret = eglSwapBuffers(egl->display, egl->surface);
-    if (1 != ret) {
-        printf("eglSwapBuffers error\n");
-    }
+  int ret = eglSwapBuffers(egl->display, egl->surface);
+  if (1 != ret) {
+    printf("eglSwapBuffers error\n");
+  }
 
-    return ret;
+  return ret;
 }

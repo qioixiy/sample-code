@@ -10,35 +10,35 @@ using namespace std;
 
 class Painter {
 public :
-    Painter();
-    virtual ~Painter();
+  Painter();
+  virtual ~Painter();
 
-    virtual int Run(void);
+  virtual int Run(void);
 
 protected:
-    GLSLProgObj *m_GLSLProgObj;
+  GLSLProgObj *m_GLSLProgObj;
 };
 
 class PainterImagePng : public Painter {
 public:
-    PainterImagePng(string);
-    ~PainterImagePng();
-    virtual int Run(void);
-    int SetImageFilePath(string);
+  PainterImagePng(string);
+  ~PainterImagePng();
+  virtual int Run(void);
+  int SetImageFilePath(string);
 
 private:
-    string file_path;
-    int load;
+  string file_path;
+  int load;
 };
 
 class PainterDrawRect : public Painter {
 public:
-    PainterDrawRect(int r, int g, int b);
-    void SetColor(int r, int g, int b);
-    virtual int Run();
+  PainterDrawRect(int r, int g, int b);
+  void SetColor(int r, int g, int b);
+  virtual int Run();
 
 private:
-    int r, g, b;
+  int r, g, b;
 };
 
 #endif

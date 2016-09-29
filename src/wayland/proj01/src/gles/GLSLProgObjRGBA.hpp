@@ -11,13 +11,13 @@ using namespace std;
 
 class GLSLProgObjRGBA : public GLSLProgObj {
 public:
-    GLSLProgObjRGBA();
+  GLSLProgObjRGBA();
 
 protected:
-    virtual int Runner();
+  virtual int Runner();
 
 public:
-    GLuint texture;
+  GLuint texture;
 };
 
 #endif

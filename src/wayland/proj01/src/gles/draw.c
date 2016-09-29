@@ -93,9 +93,9 @@ void show_yuyv(int width, int height)
             gen_texture_from_file("res/640x480.yuv2.yuv", width, height,
                                   GL_LUMINANCE_ALPHA);
     }
-    
+
     GLfloat vVertices[] = { -1.0f,  1.0f, 0.0f,  // Position 0
-                            0.0f,  0.0f,        // TexCoord 0 
+                            0.0f,  0.0f,        // TexCoord 0
                             -1.0f, -1.0f, 0.0f,  // Position 1
                             0.0f,  1.0f,        // TexCoord 1
                             1.0f, -1.0f, 0.0f,  // Position 2
@@ -104,7 +104,7 @@ void show_yuyv(int width, int height)
                             1.0f,  0.0f         // TexCoord 3
     };
     GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
-      
+
     // Load the vertex position
     glVertexAttribPointer(positionLoc, 3, GL_FLOAT,
                           GL_FALSE, 5 * sizeof(GLfloat), vVertices);
@@ -119,7 +119,7 @@ void show_yuyv(int width, int height)
     // Set the base sampler to texture unit to 0
     glUniform1i(texture_yuyv_loc, 0);
     glUniform1f(texture_width, (GLfloat)width);
-    
+
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
 }
 
@@ -166,7 +166,7 @@ void show_nv12(int width, int height)
                             1.0f,  0.0f         // TexCoord 3
     };
     GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
-      
+
     // Load the vertex position
     glVertexAttribPointer(positionLoc, 3, GL_FLOAT,
                           GL_FALSE, 5 * sizeof(GLfloat), vVertices);
@@ -188,7 +188,7 @@ void show_nv12(int width, int height)
 
     glUniform1f(texture_width, (GLfloat)width);
 
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);    
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
 }
 void show_rgba(int width, int height)
 {
@@ -210,7 +210,7 @@ void show_rgba(int width, int height)
         = glGetUniformLocation(program_object, "s_texture_rgba");
 
     GLfloat vVertices[] = { -1.0f,  1.0f, 0.0f,  // Position 0
-                            0.0f,  0.0f,        // TexCoord 0 
+                            0.0f,  0.0f,        // TexCoord 0
                             -1.0f, -1.0f, 0.0f,  // Position 1
                             0.0f,  1.0f,        // TexCoord 1
                             1.0f, -1.0f, 0.0f,  // Position 2
@@ -219,7 +219,7 @@ void show_rgba(int width, int height)
                             1.0f,  0.0f         // TexCoord 3
     };
     GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
-      
+
     // Use the program object
     glUseProgram(program_object);
     // Load the vertex position
@@ -245,7 +245,7 @@ Matrix mvp_update ()
     Matrix perspective;
     Matrix modelview;
     float aspect;
-   
+
     // Compute the window aspect ratio
     aspect = (GLfloat)720/(GLfloat)480;
 
@@ -262,7 +262,7 @@ Matrix mvp_update ()
     Translate(&modelview, 0.0, 0.0, 0.0);
     // Rotate the cube
     Rotate(&modelview, angle, 1.0, 1.0, 1.0);
-    // Compute the final MVP by multiplying the 
+    // Compute the final MVP by multiplying the
     // modevleiw and perspective matrices together
     MatrixMultiply(&mvpMatrix, &modelview, &perspective);
 
@@ -437,8 +437,8 @@ void draw_simple()
     static GLuint program_object;
     if (!program_object) {
         program_object = make_program_object(
-           "res/glsl_shaders/simple.vert",
-           "res/glsl_shaders/simple.frag");
+            "res/glsl_shaders/simple.vert",
+            "res/glsl_shaders/simple.frag");
     }
 
     glUseProgram(program_object);
@@ -474,11 +474,11 @@ void draw_simple()
         0, 4, 1,
         4, 1, 5,
         // Top
-        6, 2, 1, 
+        6, 2, 1,
         1, 6, 5,
         // Bottom
         0, 3, 7,
-        0, 7, 4    
+        0, 7, 4
     };
 
     Matrix matrix = mvp_update();
@@ -495,9 +495,9 @@ void draw_simple()
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices,
                  GL_STATIC_DRAW);
 
-    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 
+    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE,
                           sizeof(Vertex), 0);
-    glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, 
+    glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE,
                           sizeof(Vertex), (GLvoid*) (sizeof(float) *3));
     glEnableVertexAttribArray(_positionSlot);
     glEnableVertexAttribArray(_colorSlot);

@@ -7,7 +7,7 @@ extern "C"
 {
 #endif
 
-void print_gles_env(void);
+    void print_gles_env(void);
 
 #ifdef __cplusplus
 }

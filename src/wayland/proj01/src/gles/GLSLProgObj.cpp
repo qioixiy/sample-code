@@ -1,7 +1,7 @@
 #include "GLSLProgObj.hpp"
 
-#include "log/log.h"
-#include "log/Log.hpp"
+#include "utils/log/log.h"
+#include "utils/log/Log.hpp"
 #include "gles/draw.h"
 #include "gles/texture.h"
 #include "gles/shader.h"
@@ -18,33 +18,33 @@ static string sGLSLShaders[][3] =
 
 GLSLProgObj::GLSLProgObj()
 {
-    init();
+  init();
 }
 
 int GLSLProgObj::init()
 {
-    static int flag = 0;
-    if (flag != 0) {
-        return -1;
-    }
+  static int flag = 0;
+  if (flag != 0) {
+    return -1;
+  }
 
-    flag = 1;
+  flag = 1;
 
-    for (int i = 0; i < sizeof(sGLSLShaders)/sizeof(sGLSLShaders[0]); i++) {
-      objs[sGLSLShaders[i][0]] = new Shader(
-        (sGLSLBasePath + sGLSLShaders[i][1]).c_str(),
-        (sGLSLBasePath + sGLSLShaders[i][2]).c_str());
-    }
+  for (int i = 0; i < sizeof(sGLSLShaders)/sizeof(sGLSLShaders[0]); i++) {
+    objs[sGLSLShaders[i][0]] = new Shader(
+      (sGLSLBasePath + sGLSLShaders[i][1]).c_str(),
+      (sGLSLBasePath + sGLSLShaders[i][2]).c_str());
+  }
 
-    return 0;
+  return 0;
 }
 
 int GLSLProgObj::Run()
 {
-    return Runner();
+  return Runner();
 }
 
 int GLSLProgObj::Runner()
 {
-    return 0;
+  return 0;
 }

@@ -16,10 +16,10 @@ my_cairo_create(int width, int height,
     buffer = calloc(channels * width * height, 1);
 
 	surf = cairo_image_surface_create_for_data(buffer,
-                                                CAIRO_FORMAT_ARGB32,
-                                                width,
-                                                height,
-                                                channels * width);
+                                               CAIRO_FORMAT_ARGB32,
+                                               width,
+                                               height,
+                                               channels * width);
 	if (cairo_surface_status(surf) != CAIRO_STATUS_SUCCESS) {
 		free (buffer);
 		printf ("create cairo surface fail\n");

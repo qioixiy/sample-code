@@ -11,7 +11,7 @@ void print_gles_env(void)
     GLint maxVertexAttribs, maxVertexUniforms, maxVaryings;
     GLint maxVertexTextureUnits, maxCombinedTextureUnits;
 
-#define print_get(p1, p2) \
+#define print_get(p1, p2)                       \
     do {                                        \
         glGetIntegerv(p1, p2);                  \
         printf(#p1 ":%d\n", *p2);               \

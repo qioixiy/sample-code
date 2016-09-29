@@ -10,8 +10,8 @@ extern "C"
 {
 #endif
 
-GLuint gen_texture_from_data(unsigned char* , int, int, GLenum format);
-GLuint gen_texture_from_file(const char *file, int w, int h, GLenum format);
+    GLuint gen_texture_from_data(unsigned char* , int, int, GLenum format);
+    GLuint gen_texture_from_file(const char *file, int w, int h, GLenum format);
 
 #ifdef __cplusplus
 }
