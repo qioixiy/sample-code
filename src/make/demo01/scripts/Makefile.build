@@ -4,38 +4,60 @@ build_file := $(MODULE)/Makefile
 include $(build_file)
 
 FILES = $(addprefix $(MODULE)/,$(LOCAL_FILES))
+C-FILES=$(filter %.c,$(FILES))
+CXX-FILES=$(filter %.cpp,$(FILES))
 #OBJS = $(patsubst %.c,$(MODULE)/%.o,$(notdir $(LOCAL_FILES)))
-OBJS = $(FILES:.c=.o)
-OBJS_DIR = $(OUTDIR)/$(sort $(dir $(OBJS)))
-OBJS_OUT = $(addprefix $(OUTDIR)/,$(OBJS))
+#c
+C-OBJS = $(C-FILES:.c=.o)
+C-OBJS_OUT = $(addprefix $(OUTDIR)/,$(C-OBJS))
+C-OBJS_DIR = $(sort $(dir $(C-OBJS_OUT)))
+#cxx
+CXX-OBJS = $(CXX-FILES:.cpp=.o)
+CXX-OBJS_OUT = $(addprefix $(OUTDIR)/,$(CXX-OBJS))
+CXX-OBJS_DIR = $(sort $(dir $(CXX-OBJS_OUT)))
+
+OBJS_DIR=$(sort $(C-OBJS_DIR) $(CXX-OBJS_DIR))
 LIB_TARGET = $(LOCAL_LIB)
 BIN_TARGET = $(LOCAL_BIN)
 
-build: objs target
+.PHONY: print
+build: print list target
 
 ifneq ($(LIB_TARGET),)
-TARGET = $(OUTDIR)/$(LIB_TARGET)
+TARGET += $(OUTDIR)/$(LIB_TARGET)
 endif
 
 ifneq ($(BIN_TARGET),)
 LDFLAGS += -L$(OUTDIR)
-TARGET = $(OUTDIR)/$(BIN_TARGET)
+TARGET += $(OUTDIR)/$(BIN_TARGET)
 endif
+
+print: ;
+	@echo -n
+# @echo FILES:$(FILES)
+# @echo C-OBJS_DIR:$(C-OBJS_DIR)
+# @echo C-OBJS_OUT:$(C-OBJS_OUT)
+# @echo CXX-OBJS_DIR:$(CXX-OBJS_DIR)
+# @echo CXX-OBJS_OUT:$(CXX-OBJS_OUT)
 
 target: $(TARGET)
 
-objs: $(OBJS_DIR) $(OBJS_OUT)
+list: $(OBJS_DIR) $(C-OBJS_OUT) $(CXX-OBJS_OUT)
 
-$(OBJS_DIR) :
+$(OBJS_DIR):
 	$(call cmd_mkdir,$@)
 
-$(OBJS_OUT) : $(OUTDIR)/%.o : %.c
+$(C-OBJS_OUT) : $(OUTDIR)/%.o : %.c
 	@echo CC $@
 	$(Q)$(CC) -c $(CFLAGS) $< -o $@
 
+$(CXX-OBJS_OUT) : $(OUTDIR)/%.o : %.cpp
+	@echo CXX $@
+	$(Q)$(CXX) -c $(CFLAGS) $(CXXFLAGS) $< -o $@
+
 $(OUTDIR)/$(LIB_TARGET):
 	@echo build static lib $@
-	$(Q)$(AR) rcs $@ $(OBJS_OUT)
+	$(Q)$(AR) rcs $@ $(C-OBJS_OUT) $(CXX-OBJS_OUT)
 $(OUTDIR)/$(BIN_TARGET):
 	@echo build binary $@
-	$(Q)$(CC) -o $@ $(OBJS_OUT) $(LDFLAGS)
+	$(Q)$(CXX) -o $@ $(C-OBJS_OUT) $(CXX-OBJS_OUT) $(LDFLAGS)
