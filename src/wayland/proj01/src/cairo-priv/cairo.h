@@ -2,7 +2,7 @@
 #ifndef _MY_CAIRO_H_
 #define _MY_CAIRO_H_
 
-#include <cairo.h>
+#include <cairo/cairo.h>
 
 struct my_cairo {
     int width;

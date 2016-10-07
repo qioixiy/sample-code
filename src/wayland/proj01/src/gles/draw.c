@@ -6,7 +6,7 @@
 #include "draw.h"
 #include "shader.h"
 #include "texture.h"
-#include "cairo/cairo.h"
+#include "cairo-priv/cairo.h"
 #include "utils/Matrix.h"
 
 void show_default(int width, int height)
@@ -312,8 +312,8 @@ void draw_vertexs_update()
     static GLuint program_object;
     if (!program_object) {
         program_object = make_program_object(
-            "res/glsl_shaders/obj.vert",
-            "res/glsl_shaders/obj.frag");
+            "src/gles/shaders/obj.vert",
+            "src/gles/shaders/obj.frag");
     }
     glUseProgram(program_object);
 
@@ -361,8 +361,8 @@ void draw_tetrahedron()
     static GLuint program_object;
     if (!program_object) {
         program_object = make_program_object(
-            "res/glsl_shaders/tetrahedron.vert",
-            "res/glsl_shaders/tetrahedron.frag");
+            "src/gles/shaders/tetrahedron.vert",
+            "src/gles/shaders/tetrahedron.frag");
     }
 
     // Get the attribute locations
@@ -399,8 +399,8 @@ void draw_antialiasfiltering()
     static GLuint program_object;
     if (!program_object) {
         program_object = make_program_object(
-            "res/glsl_shaders/tetrahedron.vert",
-            "res/glsl_shaders/antialiasfiltering.frag");
+            "src/gles/shaders/tetrahedron.vert",
+            "src/gles/shaders/antialiasfiltering.frag");
     }
 
     // Get the attribute locations
@@ -437,8 +437,8 @@ void draw_simple()
     static GLuint program_object;
     if (!program_object) {
         program_object = make_program_object(
-            "res/glsl_shaders/simple.vert",
-            "res/glsl_shaders/simple.frag");
+            "src/gles/shaders/simple.vert",
+            "src/gles/shaders/simple.frag");
     }
 
     glUseProgram(program_object);

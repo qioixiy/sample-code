@@ -7,13 +7,11 @@
 #include <wayland-egl.h>
 #include <wayland-client.h>
 
-#include "wayland/wayland.h"
-#include "egl/egl.h"
+#include "egl/egl.hpp"
 #include "gles/gles.h"
 #include "gles/shader.h"
 #include "gles/texture.h"
 #include "gles/draw.h"
-#include "cairo/cairo.h"
 #include "utils/util.h"
 #include "utils/png_load.h"
 #include "utils/log/log.h"

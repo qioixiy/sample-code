@@ -55,9 +55,9 @@ $(CXX-OBJS_OUT) : $(OUTDIR)/%.o : %.cpp
 	@echo CXX $@
 	$(Q)$(CXX) -c $(CFLAGS) $(CXXFLAGS) $< -o $@
 
-$(OUTDIR)/$(LIB_TARGET):
-	@echo build static lib $@
+$(OUTDIR)/$(LIB_TARGET): $(C-OBJS_OUT) $(CXX-OBJS_OUT)
+	@echo GEN static lib $@
 	$(Q)$(AR) rcs $@ $(C-OBJS_OUT) $(CXX-OBJS_OUT)
-$(OUTDIR)/$(BIN_TARGET):
-	@echo build binary $@
+$(OUTDIR)/$(BIN_TARGET): $(C-OBJS_OUT) $(CXX-OBJS_OUT)
+	@echo LINK $@
 	$(Q)$(CXX) -o $@ $(C-OBJS_OUT) $(CXX-OBJS_OUT) $(LDFLAGS)

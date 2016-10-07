@@ -1,7 +1,7 @@
 #ifndef _COMPOSITER_H_
 #define _COMPOSITER_H_
 
-#include <cairo.h>
+#include <cairo/cairo.h>
 #include <string>
 #include <cstring>
 

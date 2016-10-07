@@ -6,10 +6,10 @@ FBO::FBO(int w, int h)
   : texWidth(w)
   , texHeight(h)
 {
-  mpShader = new Shader("res/glsl_shaders/rgbashow.vert",
-                        "res/glsl_shaders/rgbashow.frag");
-  mpShaderFBO = new Shader("res/glsl_shaders/testfbo.vert",
-                           "res/glsl_shaders/testfbo.frag");
+  mpShader = new Shader("src/gles/shaders/rgbashow.vert",
+                        "src/gles/shaders/rgbashow.frag");
+  mpShaderFBO = new Shader("src/gles/shaders/testfbo.vert",
+                           "src/gles/shaders/testfbo.frag");
 }
 bool FBO::checkFramebufferStatus()
 {

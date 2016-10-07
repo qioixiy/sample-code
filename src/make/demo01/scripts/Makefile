@@ -56,6 +56,7 @@ help:
 	@echo " all              - (==make) compile and link"
 	@echo " clean            - clean target"
 	@echo " cleanbuild       - clean build dir"
+	@echo " rebuild          - rebuild"
 	@echo " distclean        - clean target and otherinformation"
 	@echo " tags             - create ctags for vimeditor"
 	@echo " help             - print help information"
@@ -66,3 +67,7 @@ help:
 # make KEYS="USERNAME SHELL ARCH" debug
 debug:
 	$(foreach k,$(KEYS),$(warning $k=$($k)))
+
+rebuild:
+	make cleanbuild
+	make _all

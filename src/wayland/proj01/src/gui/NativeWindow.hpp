@@ -3,7 +3,7 @@
 #define _NATIVE_WINDOW_HPP_
 
 #include "wayland/WaylandClient.hpp"
-#include "gui/egl/egl.hpp"
+#include "egl/egl.hpp"
 
 class Frame;
 class NativeWindow {

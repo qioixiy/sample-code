@@ -1,6 +1,6 @@
 #include "Shader.hpp"
+#include "utils/log/Log.hpp"
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
@@ -11,6 +11,8 @@ Shader::Shader(const string vert, const string frag)
 }
 Shader::Shader(const char *vert, const char *frag)
 {
+  LogD << "vert:" << vert;
+  LogD << "frag:" << frag;
   char *pvert = getDataFromFile(vert);
   char *pfrag = getDataFromFile(frag);
   makeProgram(pvert, pfrag);
@@ -66,7 +68,7 @@ GLint Shader::makeProgram(const char *vert, const char *frag)
   programObject = glCreateProgram();
 
   if (programObject == 0) {
-    printf("glCreateProgram error\n");
+    LogE << "glCreateProgram error";
     return -3;
   }
   glAttachShader(programObject, vertexShader);
@@ -78,14 +80,14 @@ GLint Shader::makeProgram(const char *vert, const char *frag)
   glGetProgramiv(programObject, GL_LINK_STATUS, &linked);
 
   if (!linked) {
-    printf("glLinkProgram error\n");
+    LogE << "glLinkProgram error";
 
     GLint infoLen = 0;
     glGetProgramiv(programObject, GL_INFO_LOG_LENGTH, &infoLen);
     if (infoLen > 1) {
       char* infoLog = (char*)malloc(sizeof(char) * infoLen);
       glGetProgramInfoLog(programObject, infoLen, NULL, infoLog);
-      printf("Error linking program:%s\n", infoLog);
+      LogE << "Error linking program:%s", infoLog;
       free(infoLog);
     }
 
@@ -129,7 +131,7 @@ GLint Shader::complier(GLenum type, const char *shaderSrc)
     if (infoLen > 1) {
       char* infoLog = (char*)malloc(sizeof(char) * infoLen);
       glGetShaderInfoLog ( shader, infoLen, NULL, infoLog );
-      printf("Error compiling shader: %s\n", infoLog);
+      LogE << "Error compiling shader: %s", infoLog;
       free (infoLog);
     }
 

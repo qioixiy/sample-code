@@ -8,7 +8,7 @@
 
 map<string, Shader*> GLSLProgObj::objs;
 
-static string sGLSLBasePath = "res/glsl_shaders/";
+static string sGLSLBasePath = "src/gles/shaders/";
 static string sGLSLShaders[][3] =
 {
   {"default", "default.vert", "default.frag"},
