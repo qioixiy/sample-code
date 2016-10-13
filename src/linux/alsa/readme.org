@@ -1,0 +1,4 @@
+#+TITLE: alsa
+
+* http://www.linuxjournal.com/article/6735
+* [[ftp.linuxjournal.com/pub/lj/listings/issue126/6735.tgz][sample code]]
