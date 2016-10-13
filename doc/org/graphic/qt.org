@@ -1,0 +1,84 @@
+#+TITLE: qt
+
+* building
+** x86
+mkdir qt; cd qt
+git clone git://gitorious.org/qt/qtbase.git
+
+export QTVER=qt5
+export QTDIR=/opt/qt/$QTVER
+export PATH=$QTDIR/bin/:$PATH
+export LD_LIBRARY_PATH=$QTDIR/lib/:$LD_LIBRARY_PATH
+export PKG_CONFIG_PATH=$QTDIR/lib/pkgconfig/:$PKG_CONFIG_PATH
+export QT_PLUGIN_PATH=$QTDIR/lib/plugins/
+
+./configure -confirm-license -opensource -debug -nomake examples \
+   -nomake tests -nomake demos -make libs --prefix=${QTDIR} -qt-xcb
+make -j8
+sudo make install
+
+git clone git://gitorious.org/qt/qtjsbackend.git
+git clone git://gitorious.org/qt/qtdeclarative.git
+
+qmake
+make
+sudo make install
+
+cd ../
+git clone git://gitorious.org/qt/qtwayland.git
+cd qtwayland/
+qmake
+make
+sudo make install
+
+export XDG_RUNTIME_DIR=$HOME/.xdg
+mkdir $HOME/.xdg
+
+cd ../qtbase/examples/opengl/hellowindow
+qmake
+make
+weston &
+./hellowindow -platform wayland
+
+** arm
+export QTVER=qt5
+export QTDIR=/opt/qt-arm/$QTVER
+export PATH=$QTDIR/bin/:$PATH
+export LD_LIBRARY_PATH=$QTDIR/lib/:$LD_LIBRARY_PATH
+export PKG_CONFIG_PATH=$QTDIR/lib/pkgconfig/:$PKG_CONFIG_PATH
+export QT_PLUGIN_PATH=$QTDIR/lib/plugins
+export SYSROOT=/home/cndul/work/zxq/targetfs
+export QMAKE=$SYSROOT$QTDIR/bin/qmake
+*** qtbase
+# mkspecs
+sed -i "s/arm-linux-gnueabi/arm-linux-gnueabihf/g" mkspecs/linux-arm-gnueabi-g++/qmake.conf
+# configure
+./configure -confirm-license -opensource -sysroot $SYSROOT \
+--prefix=/opt/qt-arm/qt5 -no-c++11 -no-qml-debug -xplatform linux-arm-gnueabi-g++ \
+-qt-freetype -qt-pcre -no-xkbcommon-evdev -qt-harfbuzz
+make -j8
+sudo make install
+
+*** qtjsbackend qtdeclarative
+git clone git://gitorious.org/qt/qtjsbackend.git
+git clone git://gitorious.org/qt/qtdeclarative.git
+$QMAKE
+make
+sudo make install
+
+*** qtwayland
+git clone git://gitorious.org/qt/qtwayland.git
+cd qtwayland/
+$QMAKE
+make
+sudo make install
+*** run test
+export XDG_RUNTIME_DIR=$HOME/.xdg
+mkdir $HOME/.xdg
+
+cd ../qtbase/examples/opengl/hellowindow
+$QMAKE
+make
+weston &
+./hellowindow -platform wayland
+
