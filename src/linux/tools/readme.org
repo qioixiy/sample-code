@@ -1,0 +1,63 @@
+#+TITLE: 目录
+
+* list
+** DTrace
+** gnuplot
+** kprobe
+** OProfile
+** perf
+   perf工具用于系统性能的调优，程序优化。源码在kenel/tools/perf目录,
+   [[http://www.cnblogs.com/helloworldtoyou/p/5585152.html][perf移植]]
+   [[http://www.brendangregg.com/perf.html][perf Examples]]
+** systemtap
+** myperf
+
+* linux的测试工具 [[http://www.cnblogs.com/helloworldtoyou/p/5590793.html][link]]
+** memtester
+   内存测试工具，通过对内存进行读写进行测试。可以对同一块空间进行多次的读写
+** cpuburn-in
+   测试cpu性能
+** stress/stress-ng
+   压力测试工具
+   http://www.cyberciti.biz/faq/stress-test-linux-unix-server-with-stress-ng/
+   http://www.tecmint.com/linux-cpu-load-stress-test-with-stress-ng-tool/
+** iozone
+   测试硬盘，文件系统读写性能
+** lmbench
+   性能检测工具
+   http://www.bitmover.com/lmbench/
+   http://elinux.org/Benchmark_Programs
+   http://processors.wiki.ti.com/index.php/Lmbench
+   http://blog.csdn.net/dianhuiren/article/details/7331777
+   http://kongll.github.io/2015/04/24/LMbench/
+   https://sourceforge.net/projects/lmbench/
+
+* linux下性能分析命令, http://www.cnblogs.com/Anker/p/3462378.html
+* trace tools
+  Dtrace Envy
+  SystemTap
+  ptrace
+  utrace
+  LTTng
+  ftrace
+  Tracepoint
+  kprobe
+  uprobe
+  latencyTop
+  powertop
+  usbmon
+  blktrace
+
+* Kernel task priority
+  0 to 99: Real-Time priority 99 to 0
+  100 to 139: Task Nice Value -20 to 19
+  140: idle task priority
+
+* task status
+  R (Running): Wants to run, may not
+  S (Sleep)actually be running, Process is waiting to be woken up (handles signals)
+  D (Disk sleep): (uninterruptible sleep) Process must be woken up (ignores signals)
+  T (Stopped): Process suspended
+  t (Traced): Process is being traced (with something like gdb)
+  Z (Zombie): Process waiting to be cleaned up
+  X (Unknown)

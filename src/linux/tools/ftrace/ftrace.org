@@ -1,0 +1,27 @@
+#+TITLE: ftrace
+
+* enable
+  CONFIG_DEBUG_FS，CONFIG_FTRACE_*
+  mount -t debugfs nodev /sys/kernel/debug
+  cd /sys/kernel/debug/traceing
+** 查看当前系统的中断情况
+   echo 0 > tracing_on
+   echo > trace
+   echo nop > current_tracer
+   echo irq > set_event
+   echo 1 > tracing_on
+   cat trace_pipe
+** 查看内核函数的调用情况
+   echo > set_event
+   echo 0 > tracing_on
+   echo > trace
+   echo function_graph > current_tracer
+   echo 1 > tracing_on
+   cat trace_pipe
+** 打印当前内核的函数profile
+   echo > current_tracer
+   echo 1 > function_profile_enabled
+   cat trace_stat/function0
+
+* res
+  [[http://www.cnblogs.com/leaven/archive/2011/12/22/2298352.html][Linux Kernel Ftrace (Function Trace)解析]]

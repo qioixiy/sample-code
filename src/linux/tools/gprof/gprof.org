@@ -1,0 +1,3 @@
+#+TITLE: gprof
+
+* gprof是gnu binutils工具之一
