@@ -59,5 +59,36 @@
     控制数据，同时向另一对端口上接收RTP数据和RTCP控制数据。
     通常RTP的协议数据单元是用UDP分组来承载的。而且为了尽量减少时延，
     语音净荷通常都很短。
+*** rtmp
+**** nginx rtmp server [[https://obsproject.com/forum/resources/how-to-set-up-your-own-private-rtmp-server-using-nginx.50/][how-to-set-up-your-own-private-rtmp-server-using-nginx]]
+     sudo apt-get install build-essential libpcre3 libpcre3-dev libssl-dev
+     tar -zxvf nginx-*.*.*.tar.gz
+     unzip nginx-rtmp-module.zip
+     cd nginx
+     ./configure --with-http_ssl_module --add-module=../nginx-rtmp-module-master
+     make -j8
+     sudo make install
+     cat /usr/local/nginx/conf/nginx.conf
+     rtmp {
+         server {
+         listen 1935;
+         chunk_size 4096;
+
+         application live {
+             live on;
+             record off;
+             }
+         }
+     }
+     sudo /usr/local/nginx/sbin/nginx
+     sudo /usr/local/nginx/sbin/nginx -s stop
+
+**** ffmpeg push to rtmp server
+     ffmpeg -f x11grab -follow_mouse centered -r 25 -s cif -i :0.0 -f flv rtmp://localhost/live
+     ffmpeg -re -i /var/Videos/test.mp4 -c copy -f flv rtmp://localhost/myapp/mystream
+     ffmpeg -re -i /var/Videos/test.mp4 -f flv rtmp://localhost/myapp/mystream
+     ffmpeg -f video4linux2 -i /dev/video0 -c:v libx264 -an -f flv rtmp://localhost/myapp/mystream
+**** ffplay pull rtmp stream
+     ffplay rtmp://localhost/live
 ** android
 - [[https://github.com/tyzlmjj/PagerBottomTabStrip][An bottom navigation bar for Android]]
