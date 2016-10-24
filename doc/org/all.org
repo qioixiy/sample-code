@@ -127,5 +127,25 @@
 **** ffplay pull rtmp stream
      ffplay rtmp://localhost/live
      ffplay http://127.0.0.1/hls/test.m3u8
+1，RTMP协议
+（1）是流媒体协议。
+（2）RTMP协议是 Adobe 的私有协议，未完全公开。
+（3）RTMP协议一般传输的是 flv，f4v 格式流。
+（4）RTMP一般在 TCP 1个通道上传输命令和数据。
+
+2，RTSP协议
+（1）是流媒体协议。
+（2）RTSP协议是共有协议，并有专门机构做维护。.
+（3）RTSP协议一般传输的是 ts、mp4 格式的流。
+（4）RTSP传输一般需要 2-3 个通道，命令和数据通道分离。
+
+3，HTTP协议
+（1）不是是流媒体协议。
+（2）HTTP协议是共有协议，并有专门机构做维护。
+（3）HTTP协议没有特定的传输流。
+（4）HTTP传输一般需要 2-3 个通道，命令和数据通道分离。
 ** android
 - [[https://github.com/tyzlmjj/PagerBottomTabStrip][An bottom navigation bar for Android]]
+
+* url
+  [[http://vdn.apps.cntv.cn/api/liveback.do?channel=cctv1&starttime=201507250105&endtime=201507250245][获取cntv回放地址]]
