@@ -15,7 +15,7 @@ exec tail -n +3 $0
 # the 'exec tail' line above.
 
 menuentry "Ubuntu" {
-    loopback loop (hd0,6)/ISO/ubuntu-*.iso
+    loopback loop (hd0,6)/iso/ubuntu-*.iso
     linux (loop)/casper/vmlinuz file=/cdrom/preseed/ubuntu.seed boot=casper quiet splash locale=zh_CN.UTF-8 rtc_cmos=localtime iso-scan/filename=/iso/ubuntu-*.iso
     initrd (loop)/casper/initrd.lz
 }

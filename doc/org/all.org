@@ -60,7 +60,10 @@
     通常RTP的协议数据单元是用UDP分组来承载的。而且为了尽量减少时延，
     语音净荷通常都很短。
 *** rtmp
-**** nginx rtmp server [[https://obsproject.com/forum/resources/how-to-set-up-your-own-private-rtmp-server-using-nginx.50/][how-to-set-up-your-own-private-rtmp-server-using-nginx]]
+**** nginx rtmp server
+     [[https://obsproject.com/forum/resources/how-to-set-up-your-own-private-rtmp-server-using-nginx.50/][how-to-set-up-your-own-private-rtmp-server-using-nginx]]
+     [[http://blog.csdn.net/redstarofsleep/article/details/45092147][nginx+nginx-rtmp-module+ffmpeg搭建流媒体服务器]]
+
      sudo apt-get install build-essential libpcre3 libpcre3-dev libssl-dev
      tar -zxvf nginx-*.*.*.tar.gz
      unzip nginx-rtmp-module.zip
@@ -69,14 +72,45 @@
      make -j8
      sudo make install
      cat /usr/local/nginx/conf/nginx.conf
+
+     http {
+        # rtmp stat
+        location /stat {
+            rtmp_stat all;
+            rtmp_stat_stylesheet stat.xsl;
+        }
+        location /stat.xsl {
+            # you can move stat.xsl to a different location
+            root /usr/build/nginx-rtmp-module;
+        }
+
+        # rtmp control
+        location /control {
+            rtmp_control all;
+        }
+        location /hls {
+            types {
+                application/vnd.apple.mpegurl m3u8;
+                video/mp2t ts;
+            }
+            root /tmp;
+            add_header Cache-Control no-cache;
+        }
+     }
+
      rtmp {
          server {
-         listen 1935;
-         chunk_size 4096;
+             listen 1935;
+             chunk_size 4096;
 
-         application live {
-             live on;
-             record off;
+             application live {
+                 live on;
+                 record off;
+             }
+             application hls {
+                 live on;
+                 hls on;
+                 hls_path /tmp/hls;
              }
          }
      }
@@ -85,10 +119,13 @@
 
 **** ffmpeg push to rtmp server
      ffmpeg -f x11grab -follow_mouse centered -r 25 -s cif -i :0.0 -f flv rtmp://localhost/live
+     ffmpeg -f video4linux2 -i /dev/video0 -c:v libx264 -an -f flv rtmp://localhost/myapp/mystream
      ffmpeg -re -i /var/Videos/test.mp4 -c copy -f flv rtmp://localhost/myapp/mystream
      ffmpeg -re -i /var/Videos/test.mp4 -f flv rtmp://localhost/myapp/mystream
-     ffmpeg -f video4linux2 -i /dev/video0 -c:v libx264 -an -f flv rtmp://localhost/myapp/mystream
+     ffmpeg -re -i ~/Videos/1.mp4 -vcodec libx264 -vprofile baseline -acodec aac  -ar 44100 -strict -2 -ac 1 -f flv -s 1280x720 -q 10 rtmp://127.0.0.1:1935/live
+     ffmpeg -re -i ~/Videos/1.mp4 -vcodec libx264 -vprofile baseline -acodec aac  -ar 44100 -strict -2 -ac 1 -f flv -s 1280x720 -q 10 rtmp://127.0.0.1:1935/hls/test
 **** ffplay pull rtmp stream
      ffplay rtmp://localhost/live
+     ffplay http://127.0.0.1/hls/test.m3u8
 ** android
 - [[https://github.com/tyzlmjj/PagerBottomTabStrip][An bottom navigation bar for Android]]
