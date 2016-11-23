@@ -22,7 +22,7 @@ public:
   LoggerContext(const char *_file="",
                 const char *_function="",
                 int _line = -1)
-    : file(_file), function(_function), line(_line) {}
+    : line(_line), file(_file), function(_function) {}
 
   void copy(const LoggerContext &cxt) {
     file = cxt.file;
