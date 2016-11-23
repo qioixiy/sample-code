@@ -3,6 +3,9 @@
 #include <string>
 #include <sstream>
 
+//#define NOTUSED() __attribute__((unused))
+#define NOTUSED(v) for (;;) { (void)(1 ? (void)0 : ( (void)(v) ) ); break; }
+
 enum LoggerType
 {
   E_Debug = 0,
