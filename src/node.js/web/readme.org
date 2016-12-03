@@ -1,0 +1,12 @@
+* make env
+  node -v
+  npm -v
+
+* install express
+  npm install -g express
+
+* gen template
+  express -e -s less helloworld
+
+* app run
+  DEBUG=my-application ./bin/www
