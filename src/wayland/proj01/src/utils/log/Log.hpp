@@ -75,13 +75,27 @@ public:
   inline LoggerStream& maybeSpace() { if (stream->space) stream->ss << ' '; return *this; }
 
   void toConsole(LoggerType type, const LoggerContext &context,
-                 std::string logBuffer);
+                 const std::string &logBuffer,
+                 const std::ostringstream &sstimestamp);
+#ifdef USE_LOG_CAT
+  void toLogCat(LoggerType type, const LoggerContext &context,
+                const std::string &logBuffer,
+                const std::ostringstream &sstimestamp);
+#endif
 
 private:
-  void mkTimeSpec(std::ostringstream& ss);
+  void mkTag(std::ostringstream& ss);
+  void mkTimeSpec0(std::ostringstream& ss);
+  void mkTimeSpec1(std::ostringstream& ss);
+  void mkBannaer(LoggerType, const LoggerContext &, std::ostringstream& ss);
+  const char* mkType(LoggerType, const LoggerContext &, std::ostringstream& ss);
 
 public:
   struct Stream *stream;
+#ifdef USE_LOG_CAT
+  static bool useLogCat;
+#endif
+  static std::string TAG;
 };
 
 class Logger
@@ -90,19 +104,60 @@ public:
   Logger() : context(){}
   Logger(const char *fileName, const char *functionName, int lineNumber)
     : context(fileName, functionName, lineNumber) {}
+  Logger(const char *functionName, int lineNumber)
+    : context("", functionName, lineNumber) {}
 
-  LoggerStream Debug() const;
-  LoggerStream Info() const;
-  LoggerStream Warning() const;
-  LoggerStream Critical() const;
-  LoggerStream Error() const;
+  LoggerStream __xxDebug() const;
+  LoggerStream __xxInfo() const;
+  LoggerStream __xxWarning() const;
+  LoggerStream __xxCritical() const;
+  LoggerStream __xxError() const;
+
+private:
+  LoggerStream genLoggerStream(enum LoggerType type) const;
 
 protected:
   LoggerContext context;
 };
 
-#define LogD Logger(__FILE__, __FUNCTION__, __LINE__).Debug()
-#define LogI Logger(__FILE__, __FUNCTION__, __LINE__).Info()
-#define LogW Logger(__FILE__, __FUNCTION__, __LINE__).Warning()
-#define LogC Logger(__FILE__, __FUNCTION__, __LINE__).Critical()
-#define LogE Logger(__FILE__, __FUNCTION__, __LINE__).Error()
+#define LogD Logger(__FILE__, __FUNCTION__, __LINE__).__xxDebug()
+#define LogI Logger(__FILE__, __FUNCTION__, __LINE__).__xxInfo()
+#define LogW Logger(__FILE__, __FUNCTION__, __LINE__).__xxWarning()
+#define LogC Logger(__FILE__, __FUNCTION__, __LINE__).__xxCritical()
+#define LogE Logger(__FILE__, __FUNCTION__, __LINE__).__xxError()
+
+#define __LogFormat(...)                              \
+  char __xxs[100];snprintf(__xxs,100,__VA_ARGS__);
+#ifdef Err
+#undef Err
+#endif
+#define Err(...) {__LogFormat(__VA_ARGS__); LogE<<__xxs;}
+#ifdef Info
+#undef Info
+#endif
+#define Info(...) {__LogFormat(__VA_ARGS__); LogI<<__xxs;}
+#ifdef Warn
+#undef Warn
+#endif
+#define Warn(...) {__LogFormat(__VA_ARGS__); LogW<<__xxs;}
+#ifdef Debug
+#undef Debug
+#endif
+#define Debug(...) {__LogFormat(__VA_ARGS__); LogD<<__xxs;}
+
+#ifdef loge
+#undef loge
+#endif
+#define loge Err
+#ifdef logi
+#undef logi
+#endif
+#define logi Info
+#ifdef logw
+#undef logw
+#endif
+#define logw Warn
+#ifdef logd
+#undef logd
+#endif
+#define logd Debug
