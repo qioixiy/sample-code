@@ -4,7 +4,7 @@ LOCAL_BIN = test_project1
 LDFLAGS += \
 	-lgui \
 	-legl \
-	-lapp \
+	-lcore \
 	-lgles \
 	-lwaylandclient-priv \
 	-lutils \

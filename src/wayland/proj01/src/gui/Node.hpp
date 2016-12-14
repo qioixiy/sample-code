@@ -18,7 +18,7 @@ using namespace std;
  * o  o  o--o  o
  */
 
-class Node 
+class Node
 {
 public:
   Node();
