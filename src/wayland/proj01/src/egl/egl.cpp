@@ -1,7 +1,5 @@
 
-#include <stdio.h>
-#include <stdlib.h>
-
+#include "utils/log/Log.hpp"
 #include "egl.hpp"
 
 EGLEnv::EGLEnv()
@@ -22,7 +20,7 @@ int EGLEnv::init()
   display = eglGetDisplay(mEGLNativeDisplayType/* EGL_DEFAULT_DISPLAY */);
   if(display == EGL_NO_DISPLAY)
   {
-    printf("Unable to open connection to local windowing system\n");
+    LogE <<"Unable to open connection to local windowing system";
     return -1;
   }
 
@@ -30,19 +28,18 @@ int EGLEnv::init()
   EGLint minorVersion;
   if(EGL_FALSE == eglInitialize(display, &majorVersion, &minorVersion))
   {
-    printf("Unable to initialize EGL-> Handle and recover\n");
+    LogE <<"Unable to initialize EGL-> Handle and recover";
     switch(eglGetError()) {
     case EGL_BAD_DISPLAY:
-      printf("display doesn't specify a valid EGLDisplay\n");
+      LogE <<"display doesn't specify a valid EGLDisplay";
       break;
     case EGL_NOT_INITIALIZED:
-      printf("the EGL cannot be initialized\n");
+      LogE <<"the EGL cannot be initialized";
       break;
     }
     return -2;
   }
-  printf("majorVersion=%d, minorVersion=%d\n",
-         majorVersion, minorVersion);
+  LogI <<"majorVersion="<<majorVersion<<", minorVersion="<<minorVersion;
 
   eglBindAPI(EGL_OPENGL_ES_API);
 
@@ -74,10 +71,10 @@ int EGLEnv::init()
                       eglChooseConfigAttribList,
                       config, MAX_CONFIG,
                       &numConfigs)) {
-    printf("eglChooseConfig error\n");
+    LogE <<"eglChooseConfig error";
     return -3;
   }
-  printf("numConfigs=%d\n", numConfigs);
+  LogI <<"numConfigs="<<numConfigs;
 
   /* Creating a Rendering Context */
   const EGLint ContextAttribList[] = {
@@ -93,7 +90,7 @@ int EGLEnv::init()
   {
     if(eglGetError() == EGL_BAD_CONFIG)
     {
-      printf("error: EGL_BAD_CONFIG\n");
+      LogE << "error: EGL_BAD_CONFIG";
     }
     return -4;
   }
@@ -112,18 +109,18 @@ int EGLEnv::init()
     switch(eglGetError())
     {
     case EGL_BAD_MATCH:
-      printf("Check window and EGLConfig attributes to determine\n"
-             "compatibility, or verify that the EGLConfig\n"
-             "supports rendering to a window\n");
+      LogE <<"Check window and EGLConfig attributes to determine,"
+        "compatibility, or verify that the EGLConfig,"
+        "supports rendering to a window";
       break;
     case EGL_BAD_CONFIG:
-      printf("Verify that provided EGLConfig is valid\n");
+      LogE <<"Verify that provided EGLConfig is valid";
       break;
     case EGL_BAD_NATIVE_WINDOW:
-      printf("Verify that provided EGLNativeWindow is valid\n");
+      LogE <<"Verify that provided EGLNativeWindow is valid";
       break;
     case EGL_BAD_ALLOC:
-      printf("Not enough resources available. Handle and recover\n");
+      LogE <<"Not enough resources available. Handle and recover";
       break;
     }
     return -5;
@@ -132,20 +129,20 @@ int EGLEnv::init()
   /* Making an EGLContext Current */
   int ret = eglMakeCurrent(display, surface, surface, context);
   if (ret != EGL_TRUE) {
-    printf("eglMakeCurrent error\n");
+    LogE <<"eglMakeCurrent error";
     return -6;
   }
 
-  printf("Version:%s\n", glGetString(GL_VERSION));
-  printf("Vendor:%s\n", glGetString(GL_VENDOR));
-  printf("Renderer:%s\n", glGetString(GL_RENDERER));
-  printf("Extensions:%s\n", glGetString(GL_EXTENSIONS));
+  LogI <<"Version:"<<glGetString(GL_VERSION);
+  LogI <<"Vendor:"<<glGetString(GL_VENDOR);
+  LogI <<"Renderer:"<<glGetString(GL_RENDERER);
+  LogI <<"Extensions:"<<glGetString(GL_EXTENSIONS);
 
 #if 0
   glViewport(0, 0, 1024, 768);
   glClearColor(1.0, 1.0, 1.0, 1.0);
   glClear(GL_COLOR_BUFFER_BIT);
-  eglSwapBuffers(egl->display, egl->surface);
+  eglSwapBuffers(display, surface);
 #endif
 
   return 0;

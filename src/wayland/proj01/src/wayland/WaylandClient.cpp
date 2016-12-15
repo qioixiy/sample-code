@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <pthread.h>
 #include "gui/ui.hpp"
+#include "utils/log/Log.hpp"
 #include "WaylandClient.hpp"
 
 #ifdef yunos
@@ -67,21 +68,21 @@ pointer_handle_enter(void *data, struct wl_pointer *pointer,
                      uint32_t serial, struct wl_surface *surface,
                      wl_fixed_t sx_w, wl_fixed_t sy_w)
 {
-  printf("%s\n", __func__);
+  LogD <<"enter";
 }
 
 static void
 pointer_handle_leave(void *data, struct wl_pointer *pointer,
                      uint32_t serial, struct wl_surface *surface)
 {
-  printf("%s\n", __func__);
+  LogD <<"leave";
 }
 
 static void
 pointer_handle_motion(void *data, struct wl_pointer *pointer,
                       uint32_t time, wl_fixed_t sx_w, wl_fixed_t sy_w)
 {
-  //printf("%s\n", __func__);
+  LogD <<"motion";
 
   WaylandClient *wc = reinterpret_cast<WaylandClient*>(data);
   wc->pointer_state_w = 0;
@@ -94,7 +95,8 @@ static void
 pointer_handle_button(void *data, struct wl_pointer *pointer, uint32_t serial,
                       uint32_t time, uint32_t button, uint32_t state_w)
 {
-  //printf("%s %d %d\n", __func__, button, state_w);
+  LogD <<button<<state_w;
+
   WaylandClient *wc = reinterpret_cast<WaylandClient*>(data);
   wc->pointer_state_w = 1;
   wc->pointer.button = button;
@@ -106,7 +108,8 @@ static void
 pointer_handle_axis(void *data, struct wl_pointer *pointer,
                     uint32_t time, uint32_t axis, wl_fixed_t value)
 {
-  //printf("%s %d %d\n", __func__, axis, value);
+  LogD <<axis<<value;
+
   WaylandClient *wc = reinterpret_cast<WaylandClient*>(data);
   wc->pointer_state_w = 2;
   wc->pointer.axis = axis;
@@ -117,28 +120,28 @@ pointer_handle_axis(void *data, struct wl_pointer *pointer,
 static void
 pointer_handle_Frame(void *data, struct wl_pointer *pointer)
 {
-  printf("%s\n", __func__);
+  LogD <<"handle frame";
 }
 
 static void
 pointer_handle_axis_source(void *data, struct wl_pointer *pointer,
                            uint32_t source)
 {
-  printf("%s\n", __func__);
+  LogD <<"handle_axis_source";
 }
 
 static void
 pointer_handle_axis_stop(void *data, struct wl_pointer *pointer,
                          uint32_t time, uint32_t axis)
 {
-  printf("%s\n", __func__);
+  LogD <<"handle_axis_stop";
 }
 
 static void
 pointer_handle_axis_discrete(void *data, struct wl_pointer *pointer,
                              uint32_t axis, int32_t discrete)
 {
-  printf("%s\n", __func__);
+  LogD <<"handle_axis_discrete";
 }
 
 static const struct wl_pointer_listener pointer_listener = {
@@ -191,14 +194,14 @@ static void output_handle_geometry(void *data, struct wl_output *wl_output,
                                    int32_t subpixel, const char *make,
                                    const char *model, int32_t output_transform)
 {
-  printf("output geometry\n");
+  LogD <<"output geometry";
 }
 static void output_handle_mode(void *data,
                                struct wl_output *wl_output,
                                uint32_t flags,
                                int32_t width, int32_t height, int32_t refresh)
 {
-  printf("output mode, width=%d, height=%d\n", width, height);
+  LogD <<"output mode, width="<<width<<", height="<<height;
 }
 static const struct wl_output_listener output_listener =
 {
@@ -211,7 +214,7 @@ static void registry_handle_global(void *data, struct wl_registry *registry,
                                    const char *interface, uint32_t version)
 {
   WaylandClient *wc = reinterpret_cast<WaylandClient*>(data);
-  printf("interface=%s\n", interface);
+  LogD <<"interface="<<interface;
 
   if (strcmp(interface, "wl_compositor") == 0) {
     wc->p_wl_compositor
@@ -251,20 +254,20 @@ handle_ping(void *data, struct wl_shell_surface *shell_surface,
             uint32_t serial)
 {
   wl_shell_surface_pong(shell_surface, serial);
-  //printf("handle_ping\n");
+  LogD <<"handle_ping";
 }
 
 static void
 handle_configure(void *data, struct wl_shell_surface *shell_surface,
                  uint32_t edges, int32_t width, int32_t height)
 {
-  printf("handle_configure\n");
+  LogD <<"handle_configure";
 }
 
 static void
 handle_popup_done(void *data, struct wl_shell_surface *shell_surface)
 {
-  printf("handle_popup_done\n");
+  LogD <<"handle_popup_done";
 }
 
 static const struct wl_shell_surface_listener shell_surface_listener = {
@@ -281,7 +284,7 @@ static void* wayland_display_dispatch_thread(void* p)
   while (ret != -1) {
     ret = wl_display_dispatch(dis);
     if (ret < 0) {
-      printf("wl_display_dispatch error:%s", strerror(errno));
+      LogE <<"wl_display_dispatch error:"<<strerror(errno);
       break;
     }
   };
@@ -303,24 +306,24 @@ int WaylandClient::init()
 {
   p_wl_display = wl_display_connect(NULL);
   if (!p_wl_display) {
-    printf("wl_display_connect error\n");
+    LogE <<"wl_display_connect error";
     return -1;
   }
 
 	p_wl_registry = wl_display_get_registry(p_wl_display);
   if (!p_wl_registry) {
-    printf("wl_display_get_registry error\n");
+    LogE <<"wl_display_get_registry error";
     return -2;
   }
 	wl_registry_add_listener(p_wl_registry, &registry_listener, this);
 
 	if (wl_display_roundtrip(p_wl_display) < 0) {
-    printf("wl_display_roundtrip error\n");
+    LogE <<"wl_display_roundtrip error";
     return -3;
   }
 	p_wl_surface = wl_compositor_create_surface(p_wl_compositor);
   if (!p_wl_surface) {
-    printf("wl_compositor_create_surface error\n");
+    LogE <<"wl_compositor_create_surface error";
     return -4;
   }
 
@@ -334,22 +337,22 @@ int WaylandClient::init()
     wl_shell_get_shell_surface(p_wl_shell, p_wl_surface);
 #endif
   if (!p_wl_shell_surface) {
-    printf("wl_shell_get_shell_surface error\n");
+    LogE <<"wl_shell_get_shell_surface error";
     return -5;
   }
   wl_shell_surface_add_listener(p_wl_shell_surface,
                                 &shell_surface_listener, this);
   wl_shell_surface_set_toplevel(p_wl_shell_surface);
 
-  printf("wl_display_get_fd=%d\n", wl_display_get_fd(p_wl_display));
+  LogD <<"wl_display_get_fd="<<wl_display_get_fd(p_wl_display);
 
 	int ret = wl_display_dispatch(p_wl_display);
   if (ret == -1) {
-    printf("wl_display_dispatch error\n");
+    LogE <<"wl_display_dispatch error";
   }
   ret = wl_display_get_error(p_wl_display);
   if (ret != 0) {
-    printf("error occurred on display\n");
+    LogE <<"error occurred on display";
   }
 
   wl_display_flush(p_wl_display);
@@ -368,17 +371,24 @@ int WaylandClient::DispatcherRun()
 }
 
 int WaylandClient::raiseEvent(int type) {
+  Event* event = NULL;
+
   if (type == 0) {
-    win->f->PushEvent(
-      new TouchEvent(
-        wl_fixed_to_double(touch_x),
-        wl_fixed_to_double(touch_y), touch_type));
+    event = new TouchEvent(
+      wl_fixed_to_double(touch_x),
+      wl_fixed_to_double(touch_y), touch_type);
   } else if (type == 1) {
-    win->f->PushEvent(
-      new PointerEvent(
-        pointer_sx_w,
-        pointer_sy_w,
-        pointer.v1, pointer.v2, pointer_state_w));
+    event = new PointerEvent(
+      pointer_sx_w,
+      pointer_sy_w,
+      pointer.v1, pointer.v2, pointer_state_w);
   }
+
+  if (win->f) {
+    win->f->PushEvent(event);
+  } else {
+    LogE << "Frame NULL";
+  }
+
   return 0;
 }

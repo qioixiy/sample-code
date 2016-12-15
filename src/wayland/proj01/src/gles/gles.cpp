@@ -1,12 +1,12 @@
 
 #include "gles.h"
-
+#include "utils/log/Log.hpp"
 #include <stdio.h>
 #include <GLES2/gl2.h>
 
 void print_gles_env(void)
 {
-    printf("\ngles env\n");
+    LogI <<"gles env";
 
     GLint maxVertexAttribs, maxVertexUniforms, maxVaryings;
     GLint maxVertexTextureUnits, maxCombinedTextureUnits;
@@ -14,7 +14,7 @@ void print_gles_env(void)
 #define print_get(p1, p2)                       \
     do {                                        \
         glGetIntegerv(p1, p2);                  \
-        printf(#p1 ":%d\n", *p2);               \
+        printf("\t"#p1 ":%d\n", *p2);           \
     }while(0)
 
     print_get(GL_MAX_VERTEX_ATTRIBS, &maxVertexAttribs);

@@ -7,10 +7,15 @@
 #include "gles/gles.h"
 #include "utils/util.h"
 
-NativeWindow::NativeWindow(int width, int height)
+NativeWindow::NativeWindow(int _width, int _height)
+  : width(_width)
+  , height(_height)
+  , wc(NULL)
+  , egl(NULL)
+  , f(NULL)
 {
   /* wayland init */
-  wc = new WaylandClient;
+  wc = new WaylandClient();
   wc->win = this;
 
   /* wayland egl init */

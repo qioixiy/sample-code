@@ -1,12 +1,13 @@
-LOCAL_FILES += test_project1.cpp
+#LOCAL_FILES += test_project1.cpp
+LOCAL_FILES += GlProgram.t.cpp
 LOCAL_BIN = test_project1
 
 LDFLAGS += \
 	-lgui \
+	-lwaylandclient-priv \
+	-lgles \
 	-legl \
 	-lcore \
-	-lgles \
-	-lwaylandclient-priv \
 	-lutils \
 	-lGLESv2 \
 	-lEGL \

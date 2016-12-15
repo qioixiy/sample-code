@@ -1,24 +1,31 @@
 #ifndef _GL_PPROGRAM_H_
 #define _GL_PPROGRAM_H_
 
-#include <string>
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
+#include "utils/log/Log.hpp"
 
-using namespace std;
+#include "gles/GlProgramObject.hpp"
+#include "gles/GlProgramDesc.hpp"
 
 class GlProgram {
 public:
-  GlProgram();
-  void Use();
-  int MakeProgramFromFile(string &vert, string &frag);
-  int MakeProgramFromString(string &vert, string &frag);
+  GlProgram(string &vert, string &frag, GlProgramDesc *_desc) {
+    mpGlProgramObject = new GlProgramObject(vert, frag);
+    mpGlProgramDesc = _desc;
+  }
+  ~GlProgram() {
+    delete mpGlProgramObject;
+  }
+
+  void Use() {
+    mpGlProgramObject->Use();
+  }
+  void Process() {
+    mpGlProgramDesc->Process(mpGlProgramObject);
+  }
 
 private:
-  GLint compile(GLenum type, const char *shaderStr);
-
-private:
-  GLint glProgramObject;
+  GlProgramObject *mpGlProgramObject;
+  GlProgramDesc *mpGlProgramDesc;
 };
 
 #endif

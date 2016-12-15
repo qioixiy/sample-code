@@ -1,29 +1,38 @@
-#include "GlProgram.hpp"
+#include "GlProgramObject.hpp"
 #include "utils/File.hpp"
 #include "utils/log/Log.hpp"
 
-GlProgram::GlProgram()
+GlProgramObject::GlProgramObject(string &vert, string &frag)
 {
-  ;
+  MakeProgramFromFile(vert, frag);
 }
 
 void
-GlProgram::Use()
+GlProgramObject::Use()
 {
   ;
 }
 
-int
-GlProgram::MakeProgramFromFile(string &vert, string &frag)
+GLint
+GlProgramObject::Object()
 {
-  ;
+  return glProgramObject;
+}
+
+int
+GlProgramObject::MakeProgramFromFile(string &vert, string &frag)
+{
+  string vertData = File(vert).GetStringData();
+  string fragData = File(frag).GetStringData();
+
+  return MakeProgramFromString(vertData, fragData);
 }
 
 /**
- *
+ * make program
  */
 int
-GlProgram::MakeProgramFromString(string &vert, string &frag)
+GlProgramObject::MakeProgramFromString(string &vert, string &frag)
 {
   GLuint vertexShader;
   GLuint fragmentShader;
@@ -98,7 +107,7 @@ Err_Vert:
  * @retval if sucess will be shader id
   */
 GLint
-GlProgram::compile(GLenum type, const char *shaderStr)
+GlProgramObject::compile(GLenum type, const char *shaderStr)
 {
   GLuint shader = 0;
   GLint compiled = 0;

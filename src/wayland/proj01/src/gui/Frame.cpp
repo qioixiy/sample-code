@@ -10,6 +10,9 @@
 Frame::Frame(int x, int y, int width, int height)
   : debug(0)
 {
+  // TODO: test NativeWindow with gles
+  return;
+
   abs_x = x;
   abs_y = y;
   this->width = width;

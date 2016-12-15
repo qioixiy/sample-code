@@ -67,7 +67,7 @@ int PainterDrawRect::Run()
   m_GLSLProgObj->Run();
 
   return 0;
-};
+}
 
 void PainterDrawRect::SetColor(int r, int g, int b)
 {
