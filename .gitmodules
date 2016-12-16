@@ -1,3 +1,7 @@
 [submodule "src/make/CommonMakefile"]
 	path = src/make/CommonMakefile
 	url = https://github.com/crylearner/CommonMakefile
+
+[submodule "src/emacs/fork.el"]
+	path = src/emacs/fork.el
+	url = https://github.com/lujun9972/fork.el.git
