@@ -1,0 +1,3 @@
+[submodule "src/make/CommonMakefile"]
+	path = src/make/CommonMakefile
+	url = https://github.com/crylearner/CommonMakefile
