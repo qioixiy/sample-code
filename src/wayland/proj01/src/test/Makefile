@@ -1,5 +1,6 @@
-#LOCAL_FILES += test_project1.cpp
-LOCAL_FILES += GlProgram.t.cpp
+LOCAL_FILES += test_project1.cpp
+#LOCAL_FILES += GlProgram.t.cpp
+
 LOCAL_BIN = test_project1
 
 LDFLAGS += \

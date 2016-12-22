@@ -29,19 +29,19 @@
  *                |
  *             child^1#s2
  */
-int Frame_init_layout(Frame* f, int w, int h)
+int Frame_init_layout(Frame &f, int w, int h)
 {
   // add child Widget
   Widget *child_wid = new Widget(w/4, h/4, w/2, h/2);
   child_wid->SetName("child");
   child_wid->bg_color = {128};
-  f->GetRootWidget()->AddChildWidget(child_wid);
+  f.GetRootWidget()->AddChildWidget(child_wid);
 
   // add child's sibling Widget
   Widget *child_sibling_wid = new Widget(w/8, h/8, w/4, h/4);
   child_sibling_wid->SetName("child_sibling");
   child_sibling_wid->bg_color = {0, 128};
-  f->GetRootWidget()->AddChildWidget(child_sibling_wid);
+  f.GetRootWidget()->AddChildWidget(child_sibling_wid);
 
   // add child's child Widget
   Widget *child_child_wid = new Widget(w/16, h/16, w/4, h/4);
@@ -56,7 +56,7 @@ int Frame_init_layout(Frame* f, int w, int h)
   child_sibling2_wid->SetImage("utils/png-test.png");
   child_wid->AddChildWidget(child_sibling2_wid);
 
-  f->GetRootWidget()->dump();
+  f.GetRootWidget()->dump();
 
   return 0;
 }
@@ -80,13 +80,13 @@ void gl_init()
 int main(int argc, char **argv)
 {
   int w = 480, h = 640;
-  App *app = new App();
-  Frame* win = new Frame(0, 0, w, h);
-  Frame_init_layout(win, w, h);
+  App app;
+  Frame f(0, 0, w, h);
+  Frame_init_layout(f, w, h);
 
   gl_init();
-  app->SetFrame(win);
-  app->Run();
+  app.SetFrame(win);
+  app.Run();
 
   return 0;
 }

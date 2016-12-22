@@ -1,7 +1,8 @@
 
 #include <stdio.h>
 #include <sys/time.h>
-#include <utils/log/log.h>
+#include <utils/log/Log.hpp>
+#include "util.h"
 
 int FPS()
 {
@@ -24,7 +25,7 @@ int FPS()
     totaltime += deltatime;
     frames++;
     if (totaltime > step) {
-        log_i("%4d frames rendered in %1.4f seconds -> FPS=%3.4f\n",
+        logi("%4d frames rendered in %1.4f seconds -> FPS=%3.4f\n",
               frames, totaltime, frames/totaltime);
         totaltime -= step;
         frames = 0;

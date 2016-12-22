@@ -21,6 +21,7 @@ GLint makeTexture(string file_path)
 
   return texture;
 }
+
 int main()
 {
   Frame frame;
