@@ -2,7 +2,7 @@
 #ifndef _WIDGET_HPP_
 #define _WIDGET_HPP_
 
-#include "Node.hpp"
+#include "utils/Node.hpp"
 #include "Common.hpp"
 #include "Painter.hpp"
 

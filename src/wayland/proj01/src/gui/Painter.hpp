@@ -2,43 +2,28 @@
 #define _PANITER_HPP_
 
 #include <string>
+#include <map>
 using namespace std;
 
-#include "gles/GLSLProgObjRGBA.hpp"
-#include "gles/GLSLProgObjDrawRect.hpp"
 #include "utils/png_load.h"
+#include "gles/GlProgramObject.hpp"
+#include "gles/GlProgramDescRgbaShow.hpp"
+#include "gles/GlProgramDescDrawRect.hpp"
+#include "gles/GlProgramDescDefault.hpp"
+
+#include "gles/GlProgram.hpp"
 
 class Painter {
-public :
-  Painter();
-  virtual ~Painter();
-
-  virtual int Run(void);
-
-protected:
-  GLSLProgObj *m_GLSLProgObj;
-};
-
-class PainterImagePng : public Painter {
-public:
-  PainterImagePng(string);
-  ~PainterImagePng();
-  virtual int Run(void);
-  int SetImageFilePath(string);
-
 private:
-  string file_path;
-  int load;
-};
+    Painter();
 
-class PainterDrawRect : public Painter {
 public:
-  PainterDrawRect(int r, int g, int b);
-  void SetColor(int r, int g, int b);
-  virtual int Run();
+    static Painter* Instance();
+    static void DrawRect(int r, int g, int b);
+    static void DrawPngFile(string filePath);
 
-private:
-  int r, g, b;
+public:
+    map<string, GlProgram*> mGlProgramMap;
 };
 
 #endif

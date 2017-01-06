@@ -1,4 +1,4 @@
-
+#include <unistd.h>
 #include "App.hpp"
 #include "utils/util.h"
 
@@ -16,6 +16,7 @@ int App::Run()
   f->DispatchEventRun(1);
   while(!f->NeedQuit()) {
     f->redraw();
+    //sleep(1);
     FPS();
   }
 }

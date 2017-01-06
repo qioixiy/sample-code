@@ -4,7 +4,6 @@ LOCAL_FILES += \
 	Painter.cpp \
 	WidgetGL.cpp \
 	Frame.cpp \
-	Node.cpp \
 	Widget.cpp \
 	WidgetImage.cpp \
 

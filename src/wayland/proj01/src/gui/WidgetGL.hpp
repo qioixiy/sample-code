@@ -2,6 +2,7 @@
 #ifndef _WIDGET_GL_HPP_
 #define _WIDGET_GL_HPP_
 
+#include <gles/Shader.hpp>
 #include "Widget.hpp"
 
 class FBO {

@@ -8,7 +8,7 @@
 
 class GlProgram {
 public:
-  GlProgram(string &vert, string &frag, GlProgramDesc *_desc) {
+  GlProgram(string vert, string frag, GlProgramDesc *_desc) {
     mpGlProgramObject = new GlProgramObject(vert, frag);
     mpGlProgramDesc = _desc;
   }
@@ -16,6 +16,9 @@ public:
     delete mpGlProgramObject;
   }
 
+  GlProgramDesc* GetDesc() {
+    return mpGlProgramDesc;
+  }
   void Use() {
     mpGlProgramObject->Use();
   }

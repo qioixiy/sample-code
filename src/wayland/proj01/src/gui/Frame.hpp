@@ -6,7 +6,7 @@
 #include <mutex>
 
 #include "Common.hpp"
-#include "Node.hpp"
+#include "utils/Node.hpp"
 #include "utils/threadsafe_queue.hpp"
 #include "NativeWindow.hpp"
 #include "Message/Event.hpp"

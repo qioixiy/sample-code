@@ -1,79 +1,70 @@
-
+#include <map>
 #include "Painter.hpp"
 
 #include "gles/draw.h"
 #include "gles/texture.h"
 #include "gles/shader.h"
 
-Painter::Painter()
-  : m_GLSLProgObj(NULL)
+GLint GetTextureIdFromFile(string filePath)
 {
-}
+  GLint tex = 0;
 
-Painter::~Painter()
-{
-  delete m_GLSLProgObj;
-}
-
-int Painter::Run(void)
-{
-  return 0;
-}
-
-PainterImagePng::PainterImagePng(string file)
-  :load(0)
-  , file_path(file)
-{
-  m_GLSLProgObj = new GLSLProgObjRGBA();
-}
-
-PainterImagePng::~PainterImagePng()
-{
-  ;
-}
-
-int PainterImagePng::SetImageFilePath(string file)
-{
-  if (file != file_path) {
-    file_path = file;
-    load = 0;
+  static map<string, GLint> mapTexId;
+  map<string, GLint>::iterator iter = mapTexId.begin();
+  for (; iter != mapTexId.end(); iter++) {
+    if (iter->first == filePath) {
+        tex = iter->second;
+        break;
+    }
   }
-}
 
-int PainterImagePng::Run()
-{
-  if (!load) {
-    load = 1;
+  if (iter == mapTexId.end()) {
     struct pngload_attribute png_attr;
-    load_png_image(file_path.c_str(), &png_attr);
-    (dynamic_cast<GLSLProgObjRGBA*>(m_GLSLProgObj))->texture =
-      gen_texture_from_data(
+    load_png_image(filePath.c_str(), &png_attr);
+    tex = gen_texture_from_data(
         png_attr.buf, png_attr.width, png_attr.height,
         png_color_type_GL(png_attr.color_type));
+
+    LogI << "load png file" << filePath << "texture" << tex;
+    mapTexId[filePath] = tex;
   }
 
-  m_GLSLProgObj->Run();
+  return tex;
 }
 
-// PainterDrawRect
-PainterDrawRect::PainterDrawRect(int r, int g, int b)
-  : r(r), g(g), b(b)
+Painter::Painter()
 {
-  m_GLSLProgObj = new GLSLProgObjDrawRect(r, g, b);
+  mGlProgramMap["drawrect"] = new GlProgram(
+      "src/gles/shaders/drawrect.vert",
+      "src/gles/shaders/drawrect.frag",
+      new GlProgramDescDrawRect);
+  mGlProgramMap["rgbashow"] = new GlProgram(
+      "src/gles/shaders/rgbashow.vert",
+      "src/gles/shaders/rgbashow.frag",
+      new GlProgramDescRgbaShow);
+  mGlProgramMap["default"] = new GlProgram(
+      "src/gles/shaders/default.vert",
+      "src/gles/shaders/default.frag",
+      new GlProgramDescDefault);
 }
 
-int PainterDrawRect::Run()
+Painter* Painter::Instance()
 {
-  m_GLSLProgObj->Run();
-
-  return 0;
+  static Painter sPainter;
+  return &sPainter;
 }
 
-void PainterDrawRect::SetColor(int r, int g, int b)
+void Painter::DrawRect(int r, int g, int b)
 {
-  this->r = r;
-  this->g = g;
-  this->b = b;
-  (dynamic_cast<GLSLProgObjDrawRect*>(m_GLSLProgObj))
-    ->SetColor(r, g, b);
+  GlProgram* tpGlProgram = Painter::Instance()->mGlProgramMap["drawrect"];
+  dynamic_cast<GlProgramDescDrawRect*>(tpGlProgram->GetDesc())->SetColor(r,g,b);
+  tpGlProgram->Process();
+}
+
+void Painter::DrawPngFile(string filePath)
+{
+  GlProgram* tpGlProgram = Painter::Instance()->mGlProgramMap["rgbashow"];
+  GLint texId = GetTextureIdFromFile(filePath);
+  dynamic_cast<GlProgramDescRgbaShow*>(tpGlProgram->GetDesc())->BindTexture(texId);
+  tpGlProgram->Process();
 }

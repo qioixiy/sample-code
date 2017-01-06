@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stack>
+#include "utils/log/Log.hpp"
 
 #include "Frame.hpp"
 #include "Widget.hpp"
@@ -149,7 +150,8 @@ point Frame::pointScreenToGlWindow(point p)
 int Frame::DispatchEvent()
 {
   Event* ev = PopEvent();
-  //printf("%x\n", ev);
+  LogD << ev;
+
   if (ev) {
     switch(ev->et) {
     case EVENT_TOUCH: {
@@ -222,7 +224,6 @@ int Frame::DispatchEvent()
 Frame* Frame::PushEvent(Event* e)
 {
   EventQueue.push(e);
-  //printf("+:%ld\n", EventQueue.size());
 
   return this;
 }
@@ -232,7 +233,6 @@ Event* Frame::PopEvent()
   Event* ret = NULL;
 
   EventQueue.wait_and_pop(ret);
-  //printf("-:%ld\n", EventQueue.size());
 
   return ret;
 }

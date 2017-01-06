@@ -6,23 +6,14 @@ WidgetImage::WidgetImage(int x, int y, int w, int h)
   ;
 }
 
-void WidgetImage::SetImage(string filePath)
+void WidgetImage::SetImage(string _filePath)
 {
-  this->filePath = filePath;
-  if (mpPainter) {
-    delete mpPainter;
-    mpPainter = NULL;
-  }
-  mpPainter = new PainterImagePng(filePath);
+  filePath = _filePath;
 }
 
 int WidgetImage::draw()
 {
-  if (filePath.empty()) {
-    return Widget::draw();
-  }
-
-  mpPainter ? mpPainter->Run() : 0;
+  Painter::DrawPngFile(filePath);
   return 0;
 }
 

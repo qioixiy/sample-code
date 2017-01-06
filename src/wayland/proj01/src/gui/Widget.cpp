@@ -18,7 +18,7 @@ Widget::Widget(int x, int y, int w, int h)
 
   show();
 
-  mpPainter = new PainterDrawRect(bg_color.r, bg_color.g, bg_color.b);
+  mpPainter = Painter::Instance();
 }
 
 int Widget::show()
@@ -34,8 +34,7 @@ int Widget::hide()
 
 int Widget::draw()
 {
-  mpPainter->Run();
-
+  mpPainter->DrawRect(bg_color.r, bg_color.g, bg_color.b);
   return 0;
 }
 
@@ -92,9 +91,9 @@ void Widget::reverseShowStatus()
 
 void Widget::SetBgColor(int r, int g, int b)
 {
-  PainterDrawRect* _PainterDrawRect =
-    dynamic_cast<PainterDrawRect*>(mpPainter);
-  _PainterDrawRect->SetColor(r, g, b);
+  bg_color.r = r;
+  bg_color.g = g;
+  bg_color.b = b;
 }
 
 // touch
