@@ -1,7 +1,7 @@
 #include <map>
 #include "Painter.hpp"
 
-#include "gles/texture.h"
+#include "gles/Texture.hpp"
 
 GLint GetTextureIdFromFile(string filePath)
 {
@@ -18,7 +18,7 @@ GLint GetTextureIdFromFile(string filePath)
 
   if (iter == mapTexId.end()) {
     pngObj tpngObj(filePath);
-    tex = gen_texture_from_data(
+    tex =  Texture::Gen(
       tpngObj.GetData(), tpngObj.GetWidth(), tpngObj.GetHeight(),
       tpngObj.GetColorType() == pngObj::COLOR_TYPE_RGB_ALPHA ? GL_RGBA : GL_RGB);
 

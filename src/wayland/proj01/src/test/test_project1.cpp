@@ -1,5 +1,4 @@
 #include "egl/egl.hpp"
-#include "gles/texture.h"
 #include "utils/util.h"
 #include "utils/log/log.h"
 #include "gui/ui.hpp"

@@ -5,6 +5,6 @@ LOCAL_FILES += \
 	GlProgramDescRgbaShow.cpp \
 	GlProgramDescDrawRect.cpp \
 	Shader.cpp \
-	texture.c \
+	Texture.cpp \
 
 LOCAL_LIB = libgles.a
