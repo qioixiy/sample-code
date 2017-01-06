@@ -1,7 +1,5 @@
-
-#include <cstdio>
 #include <queue>
-
+#include "log/Log.hpp"
 #include "Node.hpp"
 
 Node::Node()
@@ -166,7 +164,7 @@ void Node::dump()
       Node* n = q1->front(); q1->pop();
 
       // handle
-      printf("%s[%d] ", n->get_name().c_str(), n->get_sibling_depth());
+      LogE << n->get_name()<<"["<<n->get_sibling_depth()<<"]";
 
       // push
       Node* next_child = n->first_child();
@@ -175,7 +173,6 @@ void Node::dump()
         next_child = next_child->next();
       }
     }
-    printf("\n");
     queue<Node*> *temp = q1;
     q1 = q2;
     q2 = temp;
