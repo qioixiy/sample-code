@@ -1,6 +1,5 @@
+#include <utils/log/Log.hpp>
 #include "WidgetGL.hpp"
-#include <iostream>
-using namespace std;
 
 FBO::FBO(int w, int h)
   : texWidth(w)
@@ -18,19 +17,19 @@ bool FBO::checkFramebufferStatus()
   switch(status)
   {
   case GL_FRAMEBUFFER_COMPLETE:
-    //printf("Framebuffer complete.\n");
+    LogD << "Framebuffer complete";
     return true;
   case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
-    printf("Framebuffer incomplete: Attachment is NOT complete.\n");
+    LogI << "Framebuffer incomplete: Attachment is NOT complete";
     return false;
   case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
-    printf("Framebuffer incomplete: No image is attached to FBO.\n");
+    LogI << "Framebuffer incomplete: No image is attached to FBO";
     return false;
   case GL_FRAMEBUFFER_UNSUPPORTED:
-    printf("Framebuffer incomplete:Unsupported by FBO implementation.\n");
+    LogI << "Framebuffer incomplete:Unsupported by FBO implementation";
     return false;
   default:
-    printf("Framebuffer incomplete: Unknown error.\n");
+    LogE << "Framebuffer incomplete: Unknown error";
     return false;
   }
 }
@@ -108,7 +107,7 @@ int FBO::UseFBO ()
   if((maxRenderbufferSize <= texWidth) ||
      (maxRenderbufferSize <= texHeight))
   {
-    printf("cannot use framebuffer objects as we need to create\n");
+    LogE << "cannot use framebuffer objects as we need to create";
     return 0;
   }
 

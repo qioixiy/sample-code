@@ -1,9 +1,7 @@
 #include <map>
 #include "Painter.hpp"
 
-#include "gles/draw.h"
 #include "gles/texture.h"
-#include "gles/shader.h"
 
 GLint GetTextureIdFromFile(string filePath)
 {
@@ -19,11 +17,10 @@ GLint GetTextureIdFromFile(string filePath)
   }
 
   if (iter == mapTexId.end()) {
-    struct pngload_attribute png_attr;
-    load_png_image(filePath.c_str(), &png_attr);
+    pngObj tpngObj(filePath);
     tex = gen_texture_from_data(
-        png_attr.buf, png_attr.width, png_attr.height,
-        png_color_type_GL(png_attr.color_type));
+      tpngObj.GetData(), tpngObj.GetWidth(), tpngObj.GetHeight(),
+      tpngObj.GetColorType() == pngObj::COLOR_TYPE_RGB_ALPHA ? GL_RGBA : GL_RGB);
 
     LogI << "load png file" << filePath << "texture" << tex;
     mapTexId[filePath] = tex;

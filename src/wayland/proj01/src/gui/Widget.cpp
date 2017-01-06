@@ -44,7 +44,7 @@ int Widget::redraw()
     return -1;
   }
 
-  //printf("Widget redraw %s\n", this->get_name().c_str());
+  LogD << "Widget redraw" << get_name();
 
   int x,y,w,h;
   x = f->abs_x + abs_x;
@@ -100,21 +100,21 @@ void Widget::SetBgColor(int r, int g, int b)
 int Widget::touchDownHandler(int x, int y)
 {
   if (debug) {
-    printf("%d %d\n", x, y);
+    LogD << x << y;
   }
   return false;
 }
 int Widget::touchUpHandler(int x, int y)
 {
   if (debug) {
-    printf("%d %d\n", x, y);
+    LogD << x << y;
   }
   return false;
 }
 int Widget::touchMotionHandler(int x, int y)
 {
   if (debug) {
-    printf("%d %d\n", x, y);
+    LogD << x << y;
   }
   return false;
 }
@@ -122,21 +122,21 @@ int Widget::touchMotionHandler(int x, int y)
 int Widget::pointerMotionHandler(int x, int y)
 {
   if (debug) {
-    printf("%d %d\n", x, y);
+    LogD << x << y;
   }
   return false;
 }
 int Widget::pointerButtonHandler(int button, int state)
 {
   if (debug) {
-    printf("%d %d\n", button, state);
+    LogD << button << state;
   }
   return false;
 }
 int Widget::pointerAxisHandler(int axis, int value)
 {
   if (debug) {
-    printf("%d %d\n", axis, value);
+    LogD << axis << value;
   }
   return false;
 }

@@ -1,19 +1,6 @@
-
-#include <stdio.h>
-#include <stdlib.h>
-
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
-#include <wayland-egl.h>
-#include <wayland-client.h>
-
 #include "egl/egl.hpp"
-#include "gles/gles.h"
-#include "gles/shader.h"
 #include "gles/texture.h"
-#include "gles/draw.h"
 #include "utils/util.h"
-#include "utils/png_load.h"
 #include "utils/log/log.h"
 #include "gui/ui.hpp"
 #include "core/App.hpp"

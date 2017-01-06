@@ -7,7 +7,7 @@ all: pre _all
 
 pre:
 
-test: utils core egl gles gui cairo-priv wayland
+test: utils core egl gles gui wayland
 
 include scripts/Makefile
 

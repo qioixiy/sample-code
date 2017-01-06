@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <wayland-egl.h>
 #include <wayland-client.h>
-
+#include "gles/GlEnv.hpp"
+#include "utils/util.h"
+#include "utils/log/Log.hpp"
 #include "NativeWindow.hpp"
 #include "Frame.hpp"
-#include "gles/gles.h"
-#include "utils/util.h"
 
 NativeWindow::NativeWindow(int _width, int _height)
   : width(_width)
@@ -23,14 +23,14 @@ NativeWindow::NativeWindow(int _width, int _height)
     = (struct wl_egl_window*)wl_egl_window_create(
       wc->p_wl_surface, width, height);
   if (!p_wl_egl_window) {
-    printf("wl_egl_window_create error\n");
+    LogE << "wl_egl_window_create error";
     return;
   }
 
   egl = new EGLEnv((EGLNativeDisplayType)wc->p_wl_display,
                    (EGLNativeWindowType)p_wl_egl_window);
 
-  print_gles_env();
+  GlEnv::PrintEnv();
 }
 
 NativeWindow::~NativeWindow()
@@ -44,7 +44,7 @@ int NativeWindow::SwapBackBuffer()
 {
   int ret = eglSwapBuffers(egl->display, egl->surface);
   if (1 != ret) {
-    printf("eglSwapBuffers error\n");
+    LogE << "eglSwapBuffers error";
   }
 
   return ret;

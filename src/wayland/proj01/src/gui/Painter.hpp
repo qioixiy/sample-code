@@ -5,7 +5,7 @@
 #include <map>
 using namespace std;
 
-#include "utils/png_load.h"
+#include "utils/pngObj.hpp"
 #include "gles/GlProgramObject.hpp"
 #include "gles/GlProgramDescRgbaShow.hpp"
 #include "gles/GlProgramDescDrawRect.hpp"

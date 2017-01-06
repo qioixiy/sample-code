@@ -41,7 +41,7 @@ void Frame::init()
 void Frame::draw(Node *node)
 {
   if (!node) {
-    printf("node==null\n");
+    LogE << "node==null";
     return;
   }
 
@@ -160,11 +160,11 @@ int Frame::DispatchEvent()
         point p = pointScreenToGlWindow(point(tev->x, tev->y));
         Widget* wid = findWidgetWithxy(p);
         if (debug) {
-          printf("find [%d, %d] in %s[%d, %d, %d, %d]\n",
-                 p.x, p.y,
-                 wid->get_name().c_str(),
-                 wid->abs_x, wid->abs_y,
-                 wid->width, wid->height);
+          LogD << "find [" << p.x << p.y << "]"
+               << wid->get_name() << "["
+               << wid->abs_x << wid->abs_y
+               << wid->width << wid->height
+               << "]";
         }
         int x = p.x;
         int y = p.y;
@@ -173,7 +173,7 @@ int Frame::DispatchEvent()
         case 1: wid->touchUpHandler(x, y); break;
         case 2: wid->touchMotionHandler(x, y); break;
         default:
-          printf("unkown touch type\n");
+          LogE << "unkown touch type";
           break;
         }
       }
@@ -186,11 +186,11 @@ int Frame::DispatchEvent()
         Widget* wid = findWidgetWithxy(p);
 
         if (debug) {
-          printf("find [%d, %d] in %s[%d, %d, %d, %d]\n",
-                 p.x, p.y,
-                 wid->get_name().c_str(),
-                 wid->abs_x, wid->abs_y,
-                 wid->width, wid->height);
+          LogD << "find [" << p.x << p.y << "]"
+               << wid->get_name() << "["
+               << wid->abs_x << wid->abs_y
+               << wid->width << wid->height
+               << "]";
         }
         int v1 = pev->x;
         int v2 = pev->y;
@@ -207,7 +207,7 @@ int Frame::DispatchEvent()
             pev->pointer.axis, pev->pointer.value);
           break;
         default:
-          printf("unkown pointer type\n");
+          LogE << "unkown pointer type";
           break;
         }
       }

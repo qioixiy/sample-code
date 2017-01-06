@@ -1,4 +1,3 @@
-
 #include <math.h>
 #include <string.h>
 #include "Matrix.h"
@@ -35,7 +34,7 @@ void Rotate(Matrix *result, GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
 {
     GLfloat sinAngle, cosAngle;
     GLfloat mag = sqrtf(x * x + y * y + z * z);
-      
+
     sinAngle = sinf ( angle * PI / 180.0f );
     cosAngle = cosf ( angle * PI / 180.0f );
     if ( mag > 0.0f )
@@ -43,7 +42,7 @@ void Rotate(Matrix *result, GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
         GLfloat xx, yy, zz, xy, yz, zx, xs, ys, zs;
         GLfloat oneMinusCos;
         Matrix rotMat;
-   
+
         x /= mag;
         y /= mag;
         z /= mag;
@@ -62,7 +61,7 @@ void Rotate(Matrix *result, GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
         rotMat.m[0][0] = (oneMinusCos * xx) + cosAngle;
         rotMat.m[0][1] = (oneMinusCos * xy) - zs;
         rotMat.m[0][2] = (oneMinusCos * zx) + ys;
-        rotMat.m[0][3] = 0.0F; 
+        rotMat.m[0][3] = 0.0F;
 
         rotMat.m[1][0] = (oneMinusCos * xy) + zs;
         rotMat.m[1][1] = (oneMinusCos * yy) + cosAngle;
@@ -72,7 +71,7 @@ void Rotate(Matrix *result, GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
         rotMat.m[2][0] = (oneMinusCos * zx) - ys;
         rotMat.m[2][1] = (oneMinusCos * yz) + xs;
         rotMat.m[2][2] = (oneMinusCos * zz) + cosAngle;
-        rotMat.m[2][3] = 0.0F; 
+        rotMat.m[2][3] = 0.0F;
 
         rotMat.m[3][0] = 0.0F;
         rotMat.m[3][1] = 0.0F;
@@ -112,18 +111,18 @@ void Frustum(Matrix *result, float left, float right, float bottom, float top, f
 }
 
 
-void 
+void
 Perspective(Matrix *result, float fovy, float aspect, float nearZ, float farZ)
 {
     GLfloat frustumW, frustumH;
-   
+
     frustumH = tanf( fovy / 360.0f * PI ) * nearZ;
     frustumW = frustumH * aspect;
 
     Frustum( result, -frustumW, frustumW, -frustumH, frustumH, nearZ, farZ );
 }
 
-void 
+void
 Ortho(Matrix *result, float left, float right, float bottom, float top, float nearZ, float farZ)
 {
     float       deltaX = right - left;
@@ -150,28 +149,28 @@ void MatrixMultiply(Matrix *result, Matrix *srcA, Matrix *srcB)
     Matrix    tmp;
     int         i;
 
-	for (i=0; i<4; i++)
-	{
-		tmp.m[i][0] =	(srcA->m[i][0] * srcB->m[0][0]) +
+        for (i=0; i<4; i++)
+        {
+                tmp.m[i][0] =	(srcA->m[i][0] * srcB->m[0][0]) +
             (srcA->m[i][1] * srcB->m[1][0]) +
             (srcA->m[i][2] * srcB->m[2][0]) +
             (srcA->m[i][3] * srcB->m[3][0]) ;
 
-		tmp.m[i][1] =	(srcA->m[i][0] * srcB->m[0][1]) + 
+                tmp.m[i][1] =	(srcA->m[i][0] * srcB->m[0][1]) +
             (srcA->m[i][1] * srcB->m[1][1]) +
             (srcA->m[i][2] * srcB->m[2][1]) +
             (srcA->m[i][3] * srcB->m[3][1]) ;
 
-		tmp.m[i][2] =	(srcA->m[i][0] * srcB->m[0][2]) + 
+                tmp.m[i][2] =	(srcA->m[i][0] * srcB->m[0][2]) +
             (srcA->m[i][1] * srcB->m[1][2]) +
             (srcA->m[i][2] * srcB->m[2][2]) +
             (srcA->m[i][3] * srcB->m[3][2]) ;
 
-		tmp.m[i][3] =	(srcA->m[i][0] * srcB->m[0][3]) + 
+                tmp.m[i][3] =	(srcA->m[i][0] * srcB->m[0][3]) +
             (srcA->m[i][1] * srcB->m[1][3]) +
             (srcA->m[i][2] * srcB->m[2][3]) +
             (srcA->m[i][3] * srcB->m[3][3]) ;
-	}
+        }
     memcpy(result, &tmp, sizeof(Matrix));
 }
 
