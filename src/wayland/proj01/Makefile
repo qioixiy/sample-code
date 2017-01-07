@@ -1,14 +1,14 @@
-MODULES_DIR ?= src
-MODULES ?= $(shell ls $(MODULES_DIR))
-CFLAGS += -Isrc
-CXXFLAGS += -std=c++11
+# top makefile
 
-all: pre _all
+## TARGET_PRODUCT TARGET_PLATFORM should be come from cmdline
+## it's here, just for convenience
+TARGET_PRODUCT :=
+TARGET_PLATFORM :=
 
-pre:
+## strip writespace
+TARGET_PRODUCT := $(strip $(TARGET_PRODUCT))
+TARGET_PLATFORM:= $(strip $(TARGET_PLATFORM))
+TARGET_BUILD_TYPE:= $(strip $(TARGET_BUILD_TYPE))
 
-test: utils core egl gles gui wayland
-
-include scripts/Makefile
-
-.PHONY: pre
+BUILD_SYSTEM_PATH := build
+include $(BUILD_SYSTEM_PATH)/core/main.mk
