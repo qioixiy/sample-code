@@ -18,7 +18,7 @@ GLint GetTextureIdFromFile(string filePath)
 
   if (iter == mapTexId.end()) {
     pngObj tpngObj(filePath);
-    tex =  Texture::Gen(
+    tex = Texture::Gen(
       tpngObj.GetData(), tpngObj.GetWidth(), tpngObj.GetHeight(),
       tpngObj.GetColorType() == pngObj::COLOR_TYPE_RGB_ALPHA ? GL_RGBA : GL_RGB);
 

@@ -3,23 +3,22 @@
 #include "gles/GlProgramDescRgbaShow.hpp"
 #include "gles/GlProgramDescDrawRect.hpp"
 #include "gles/GlProgramDescDefault.hpp"
-
 #include "gles/GlProgram.hpp"
+#include "gles/Texture.hpp"
+#include "utils/pngObj.hpp"
 
-#include "gles/texture.h"
-#include "utils/png_load.h"
-
-GLint makeTexture(string file_path)
+GLint makeTexture(string filePath)
 {
-  struct pngload_attribute png_attr;
-  load_png_image(file_path.c_str(), &png_attr);
+  GLint tex = 0;
 
-  GLint texture =
-    gen_texture_from_data(
-      png_attr.buf, png_attr.width, png_attr.height,
-      png_color_type_GL(png_attr.color_type));
+  pngObj tpngObj(filePath);
+  tex = Texture::Gen(
+      tpngObj.GetData(), tpngObj.GetWidth(), tpngObj.GetHeight(),
+      tpngObj.GetColorType() == pngObj::COLOR_TYPE_RGB_ALPHA ? GL_RGBA : GL_RGB);
 
-  return texture;
+  LogI << "load png file" << filePath << "texture" << tex;
+
+  return tex;
 }
 
 int main()
