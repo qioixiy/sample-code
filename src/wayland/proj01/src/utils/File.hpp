@@ -7,11 +7,17 @@ using namespace std;
 
 class File {
 public:
-  File(string filePath);
-  string& GetStringData();
+    File(string filePath);
+    virtual ~File();
+
+    string& GetStringData();
+    char* GetBytes();
 
 private:
-  string strData;
+    string filePath;
+
+    string strData;
+    char *bytes;
 };
 
 #endif

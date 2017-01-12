@@ -7,7 +7,8 @@
 
 class Texture {
 public:
-  static GLuint Gen(unsigned char* , int, int, GLenum format);
+    static GLuint Gen(unsigned char* , int, int, GLenum format);
+    static void Delete(GLuint *);
 };
 
 #endif

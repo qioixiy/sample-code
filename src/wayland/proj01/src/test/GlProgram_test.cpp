@@ -3,8 +3,10 @@
 #include "gles/GlProgramDescRgbaShow.hpp"
 #include "gles/GlProgramDescDrawRect.hpp"
 #include "gles/GlProgramDescDefault.hpp"
+#include "gles/GlProgramDescNV12Show.hpp"
 #include "gles/GlProgram.hpp"
 #include "gles/Texture.hpp"
+#include "utils/File.hpp"
 #include "utils/pngObj.hpp"
 
 GLint makeTexture(string filePath)
@@ -40,12 +42,25 @@ int main()
   string frag("src/gles/shaders/rgbashow.frag");
 #endif
 
-#if 1
+#if 0
   GlProgramDescDrawRect tGlProgramDesc;
   tGlProgramDesc.SetColor(255, 128, 0);
   string vert("src/gles/shaders/drawrect.vert");
   string frag("src/gles/shaders/drawrect.frag");
 #endif
+
+#if 1
+  GlProgramDescNV12Show tGlProgramDesc;
+  File f("res/720x480.nv12.yuv");
+  unsigned char *bytes = (unsigned char*)f.GetBytes();
+  GLint textureY = Texture::Gen(bytes, 720, 480, GL_LUMINANCE);
+  GLint textureUV = Texture::Gen(bytes+720*480, 720/2, 480/2, GL_LUMINANCE_ALPHA);
+  tGlProgramDesc.BindTextureY(textureY);
+  tGlProgramDesc.BindTextureUV(textureUV);
+  string vert("src/gles/shaders/nv12show.vert");
+  string frag("src/gles/shaders/nv12show.frag");
+#endif
+
   GlProgram program(vert, frag, &tGlProgramDesc);
 
   while(1) {

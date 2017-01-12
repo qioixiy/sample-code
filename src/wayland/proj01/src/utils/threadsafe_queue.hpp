@@ -53,6 +53,6 @@ public:
 
 private:
   std::queue<T> data_queue;
-  mutable std::mutex mut; 
+  mutable std::mutex mut;
   std::condition_variable data_cond;
 };

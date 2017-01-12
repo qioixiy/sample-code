@@ -15,10 +15,10 @@ void main()
     float pixelx, pixely;
     float xcoord, ycoord;
     float pixel_width = 1.0 / texture_width;
-  
+
     pixelx = v_texCoord.x;
     pixely = v_texCoord.y;
-      
+
     xcoord = floor (pixelx * texture_width);
 
     luma_chroma = texture2D(s_texture_y, vec2(pixelx, pixely));

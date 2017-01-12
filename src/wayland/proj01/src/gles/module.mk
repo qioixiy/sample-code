@@ -16,6 +16,7 @@ SRC_FILES:=$(MODULE_PATH)/GlEnv.cpp \
 	$(MODULE_PATH)/GlProgramDescDefault.cpp \
 	$(MODULE_PATH)/GlProgramDescDrawRect.cpp \
 	$(MODULE_PATH)/GlProgramDescRgbaShow.cpp \
+	$(MODULE_PATH)/GlProgramDescNV12Show.cpp \
 	$(MODULE_PATH)/GlProgramObject.cpp \
 	$(MODULE_PATH)/Shader.cpp \
 	$(MODULE_PATH)/Texture.cpp \

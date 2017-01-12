@@ -23,3 +23,8 @@ GLuint Texture::Gen(unsigned char* data,
 
   return texId;
 }
+
+void Texture::Delete(GLuint *texture)
+{
+    glDeleteTextures(1, texture);
+}

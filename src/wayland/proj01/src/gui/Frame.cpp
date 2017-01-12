@@ -11,8 +11,8 @@
 Frame::Frame(int x, int y, int width, int height)
   : debug(0)
 {
-  // TODO: test NativeWindow with gles
-  // return;
+  // TODO: test NativeWindow with standlone gles
+   return;
 
   abs_x = x;
   abs_y = y;
