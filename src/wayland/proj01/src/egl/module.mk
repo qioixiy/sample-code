@@ -2,7 +2,7 @@
 
 MODULE_PATH:=$(call current_path)
 #TODO
-MODULE_NAME:=elg
+MODULE_NAME:=egl
 
 #TODO
 PRODUCT_SPECS:=

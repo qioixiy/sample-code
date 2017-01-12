@@ -87,7 +87,7 @@ GLint Shader::makeProgram(const char *vert, const char *frag)
     if (infoLen > 1) {
       char* infoLog = (char*)malloc(sizeof(char) * infoLen);
       glGetProgramInfoLog(programObject, infoLen, NULL, infoLog);
-      LogE << "Error linking program:%s", infoLog;
+      LogE << "Error linking program:" << infoLog;
       free(infoLog);
     }
 
@@ -131,7 +131,7 @@ GLint Shader::complier(GLenum type, const char *shaderSrc)
     if (infoLen > 1) {
       char* infoLog = (char*)malloc(sizeof(char) * infoLen);
       glGetShaderInfoLog ( shader, infoLen, NULL, infoLog );
-      LogE << "Error compiling shader: %s", infoLog;
+      LogE << "Error compiling shader:" << infoLog;
       free (infoLog);
     }
 

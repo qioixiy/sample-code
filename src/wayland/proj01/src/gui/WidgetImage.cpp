@@ -22,6 +22,8 @@ int WidgetImage::pointerButtonHandler(int button, int state)
   if (state) {
     reverseShowStatus();
   }
+
+  return 0;
 }
 
 // touch

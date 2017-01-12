@@ -19,9 +19,13 @@ int App::Run()
     //sleep(1);
     FPS();
   }
+
+  return 0;
 }
 
 int App::SetFrame(Frame* _f)
 {
   f = _f;
+
+  return 0;
 }

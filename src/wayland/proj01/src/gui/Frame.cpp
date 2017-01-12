@@ -119,7 +119,8 @@ Widget* Frame::findWidgetWithxy(int x, int y)
     // handle
     Widget *wid = dynamic_cast<Widget *>(n);
     rect r = wid->getScreenRect();
-    if (ret = r.inside(x, y)) {
+    ret = r.inside(x, y);
+    if (ret) {
       ret_wid = wid;
     }
     // push form the tail child node
@@ -249,10 +250,14 @@ void* DispatchEvent_thread(void* p)
   while(!f->NeedQuit()) {
     f->DispatchEvent();
   }
+
+  return NULL;
 }
 
 int Frame::DispatchEventRun(int flag)
 {
   pthread_t pid;
-  int p = pthread_create(&pid, NULL, DispatchEvent_thread, this);
+  pthread_create(&pid, NULL, DispatchEvent_thread, this);
+
+  return 0;
 }

@@ -15,6 +15,6 @@ CPPFLAGS+=-Isrc
 SRC_FILES:=$(MODULE_PATH)/File.cpp $(MODULE_PATH)/Node.cpp \
 	$(MODULE_PATH)/pngObj.cpp $(MODULE_PATH)/util.cpp \
 	$(MODULE_PATH)/log/Log.cpp \
-	$(MODULE_PATH)/file.c $(MODULE_PATH)/Matrix.c \
+	$(MODULE_PATH)/Matrix.c \
 
 $(call build_target,$(BUILD_STATIC_LIBRARY),$(MODULE_PATH)/utils.a)

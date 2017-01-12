@@ -151,10 +151,10 @@ static const struct wl_pointer_listener pointer_listener = {
   pointer_handle_button,
   pointer_handle_axis,
   /* newest wayland version have this listener*/
-  /* pointer_handle_Frame, */
-  /* pointer_handle_axis_source, */
-  /* pointer_handle_axis_stop, */
-  /* pointer_handle_axis_discrete, */
+  pointer_handle_Frame,
+  pointer_handle_axis_source,
+  pointer_handle_axis_stop,
+  pointer_handle_axis_discrete,
 };
 
 static void seat_handle_capabilities(void *data, struct wl_seat *seat,

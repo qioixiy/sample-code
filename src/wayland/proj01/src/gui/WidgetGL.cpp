@@ -148,6 +148,8 @@ int FBO::UseFBO ()
   glDeleteRenderbuffers(1, &depthRenderbuffer);
   glDeleteFramebuffers(1, &framebuffer);
   glDeleteTextures(1, &texture);
+
+  return 0;
 }
 
 WidgetGL::WidgetGL(int x, int y, int w, int h)
