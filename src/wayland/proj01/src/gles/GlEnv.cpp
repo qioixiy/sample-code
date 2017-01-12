@@ -1,6 +1,6 @@
 #include <GLES2/gl2.h>
+#include <utils/log/Log.hpp>
 #include "GlEnv.hpp"
-#include "utils/log/Log.hpp"
 
 void GlEnv::PrintEnv(void)
 {

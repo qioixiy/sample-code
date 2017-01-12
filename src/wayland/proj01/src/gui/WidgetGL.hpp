@@ -3,28 +3,8 @@
 #define _WIDGET_GL_HPP_
 
 #include <gles/Shader.hpp>
+#include <gles/FBO.hpp>
 #include "Widget.hpp"
-
-class FBO {
-public:
-  FBO(int=64, int=64);
-
-  void RenderToFBO();
-  void DrawScreenQuad();
-  bool checkFramebufferStatus();
-  bool FBOInit();
-  int UseFBO ();
-
-private:
-  GLuint texture;
-  GLint texWidth, texHeight;
-  GLuint framebuffer;
-  GLuint depthRenderbuffer;
-  GLint maxRenderbufferSize;
-
-  Shader *mpShader;
-  Shader *mpShaderFBO;
-};
 
 class WidgetGL : public Widget {
 public:
