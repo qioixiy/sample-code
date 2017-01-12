@@ -1,6 +1,5 @@
 #include "egl/egl.hpp"
-#include "utils/util.h"
-#include "utils/log/log.h"
+#include "utils/Misc.hpp"
 #include "gui/ui.hpp"
 #include "core/App.hpp"
 

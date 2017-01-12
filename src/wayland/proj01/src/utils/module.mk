@@ -13,7 +13,7 @@ TARGET_SPECS:=
 include $(BUILD_CONFIGURE)
 CPPFLAGS+=-Isrc
 SRC_FILES:=$(MODULE_PATH)/File.cpp $(MODULE_PATH)/Node.cpp \
-	$(MODULE_PATH)/pngObj.cpp $(MODULE_PATH)/util.cpp \
+	$(MODULE_PATH)/pngObj.cpp $(MODULE_PATH)/Misc.cpp \
 	$(MODULE_PATH)/log/Log.cpp \
 	$(MODULE_PATH)/Matrix.c \
 

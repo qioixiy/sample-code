@@ -2,7 +2,7 @@
 #include <wayland-egl.h>
 #include <wayland-client.h>
 #include "gles/GlEnv.hpp"
-#include "utils/util.h"
+#include "utils/Misc.hpp"
 #include "utils/log/Log.hpp"
 #include "NativeWindow.hpp"
 #include "Frame.hpp"
