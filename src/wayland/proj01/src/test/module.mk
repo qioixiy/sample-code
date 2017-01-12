@@ -33,3 +33,7 @@ $(call build_target,$(BUILD_EXECUTABLE))
 MODULE_NAME:=GlProgram_test
 SRC_FILES:=$(MODULE_PATH)/GlProgram_test.cpp
 $(call build_target,$(BUILD_EXECUTABLE))
+
+MODULE_NAME:=WidgetGL_test
+SRC_FILES:=$(MODULE_PATH)/WidgetGL_test.cpp
+$(call build_target,$(BUILD_EXECUTABLE))
