@@ -10,7 +10,7 @@ int Frame_init_layout(Frame* f)
 
   // WidgetGL
   WidgetGL *wid
-      = new WidgetGL(0, 0, f->width, f->height);
+      = new WidgetGL(0, 0, f->width/2, f->height/2);
   wid->SetName("WidgetGL");
   wid->show();
 

@@ -6,6 +6,7 @@ void GlEnv::PrintEnv(void)
 {
   GLint maxVertexAttribs, maxVertexUniforms, maxVaryings;
   GLint maxVertexTextureUnits, maxCombinedTextureUnits;
+  GLint maxRenderbufferSize;
 
 #define GetAndPrint(p1, p2)                     \
   do {                                          \
@@ -20,4 +21,5 @@ void GlEnv::PrintEnv(void)
               &maxVertexTextureUnits);
   GetAndPrint(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS,
               &maxCombinedTextureUnits);
+  GetAndPrint(GL_MAX_RENDERBUFFER_SIZE, &maxRenderbufferSize);
 }

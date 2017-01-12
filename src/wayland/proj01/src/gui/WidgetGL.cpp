@@ -9,7 +9,18 @@ FBO::FBO(int w, int h)
                         "src/gles/shaders/rgbashow.frag");
   mpShaderFBO = new Shader("src/gles/shaders/testfbo.vert",
                            "src/gles/shaders/testfbo.frag");
+
+  GLint maxRenderbufferSize;
+  glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE, &maxRenderbufferSize);
+  if((maxRenderbufferSize <= texWidth)
+     || (maxRenderbufferSize <= texHeight)) {
+      // cannot use framebuffer objects as we need to create
+      // a depth buffer as a renderbuffer object
+      // return with appropriate error
+      LogE << "maxRenderbufferSize <= w or h";
+  }
 }
+
 bool FBO::checkFramebufferStatus()
 {
   // check FBO status
@@ -36,7 +47,9 @@ bool FBO::checkFramebufferStatus()
 
 void FBO::RenderToFBO()
 {
-  glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+  // render to texture using FBO
+  // clear color and depth buffer
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   GLuint program_object = mpShaderFBO->GetObject();
@@ -99,9 +112,9 @@ void FBO::DrawScreenQuad()
 int FBO::UseFBO ()
 {
   GLint defaultFBO;
-	GLint defaultRBO;
-	glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
-	glGetIntegerv(GL_RENDERBUFFER_BINDING, &defaultRBO);
+  GLint defaultRBO;
+  glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
+  glGetIntegerv(GL_RENDERBUFFER_BINDING, &defaultRBO);
 
   glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE, &maxRenderbufferSize);
   if((maxRenderbufferSize <= texWidth) ||
@@ -111,17 +124,26 @@ int FBO::UseFBO ()
     return 0;
   }
 
-	// frame buffer object
+  // frame buffer object
   glGenFramebuffers(1, &framebuffer);
   glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 
   // render buffer object
   glGenRenderbuffers(1, &depthRenderbuffer);
+
+  // bind renderbuffer and create a 16-bit depth buffer
+  // width and height of renderbuffer = width and height of
+  // the texture
   glBindRenderbuffer(GL_RENDERBUFFER, depthRenderbuffer);
   glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16,
                         texWidth, texHeight);
 
+  // texture object name
   glGenTextures(1, &texture);
+  // bind texture and load the texture mip-level 0
+  // texels are RGB565
+  // no texels need to be specified as we are going to draw into
+  // the texture
   glBindTexture(GL_TEXTURE_2D, texture);
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth, texHeight,
                0, GL_RGB, GL_UNSIGNED_SHORT_5_6_5, NULL);
@@ -131,20 +153,27 @@ int FBO::UseFBO ()
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
   // combine all
+  // specify texture as color attachment
   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
                          GL_TEXTURE_2D, texture, 0);
+  // specify depth_renderbufer as depth attachment
   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
                             GL_RENDERBUFFER, depthRenderbuffer);
 
   if (checkFramebufferStatus()) {
     RenderToFBO();
 
+    // bind the framebuffer
     glBindFramebuffer(GL_FRAMEBUFFER, defaultFBO);
     glBindRenderbuffer(GL_RENDERBUFFER, defaultRBO);
+
+    // render to window system provided framebuffer
     //glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     DrawScreenQuad();
   }
+
+  // cleanup
   glDeleteRenderbuffers(1, &depthRenderbuffer);
   glDeleteFramebuffers(1, &framebuffer);
   glDeleteTextures(1, &texture);
