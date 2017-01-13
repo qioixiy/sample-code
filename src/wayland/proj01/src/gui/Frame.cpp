@@ -1,9 +1,7 @@
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include <stack>
 #include "utils/log/Log.hpp"
+#include "utils/Misc.hpp"
 
 #include "Frame.hpp"
 #include "Widget.hpp"
@@ -12,7 +10,7 @@ Frame::Frame(int x, int y, int width, int height)
   : debug(0)
 {
   // TODO: test NativeWindow with standlone gles
-   return;
+  // return;
 
   abs_x = x;
   abs_y = y;
@@ -75,6 +73,8 @@ void Frame::redraw()
   draw(rootWidget);
 
   GetNativeWindow()->SwapBackBuffer();
+
+  FPS();
 }
 
 int Frame::SetRootWidget(Widget* wid)

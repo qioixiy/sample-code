@@ -2,8 +2,12 @@
 #ifndef _WAYLAND_CLIENT_HPP_
 #define _WAYLAND_CLIENT_HPP_
 
+#include <list>
+#include <memory>
 #include <EGL/egl.h>
 #include <wayland-client.h>
+#include "utils/AbstractMsg.hpp"
+#include "utils/AbstractListener.hpp"
 #include "gui/Message/Event.hpp"
 
 class NativeWindow;
@@ -11,6 +15,8 @@ class WaylandClient {
 public:
     WaylandClient();
     virtual ~WaylandClient();
+
+    void AddEventlistener(std::shared_ptr<AbstractListener>);
     int raiseEvent(int);
 
 protected:
@@ -54,6 +60,8 @@ public:
     uint32_t pointer_state_w;
 
     NativeWindow *win;
+
+    std::list<std::shared_ptr<AbstractListener>> eventListeners;
 };
 
 #endif

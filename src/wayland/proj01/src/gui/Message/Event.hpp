@@ -1,12 +1,14 @@
 #ifndef _EVENT_HPP_
 #define _EVENT_HPP_
 
+#include "utils/AbstractMsg.hpp"
+
 enum EventType{
   EVENT_TOUCH,
   EVENT_POINTER,
 };
 
-class Event {
+class Event : public AbstractMsg {
 public:
   Event() {
     ;

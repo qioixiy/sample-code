@@ -25,7 +25,6 @@ GLint makeTexture(string filePath)
 
 int main()
 {
-  Frame frame;
   int width = 400, height = 400;
   NativeWindow window(width, height);
 

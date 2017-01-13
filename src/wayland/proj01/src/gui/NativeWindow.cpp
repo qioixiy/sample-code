@@ -1,11 +1,31 @@
-#include <stdio.h>
+#include <memory>
 #include <wayland-egl.h>
 #include <wayland-client.h>
 #include "gles/GlEnv.hpp"
 #include "utils/Misc.hpp"
 #include "utils/log/Log.hpp"
+#include "gui/Message/Event.hpp"
 #include "NativeWindow.hpp"
 #include "Frame.hpp"
+
+class EventListener : public AbstractListener {
+public:
+    EventListener(NativeWindow *_w)
+        : mNativeWindow(_w) {
+        ;
+    }
+    void Action(AbstractMsg& e) {
+        Event *event = dynamic_cast<Event*>(&e);
+        if (event) {
+            mNativeWindow->f->PushEvent(event);
+        } else {
+            LogI << "not a Event";
+        }
+    }
+
+private:
+    NativeWindow *mNativeWindow;
+};
 
 NativeWindow::NativeWindow(int _width, int _height)
   : width(_width)
@@ -16,6 +36,8 @@ NativeWindow::NativeWindow(int _width, int _height)
 {
   /* wayland init */
   wc = new WaylandClient();
+  wc->AddEventlistener(std::make_shared<EventListener>(this));
+
   wc->win = this;
 
   /* wayland egl init */

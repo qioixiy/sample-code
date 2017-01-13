@@ -384,11 +384,15 @@ int WaylandClient::raiseEvent(int type) {
       pointer.v1, pointer.v2, pointer_state_w);
   }
 
-  if (win->f) {
-    win->f->PushEvent(event);
-  } else {
-    LogE << "Frame NULL";
+  for (auto i : eventListeners) {
+      i->Action(*event);
   }
 
   return 0;
+}
+
+void
+WaylandClient::AddEventlistener(std::shared_ptr<AbstractListener> listener)
+{
+    eventListeners.push_back(listener);
 }
