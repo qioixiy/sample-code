@@ -38,12 +38,11 @@ NativeWindow::NativeWindow(int _width, int _height)
   wc = new WaylandClient();
   wc->AddEventlistener(std::make_shared<EventListener>(this));
 
-  wc->win = this;
-
   /* wayland egl init */
   struct wl_egl_window* p_wl_egl_window
     = (struct wl_egl_window*)wl_egl_window_create(
       wc->p_wl_surface, width, height);
+
   if (!p_wl_egl_window) {
     LogE << "wl_egl_window_create error";
     return;

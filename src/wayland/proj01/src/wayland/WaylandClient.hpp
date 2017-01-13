@@ -59,8 +59,6 @@ public:
     }pointer;
     uint32_t pointer_state_w;
 
-    NativeWindow *win;
-
     std::list<std::shared_ptr<AbstractListener>> eventListeners;
 };
 
