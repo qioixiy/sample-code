@@ -38,6 +38,10 @@ TAGS
 GTAGS
 GRTAGS
 GPATH
+*.a
+*.so
+*.lib
+*.dll
 *.o
 *.obj
 *.pdb
