@@ -342,3 +342,6 @@ git grep "delete from"                                    # 文件中搜索文�
 git grep -e '#define' --and -e SORT_DIRENT
 git gc
 git fsck
+
+# git branching-model
+    [a-successful-git-branching-model](http://nvie.com/posts/a-successful-git-branching-model/)
