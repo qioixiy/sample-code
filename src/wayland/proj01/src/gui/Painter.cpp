@@ -34,15 +34,15 @@ Painter::Painter()
   mGlProgramMap["drawrect"] = new GlProgram(
       "src/gles/shaders/drawrect.vert",
       "src/gles/shaders/drawrect.frag",
-      new GlProgramDescDrawRect);
+      std::make_shared<GlProgramDescDrawRect>());
   mGlProgramMap["rgbashow"] = new GlProgram(
       "src/gles/shaders/rgbashow.vert",
       "src/gles/shaders/rgbashow.frag",
-      new GlProgramDescRgbaShow);
+      std::make_shared<GlProgramDescRgbaShow>());
   mGlProgramMap["default"] = new GlProgram(
       "src/gles/shaders/default.vert",
       "src/gles/shaders/default.frag",
-      new GlProgramDescDefault);
+      std::make_shared<GlProgramDescDefault>());
 }
 
 Painter* Painter::Instance()
