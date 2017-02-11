@@ -4,28 +4,28 @@
 
 GlProgramObject::GlProgramObject(string &vert, string &frag)
 {
-  MakeProgramFromFile(vert, frag);
+    MakeProgramFromFile(vert, frag);
 }
 
 void
 GlProgramObject::Use()
 {
-  ;
+    ;
 }
 
 GLint
 GlProgramObject::Object()
 {
-  return glProgramObject;
+    return glProgramObject;
 }
 
 int
 GlProgramObject::MakeProgramFromFile(string &vert, string &frag)
 {
-  string vertData = File(vert).GetStringData();
-  string fragData = File(frag).GetStringData();
+    string vertData = File(vert).GetStringData();
+    string fragData = File(frag).GetStringData();
 
-  return MakeProgramFromString(vertData, fragData);
+    return MakeProgramFromString(vertData, fragData);
 }
 
 /**
@@ -34,70 +34,75 @@ GlProgramObject::MakeProgramFromFile(string &vert, string &frag)
 int
 GlProgramObject::MakeProgramFromString(string &vert, string &frag)
 {
-  GLuint vertexShader;
-  GLuint fragmentShader;
-  GLuint programObject;
-  GLint linked;
+    GLuint vertexShader;
+    GLuint fragmentShader;
+    GLuint programObject;
+    GLint linked;
 
-  // Load the vertex and fragment shaders
-  vertexShader = compile(GL_VERTEX_SHADER, vert.c_str());
-  if (0 >= vertexShader) {
-    goto Err_Vert;
-  }
-  fragmentShader = compile(GL_FRAGMENT_SHADER, frag.c_str());
-  if (0 >= fragmentShader) {
-    goto Err_Frag;
-  }
-
-  // Create the program object
-  programObject = glCreateProgram();
-
-  if (programObject == 0) {
-    goto Err_glCreateProgram;
-  }
-  glAttachShader(programObject, vertexShader);
-  glAttachShader(programObject, fragmentShader);
-
-  // Link the program
-  glLinkProgram(programObject);
-  // Check the link status
-  glGetProgramiv(programObject, GL_LINK_STATUS, &linked);
-
-  if (!linked) {
-
-    GLint infoLen = 0;
-    glGetProgramiv(programObject, GL_INFO_LOG_LENGTH, &infoLen);
-    if (infoLen > 1) {
-      char* infoLog = (char*)malloc(sizeof(char) * infoLen);
-      glGetProgramInfoLog(programObject, infoLen, NULL, infoLog);
-      LogE << "glLinkProgram Error:%s" << infoLog;
-      free(infoLog);
+    // Load the vertex and fragment shaders
+    vertexShader = compile(GL_VERTEX_SHADER, vert.c_str());
+    if (0 >= vertexShader)
+    {
+        goto Err_Vert;
+    }
+    fragmentShader = compile(GL_FRAGMENT_SHADER, frag.c_str());
+    if (0 >= fragmentShader)
+    {
+        goto Err_Frag;
     }
 
-    goto Err_glLinkProgram;
-  }
+    // Create the program object
+    programObject = glCreateProgram();
 
-  glProgramObject = programObject;
-  // Free up no longer needed shader resources
-  glDeleteShader(vertexShader);
-  glDeleteShader(fragmentShader);
+    if (programObject == 0)
+    {
+        goto Err_glCreateProgram;
+    }
+    glAttachShader(programObject, vertexShader);
+    glAttachShader(programObject, fragmentShader);
 
-  return 0;
+    // Link the program
+    glLinkProgram(programObject);
+    // Check the link status
+    glGetProgramiv(programObject, GL_LINK_STATUS, &linked);
+
+    if (!linked)
+    {
+
+        GLint infoLen = 0;
+        glGetProgramiv(programObject, GL_INFO_LOG_LENGTH, &infoLen);
+        if (infoLen > 1)
+        {
+            char *infoLog = (char *)malloc(sizeof(char) * infoLen);
+            glGetProgramInfoLog(programObject, infoLen, NULL, infoLog);
+            LogE << "glLinkProgram Error:%s" << infoLog;
+            free(infoLog);
+        }
+
+        goto Err_glLinkProgram;
+    }
+
+    glProgramObject = programObject;
+    // Free up no longer needed shader resources
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+
+    return 0;
 
 Err_glLinkProgram:
-  glDeleteProgram(programObject);
+    glDeleteProgram(programObject);
 
 Err_glCreateProgram:
-  LogE << "glCreateProgram error";
-  glDeleteShader(vertexShader);
+    LogE << "glCreateProgram error";
+    glDeleteShader(vertexShader);
 
 Err_Frag:
-  LogE << "compile fragment shader error";
-  glDeleteShader(vertexShader);
+    LogE << "compile fragment shader error";
+    glDeleteShader(vertexShader);
 
 Err_Vert:
-  LogE << "compile vertex shader error";
-  return -1;
+    LogE << "compile vertex shader error";
+    return -1;
 }
 
 /**
@@ -109,39 +114,43 @@ Err_Vert:
 GLint
 GlProgramObject::compile(GLenum type, const char *shaderStr)
 {
-  GLuint shader = 0;
-  GLint compiled = 0;
+    GLuint shader = 0;
+    GLint compiled = 0;
 
-  // Create the shader object
-  shader = glCreateShader(type);
+    // Create the shader object
+    shader = glCreateShader(type);
 
-  if (0 == shader)///< create failed
-    return -1;
-
-  // Load the shader source
-  glShaderSource(shader, 1, &shaderStr, NULL);
-
-  // Compile the shader
-  glCompileShader(shader);
-
-  // Check the compile status
-  glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
-
-  if (!compiled) {///< if have compile error
-    GLint infoLen = 0;
-
-    glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
-
-    if (infoLen > 1) {
-      char* infoLog = (char*)malloc(sizeof(char) * infoLen);
-      glGetShaderInfoLog(shader, infoLen, NULL, infoLog);
-      LogE << "glCompileShader Error:" << infoLog;
-      free(infoLog);
+    if (0 == shader)///< create failed
+    {
+        return -1;
     }
 
-    glDeleteShader(shader);
-    return -2;///< compile error
-  }
+    // Load the shader source
+    glShaderSource(shader, 1, &shaderStr, NULL);
 
-  return shader;
+    // Compile the shader
+    glCompileShader(shader);
+
+    // Check the compile status
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
+
+    if (!compiled)  ///< if have compile error
+    {
+        GLint infoLen = 0;
+
+        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
+
+        if (infoLen > 1)
+        {
+            char *infoLog = (char *)malloc(sizeof(char) * infoLen);
+            glGetShaderInfoLog(shader, infoLen, NULL, infoLog);
+            LogE << "glCompileShader Error:" << infoLog;
+            free(infoLog);
+        }
+
+        glDeleteShader(shader);
+        return -2;///< compile error
+    }
+
+    return shader;
 }

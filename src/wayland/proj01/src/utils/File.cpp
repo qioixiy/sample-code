@@ -14,36 +14,41 @@ File::File(string filePath)
 
 File::~File()
 {
-    if (bytes) {
+    if (bytes)
+    {
         delete bytes;
     }
 }
 
-string&
+string &
 File::GetStringData()
 {
-  if (strData.empty()) {
-    ifstream in(filePath);
-    if (! in.is_open()) {
-        LogE << "open file" << filePath << "error";
+    if (strData.empty())
+    {
+        ifstream in(filePath);
+        if (! in.is_open())
+        {
+            LogE << "open file" << filePath << "error";
+        }
+
+        char ch;
+        stringstream ss;
+        while (!in.eof())
+        {
+            in.get(ch);
+            ss << ch;
+        }
+        strData = ss.str();
     }
 
-    char ch;
-    stringstream ss;
-    while (!in.eof()) {
-        in.get(ch);
-        ss << ch;
-    }
-    strData = ss.str();
-  }
-
-  return strData;
+    return strData;
 }
 
-char*
+char *
 File::GetBytes()
 {
-    if (!bytes) {
+    if (!bytes)
+    {
         ifstream in(filePath, ios::binary);
         streampos pos = in.tellg(); // save current position
         in.seekg(0, ios::end);

@@ -13,17 +13,18 @@ using namespace std;
 
 #include "gles/GlProgram.hpp"
 
-class Painter {
+class Painter
+{
 private:
     Painter();
 
 public:
-    static Painter* Instance();
+    static Painter *Instance();
     static void DrawRect(int r, int g, int b);
     static void DrawPngFile(string filePath);
 
 public:
-    map<string, GlProgram*> mGlProgramMap;
+    map<string, GlProgram *> mGlProgramMap;
 };
 
 #endif

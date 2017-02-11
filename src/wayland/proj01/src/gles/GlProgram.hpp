@@ -6,23 +6,29 @@
 #include "gles/GlProgramObject.hpp"
 #include "gles/GlProgramDesc.hpp"
 
-class GlProgram {
+class GlProgram
+{
 public:
-    GlProgram(string vert, string frag, std::shared_ptr<GlProgramDesc>_desc) {
+    GlProgram(string vert, string frag, std::shared_ptr<GlProgramDesc>_desc)
+    {
         mpGlProgramObject = std::make_shared<GlProgramObject>(vert, frag);
         mpGlProgramDesc = _desc;
     }
-    ~GlProgram() {
+    ~GlProgram()
+    {
         ;
     }
 
-    GlProgramDesc* GetDesc() {
+    GlProgramDesc *GetDesc()
+    {
         return mpGlProgramDesc.get();
     }
-    void Use() {
+    void Use()
+    {
         mpGlProgramObject->Use();
     }
-    void Process() {
+    void Process()
+    {
         mpGlProgramDesc->Process(mpGlProgramObject.get());
     }
 

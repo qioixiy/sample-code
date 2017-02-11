@@ -5,9 +5,10 @@
 #include <GLES2/gl2.h>
 #include "Shader.hpp"
 
-class FBO {
+class FBO
+{
 public:
-    FBO(int=64, int=64);
+    FBO(int = 64, int = 64);
 
     void RenderToFBO();
     void DrawScreenQuad();

@@ -6,14 +6,15 @@
 #include <gles/FBO.hpp>
 #include "Widget.hpp"
 
-class WidgetGL : public Widget {
+class WidgetGL : public Widget
+{
 public:
-  WidgetGL(int x, int y, int w, int h);
+    WidgetGL(int x, int y, int w, int h);
 
-  virtual int draw();
+    virtual int draw();
 
 private:
-  FBO mFBO;
+    FBO mFBO;
 };
 
 #endif

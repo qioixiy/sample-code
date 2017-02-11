@@ -18,8 +18,8 @@ GLint makeTexture(string filePath)
 
     pngObj tpngObj(filePath);
     tex = Texture::Gen(
-        tpngObj.GetData(), tpngObj.GetWidth(), tpngObj.GetHeight(),
-        tpngObj.GetColorType() == pngObj::COLOR_TYPE_RGB_ALPHA ? GL_RGBA : GL_RGB);
+              tpngObj.GetData(), tpngObj.GetWidth(), tpngObj.GetHeight(),
+              tpngObj.GetColorType() == pngObj::COLOR_TYPE_RGB_ALPHA ? GL_RGBA : GL_RGB);
 
     LogI << "load png file" << filePath << "texture" << tex;
 
@@ -58,9 +58,9 @@ std::shared_ptr<GlProgram> add_testcase_drawrect()
 std::shared_ptr<GlProgram> add_testcase_NV12()
 {
     File f("res/720x480.nv12.yuv");
-    unsigned char *bytes = (unsigned char*)f.GetBytes();
+    unsigned char *bytes = (unsigned char *)f.GetBytes();
     GLint textureY = Texture::Gen(bytes, 720, 480, GL_LUMINANCE);
-    GLint textureUV = Texture::Gen(bytes+720*480, 720/2, 480/2, GL_LUMINANCE_ALPHA);
+    GLint textureUV = Texture::Gen(bytes + 720 * 480, 720 / 2, 480 / 2, GL_LUMINANCE_ALPHA);
     auto tGlProgramDesc = std::make_shared<GlProgramDescNV12Show>();
     tGlProgramDesc->BindTextureY(textureY);
     tGlProgramDesc->BindTextureUV(textureUV);
@@ -82,8 +82,10 @@ int main()
     vec.push_back(add_testcase_drawrect());
     vec.push_back(add_testcase_NV12());
 
-    while(1) {
-        for(auto program : vec) {
+    while (1)
+    {
+        for (auto program : vec)
+        {
             program->Process();
             window.SwapBackBuffer();
             sleep(1);

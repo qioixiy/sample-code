@@ -3,12 +3,13 @@
 
 #include "AbstractMsg.hpp"
 
-class AbstractListener {
+class AbstractListener
+{
 public:
     AbstractListener() {}
     virtual ~AbstractListener() {}
 
-    virtual void Action(AbstractMsg&) = 0;
+    virtual void Action(AbstractMsg &) = 0;
 };
 
 #endif

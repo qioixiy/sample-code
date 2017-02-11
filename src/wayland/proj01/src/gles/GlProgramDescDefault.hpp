@@ -6,9 +6,10 @@
 
 #include "GlProgramDesc.hpp"
 
-class GlProgramDescDefault: public GlProgramDesc {
+class GlProgramDescDefault: public GlProgramDesc
+{
 public:
-  virtual void Process(GlProgramObject *program);
+    virtual void Process(GlProgramObject *program);
 };
 
 #endif

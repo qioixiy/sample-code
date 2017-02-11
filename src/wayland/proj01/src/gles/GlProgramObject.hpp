@@ -7,22 +7,23 @@
 
 using namespace std;
 
-class GlProgramObject {
+class GlProgramObject
+{
 public:
-  GlProgramObject(string &vert, string &frag);
+    GlProgramObject(string &vert, string &frag);
 
-  void Use();
-  GLint Object();
-
-private:
-  int MakeProgramFromFile(string &vert, string &frag);
-  int MakeProgramFromString(string &vert, string &frag);
+    void Use();
+    GLint Object();
 
 private:
-  GLint compile(GLenum type, const char *shaderStr);
+    int MakeProgramFromFile(string &vert, string &frag);
+    int MakeProgramFromString(string &vert, string &frag);
 
 private:
-  GLint glProgramObject;
+    GLint compile(GLenum type, const char *shaderStr);
+
+private:
+    GLint glProgramObject;
 };
 
 #endif

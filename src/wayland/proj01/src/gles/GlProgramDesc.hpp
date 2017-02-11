@@ -5,11 +5,13 @@
 
 class GlProgramObject;
 
-class GlProgramDesc {
+class GlProgramDesc
+{
 public:
-  virtual void Process(GlProgramObject *program) {
-    LogD << "GlProgramDesc::Process done";
-  }
+    virtual void Process(GlProgramObject *program)
+    {
+        LogD << "GlProgramDesc::Process done";
+    }
 };
 
 #endif

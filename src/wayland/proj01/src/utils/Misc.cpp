@@ -13,7 +13,8 @@ int FPS()
     static float totaltime = 0.0f;
     static unsigned int frames = 0;
     static int first_flag = 0;
-    if (first_flag == 0) {
+    if (first_flag == 0)
+    {
         first_flag = 1;
         gettimeofday (&t1 , &tz);
     }
@@ -24,9 +25,10 @@ int FPS()
 
     totaltime += deltatime;
     frames++;
-    if (totaltime > step) {
+    if (totaltime > step)
+    {
         logi("%4d frames rendered in %1.4f seconds -> FPS=%3.4f\n",
-              frames, totaltime, frames/totaltime);
+             frames, totaltime, frames / totaltime);
         totaltime -= step;
         frames = 0;
     }

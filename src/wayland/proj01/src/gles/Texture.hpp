@@ -5,9 +5,10 @@
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 
-class Texture {
+class Texture
+{
 public:
-    static GLuint Gen(unsigned char* , int, int, GLenum format);
+    static GLuint Gen(unsigned char *, int, int, GLenum format);
     static void Delete(GLuint *);
 };
 

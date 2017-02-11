@@ -6,13 +6,14 @@
 
 #include "GlProgramDesc.hpp"
 
-class GlProgramDescDrawRect: public GlProgramDesc {
+class GlProgramDescDrawRect: public GlProgramDesc
+{
 public:
-  virtual void Process(GlProgramObject *program);
-  void SetColor(int r, int g, int b);
+    virtual void Process(GlProgramObject *program);
+    void SetColor(int r, int g, int b);
 
 private:
-  int r, g, b;
+    int r, g, b;
 };
 
 #endif

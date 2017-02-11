@@ -6,12 +6,13 @@
 
 #include "GlProgramDesc.hpp"
 
-class GlProgramDescNV12Show: public GlProgramDesc {
+class GlProgramDescNV12Show: public GlProgramDesc
+{
 public:
-  virtual void Process(GlProgramObject *program);
+    virtual void Process(GlProgramObject *program);
 
-  void BindTextureY(GLint textureId);
-  void BindTextureUV(GLint textureId);
+    void BindTextureY(GLint textureId);
+    void BindTextureUV(GLint textureId);
 
 private:
     GLuint textureY;

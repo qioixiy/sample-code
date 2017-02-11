@@ -6,14 +6,15 @@
 
 #include "GlProgramDesc.hpp"
 
-class GlProgramDescRgbaShow: public GlProgramDesc {
+class GlProgramDescRgbaShow: public GlProgramDesc
+{
 public:
-  virtual void Process(GlProgramObject *program);
+    virtual void Process(GlProgramObject *program);
 
-  void BindTexture(GLint textureId);
+    void BindTexture(GLint textureId);
 
 private:
-  GLuint texture;
+    GLuint texture;
 };
 
 #endif

@@ -5,13 +5,14 @@
 
 using namespace std;
 
-class File {
+class File
+{
 public:
     File(string filePath);
     virtual ~File();
 
-    string& GetStringData();
-    char* GetBytes();
+    string &GetStringData();
+    char *GetBytes();
 
 private:
     string filePath;

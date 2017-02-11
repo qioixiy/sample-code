@@ -30,116 +30,134 @@ bool LoggerStream::useLogCat = true;
 std::string LoggerStream::TAG = "";
 
 LoggerStream::LoggerStream()
-  : stream(new Stream()) {}
+    : stream(new Stream()) {}
 
 LoggerStream::LoggerStream(std::string *s)
-  : stream(new Stream(s)) {}
+    : stream(new Stream(s)) {}
 
 LoggerStream::~LoggerStream()
 {
-  std::ostringstream sstimestamp;
-  mkTimeSpec0(sstimestamp);
+    std::ostringstream sstimestamp;
+    mkTimeSpec0(sstimestamp);
 
-  toConsole(stream->loggerType, stream->context,
-            stream->ss.str(), sstimestamp);
+    toConsole(stream->loggerType, stream->context,
+              stream->ss.str(), sstimestamp);
 #ifdef USE_LOG_CAT
-  if (useLogCat) {
-    toLogCat(stream->loggerType, stream->context,
-             stream->ss.str(), sstimestamp);
-  }
+    if (useLogCat)
+    {
+        toLogCat(stream->loggerType, stream->context,
+                 stream->ss.str(), sstimestamp);
+    }
 #endif
-  delete stream;
+    delete stream;
 }
 
 void
-LoggerStream::mkTag(std::ostringstream& ss)
+LoggerStream::mkTag(std::ostringstream &ss)
 {
-  ss << TAG;
+    ss << TAG;
 }
 
 void
-LoggerStream::mkTimeSpec0(std::ostringstream& ss)
+LoggerStream::mkTimeSpec0(std::ostringstream &ss)
 {
-  char buf[40]="";
+    char buf[40] = "";
 #define USEC_TO_SEC(usec) (usec/1000000.0)
-  struct timeval current;
-  double time;
-  gettimeofday(&current, NULL);
-  time = current.tv_sec + USEC_TO_SEC(current.tv_usec);
-  sprintf(buf, "[%lf]", time);
-  ss << buf;
+    struct timeval current;
+    double time;
+    gettimeofday(&current, NULL);
+    time = current.tv_sec + USEC_TO_SEC(current.tv_usec);
+    sprintf(buf, "[%lf]", time);
+    ss << buf;
 }
 void
-LoggerStream::mkTimeSpec1(std::ostringstream& ss)
+LoggerStream::mkTimeSpec1(std::ostringstream &ss)
 {
 #define MST (-7)
 #define UTC (0)
 #define CCT (+8)
-  struct timeval tv;
-  gettimeofday(&tv, NULL);
-  struct tm * ptm = gmtime(&tv.tv_sec);
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    struct tm *ptm = gmtime(&tv.tv_sec);
 
-  ss << '[';
-  ss << 1900+ptm->tm_year << '-'
-     << std::setw(2) << std::setfill('0') << 1+ptm->tm_mon << '-'
-     << std::setw(2) << std::setfill('0') << ptm->tm_mday << ' ' ;
-  ss << std::setw(2) << std::setfill('0') << (ptm->tm_hour+CCT)%24 << ':'
-     << std::setw(2) << std::setfill('0') << ptm->tm_min << ':'
-     << std::setw(2) << std::setfill('0') << ptm->tm_sec << ':'
-     << std::setw(6) << std::setfill('0') << tv.tv_usec << std::setw(0);
-  ss << ']';
+    ss << '[';
+    ss << 1900 + ptm->tm_year << '-'
+       << std::setw(2) << std::setfill('0') << 1 + ptm->tm_mon << '-'
+       << std::setw(2) << std::setfill('0') << ptm->tm_mday << ' ' ;
+    ss << std::setw(2) << std::setfill('0') << (ptm->tm_hour + CCT) % 24 << ':'
+       << std::setw(2) << std::setfill('0') << ptm->tm_min << ':'
+       << std::setw(2) << std::setfill('0') << ptm->tm_sec << ':'
+       << std::setw(6) << std::setfill('0') << tv.tv_usec << std::setw(0);
+    ss << ']';
 }
 
-const char*
+const char *
 LoggerStream::mkType(LoggerType type,
                      const LoggerContext &context,
-                     std::ostringstream& ss)
+                     std::ostringstream &ss)
 {
-  const char* ret = "";
-  ss << "[";
-  switch (type) {
-  default:
-  case E_Debug: ss << "D"; break;
-  case E_Info: ss << "I"; ret = _ANSI_BLUE; break;
-  case E_Warning: ss << "W"; ret = _ANSI_BROWN; break;
-  case E_Critical:ss << "C"; ret = _ANSI_HIGHBRIGHTNESS_RED; break;
-  case E_Error: ss << "E"; ret = _ANSI_RED; break;
-  }
-  ss << "]";
+    const char *ret = "";
+    ss << "[";
+    switch (type)
+    {
+    default:
+    case E_Debug:
+        ss << "D";
+        break;
+    case E_Info:
+        ss << "I";
+        ret = _ANSI_BLUE;
+        break;
+    case E_Warning:
+        ss << "W";
+        ret = _ANSI_BROWN;
+        break;
+    case E_Critical:
+        ss << "C";
+        ret = _ANSI_HIGHBRIGHTNESS_RED;
+        break;
+    case E_Error:
+        ss << "E";
+        ret = _ANSI_RED;
+        break;
+    }
+    ss << "]";
 
-  return ret;
+    return ret;
 }
 
 class map_finder
 {
 public:
-  map_finder(const char* _s):str(_s){}
-  bool operator ()(const std::map<const char*, int>::value_type &pair){
-    return pair.first == str;
-  }
+    map_finder(const char *_s): str(_s) {}
+    bool operator ()(const std::map<const char *, int>::value_type &pair)
+    {
+        return pair.first == str;
+    }
 private:
-  const char* str;
+    const char *str;
 };
-static const char* skipFilePathDir(const char* s)
+static const char *skipFilePathDir(const char *s)
 {
-  std::map<const char*, int> mapFiles;
-  const std::map<const char*, int>::iterator iter
-    = std::find_if(mapFiles.begin(), mapFiles.end(), map_finder(s));
-  if (iter == mapFiles.end()) {
-    mapFiles[s] = 1+std::string(s).rfind('/');
-    return s+mapFiles[s];
-  }
-  return &s[iter->second];
+    std::map<const char *, int> mapFiles;
+    const std::map<const char *, int>::iterator iter
+        = std::find_if(mapFiles.begin(), mapFiles.end(), map_finder(s));
+    if (iter == mapFiles.end())
+    {
+        mapFiles[s] = 1 + std::string(s).rfind('/');
+        return s + mapFiles[s];
+    }
+    return &s[iter->second];
 }
 void
 LoggerStream::mkBannaer(LoggerType type,
                         const LoggerContext &context,
-                        std::ostringstream& ss)
+                        std::ostringstream &ss)
 {
-  // " funtion,file+Lno: "
-  ss << " " << context.function << ","
-     << skipFilePathDir(context.file)
-     << "+L" << context.line << ": ";
+    // " funtion,file+Lno: "
+    ss << " " << context.function << ","
+       << skipFilePathDir(context.file)
+       << "+L" << context.line << ": ";
 }
 
 void
@@ -148,27 +166,30 @@ LoggerStream::toConsole(LoggerType type,
                         const std::string &logBuffer,
                         const std::ostringstream &sstimestamp)
 {
-  std::ostringstream ss;
+    std::ostringstream ss;
 
-  ss << _ANSI_GREEN << sstimestamp.str() << ANSI_RESET;
-  ss << _ANSI_BROWN;
-  mkTag(ss);
-  ss << ANSI_RESET;
-  const char* color = mkType(type, context, ss);
-  mkBannaer(type, context, ss);
+    ss << _ANSI_GREEN << sstimestamp.str() << ANSI_RESET;
+    ss << _ANSI_BROWN;
+    mkTag(ss);
+    ss << ANSI_RESET;
+    const char *color = mkType(type, context, ss);
+    mkBannaer(type, context, ss);
 
-  ss << color << logBuffer << ANSI_RESET;
+    ss << color << logBuffer << ANSI_RESET;
 
-  switch (type) {
-  default:
-  case E_Debug:
-  case E_Info:
-    std::cout << ss.str() << std::endl; break;
-  case E_Warning:
-  case E_Critical:
-  case E_Error:
-    std::cerr << ss.str() << std::endl; break;
-  }
+    switch (type)
+    {
+    default:
+    case E_Debug:
+    case E_Info:
+        std::cout << ss.str() << std::endl;
+        break;
+    case E_Warning:
+    case E_Critical:
+    case E_Error:
+        std::cerr << ss.str() << std::endl;
+        break;
+    }
 }
 
 #ifdef USE_LOG_CAT
@@ -183,53 +204,64 @@ LoggerStream::toLogCat(LoggerType type,
 #define LOG_TAG "SRV"
 #endif
 
-  std::ostringstream ss;
+    std::ostringstream ss;
 
-  ss << sstimestamp.str();
-  mkBannaer(type, context, ss);
-  ss << logBuffer;
+    ss << sstimestamp.str();
+    mkBannaer(type, context, ss);
+    ss << logBuffer;
 
-  switch (type) {
-  default:
-  case E_Debug: LOG_D("%s", ss.str().c_str()); break;
-  case E_Info: LOG_I("%s", ss.str().c_str()); break;
-  case E_Warning: LOG_W("%s", ss.str().c_str()); break;
-  case E_Critical: LOG_E("%s", ss.str().c_str()); break;
-  case E_Error: LOG_E("%s", ss.str().c_str()); break;
-  }
+    switch (type)
+    {
+    default:
+    case E_Debug:
+        LOG_D("%s", ss.str().c_str());
+        break;
+    case E_Info:
+        LOG_I("%s", ss.str().c_str());
+        break;
+    case E_Warning:
+        LOG_W("%s", ss.str().c_str());
+        break;
+    case E_Critical:
+        LOG_E("%s", ss.str().c_str());
+        break;
+    case E_Error:
+        LOG_E("%s", ss.str().c_str());
+        break;
+    }
 }
 #endif
 
 LoggerStream Logger::__xxDebug() const
 {
-  return genLoggerStream(E_Debug);
+    return genLoggerStream(E_Debug);
 }
 
 LoggerStream Logger::__xxInfo() const
 {
-  return genLoggerStream(E_Info);
+    return genLoggerStream(E_Info);
 }
 
 LoggerStream Logger::__xxWarning() const
 {
-  return genLoggerStream(E_Warning);
+    return genLoggerStream(E_Warning);
 }
 
 LoggerStream Logger::__xxCritical() const
 {
-  return genLoggerStream(E_Critical);
+    return genLoggerStream(E_Critical);
 }
 
 LoggerStream Logger::__xxError() const
 {
-  return genLoggerStream(E_Error);
+    return genLoggerStream(E_Error);
 }
 
 LoggerStream Logger::genLoggerStream(enum LoggerType type) const
 {
-  LoggerStream ls;
-  LoggerContext &ctxt = ls.stream->context;
-  ctxt.copy(context);
-  ls.stream->loggerType = type;
-  return ls;
+    LoggerStream ls;
+    LoggerContext &ctxt = ls.stream->context;
+    ctxt.copy(context);
+    ls.stream->loggerType = type;
+    return ls;
 }

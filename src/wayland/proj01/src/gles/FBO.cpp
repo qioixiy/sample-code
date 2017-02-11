@@ -12,8 +12,9 @@ FBO::FBO(int w, int h)
 
     GLint maxRenderbufferSize;
     glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE, &maxRenderbufferSize);
-    if((maxRenderbufferSize <= texWidth)
-       || (maxRenderbufferSize <= texHeight)) {
+    if ((maxRenderbufferSize <= texWidth)
+            || (maxRenderbufferSize <= texHeight))
+    {
         // cannot use framebuffer objects as we need to create
         // a depth buffer as a renderbuffer object
         // return with appropriate error
@@ -25,7 +26,7 @@ bool FBO::checkFramebufferStatus()
 {
     // check FBO status
     GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-    switch(status)
+    switch (status)
     {
     case GL_FRAMEBUFFER_COMPLETE:
         LogD << "Framebuffer complete";
@@ -57,12 +58,13 @@ void FBO::RenderToFBO()
     GLint colorLoc = glGetUniformLocation(program_object, "u_colorLoc");
     GLfloat rgba[4] = {1.50f, 1.0f, .50f, 1.0f};
     glUniform4fv(colorLoc, 1, rgba);
-    GLfloat vVertices[] = {-1.0f, 1.0f, 0.0f,
-                           1.0f, 1.0f, 0.0f,
-                           1.0f, -1.0f, 0.0f,
-                           1.0f, -1.0f, 0.0f,
-                           -1.0f, -1.0f, 0.0f,
-                           -1.0f, 1.0f, 0.0f};
+    GLfloat vVertices[] = { -1.0f, 1.0f, 0.0f,
+                            1.0f, 1.0f, 0.0f,
+                            1.0f, -1.0f, 0.0f,
+                            1.0f, -1.0f, 0.0f,
+                            -1.0f, -1.0f, 0.0f,
+                            -1.0f, 1.0f, 0.0f
+                          };
     // Load the vertex data
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices);
     glEnableVertexAttribArray(0);
@@ -89,7 +91,7 @@ void FBO::DrawScreenQuad()
                             1.0f,  1.0f,        // TexCoord 2
                             1.0f,  1.0f, 0.0f,  // Position 3
                             1.0f,  0.0f         // TexCoord 3
-    };
+                          };
     GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
 
 // Load the vertex position
@@ -117,8 +119,8 @@ int FBO::UseFBO ()
     glGetIntegerv(GL_RENDERBUFFER_BINDING, &defaultRBO);
 
     glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE, &maxRenderbufferSize);
-    if((maxRenderbufferSize <= texWidth) ||
-       (maxRenderbufferSize <= texHeight))
+    if ((maxRenderbufferSize <= texWidth) ||
+            (maxRenderbufferSize <= texHeight))
     {
         LogE << "cannot use framebuffer objects as we need to create";
         return 0;
@@ -160,7 +162,8 @@ int FBO::UseFBO ()
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
                               GL_RENDERBUFFER, depthRenderbuffer);
 
-    if (checkFramebufferStatus()) {
+    if (checkFramebufferStatus())
+    {
         RenderToFBO();
 
         // bind the framebuffer

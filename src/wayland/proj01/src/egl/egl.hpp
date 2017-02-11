@@ -7,25 +7,26 @@
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 
-class EGLEnv {
+class EGLEnv
+{
 public:
-  EGLEnv();
-  EGLEnv(EGLNativeDisplayType, EGLNativeWindowType);
+    EGLEnv();
+    EGLEnv(EGLNativeDisplayType, EGLNativeWindowType);
 
 private:
-  int init();
+    int init();
 
 private:
-  EGLNativeDisplayType mEGLNativeDisplayType;
-  EGLNativeWindowType mEGLNativeWindowType;
+    EGLNativeDisplayType mEGLNativeDisplayType;
+    EGLNativeWindowType mEGLNativeWindowType;
 
 public:
-  EGLDisplay display;
-  EGLSurface surface;
+    EGLDisplay display;
+    EGLSurface surface;
 
-  EGLContext context;
+    EGLContext context;
 #define MAX_CONFIG 1
-  EGLConfig config[MAX_CONFIG];
+    EGLConfig config[MAX_CONFIG];
 
 };
 

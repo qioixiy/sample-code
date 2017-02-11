@@ -13,48 +13,49 @@
 
 class Widget;
 /* Frame */
-class Frame {
+class Frame
+{
 
-  friend class Widget;
-
-public:
-  Frame(int x = 0, int y = 0, int width = 100, int height = 100);
-  void redraw();
-  bool NeedQuit();
-
-  // root Widget
-  int SetRootWidget(Widget*);
-  Widget* GetRootWidget();
-  // native window
-  void SetNativeWindow(NativeWindow*);
-  NativeWindow* GetNativeWindow();
-  // Event
-  int DispatchEvent();
-  Frame* PushEvent(Event*);
-  Event* PopEvent();
-  bool HaveEvent();
-  int DispatchEventRun(int);
-
-private:
-  void draw(Node*);
-  void init();
-  Widget* findWidgetWithxy(point);
-  Widget* findWidgetWithxy(int x, int y);
-  point pointScreenToGlWindow(point);
+    friend class Widget;
 
 public:
-  int width, height;
+    Frame(int x = 0, int y = 0, int width = 100, int height = 100);
+    void redraw();
+    bool NeedQuit();
+
+    // root Widget
+    int SetRootWidget(Widget *);
+    Widget *GetRootWidget();
+    // native window
+    void SetNativeWindow(NativeWindow *);
+    NativeWindow *GetNativeWindow();
+    // Event
+    int DispatchEvent();
+    Frame *PushEvent(Event *);
+    Event *PopEvent();
+    bool HaveEvent();
+    int DispatchEventRun(int);
 
 private:
-  threadsafe_queue<Event*> EventQueue;
+    void draw(Node *);
+    void init();
+    Widget *findWidgetWithxy(point);
+    Widget *findWidgetWithxy(int x, int y);
+    point pointScreenToGlWindow(point);
+
+public:
+    int width, height;
+
+private:
+    threadsafe_queue<Event *> EventQueue;
 
 protected:
-  int debug;
-  int quit;
-  int abs_x, abs_y;
+    int debug;
+    int quit;
+    int abs_x, abs_y;
 
-  NativeWindow *mpNativeWindow;
-  Widget* rootWidget;
+    NativeWindow *mpNativeWindow;
+    Widget *rootWidget;
 };
 
 #endif
