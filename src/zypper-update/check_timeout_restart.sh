@@ -1,10 +1,9 @@
-
-
+#!/bin/sh
 
 while [ true ];
 do
 
-    output=$(cat /tmp/xxx.out)
+    output=$(cat /tmp/xxx.out 2>/dev/null)
     > /tmp/xxx.out
     if [ "_$output" == _"" ]; then
 	echo sleep 30
@@ -19,5 +18,4 @@ do
     else
 	sleep 1
     fi
-    
 done
