@@ -93,3 +93,6 @@
 
 ## wiki X mirror
 - [X mirror](http://www.x.org/wiki/Releases/Download)
+
+## 网络链接
+- [mainly aimed for OS-development or game programming in DOS](http://bos.asmhackers.net/docs/)
