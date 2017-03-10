@@ -17,15 +17,42 @@ LDLIBS += \
 	src/egl/egl.a \
 	src/core/core.a \
 	src/utils/utils.a \
+	-lpng \
+	-lpthread \
+	-lz \
+
+ifeq "$(TARGET_PLATFORM)" "arm-linux"
+LIBS += \
+	-ldrm \
+	-lpvr_wlegl \
+	-lpvr2d \
+	-lffi \
+	-lEGL \
+	-lIMGegl \
+	-lwayland-server \
+	-lwayland-client \
+	-lwayland-cursor\
+	-ldrm_omap \
+	-lsrv_um \
+	-lGLESv2 \
+	-ludev \
+	-lcairo \
+	-lexpat \
+	-lfreetype \
+	-lfontconfig \
+	-lpixman-1 \
+	-lrt \
+	-lm
+
+else
+LIBS += \
 	-lGLESv2 \
 	-lEGL \
-	-lpthread \
 	-lwayland-client \
 	-lwayland-egl \
 	-lglapi \
-	-lpng \
-	-lpthread
 
+endif
 MODULE_NAME:=gui_test
 SRC_FILES:=$(MODULE_PATH)/gui_test.cpp
 $(call build_target,$(BUILD_EXECUTABLE))
