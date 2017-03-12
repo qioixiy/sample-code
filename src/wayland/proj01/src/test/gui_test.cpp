@@ -85,7 +85,7 @@ void gl_init()
 
 int main(int argc, char **argv)
 {
-#ifdef yunos
+#ifdef ARM_LINUX
     int w = 960, h = 1280;
 #else
     int w = 480, h = 640;

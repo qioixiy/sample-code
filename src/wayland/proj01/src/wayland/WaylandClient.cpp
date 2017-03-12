@@ -7,7 +7,7 @@
 #include "utils/log/Log.hpp"
 #include "WaylandClient.hpp"
 
-#ifdef yunos
+#ifdef ARM_LINUX
 #include <weston/WindowManager-client-protocol.h>
 #endif
 
@@ -353,7 +353,7 @@ int WaylandClient::init()
         return -4;
     }
 
-#ifdef yunos
+#ifdef ARM_LINUX
     p_wl_shell_surface = wl_shell_wm_get_shell_surface(
                              p_wl_shell, p_wl_surface,
                              WINDOW_MANAGER_SHELL_SURFACE_TYPE_TYPE_CAR_SURROUND, 0, 0, 0);
