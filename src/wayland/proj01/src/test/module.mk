@@ -44,6 +44,10 @@ LIBS += \
 	-lrt \
 	-lm
 
+MODULE_NAME:=GLESKHR_test
+SRC_FILES:=$(MODULE_PATH)/GLESKHR_test.cpp
+$(call build_target,$(BUILD_EXECUTABLE))
+
 else
 LIBS += \
 	-lGLESv2 \
