@@ -1,4 +1,5 @@
 projs/
+out/
 .gem/
 .rvm/
 .vim*
