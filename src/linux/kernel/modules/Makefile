@@ -1,13 +1,16 @@
+# Makefile
+
 BASEDIR := /lib/modules/$(shell uname -r)
 KERNEL_SRC_TREE ?= $(BASEDIR)/build
-PWD :=$(shell pwd)
+PWD := $(shell pwd)
 INSTALL_DIR ?= kernel/drivers/misc
 
 .PHONY: all
 all: clean modules
 
+
 obj-m := killd.o forcermmod2.o forcermmod_test.o \
-	processlist.o #processinfo.o
+	NetfilterTest.o processlist.o #processinfo.o
 
 .PHONY:modules
 modules:
