@@ -345,3 +345,4 @@ git fsck
 
 # git branching-model
     [a-successful-git-branching-model](http://nvie.com/posts/a-successful-git-branching-model/)
+    [git wiki](https://git.wiki.kernel.org/index.php/Main_Page)
