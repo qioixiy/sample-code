@@ -49,7 +49,6 @@ void * consumer_proc(void *arg)
     student_info stu_info;
     while(1)
     {
-        sleep(1);
         unsigned int len = queue->Get((unsigned char *)&stu_info, sizeof(student_info));
         if(len > 0)
         {
@@ -58,6 +57,8 @@ void * consumer_proc(void *arg)
             printf("Get a student\n");
             print_student_info(&stu_info);
             printf("------------------------------------------\n");
+        } else {
+            sleep(3);
         }
     }
     return (void *)queue;
