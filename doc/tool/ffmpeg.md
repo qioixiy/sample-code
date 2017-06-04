@@ -1,4 +1,4 @@
-## 
+# 常用命令
 * ffmpeg -i 1.mp4 -an -pix_fmt nv12 -s 192x144 1.yuv
 * ffplay -pix_fmt nv12 -s 192x144 1.yuv
 * ffplay -f rawvideo -video_size 640x480 1.yuv
