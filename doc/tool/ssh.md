@@ -16,5 +16,9 @@
 /etc/ssh/sshd_config
 GatewayPorts yes
 ```
+
+## common
+- tar -zc dir | ssh 10.0.2.2 "cat - > ~/dir"
+
 ## url
 - [ssh user](https://www.fastssh.com/page/secure-shell-servers)
