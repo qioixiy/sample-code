@@ -346,3 +346,11 @@ git fsck
 # git branching-model
     [a-successful-git-branching-model](http://nvie.com/posts/a-successful-git-branching-model/)
     [git wiki](https://git.wiki.kernel.org/index.php/Main_Page)
+
+# git url link
+## git issue
+### object file is empty
+    [how to fix GIT error: object file is empty?](http://blog.csdn.net/qq_34369618/article/details/52818874)
+    find .git/objects/ -type f -empty | xargs rm
+    git fetch -p
+    git fsck --full
