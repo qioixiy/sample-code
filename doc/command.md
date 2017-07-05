@@ -389,6 +389,9 @@ kernel.shmmax=16777216
 ## 列出系统中所有的头文件目录
 - `echo "" | g++ -v -x c++ -E -`
 
+## 终端配置大小的环境变量
+export LINES=47 COLUMNS=176
+
 ## urls
 [Linux命令大全](http://man.linuxde.net/)
 [unix comand](http://www.ugrad.cs.ubc.ca/~cs219/CourseNotes/Unix/intro.html)
