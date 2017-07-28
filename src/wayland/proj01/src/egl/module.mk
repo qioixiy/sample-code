@@ -12,6 +12,7 @@ TARGET_SPECS:=
 # don't use CXX CPPFLAGS... value, because will be covered by $(BUILD_CONFIGURE)
 include $(BUILD_CONFIGURE)
 CPPFLAGS+=-Isrc
+CPPFLAGS+=$(shell pkg-config --cflags wayland-egl)
 SRC_FILES:=$(MODULE_PATH)/egl.cpp
 
 $(call build_target,$(BUILD_STATIC_LIBRARY),$(MODULE_PATH)/egl.a)

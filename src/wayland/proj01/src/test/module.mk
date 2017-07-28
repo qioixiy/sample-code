@@ -10,6 +10,8 @@ TARGET_SPECS:=
 # don't use CXX CPPFLAGS... value, because will be covered by $(BUILD_CONFIGURE)
 include $(BUILD_CONFIGURE)
 CPPFLAGS+=-Isrc
+CPPFLAGS+=$(shell pkg-config --cflags wayland-client)
+
 LDLIBS += \
 	src/gui/gui.a \
 	src/wayland/wayland.a \
@@ -54,9 +56,9 @@ LIBS += \
 	-lEGL \
 	-lwayland-client \
 	-lwayland-egl \
-	-lglapi \
 
 endif
+
 MODULE_NAME:=gui_test
 SRC_FILES:=$(MODULE_PATH)/gui_test.cpp
 $(call build_target,$(BUILD_EXECUTABLE))
