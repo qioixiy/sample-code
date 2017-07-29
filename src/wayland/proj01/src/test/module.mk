@@ -19,6 +19,7 @@ LDLIBS += \
 	src/egl/egl.a \
 	src/core/core.a \
 	src/utils/utils.a \
+	-lcairo \
 	-lpng \
 	-lpthread \
 	-lz \
@@ -69,4 +70,8 @@ $(call build_target,$(BUILD_EXECUTABLE))
 
 MODULE_NAME:=WidgetGL_test
 SRC_FILES:=$(MODULE_PATH)/WidgetGL_test.cpp
+$(call build_target,$(BUILD_EXECUTABLE))
+
+MODULE_NAME:=gui2
+SRC_FILES:=$(wildcard $(MODULE_PATH)/gui2/*.cpp)
 $(call build_target,$(BUILD_EXECUTABLE))
