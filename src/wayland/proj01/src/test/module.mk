@@ -14,6 +14,7 @@ CPPFLAGS+=$(shell pkg-config --cflags wayland-client)
 
 LDLIBS += \
 	src/gui/gui.a \
+	src/gui2/gui2.a \
 	src/wayland/wayland.a \
 	src/gles/gles.a \
 	src/egl/egl.a \
@@ -64,14 +65,14 @@ MODULE_NAME:=gui_test
 SRC_FILES:=$(MODULE_PATH)/gui_test.cpp
 $(call build_target,$(BUILD_EXECUTABLE))
 
+MODULE_NAME:=gui2_test
+SRC_FILES:=$(wildcard $(MODULE_PATH)/gui2_test.cpp)
+$(call build_target,$(BUILD_EXECUTABLE))
+
 MODULE_NAME:=GlProgram_test
 SRC_FILES:=$(MODULE_PATH)/GlProgram_test.cpp
 $(call build_target,$(BUILD_EXECUTABLE))
 
 MODULE_NAME:=WidgetGL_test
 SRC_FILES:=$(MODULE_PATH)/WidgetGL_test.cpp
-$(call build_target,$(BUILD_EXECUTABLE))
-
-MODULE_NAME:=gui2
-SRC_FILES:=$(wildcard $(MODULE_PATH)/gui2/*.cpp)
 $(call build_target,$(BUILD_EXECUTABLE))

@@ -1,7 +1,7 @@
-#include "Frame.hpp"
-#include "Button.hpp"
-#include "Label.hpp"
-#include "LayoutManager.hpp"
+#include "gui2/Frame.hpp"
+#include "gui2/Button.hpp"
+#include "gui2/Label.hpp"
+#include "gui2/LayoutManager.hpp"
 
 int main()
 {
