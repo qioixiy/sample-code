@@ -1,5 +1,7 @@
 #pragma once
 
+namespace zui {
+
 class Graphics {
     virtual void DrawLine();
 
@@ -17,3 +19,5 @@ class Graphics {
 
     virtual void DrawImage();
 };
+
+}

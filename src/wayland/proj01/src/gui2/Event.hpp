@@ -2,6 +2,8 @@
 
 #include "Object.hpp"
 
+namespace zui {
+
 class Event : public Object {
 public:
     Event(Object* s, int id)
@@ -22,3 +24,5 @@ public:
     Object* source;
     int id;
 };
+
+}

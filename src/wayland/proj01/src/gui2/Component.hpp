@@ -2,6 +2,9 @@
 
 #include "Object.hpp"
 #include "Graphics.hpp"
+#include "Event.hpp"
+
+namespace zui {
 
 class Container;
 
@@ -33,6 +36,8 @@ public:
     int GetWidth();
     int GetHeight();
 
+    void PrcessEvent(Event* e);
+
 private:
     void show();
     void hide();
@@ -50,3 +55,5 @@ private:
     int x, y;
     int width, height;
 };
+
+}

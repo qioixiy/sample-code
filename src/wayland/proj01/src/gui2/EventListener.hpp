@@ -1,6 +1,9 @@
 #pragma once
 
-// interface
+namespace zui {
 
+// interface
 class EventListener {
 };
+
+}

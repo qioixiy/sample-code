@@ -1,5 +1,10 @@
+#include <typeinfo>
+#include "inc.hpp"
+#include "TouchEvent.hpp"
 #include "Container.hpp"
 #include "Component.hpp"
+
+namespace zui {
 
 Component::Component()
     : visible(false)
@@ -107,6 +112,13 @@ int Component::GetHeight()
     return height;
 }
 
+void Component::PrcessEvent(Event* e)
+{
+    if (typeid(*e) == typeid(TouchEvent)) {
+        LogE << "TouchEvent";
+    }
+}
+
 void Component::show()
 {
     if (!IsVisible()) {
@@ -119,4 +131,6 @@ void Component::hide()
     if (IsVisible()) {
         SetVisible(false);
     }
+}
+
 }

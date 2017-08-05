@@ -4,7 +4,6 @@
 
 #include <list>
 #include <memory>
-#include <EGL/egl.h>
 #include <wayland-client.h>
 #include "utils/AbstractMsg.hpp"
 #include "utils/AbstractListener.hpp"

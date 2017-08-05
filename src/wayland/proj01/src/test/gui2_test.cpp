@@ -1,7 +1,10 @@
+#include <unistd.h>
 #include "gui2/Frame.hpp"
 #include "gui2/Button.hpp"
 #include "gui2/Label.hpp"
 #include "gui2/LayoutManager.hpp"
+
+using namespace zui;
 
 int main()
 {
@@ -15,4 +18,8 @@ int main()
     pFrame->Add(pLabel);
 
     pFrame->SetVisible(true);
+
+    while(1) {
+        pause();
+    }
 }

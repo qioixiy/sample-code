@@ -2,6 +2,8 @@
 
 #include "Component.hpp"
 
+namespace zui {
+
 class Label : public Component {
 public:
     Label(std::string title)
@@ -11,3 +13,5 @@ public:
 
     std::string title;
 };
+
+}

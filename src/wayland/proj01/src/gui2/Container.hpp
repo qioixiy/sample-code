@@ -4,6 +4,8 @@
 #include "Component.hpp"
 #include "LayoutManager.hpp"
 
+namespace zui {
+
 class Container : public Component {
 public:
     Container()
@@ -29,3 +31,5 @@ private:
     std::list<Component*> components;
     LayoutManager* layoutManager;
 };
+
+}

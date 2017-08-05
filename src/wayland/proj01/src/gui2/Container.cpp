@@ -1,6 +1,8 @@
 #include "Container.hpp"
 #include "BorderLayout.hpp"
 
+namespace zui {
+
 bool Container::IsRoot()
 {
     return false;
@@ -42,4 +44,6 @@ LayoutManager* Container::getDefaultLayoutManager()
         pLayoutManager = new BorderLayout();
     }
     return pLayoutManager;
+}
+
 }

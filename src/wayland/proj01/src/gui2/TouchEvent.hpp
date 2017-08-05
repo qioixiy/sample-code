@@ -2,6 +2,8 @@
 
 #include "InputEvent.hpp"
 
+namespace zui {
+
 class TouchEvent : public InputEvent {
 public:
     enum {
@@ -16,3 +18,5 @@ public:
         ;
     }
 };
+
+}

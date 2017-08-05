@@ -2,6 +2,8 @@
 
 #include <string>
 
+namespace zui {
+
 class Object {
 public:
     Object() : name("unkown") {}
@@ -22,3 +24,5 @@ public:
 private:
     std::string name;
 };
+
+}
