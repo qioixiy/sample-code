@@ -1,12 +1,20 @@
 #pragma once
 
+#include <mutex>
 #include "Object.hpp"
 #include "Graphics.hpp"
 #include "Event.hpp"
+#include "EventDispatcher.hpp"
 
 namespace zui {
 
 class Container;
+class TouchEvent;
+class ComponentEvent;
+class ContainerEvent;
+class TouchEventListener;
+class ComponentEventListener;
+class ContainerEventListener;
 
 class Component : public Object {
 public:
@@ -36,7 +44,24 @@ public:
     int GetWidth();
     int GetHeight();
 
+    /**
+     * Dispatches an event to this component or one of its sub components.
+     * Calls <code>processEvent</code> before returning for 1.1-style
+     * events which have been enabled for the <code>Component</code>.
+     * @param e the event
+     */
+    void DispatchEvent(Event* e);
+
     void PrcessEvent(Event* e);
+
+    void AddTouchEventListener(TouchEventListener*);
+    void AddComponentEventListener(ComponentEventListener*);
+    void AddContainerEventListener(ContainerEventListener*);
+
+protected:
+    void processTouchEvent(TouchEvent* e);
+    void processComponentEvent(ComponentEvent* e);
+    void processContainerEvent(ContainerEvent* e);
 
 private:
     void show();
@@ -54,6 +79,15 @@ private:
      */
     int x, y;
     int width, height;
+
+    TouchEventListener *touchEventListener;
+    ComponentEventListener *componentEventListener;
+    ContainerEventListener *containerEventListener;
+
+    /**
+     * The locking object for component-tree and layout operations.
+     */
+    std::mutex lock;
 };
 
 }

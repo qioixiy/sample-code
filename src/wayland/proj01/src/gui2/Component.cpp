@@ -1,6 +1,11 @@
 #include <typeinfo>
 #include "inc.hpp"
 #include "TouchEvent.hpp"
+#include "ComponentEvent.hpp"
+#include "ContainerEvent.hpp"
+#include "TouchEventListener.hpp"
+#include "ComponentEventListener.hpp"
+#include "ContainerEventListener.hpp"
 #include "Container.hpp"
 #include "Component.hpp"
 
@@ -10,8 +15,11 @@ Component::Component()
     : visible(false)
     , enabled(false)
     , parent(nullptr)
+    , touchEventListener(nullptr)
+    , componentEventListener(nullptr)
+    , containerEventListener(nullptr)
 {
-
+    ;
 }
 
 void Component::Paint(Graphics* g)
@@ -77,7 +85,7 @@ bool Component::IsVisible()
 
 void Component::IsVilid()
 {
-
+    ;
 }
 
 Graphics* Component::GetGraphics()
@@ -112,13 +120,6 @@ int Component::GetHeight()
     return height;
 }
 
-void Component::PrcessEvent(Event* e)
-{
-    if (typeid(*e) == typeid(TouchEvent)) {
-        LogE << "TouchEvent";
-    }
-}
-
 void Component::show()
 {
     if (!IsVisible()) {
@@ -130,6 +131,108 @@ void Component::hide()
 {
     if (IsVisible()) {
         SetVisible(false);
+    }
+}
+
+void Component::DispatchEvent(Event* e)
+{
+    PrcessEvent(e);
+}
+
+void Component::PrcessEvent(Event* e)
+{
+    auto& id = typeid(*e);
+    if (id == typeid(TouchEvent)) {
+        processTouchEvent((TouchEvent*)e);
+    } else if (id == typeid(ComponentEvent)) {
+        processComponentEvent((ComponentEvent*)e);
+    } else if (id == typeid(ContainerEvent)) {
+        processContainerEvent((ContainerEvent*)e);
+    }
+}
+
+void Component::AddTouchEventListener(TouchEventListener* l)
+{
+    if (touchEventListener) {
+        touchEventListener->Append(l);
+    } else {
+        touchEventListener = l;
+    }
+}
+void Component::AddComponentEventListener(ComponentEventListener* l)
+{
+    if (componentEventListener) {
+        componentEventListener->Append(l);
+    } else {
+        componentEventListener = l;
+    }
+}
+void Component::AddContainerEventListener(ContainerEventListener* l)
+{
+    if (containerEventListener) {
+        containerEventListener->Append(l);
+    } else {
+        containerEventListener = l;
+    }
+}
+
+void Component::processTouchEvent(TouchEvent* e)
+{
+    if (touchEventListener) {
+        int id = e->GetId();
+        switch(id) {
+        case TouchEvent::TouchEvent_Down:
+            touchEventListener->TouchDown(e);
+            break;
+        case TouchEvent::TouchEvent_Up:
+            touchEventListener->TouchUp(e);
+            break;
+        case TouchEvent::TouchEvent_Move:
+            touchEventListener->TouchMove(e);
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+void Component::processComponentEvent(ComponentEvent* e)
+{
+    if (componentEventListener) {
+        int id = e->GetId();
+        switch(id) {
+        case ComponentEvent::COMPONENT_RESIZED:
+            componentEventListener->ComponentResized(e);
+            break;
+        case ComponentEvent::COMPONENT_MOVED:
+            componentEventListener->ComponentMoved(e);
+            break;
+        case ComponentEvent::COMPONENT_SHOWN:
+            componentEventListener->ComponentShown(e);
+            break;
+        case ComponentEvent::COMPONENT_HIDDEN:
+            componentEventListener->ComponentHidden(e);
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+void Component::processContainerEvent(ContainerEvent* e)
+{
+    if (containerEventListener) {
+        int id = e->GetId();
+        switch(id) {
+        case ContainerEvent::COMPONENT_ADDED:
+            containerEventListener->ComponentAdded(e);
+            break;
+        case ContainerEvent::COMPONENT_REMOVED:
+            containerEventListener->ComponentRemoved(e);
+            break;
+        default:
+            break;
+        }
     }
 }
 

@@ -1,12 +1,15 @@
 #pragma once
 
 #include <string>
+#include "inc.hpp"
 
 namespace zui {
 
 class Object {
 public:
-    Object() : name("unkown") {}
+    Object() : name("unkown") {
+        ;
+    }
     virtual ~Object() {};
 
     std::string GetName() {

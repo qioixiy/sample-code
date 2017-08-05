@@ -8,7 +8,8 @@ class Event : public Object {
 public:
     Event(Object* s, int id)
         : source(s)
-        , id(id) {
+        , id(id)
+        , consumed(false) {
         ;
     }
 
@@ -20,9 +21,19 @@ public:
         return id;
     }
 
+    bool IsConsumed() {
+        return consumed;
+    }
+
+    void Consumed() {
+        consumed = true;
+    }
+
 public:
     Object* source;
     int id;
+
+    bool consumed;
 };
 
 }

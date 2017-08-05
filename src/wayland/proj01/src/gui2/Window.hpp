@@ -12,6 +12,8 @@ public:
 
 private:
     NativeWindow* peer;
+
+    bool showWithParent;
 };
 
 }
