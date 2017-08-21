@@ -6,19 +6,19 @@
 #include "Graphics.hpp"
 #include "Event.hpp"
 #include "EventDispatcher.hpp"
+#include "TouchEvent.hpp"
+#include "PaintEvent.hpp"
+#include "ComponentEvent.hpp"
+#include "ContainerEvent.hpp"
+#include "TouchEventListener.hpp"
+#include "ComponentEventListener.hpp"
+#include "ContainerEventListener.hpp"
 
 using std::string;
 
 namespace zui {
 
 class Container;
-class TouchEvent;
-class PaintEvent;
-class ComponentEvent;
-class ContainerEvent;
-class TouchEventListener;
-class ComponentEventListener;
-class ContainerEventListener;
 
 class Component : public Object {
 public:

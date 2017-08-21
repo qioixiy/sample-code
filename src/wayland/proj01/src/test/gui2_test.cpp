@@ -4,8 +4,24 @@
 #include "gui2/Label.hpp"
 #include "gui2/Panel.hpp"
 #include "gui2/LayoutManager.hpp"
+#include "gui2/TouchEventListener.hpp"
 
 using namespace zui;
+
+class MyButtonTouchEventListener : public TouchEventListener {
+public:
+    void TouchDown(zui::TouchEvent* e) override {
+        LogE;
+        auto btn = dynamic_cast<Button*>(e->GetSource());
+        btn->RePaint();
+    }
+    void TouchUp(zui::TouchEvent* e) {
+        LogE;
+    }
+    void TouchMove(zui::TouchEvent* e) {
+        LogE;
+    }
+};
 
 int main()
 {
@@ -23,6 +39,7 @@ int main()
     pButton2->SetName("Button_2");
     pButton2->SetSize(40, 80);
     pButton2->SetLocation(0, 0);
+    pButton2->AddTouchEventListener(new MyButtonTouchEventListener());
 
     auto pLabel2 = new Label("hello");
     pLabel2->SetName("Label_hello2");

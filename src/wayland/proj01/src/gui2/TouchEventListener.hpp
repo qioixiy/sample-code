@@ -8,9 +8,9 @@ class TouchEvent;
 
 class TouchEventListener : public EventListener {
 public:
-    virtual void TouchDown(TouchEvent* e);
-    virtual void TouchUp(TouchEvent* e);
-    virtual void TouchMove(TouchEvent* e);
+    virtual void TouchDown(TouchEvent* e) = 0;
+    virtual void TouchUp(TouchEvent* e) = 0;
+    virtual void TouchMove(TouchEvent* e) = 0;
 };
 
 }
