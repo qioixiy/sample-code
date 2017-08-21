@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Component.hpp"
+#include "Widget.hpp"
 
 namespace zui {
 
-class Label : public Component {
+class Label : public Widget {
 public:
     Label(std::string title)
         : title(title) {

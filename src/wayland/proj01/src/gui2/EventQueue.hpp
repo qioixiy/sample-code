@@ -18,6 +18,9 @@ public:
         auto item = localQueue.wait_and_pop();
         return *item;
     }
+    int Count() {
+        return localQueue.count();
+    }
 
 private:
     threadsafe_queue<Event*> localQueue;

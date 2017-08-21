@@ -8,10 +8,9 @@ namespace zui {
 
 class Container : public Component {
 public:
-    Container()
-        : layoutManager(nullptr) {
-        ;
-    }
+    Container();
+
+    void Paint(Graphics*) override;
 
     virtual bool IsRoot();
 
@@ -20,11 +19,13 @@ public:
     virtual void Remove(Component*);
     // layout manager
     virtual void SetLayout(LayoutManager*);
+
     virtual void Invalidate();
 
     std::list<Component*>& GetComponents();
 
-private:
+protected:
+    virtual void doLayout();
     LayoutManager* getDefaultLayoutManager();
 
 private:

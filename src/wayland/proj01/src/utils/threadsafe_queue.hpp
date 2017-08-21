@@ -61,6 +61,11 @@ public:
         std::lock_guard<std::mutex> lk(mut);
         return data_queue.empty();
     }
+    int count() const
+    {
+        std::lock_guard<std::mutex> lk(mut);
+        return data_queue.size();
+    }
 
 private:
     std::queue<T> data_queue;

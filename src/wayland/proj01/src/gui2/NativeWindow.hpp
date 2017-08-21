@@ -5,22 +5,23 @@
 #include "wayland/WaylandClient.hpp"
 #include "egl/egl.hpp"
 
+class AbstractListener;
+
 namespace zui {
 
-class Frame;
 class NativeWindow
 {
 public:
     NativeWindow(int = 100, int = 100);
     virtual ~NativeWindow();
     int SwapBackBuffer();
+    void AddEventlistener(std::shared_ptr<AbstractListener>);
 
 public:
     int width;
     int height;
     WaylandClient *wc;
     EGLEnv *egl;
-    Frame *f;
 };
 
 }

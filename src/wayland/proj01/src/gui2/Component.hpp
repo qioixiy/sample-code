@@ -10,6 +10,7 @@ namespace zui {
 
 class Container;
 class TouchEvent;
+class PaintEvent;
 class ComponentEvent;
 class ContainerEvent;
 class TouchEventListener;
@@ -19,6 +20,8 @@ class ContainerEventListener;
 class Component : public Object {
 public:
     Component();
+    virtual ~Component() {}
+
     // paint
     virtual void Paint(Graphics*);
     virtual void RePaint();
@@ -37,6 +40,7 @@ public:
 
     virtual Graphics* GetGraphics();
 
+    void SetParent(Container*);
     Container* GetContainer();
     Container* GetParent();
     int GetX();
@@ -46,19 +50,18 @@ public:
 
     /**
      * Dispatches an event to this component or one of its sub components.
-     * Calls <code>processEvent</code> before returning for 1.1-style
-     * events which have been enabled for the <code>Component</code>.
      * @param e the event
      */
     void DispatchEvent(Event* e);
 
-    void PrcessEvent(Event* e);
+    void ProcessEvent(Event* e);
 
     void AddTouchEventListener(TouchEventListener*);
     void AddComponentEventListener(ComponentEventListener*);
     void AddContainerEventListener(ContainerEventListener*);
 
 protected:
+    void processPaintEvent(PaintEvent* e);
     void processTouchEvent(TouchEvent* e);
     void processComponentEvent(ComponentEvent* e);
     void processContainerEvent(ContainerEvent* e);
@@ -80,6 +83,7 @@ private:
     int x, y;
     int width, height;
 
+    // listeners
     TouchEventListener *touchEventListener;
     ComponentEventListener *componentEventListener;
     ContainerEventListener *containerEventListener;

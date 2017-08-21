@@ -1,6 +1,7 @@
 #include <typeinfo>
 #include "inc.hpp"
 #include "TouchEvent.hpp"
+#include "PaintEvent.hpp"
 #include "ComponentEvent.hpp"
 #include "ContainerEvent.hpp"
 #include "TouchEventListener.hpp"
@@ -24,7 +25,8 @@ Component::Component()
 
 void Component::Paint(Graphics* g)
 {
-
+    LogE << "name:" << GetName()
+         << GetX() << GetY() << GetWidth() << GetHeight();
 }
 
 void Component::RePaint()
@@ -33,7 +35,7 @@ void Component::RePaint()
 }
 void Component::RePaint(int x, int y, int width, int height)
 {
-
+    ;
 }
 
 void Component::Update(Graphics* g)
@@ -76,7 +78,9 @@ void Component::SetVisible(bool v)
 {
     visible = v;
 
-    //parent->Invalidate();
+    if (GetParent()) {
+        GetParent()->Invalidate();
+    }
 }
 bool Component::IsVisible()
 {
@@ -91,6 +95,11 @@ void Component::IsVilid()
 Graphics* Component::GetGraphics()
 {
     return nullptr;
+}
+
+void Component::SetParent(Container* c)
+{
+    parent = c;
 }
 
 Container* Component::GetParent()
@@ -136,13 +145,15 @@ void Component::hide()
 
 void Component::DispatchEvent(Event* e)
 {
-    PrcessEvent(e);
+    ProcessEvent(e);
 }
 
-void Component::PrcessEvent(Event* e)
+void Component::ProcessEvent(Event* e)
 {
     auto& id = typeid(*e);
-    if (id == typeid(TouchEvent)) {
+    if (id == typeid(PaintEvent)) {
+        processPaintEvent((PaintEvent*)e);
+    } else if (id == typeid(TouchEvent)) {
         processTouchEvent((TouchEvent*)e);
     } else if (id == typeid(ComponentEvent)) {
         processComponentEvent((ComponentEvent*)e);
@@ -174,6 +185,11 @@ void Component::AddContainerEventListener(ContainerEventListener* l)
     } else {
         containerEventListener = l;
     }
+}
+
+void Component::processPaintEvent(PaintEvent* e)
+{
+    Paint(GetGraphics());
 }
 
 void Component::processTouchEvent(TouchEvent* e)

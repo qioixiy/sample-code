@@ -13,10 +13,14 @@ public:
     };
 
 public:
-    TouchEvent(Object* s, int id)
-        : InputEvent(s, id) {
+    TouchEvent(Object* s, int id, int x, int y)
+        : InputEvent(s, id)
+        , x(x)
+        , y(y) {
         ;
     }
+
+    int x, y;
 };
 
 }

@@ -3,6 +3,20 @@
 
 namespace zui {
 
+Container::Container()
+    : layoutManager(nullptr)
+{
+    ;
+}
+
+void Container::Paint(Graphics* g)
+{
+    LogE << "Container Paint";
+    for (auto& component : GetComponents()) {
+        component->Paint(g);
+    }
+}
+
 bool Container::IsRoot()
 {
     return false;
@@ -10,6 +24,7 @@ bool Container::IsRoot()
 
 void Container::Add(Component* comp)
 {
+    comp->SetParent(this);
     components.push_back(comp);
 }
 
@@ -24,6 +39,11 @@ void Container::SetLayout(LayoutManager* mgr)
 }
 
 void Container::Invalidate()
+{
+    doLayout();
+}
+
+void Container::doLayout()
 {
     LayoutManager* tLayoutManager = layoutManager;
     if (!tLayoutManager) {

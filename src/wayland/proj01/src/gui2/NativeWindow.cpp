@@ -5,45 +5,17 @@
 #include "utils/Misc.hpp"
 #include "utils/log/Log.hpp"
 #include "NativeWindow.hpp"
-#include "Frame.hpp"
 
 namespace zui {
-
-class EventListener : public AbstractListener
-{
-public:
-    EventListener(NativeWindow *_w)
-        : mNativeWindow(_w)
-    {
-        ;
-    }
-    void Action(AbstractMsg &e)
-    {
-        Event *event = dynamic_cast<Event *>(&e);
-        if (event)
-        {
-            //mNativeWindow->f->PushEvent(event);
-        }
-        else
-        {
-            LogI << "not a Event";
-        }
-    }
-
-private:
-    NativeWindow *mNativeWindow;
-};
 
 NativeWindow::NativeWindow(int _width, int _height)
     : width(_width)
     , height(_height)
     , wc(NULL)
     , egl(NULL)
-    , f(NULL)
 {
     /* wayland init */
     wc = new WaylandClient();
-    wc->AddEventlistener(std::make_shared<EventListener>(this));
 
     /* wayland egl init */
     struct wl_egl_window *p_wl_egl_window
@@ -66,6 +38,11 @@ NativeWindow::~NativeWindow()
 {
     delete egl;
     delete wc;
+}
+
+void NativeWindow::AddEventlistener(std::shared_ptr<AbstractListener> l)
+{
+    wc->AddEventlistener(l);
 }
 
 /* swap back,front buffer */
