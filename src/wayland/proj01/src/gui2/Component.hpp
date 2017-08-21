@@ -1,10 +1,13 @@
 #pragma once
 
+#include <string>
 #include <mutex>
 #include "Object.hpp"
 #include "Graphics.hpp"
 #include "Event.hpp"
 #include "EventDispatcher.hpp"
+
+using std::string;
 
 namespace zui {
 
@@ -60,11 +63,17 @@ public:
     void AddComponentEventListener(ComponentEventListener*);
     void AddContainerEventListener(ContainerEventListener*);
 
+    // helper
+    virtual void Dump(int = 0);
+
 protected:
     void processPaintEvent(PaintEvent* e);
     void processTouchEvent(TouchEvent* e);
     void processComponentEvent(ComponentEvent* e);
     void processContainerEvent(ContainerEvent* e);
+
+    // helper
+    string deepthSpace(int deepth = 0);
 
 private:
     void show();

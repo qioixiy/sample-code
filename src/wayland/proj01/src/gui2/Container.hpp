@@ -24,6 +24,8 @@ public:
 
     std::list<Component*>& GetComponents();
 
+    void Dump(int = 0) override;
+
 protected:
     virtual void doLayout();
     LayoutManager* getDefaultLayoutManager();

@@ -1,3 +1,4 @@
+#include <utils/log/Log.hpp>
 #include "Container.hpp"
 #include "BorderLayout.hpp"
 
@@ -55,6 +56,15 @@ void Container::doLayout()
 std::list<Component*>& Container::GetComponents()
 {
     return components;
+}
+
+void Container::Dump(int deepth)
+{
+    Component::Dump(deepth);
+
+    for (auto& component : GetComponents()) {
+        component->Dump(deepth + 1);
+    }
 }
 
 LayoutManager* Container::getDefaultLayoutManager()

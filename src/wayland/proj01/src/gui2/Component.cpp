@@ -25,8 +25,7 @@ Component::Component()
 
 void Component::Paint(Graphics* g)
 {
-    LogE << "name:" << GetName()
-         << GetX() << GetY() << GetWidth() << GetHeight();
+    ;
 }
 
 void Component::RePaint()
@@ -40,8 +39,11 @@ void Component::RePaint(int x, int y, int width, int height)
 
 void Component::Update(Graphics* g)
 {
-    Paint(g);
+    if (IsVisible()) {
+        Paint(g);
+    }
 }
+
 // size location
 void Component::SetSize(int w, int h)
 {
@@ -185,6 +187,23 @@ void Component::AddContainerEventListener(ContainerEventListener* l)
     } else {
         containerEventListener = l;
     }
+}
+
+string Component::deepthSpace(int deepth)
+{
+    string ret;
+
+    while(deepth-- > 0) {
+        ret += "----";
+    }
+
+    return ret;
+}
+
+void Component::Dump(int deepth)
+{
+    (LogE.nospace() << deepthSpace(deepth) << GetName()).space()
+        << '{' << GetX() << GetY() << GetWidth() << GetHeight() << '}';
 }
 
 void Component::processPaintEvent(PaintEvent* e)
