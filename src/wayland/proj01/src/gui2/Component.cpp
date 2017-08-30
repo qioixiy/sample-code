@@ -40,6 +40,7 @@ void Component::RePaint(int x, int y, int width, int height)
 void Component::Update(Graphics* g)
 {
     if (IsVisible()) {
+        // clear and paint
         Paint(g);
     }
 }

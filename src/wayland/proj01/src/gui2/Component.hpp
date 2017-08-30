@@ -26,9 +26,15 @@ public:
     virtual ~Component() {}
 
     // paint
+    // system-triggered: resize ...
     virtual void Paint(Graphics*);
+    /**
+     * registers an asynchronous request that this component needs to
+     * be repainted. event dispatching thread to invoke update() on the component
+     **/
     virtual void RePaint();
     virtual void RePaint(int x, int y, int width, int height);
+    // app-triggered: repaint. enables a program to do incremental painting
     virtual void Update(Graphics*);
     // size location
     virtual void SetSize(int w, int h);

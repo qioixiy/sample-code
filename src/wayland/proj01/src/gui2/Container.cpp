@@ -13,8 +13,10 @@ Container::Container()
 void Container::Paint(Graphics* g)
 {
     LogE << "Container Paint";
-    for (auto& component : GetComponents()) {
-        component->Paint(g);
+    if (IsVisible()) {
+        for (auto& component : GetComponents()) {
+            component->Paint(g);
+        }
     }
 }
 
