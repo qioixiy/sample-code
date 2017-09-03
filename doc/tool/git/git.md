@@ -348,7 +348,8 @@ git fsck
     [git wiki](https://git.wiki.kernel.org/index.php/Main_Page)
 
 # git url link
-## git issue
+## git magic
+- [](http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/zh_tw/index.html)
 ### object file is empty
     [how to fix GIT error: object file is empty?](http://blog.csdn.net/qq_34369618/article/details/52818874)
     find .git/objects/ -type f -empty | xargs rm
