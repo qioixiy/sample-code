@@ -343,6 +343,47 @@ git grep -e '#define' --and -e SORT_DIRENT
 git gc
 git fsck
 
+# git深入理解
+## 参考链接
+- [refs1](http://www.jianshu.com/p/c221f99f0bfd)
+- [refs1](https://blog.angularindepth.com/become-a-git-pro-by-learning-git-architecture-in-15-minutes-9c995db6faeb)
+- 初始化仓库
+  git init
+- 将数据存储到数据库
+  echo 'test1' | git hash-object -w --stdin
+  echo 'test2' | git hash-object -w --stdin
+- 通过键值读取数据
+  git cat-file -p a5bce3fd2565d8f458555a0c6f42d0504a848bd5
+  git cat-file -p 180cf8328022becee9aaa2577a8f84ea2b9f3827
+- 为blob/文件关联创建一个树：[file-mode object-type object-hash file-name]
+  printf '%s %s %s\t%s\n' 100644 blob a5bce3fd2565d8f458555a0c6f42d0504a848bd5 test1.txt 100644 blob 180cf8328022becee9aaa2577a8f84ea2b9f3827 test2.txt | git mktree
+- 指定另外一个树对象（而不是一个 blob）作为参数。创建的树和目录关联
+  printf '%s %s %s\t%s\n' 040000 tree 81fa9d1c5348f86326ce5e7a86d11b54c8140d8d folder | git mktree
+- read-tree命令将这个树从仓库中读取到index文件
+  git read-tree aefcfa8cf1c93ea735056ac6d28f1f3e69df713c
+- 检查当前 index 文件的结构
+  git ls-files -s
+- 将index tree 检出到工作目录
+  git checkout-index -a
+- 通过add添加到index中,并查看
+  echo 'test3' > test3.txt && git add test3.txt && git write-tree
+- 通过这个index在仓库中创建一个树
+  git write-tree
+- 将第一个树封装成一个 commit（将树的哈希值传递给它）
+  echo 'initial commit' | git commit-tree aefcfa8cf1c93ea735056ac6d28f1f3e69df713c
+- 将这个之前commit检出到工作目录
+  git checkout fda44a693fb3eb3d815f8a1712066b00cf3eec77
+- 将第二个树封装成一个 commit（将树的哈希值传递给它），并指定父节点
+  echo 'latest commit' | git commit-tree 9ae5be06c2ebdc108e11dbd5d40ffbcef247132c -p fda44a693fb3eb3d815f8a1712066b00cf3eec77
+- 通过hash值查看log
+  git log --pretty=oneline 27b2140e4c2fdd232bec8cfbfba55294929e5d17
+- 创建master分支
+  echo 27b2140e4c2fdd232bec8cfbfba55294929e5d17 > .git/refs/heads/master
+- checkout master分支
+  git checkout master
+- 创建tag
+  echo 27b2140e4c2fdd232bec8cfbfba55294929e5d17 > .git/refs/tags/0.1
+
 # git branching-model
     [a-successful-git-branching-model](http://nvie.com/posts/a-successful-git-branching-model/)
     [git wiki](https://git.wiki.kernel.org/index.php/Main_Page)
