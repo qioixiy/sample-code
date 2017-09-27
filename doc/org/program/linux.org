@@ -1,4 +1,0 @@
-#+TITLE: linux
-
-* proc
-  [[http://blog.csdn.net/wudongxu/article/details/8574755][调度器/proc信息解读]]

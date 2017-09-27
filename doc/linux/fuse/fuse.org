@@ -1,2 +1,0 @@
-** res link
-   [[http://www.cs.nmsu.edu/~pfeiffer/fuse-tutorial/][Writing a FUSE Filesystem: a Tutorial]]

@@ -1,7 +1,0 @@
-#+TITLE: 工作记录
-
-* 开发计划
-** swindow Radar demo
-** 使用cairo作倒车辅助线
-
-* bug

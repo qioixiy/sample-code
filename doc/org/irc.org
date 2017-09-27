@@ -1,7 +1,0 @@
-* irssi
-
-* irc list
-** LFS
-  #lfs - the LFS community channel.
-  #lfs-support - Support for LFS and BLFS.
-  #hlfs - Support for the HLFS book.

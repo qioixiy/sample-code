@@ -1,8 +1,0 @@
-#+TITLE: lisp
-
-* links
-  [[http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html][roots_of_lisp]]
-
-* keyword
-  quote atom eq car cdr cons cond
-

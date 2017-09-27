@@ -1,4 +1,0 @@
-#+TITLE: 镜像连接
-
-* mirrors
-  [[http://mirrors.aliyun.com/][aliyun]]
