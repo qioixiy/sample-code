@@ -31,17 +31,17 @@ public:
     }
 };
 
-#define DECLARE_PROPERTY(                                       \
-    PropHost, Modifier, PropType, PropName, Getter, Setter)     \
-    static int __##PropName##_Offset() {                        \
-        return offsetof(PropHost, PropName);                    \
-    }                                                           \
-Modifier: Property<PropType,                                    \
-                   PropHost,                                    \
-                   &PropHost::Getter,                           \
-                   &PropHost::Setter,                           \
-                   &PropHost::__##PropName##_Offset             \
-                   > PropName;                                  \
+#define DECLARE_PROPERTY(                               \
+    PropHost, PropType, PropName, Getter, Setter)       \
+    static int __##PropName##_Offset() {                \
+        return offsetof(PropHost, PropName);            \
+    }                                                   \
+    Property<PropType,                                  \
+             PropHost,                                  \
+             &PropHost::Getter,                         \
+             &PropHost::Setter,                         \
+             &PropHost::__##PropName##_Offset           \
+             > PropName;                                \
 
 class TestClass
 {
@@ -56,7 +56,8 @@ public:
     }
     int m_Value;
 
-    DECLARE_PROPERTY(TestClass, public, int, intValue, getIntValue, setIntValue);
+public:
+    DECLARE_PROPERTY(TestClass, int, intValue, getIntValue, setIntValue);
 };
 
 int main()
