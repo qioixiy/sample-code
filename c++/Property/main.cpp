@@ -1,59 +1,68 @@
+#include <stdio.h>
+#include <stddef.h>
 #include<iostream>
 #include<string>
 
-template <class PropType>
+template <class PropType,
+          class PropHost,
+          PropType (PropHost::*GetterFn)() const,
+          void (PropHost::*SetterFn)(PropType),
+          int (*PropOffset)()>
 class Property
 {
 private:
+    friend PropHost;
 
 public:
     Property() {}
     ~Property() {}
 
 public:
-    operator PropType() //used as r-value
+    Property& operator=(PropType rhs)
     {
-        //call host class¡¯s getter function
-        return getter();
-    }
-
-    Property& operator=(PropType rhs) //used as l-value
-    {
-        //call host class¡¯s setter function
-        setter(rhs);
+        // offset this pointer to host class pointer
+        // and call member function
+        ((PropHost*)((unsigned char*)this - (*PropOffset)())
+         ->*SetterFn)(rhs);
         return *this;
     }
 
-    void setter(PropType propType) {
-        this->propType = propType;
+    operator PropType() const
+    {
+        return ((PropHost*)((unsigned char*)this - (*PropOffset)())
+                ->*GetterFn)();
     }
-
-    PropType getter() {
-        return propType;
-    }
-
-    PropType propType;
 };
 
-class A {
+class HostClass {
 public:
-    operator int() {
-        return 1;
+    int GetterFn() const {
+        std::cout << "get " << (void*)this << std::endl;
+        return i;
     }
+
+    void SetterFn(int i) {
+        std::cout << "set " << (void*)this << std::endl;
+        this->i = i;
+    }
+
+    static int getOffset()
+    {
+        return 4;
+    }
+
+    int i = 0;
+    Property<int, HostClass, &HostClass::GetterFn, &HostClass::SetterFn, getOffset> mPropertyInt;
 };
 
 int main()
 {
-    A a;
-    std::cout << (int)a << std::endl;
+    HostClass hc;
 
-    Property<int> propertyInt;
-    propertyInt = 10;
-    std::cout << propertyInt << std::endl;
+    hc.mPropertyInt = 1000;
 
-    Property<std::string> propertyString;
-    propertyString = "test";
+    std::cout << (void*)&hc << " " << sizeof(hc) << std::endl;
 
-    std::string sss = propertyString;
-    std::cout << sss << std::endl;
+    std::cout << hc.mPropertyInt << std::endl;
+    std::cout << hc.i << std::endl;
 }
