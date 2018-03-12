@@ -3,6 +3,10 @@
 #include<iostream>
 #include<string>
 
+#ifndef offsetof
+#define offsetof(type, member) (size_t)&(((type*)0)->member)
+#endif
+
 template <class PropType,
           class PropHost,
           PropType (PropHost::*GetterFn)() const,
@@ -34,35 +38,36 @@ public:
     }
 };
 
-class HostClass {
+class TestClass
+{
 public:
-    int GetterFn() const {
-        std::cout << "get " << (void*)this << std::endl;
-        return i;
-    }
-
-    void SetterFn(int i) {
-        std::cout << "set " << (void*)this << std::endl;
-        this->i = i;
-    }
-
-    static int getOffset()
+    int getIntValue() const
     {
-        return 4;
+        return m_Value;
     }
+    void setIntValue(int v)
+    {
+        m_Value = v;
+    }
+    int m_Value;
 
-    int i = 0;
-    Property<int, HostClass, &HostClass::GetterFn, &HostClass::SetterFn, getOffset> mPropertyInt;
+    static int Offset()
+    {
+        return offsetof(TestClass, intValue);
+    }
+public:
+    Property<int,
+             TestClass,
+             &TestClass::getIntValue,
+             &TestClass::setIntValue,
+             &TestClass::Offset
+             > intValue;
 };
 
 int main()
 {
-    HostClass hc;
+    TestClass tc;
 
-    hc.mPropertyInt = 1000;
-
-    std::cout << (void*)&hc << " " << sizeof(hc) << std::endl;
-
-    std::cout << hc.mPropertyInt << std::endl;
-    std::cout << hc.i << std::endl;
+    tc.intValue = 1;
+    std::cout << tc.intValue << std::endl;
 }
