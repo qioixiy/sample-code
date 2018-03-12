@@ -1,16 +1,12 @@
 #include <stdio.h>
 #include <stddef.h>
-#include<iostream>
-#include<string>
-
-#ifndef offsetof
-#define offsetof(type, member) (size_t)&(((type*)0)->member)
-#endif
+#include <iostream>
+#include <string>
 
 template <class PropType,
           class PropHost,
-          PropType (PropHost::*GetterFn)() const,
-          void (PropHost::*SetterFn)(PropType),
+          PropType (PropHost::*Getter)() const,
+          void (PropHost::*Setter)(PropType),
           int (*PropOffset)()>
 class Property
 {
@@ -24,19 +20,28 @@ public:
 public:
     Property& operator=(PropType rhs)
     {
-        // offset this pointer to host class pointer
-        // and call member function
-        ((PropHost*)((unsigned char*)this - (*PropOffset)())
-         ->*SetterFn)(rhs);
+        // offset this pointer to host class pointer and call member function
+        ((PropHost*)((unsigned char*)this - (*PropOffset)())->*Setter)(rhs);
         return *this;
     }
 
     operator PropType() const
     {
-        return ((PropHost*)((unsigned char*)this - (*PropOffset)())
-                ->*GetterFn)();
+        return ((PropHost*)((unsigned char*)this - (*PropOffset)())->*Getter)();
     }
 };
+
+#define DECLARE_PROPERTY(                                       \
+    PropHost, Modifier, PropType, PropName, Getter, Setter)     \
+    static int __##PropName##_Offset() {                        \
+        return offsetof(PropHost, PropName);                    \
+    }                                                           \
+Modifier: Property<PropType,                                    \
+                   PropHost,                                    \
+                   &PropHost::Getter,                           \
+                   &PropHost::Setter,                           \
+                   &PropHost::__##PropName##_Offset             \
+                   > PropName;                                  \
 
 class TestClass
 {
@@ -51,17 +56,7 @@ public:
     }
     int m_Value;
 
-    static int Offset()
-    {
-        return offsetof(TestClass, intValue);
-    }
-public:
-    Property<int,
-             TestClass,
-             &TestClass::getIntValue,
-             &TestClass::setIntValue,
-             &TestClass::Offset
-             > intValue;
+    DECLARE_PROPERTY(TestClass, public, int, intValue, getIntValue, setIntValue);
 };
 
 int main()
@@ -69,5 +64,6 @@ int main()
     TestClass tc;
 
     tc.intValue = 1;
+
     std::cout << tc.intValue << std::endl;
 }
