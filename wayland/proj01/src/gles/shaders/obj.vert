@@ -1,10 +1,12 @@
-uniform mat4 u_mvpMatrix;
-attribute vec4 a_position;
-attribute vec4 a_color;
-varying vec4 v_color;
+uniform mat4 uMVPMatrix;
+attribute vec3 aPosition;
+attribute vec2 aTexCoor;
+
+varying vec2 vTextureCoord;
 
 void main()
 {
-    gl_Position = u_mvpMatrix * a_position;
-    v_color = a_color;
+   gl_Position = uMVPMatrix * vec4(aPosition,1);
+
+   vTextureCoord = aTexCoor;
 }

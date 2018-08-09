@@ -24,6 +24,7 @@ LDLIBS += \
 	-lpng \
 	-lpthread \
 	-lz \
+	-lGL \
 
 ifeq "$(TARGET_PLATFORM)" "arm-linux"
 LIBS += \
@@ -69,8 +70,8 @@ MODULE_NAME:=gui2_test
 SRC_FILES:=$(wildcard $(MODULE_PATH)/gui2_test.cpp)
 $(call build_target,$(BUILD_EXECUTABLE))
 
-MODULE_NAME:=GlProgram_test
-SRC_FILES:=$(MODULE_PATH)/GlProgram_test.cpp
+MODULE_NAME:=GLES_Shader_test
+SRC_FILES:=$(MODULE_PATH)/GLES_Shader_test.cpp
 $(call build_target,$(BUILD_EXECUTABLE))
 
 MODULE_NAME:=WidgetGL_test

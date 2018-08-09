@@ -21,7 +21,9 @@ public:
         Event *event = dynamic_cast<Event *>(&e);
         if (event)
         {
-            mNativeWindow->f->PushEvent(event);
+            if (mNativeWindow->f) {
+                mNativeWindow->f->PushEvent(event);
+            }
         }
         else
         {

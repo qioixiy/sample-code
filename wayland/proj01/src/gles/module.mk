@@ -17,9 +17,11 @@ SRC_FILES:=$(MODULE_PATH)/GlEnv.cpp \
 	$(MODULE_PATH)/GlProgramDescDrawRect.cpp \
 	$(MODULE_PATH)/GlProgramDescRgbaShow.cpp \
 	$(MODULE_PATH)/GlProgramDescNV12Show.cpp \
+	$(MODULE_PATH)/GlProgramDescObj.cpp \
 	$(MODULE_PATH)/GlProgramObject.cpp \
 	$(MODULE_PATH)/Shader.cpp \
 	$(MODULE_PATH)/Texture.cpp \
 	$(MODULE_PATH)/FBO.cpp \
+        $(MODULE_PATH)/ObjLoader.cpp \
 
 $(call build_target,$(BUILD_STATIC_LIBRARY),$(MODULE_PATH)/gles.a)

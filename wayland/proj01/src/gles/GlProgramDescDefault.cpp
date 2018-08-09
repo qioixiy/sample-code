@@ -18,7 +18,7 @@ GlProgramDescDefault::Process(GlProgramObject *program)
                             -1.0f, 1.0f, 0.0f
                           };
 
-// Load the vertex data
+   // Load the vertex data
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices);
     glEnableVertexAttribArray(0);
     glDrawArrays(GL_TRIANGLES, 0, 6);
