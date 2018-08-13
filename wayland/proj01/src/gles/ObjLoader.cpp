@@ -169,7 +169,7 @@ void ObjModel::parseObjFile(std::string path)
         //将纹理坐标组织到结果纹理坐标列表中, 第count个顶点的纹理坐标
         index= stoi(indexs[1]) - 1;
         altResult.push_back(alt[index*2]);
-        altResult.push_back(alt[index*2+1]);
+        altResult.push_back(1-alt[index*2+1]);
 
         //将法线组织到结果法线坐标列表中, 第count个顶点的法线坐标
         index= stoi(indexs[2]) - 1;
