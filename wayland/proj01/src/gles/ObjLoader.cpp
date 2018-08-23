@@ -236,6 +236,7 @@ void ObjModel::bind(GLint posLoc, GLint texcoordLoc, GLint normalLoc)
 {
     aPosition = posLoc;
     aTexCoor = texcoordLoc;
+    aNormal = normalLoc;
 }
 
 void ObjModel::bindTexture(GLuint id)
@@ -243,9 +244,9 @@ void ObjModel::bindTexture(GLuint id)
     mTextureId = id;
 }
 
-//#define USE_MEMORY_BUFEER
+#define USE_MEMORY_BUFEER
 //#define USE_VBO
-#define USE_VAO
+//#define USE_VAO
 //#define USE_VBO_IBO
 void ObjModel::draw()
 {
@@ -254,10 +255,12 @@ void ObjModel::draw()
 
     glEnableVertexAttribArray(aPosition);
     glEnableVertexAttribArray(aTexCoor);
+    glEnableVertexAttribArray(aNormal);
 
 #ifdef USE_MEMORY_BUFEER
     glVertexAttribPointer(aPosition, 3, GL_FLOAT, false, 3*4, mVertexBuffer);
     glVertexAttribPointer(aTexCoor, 2, GL_FLOAT, false, 2*4, mTexCoorBuffer);
+    glVertexAttribPointer(aNormal, 3, GL_FLOAT, false, 3*4, mNormalBuffer);
 
     glDrawArrays(GL_TRIANGLES, 0, mIndexCount);
 

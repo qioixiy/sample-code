@@ -29,6 +29,7 @@ public:
 
     GLint aPosition;
     GLint aTexCoor;
+    GLint aNormal;
 
     GLuint mTextureId;
 

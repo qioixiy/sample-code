@@ -78,7 +78,11 @@ void Frame::redraw()
 {
     draw(rootWidget);
 
-    GetNativeWindow()->SwapBackBuffer();
+    int ret = GetNativeWindow()->SwapBackBuffer();
+
+    if (1 != ret) {
+        quit = 1;
+    }
 
     FPS();
 }

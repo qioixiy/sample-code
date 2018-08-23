@@ -8,6 +8,7 @@
 #include "gles/GlProgramDescDefault.hpp"
 #include "gles/GlProgramDescNV12Show.hpp"
 #include "gles/GlProgramDescObj.hpp"
+#include "gles/GlProgramDescObjLight.hpp"
 #include "gles/GlProgram.hpp"
 #include "gles/Texture.hpp"
 #include "utils/File.hpp"
@@ -87,6 +88,19 @@ std::shared_ptr<GlProgram> case_obj()
     return std::make_shared<GlProgram>(vert, frag, tGlProgramDesc);
 }
 
+std::shared_ptr<GlProgram> case_obj_light()
+{
+    auto tGlProgramDesc = std::make_shared<GlProgramDescObjLight>();
+
+    tGlProgramDesc->BindTexture(makeTexture("res/1_2048_2048.png"));
+    tGlProgramDesc->bindObj("res/flat_dense_backup.obj");
+
+    string vert("src/gles/shaders/objlight.vert");
+    string frag("src/gles/shaders/objlight.frag");
+
+    return std::make_shared<GlProgram>(vert, frag, tGlProgramDesc);
+}
+
 int main()
 {
     int width = 400, height = 400;
@@ -98,27 +112,36 @@ int main()
     // vec.push_back(case_rgbashow());
     // vec.push_back(case_drawrect());
     // vec.push_back(case_NV12());
-    vec.push_back(case_obj());
+    // vec.push_back(case_obj());
+    vec.push_back(case_obj_light());
+
+    // Enable depth test
+    glEnable(GL_DEPTH_TEST);
+    // Accept fragment if it closer to the camera than the former one
+    glDepthFunc(GL_LESS);
+#if 0
+    // Cull triangles which normal is not towards the camera
+    glEnable(GL_CULL_FACE);
+#endif
 
     while (true) {
+        bool quit = false;
         for (auto &program : vec) {
-#if 0
-            // Enable depth test
-            glEnable(GL_DEPTH_TEST);
-            // Accept fragment if it closer to the camera than the former one
-            glDepthFunc(GL_LESS);
-            // Cull triangles which normal is not towards the camera
-            glEnable(GL_CULL_FACE);
-#endif
 
             glClearColor(0, 0, 0, 1);
             glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
             program->Process();
 
-            window.SwapBackBuffer();
+            if (1 != window.SwapBackBuffer()) {
+                quit = true;
+            }
 
             //sleep(1);
+        }
+
+        if (quit) {
+            break;
         }
     }
 }
