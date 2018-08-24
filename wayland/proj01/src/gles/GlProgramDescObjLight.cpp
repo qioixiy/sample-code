@@ -70,12 +70,12 @@ GlProgramDescObjLight::Process(GlProgramObject *program)
     //float mvp[] = {0.97499996f, 0, 0, 0, 0, 2, 0, 0, 0, 0, -1.0408163f, -1.0f, 0, -32.0f, 58.367348f, 60.0f, };
     glUniformMatrix4fv(muMVPMatrixHandle, 1, false, mvp);
 
-
     float m[] = {1.0f, 0, 0, 0, 0, 1.0f, 0, 0, 0, 0, 1.0f, 0, 0, -16, -60, 1};
-    glUniformMatrix4fv(muMMatrixHandle, 1, false, mvp);
+    float *mvpCamera = mvp;
+    glUniformMatrix4fv(muMMatrixHandle, 1, false, mvpCamera);
 
     float v[] = {0, 0, 20};
-    glUniformMatrix4fv(maLightLocationHandle, 1, false, v);
+    glUniform3fv(maLightLocationHandle, 1, v);
 
     float camera[] = {0,0,10};
     glUniform3fv(maCameraHandle, 1, camera);

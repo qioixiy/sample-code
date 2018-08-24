@@ -26,7 +26,7 @@ void pointLight(in vec3 normal,
     vec3 normalTarget = aPosition + normal;
     vec3 newNormal = (uMMatrix*vec4(normalTarget,1)).xyz
         - (uMMatrix*vec4(aPosition,1)).xyz;
-    newNormal = normalize(-newNormal);
+    newNormal = normalize(newNormal);
 
     vec3 eye = normalize(uCamera-(uMMatrix*vec4(aPosition,1)).xyz);
 
