@@ -1,5 +1,32 @@
+APP = gl-cairo-simple
 
-all:
-	g++ rectangle.c -o rectangle `pkg-config --cflags --libs cairo`
-	gcc helloworld_pdf.c -o helloworld_pdf `pkg-config --cflags --libs cairo`
-	g++ blurgauss0.c -o blurgauss0 `pkg-config --cflags --libs cairo`
+CC = gcc
+
+CFLAGS = -Wall -c -g -std=c99 \
+	 `sdl-config --cflags` \
+	 `pkg-config --cflags cairo sdl2`
+
+LDFLAGS = `sdl-config --libs` \
+	  `pkg-config --libs cairo sdl2` \
+	  -lGL -lGLU -lm
+
+SRCS =  geometry.c \
+	opengl-rendering.c \
+	cairo-rendering.c \
+	exponential-blur.c \
+	main.c
+
+OBJS = $(SRCS:.c=.o)
+
+all: $(APP)
+
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# it is important that $(OBJS) stands _before_ $(LDFLAGS)
+$(APP):	$(OBJS)
+	$(CC) $(OBJS) $(LDFLAGS) -o$(APP)
+
+clean:
+	rm -f *.o  *~ $(APP) frame.png
+
