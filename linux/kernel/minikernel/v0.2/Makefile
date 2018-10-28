@@ -15,11 +15,15 @@ make_rootfs:
 	sudo mknod rootfs/dev/ram b 1 0
 	sudo mkdir rootfs/proc
 	sudo mkdir rootfs/sys
-	sudo cp linuxrc rootfs
+	sudo mkdir rootfs/etc
+	sudo touch rootfs/etc/fstab
+	sudo cp inittab rootfs/etc/
+	sudo mkdir rootfs/etc/init.d
+	sudo cp rcS rootfs/etc/init.d/rcS
 	sudo umount rootfs
 	rm -r rootfs
 run:
-	qemu-system-x86_64 -serial stdio -kernel ../../../../../../torvalds/linux/arch/x86/boot/bzImage -initrd initrd.img -append "root=/dev/ram0 init=/linuxrc console=ttyS0"
+	qemu-system-x86_64 -serial stdio -kernel ../../../../../../torvalds/linux/arch/x86/boot/bzImage -initrd initrd.img -append "root=/dev/ram0 console=ttyS0"
 
 download_busybox:
 	wget https://busybox.net/downloads/binaries/1.21.1/busybox-x86_64
