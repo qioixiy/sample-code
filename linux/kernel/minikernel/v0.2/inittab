@@ -8,4 +8,5 @@ tty6::askfirst:/bin/sh
 ::restart:/sbin/init
 ::ctrlaltdel:/sbin/reboot
 ::shutdown:/bin/umount -a -r
-::respawn:/bin/getty -L ttyS0 115200 vt100
+#::respawn:/bin/getty -L ttyS0 115200 vt100
+::respawn:-/bin/sh
