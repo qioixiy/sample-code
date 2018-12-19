@@ -5,7 +5,7 @@ function get_date_string()
     #date -v -1d "+%Y%m%d%n"
     #date -d "1 day ago" +"%y%m%d"
     case "`uname`" in
-        Linux) date -d "${time} day ago" +"%y%m%d" ;;
+        Linux) date -d "${time} day ago" +"%Y%m%d" ;;
         Darwin) date -v -${time}d "+%Y%m%d%n" ;;
         *) echo "unsupport" ;;
     esac
