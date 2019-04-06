@@ -1,0 +1,12 @@
+. ~/qnx700/qnxsdp-env.sh
+
+function run()
+{
+    cmd=$*
+    echo $cmd
+    $cmd
+}
+
+run arm-unknown-nto-qnx7.0.0eabi-gcc -o opencl_test-qnx opencl_test.c -I${QNX_TARGET}/usr/include -L${QNX_TARGET}/armle-v7/usr/lib/ -lCL
+
+arm-unknown-nto-qnx7.0.0eabi-gcc -o tut7 tut7.c -I${QNX_TARGET}/usr/include -L${QNX_TARGET}/armle-v7/usr/lib/ -l socket
