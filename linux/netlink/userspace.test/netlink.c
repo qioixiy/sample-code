@@ -128,11 +128,17 @@ void handle_device_fd(int fd)
 	}
 }
 
+#include <unistd.h>
+
 int main(void)
 {
 	int fd = 0;
 
 	fd = open_uevent_socket();
+    printf("s\n");
+    sleep(5);
+    printf("e\n");
+
 	if (fd < 0) {
 		printf("error!\n");
 		return -1;
