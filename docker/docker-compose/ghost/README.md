@@ -1,0 +1,2 @@
+- 如果已经存在一个content可以使用volume，否则会启动失败，采用默认的即可。
+- http://localhost:2368/ghost 进入后台管理程序
